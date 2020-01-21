@@ -1,4 +1,4 @@
-function fillGrades(){
+function initGrades(){
   var gradeArray = ["No Grades!"];
   var httpGrade = new XMLHttpRequest();
   httpGrade.onreadystatechange = function () {
@@ -16,4 +16,4 @@ function fillGrades(){
       select.add(new Option(gradeArray[i]));
   }
 }
-window.onload = fillGrades();
+window.onload = initGrades();

@@ -102,7 +102,7 @@ include($_SERVER['DOCUMENT_ROOT'].'indepth-administration/head.php');
                                     <div class="card-body">
                                         <form class="">
                                             <div class="position-relative form-group"><label for="gradeSelect" class="">Grade</label>
-                                                <select name="gradeSelect" id="gradeSelect" class="form-control-sm form-control">
+                                                <select onchange="fillStudents();" name="gradeSelect" id="gradeSelect" class="form-control-sm form-control">
                                                     <option default>Select Grade</option>
                                                 </select></div>
                                             <div class="position-relative form-group"><label for="studentSelect" class="">Student</label>
@@ -389,7 +389,8 @@ include($_SERVER['DOCUMENT_ROOT'].'indepth-administration/head.php');
 <script type="text/javascript" src="/indepth-administration/assets/scripts/main.js"></script>
 <script> document.getElementById('li_reports').classList.add("mm-active")</script>
 <script> document.getElementById('side_bar_report_card').classList.add("mm-active")</script>
-<script type="text/javascript" src="/indepth-administration/js/exam_center/fillGrades.js"></script>
+<script type="text/javascript" src="/indepth-administration/js/exam_center/initGrades.js"></script>
+<script type="text/javascript" src="/indepth-administration/js/exam_center/fillStudents.js"></script>
 <script> document.title = "Reports - InDepth";</script>
 </body>
 </html>
