@@ -11,4 +11,9 @@
     <link href="/indepth-administration/css/main.css" rel="stylesheet">
     <link href="/indepth-administration/css/exam-center.css" rel="stylesheet">
 
+<!--    printjs.crabbly.com-->
+    <link href="  https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
+    <script type="text/javascript" src="  https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+
 </head>

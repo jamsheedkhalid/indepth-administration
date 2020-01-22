@@ -106,16 +106,17 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                                 <div class="card-body">
                                     <div>
                                         <div class="row">
-                                        <div class="position-relative form-group col-sm"><label for="gradeSelect" >Grade</label>
-                                            <select onchange="fillSections();fillStudents();fillTerms();" name="gradeSelect"
-                                                    id="gradeSelect" class="form-control-sm form-control">
-                                                <option disabled selected>Select Grade</option>
-                                            </select></div>
-                                        <div class="position-relative form-group col-sm"><label for="sectionSelect" >Section</label>
-                                            <select onchange="fillStudents();fillTerms();" name="sectionSelect"
-                                                    id="sectionSelect" class="form-control-sm form-control">
-                                                <option disabled selected>Select Section</option>
-                                            </select></div>
+                                            <div class="position-relative form-group col-sm"><label for="gradeSelect">Grade</label>
+                                                <select onchange="fillSections();fillStudents();fillTerms();"
+                                                        name="gradeSelect"
+                                                        id="gradeSelect" class="form-control-sm form-control">
+                                                    <option disabled selected>Select Grade</option>
+                                                </select></div>
+                                            <div class="position-relative form-group col-sm"><label for="sectionSelect">Section</label>
+                                                <select onchange="fillStudents();fillTerms();" name="sectionSelect"
+                                                        id="sectionSelect" class="form-control-sm form-control">
+                                                    <option disabled selected>Select Section</option>
+                                                </select></div>
                                         </div>
                                         <div class="position-relative form-group"><label for="studentSelect" class="">Student</label>
                                             <select onchange="fillTerms();" name="studentSelect" id="studentSelect"
@@ -499,7 +500,6 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
 <script> document.getElementById('li_reports').classList.add("mm-active")</script>
 <script> document.getElementById('side_bar_report_card').classList.add("mm-active")</script>
 <script type="text/javascript" src="/indepth-administration/js/exam-center.js"></script>
-
 <script> document.title = "Reports - InDepth";</script>
 </body>
 
@@ -511,12 +511,13 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
             <div class="modal-header">
                 <h5 class="modal-title" id="reportCardModalTitle">Student Evaluation Report</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span
                 </button>
             </div>
-            <div class="modal-body" id="reportCardModalBody">
-                <div class="text-center">
-                    <img alt="Al Sanawbar School" src="/indepth-administration/assets/images/sanawbar-logo.jpeg"
+
+            <div class="modal-body hide-scroll" id="reportCardModalBody" style="max-height: calc(100vh - 210px);overflow-y:scroll">
+                <div class="text-center student-report-card-header">
+                    <img id="alsanwabarLogoReportCard" alt="Al Sanawbar School" src="/indepth-administration/assets/images/sanawbar-logo.jpeg"
                          width="80" height="80"/>
                     <h4 class="pt-lg-2"><strong>AL SANAWBAR SCHOOL</strong></h4>
                     <h6 class="pt-lg-1"><strong>AL AIN - U.A.E</strong></h6>
@@ -525,29 +526,53 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                     </h6>
                     <hr>
                 </div>
-                <div class="text-center">
+                <div class="text-center student-report-card-header ">
                     <h6 class="pt-lg-2"><strong>Academic Year: 2019-2020</strong></h6>
                     <h6 class="pt-lg-1"><strong id="reportCardModalStudentTerm">SECOND TERM</strong></h6>
                     <hr class="header-line-thick" width="200"/>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 text-right">
-                        <p> Student's Name :<br>
-                            Grade :<br>
-                            Section :</p>
-                    </div>
-                    <div class="col-sm text-left">
-                        <div id="reportCardModalStudentName">Select student name</div>
-                        <div id="reportCardModalStudentGrade">Select grade</div>
-                        <div id="reportCardModalStudentSection">Select section</div>
+                    <table style="min-width: 100%"  class="report-card-student-details">
+                        <tr>
+                            <td align="right">
+                                Student's Name :
+
+                            </td>
+                            <td id="reportCardModalStudentName" class=" ">
+                              Select student name
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="150">
+                                Grade :
+                            </td>
+                            <td id="reportCardModalStudentGrade">
+                               Select grade
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                Section :
+                            </td>
+                            <td id="reportCardModalStudentSection">
+                              Select section
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body" id="reportCardModalResult">
                     </div>
                 </div>
-                <div id="reportCardModalResult" ></div>
-
+                <div class="result-footer text-lg-right">Date: <?php echo date('d-m-Y');?></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Print</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="printJS({printable: 'reportCardModalBody', type: 'html', showModal: true, css: '/indepth-administration/css/print_report_card.css'});">
+                    Print
+                </button>
             </div>
         </div>
     </div>

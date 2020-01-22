@@ -1,0 +1,81 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.hide-scroll {
+    -ms-overflow-style: none;
+}
+.student-report-card-result {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.student-report-card-result td {
+    border: 1px solid black;
+}
+
+.params-table td {
+    border: 1px solid black;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+
+}
+.params-table  {
+    margin-top: 25px;
+    border-collapse: collapse;
+}
+
+.student-report-card-result thead {
+    border: 1px solid black;
+}
+
+.student-report-card-header {
+    align-content: center;
+}
+
+
+.report-card-student-details {
+    white-space: normal;
+    margin-bottom: 30px !important;
+    margin-top: 30px !important;
+}
+
+.student-report-card-header h6 {
+    font-size: 16px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+
+
+.student-report-card-header h4 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+#alsanwabarLogoReportCard {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.result-footer {
+    bottom: 0;
+    text-align: right;
+    position: fixed;
+    width: 100%;
+
+}
+
+
+
+
+
+
+
