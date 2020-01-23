@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="290a7e99-509d-47af-9f1a-6f14e3e35d6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mysql/fillStudents.php" afterDir="false" />
+    <list default="true" id="290a7e99-509d-47af-9f1a-6f14e3e35d6d" name="Default Changelist" comment="init student section and result">
+      <change afterPath="$PROJECT_DIR$/css/print_report_card.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam-center/reports/generate-reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/exam-center/reports/generate-reports.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/exam_center/fillGrades.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/exam_center/initGrades.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/exam_center/fillStudents.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/exam_center/fillStudents.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/head.php" beforeDir="false" afterPath="$PROJECT_DIR$/head.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,8 +60,20 @@
       <file pinned="true" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="24" selection-start-line="24" selection-end-line="29" selection-end-column="27" />
+            <state relative-caret-position="96">
+              <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="558">
+              <caret line="79" selection-start-line="79" selection-end-line="79" />
+              <folding>
+                <element signature="n#style#0;n#tfoot#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,48 +81,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/exam-center/reports/generate-reports.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="104" column="81" selection-start-line="104" selection-start-column="81" selection-end-line="104" selection-end-column="81" />
+            <state relative-caret-position="390">
+              <caret line="567" column="28" selection-start-line="567" selection-start-column="28" selection-end-line="567" selection-end-column="42" />
               <folding>
-                <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/exam_center/initGrades.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="3" column="46" lean-forward="true" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/exam_center/fillStudents.js">
+        <entry file="file://$PROJECT_DIR$/css/print_report_card.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysql/fillStudents.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysql/initGrades.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="10" column="15" lean-forward="true" selection-end-line="10" selection-end-column="15" />
+            <state relative-caret-position="108">
+              <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -121,6 +106,7 @@
       <list>
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -132,6 +118,12 @@
       <find>logo-invers.png</find>
       <find>logo.png</find>
       <find>logo</find>
+      <find>bd-example-modal-lg</find>
+      <find>myLargeModalLabel</find>
+      <find>reportcard</find>
+      <find>generate repr</find>
+      <find>generate re</find>
+      <find>&gt;</find>
     </findStrings>
     <replaceStrings>
       <replace>logo1.png</replace>
@@ -154,22 +146,32 @@
         <option value="$PROJECT_DIR$/app-header.html" />
         <option value="$PROJECT_DIR$/theme-setting.php" />
         <option value="$PROJECT_DIR$/main.css" />
-        <option value="$PROJECT_DIR$/scrap.php" />
         <option value="$PROJECT_DIR$/app-header.php" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/side-bar.php" />
         <option value="$PROJECT_DIR$/footer-bar.php" />
         <option value="$PROJECT_DIR$/config/database.php" />
         <option value="$PROJECT_DIR$/js-include.php" />
-        <option value="$PROJECT_DIR$/head.php" />
         <option value="$PROJECT_DIR$/mysql/initGrades.php" />
         <option value="$PROJECT_DIR$/js/exam_center/fillGrades.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/js/exam_center/initGrades.js" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql" />
-        <option value="$PROJECT_DIR$/exam-center/reports/generate-reports.php" />
         <option value="$PROJECT_DIR$/mysql/fillStudents.php" />
+        <option value="$PROJECT_DIR$/mysql/fillTerms.php" />
+        <option value="$PROJECT_DIR$/scrap.php" />
+        <option value="$PROJECT_DIR$/side-bar.php" />
+        <option value="$PROJECT_DIR$/css/exam-center.css" />
+        <option value="$PROJECT_DIR$/js/exam_center/initGrades.js" />
         <option value="$PROJECT_DIR$/js/exam_center/fillStudents.js" />
+        <option value="$PROJECT_DIR$/js/exam_center/fillTerms.js" />
+        <option value="$PROJECT_DIR$/js/exam_center/generateReportCard.js" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql" />
+        <option value="$PROJECT_DIR$/mysql/exam-center/fillStudents.php" />
+        <option value="$PROJECT_DIR$/mysql/exam-center/fillSections.php" />
+        <option value="$PROJECT_DIR$/js/exam-center.js" />
+        <option value="$PROJECT_DIR$/head.php" />
+        <option value="$PROJECT_DIR$/css/main.css" />
+        <option value="$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php" />
+        <option value="$PROJECT_DIR$/exam-center/reports/generate-reports.php" />
+        <option value="$PROJECT_DIR$/css/print_report_card.css" />
       </list>
     </option>
   </component>
@@ -177,7 +179,7 @@
     <option name="directoryName" value="jvcIGqHb" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.3" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-1288" />
     <option name="y" value="-8" />
     <option name="width" value="1296" />
@@ -210,18 +212,34 @@
             <path>
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="css" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="exam-center" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="exam-center" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="reports" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="exam_center" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="mysql" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="mysql" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="exam-center" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -240,12 +258,17 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../InDepthReports" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hrdocs" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\indepth-administration\mysql\exam-center" />
+      <recent name="C:\xampp\htdocs\indepth-administration\css" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\indepth-administration\assets\images" />
       <recent name="C:\xampp\htdocs\exam-center\assets\images\avatars" />
@@ -302,7 +325,7 @@
       <updated>1579514043266</updated>
       <workItem from="1579514044704" duration="11657000" />
       <workItem from="1579584360532" duration="1689000" />
-      <workItem from="1579586285711" duration="17142000" />
+      <workItem from="1579586285711" duration="41409000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1579603976010</created>
@@ -311,17 +334,31 @@
       <option name="project" value="LOCAL" />
       <updated>1579603976010</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="init student name and grade">
+      <created>1579605964983</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579605964983</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init student section and result">
+      <created>1579679087364</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1579679087364</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30488000" />
+    <option name="totallyTimeSpent" value="54755000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1288" y="-8" width="1296" height="1010" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.16235864" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21890146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="DB Browser" order="2" weight="0.32956383" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -329,11 +366,11 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.17087156" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39908257" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Console" order="7" weight="0.4472477" />
+      <window_info anchor="bottom" id="Database Console" order="7" weight="0.21330275" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="DB Execution Console" order="10" />
@@ -355,7 +392,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="init commit" />
+    <MESSAGE value="init student name and grade" />
+    <MESSAGE value="init student section and result" />
+    <option name="LAST_COMMIT_MESSAGE" value="init student section and result" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -391,37 +430,13 @@
     <entry file="file://$PROJECT_DIR$/assets/images/logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3024">
-          <caret line="9" column="163568" selection-start-line="9" selection-start-column="163568" selection-end-line="9" selection-end-column="163568" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/images/logo-inverse.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrap.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app-header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="66" column="104" selection-start-line="66" selection-start-column="104" selection-end-line="66" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="684" lean-forward="true" selection-start-line="684" selection-end-line="684" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/side-bar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="73" column="49" selection-start-line="73" selection-start-column="49" selection-end-line="73" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -449,13 +464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/head.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="19" column="67" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -463,49 +471,148 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysql/initGrades.php">
+    <entry file="file://$PROJECT_DIR$/scrap.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/side-bar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/exam-center.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="1" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/exam_center/initGrades.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/exam_center/fillStudents.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/exam_center/fillTerms.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/exam_center/generateReportCard.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/initGrades.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" column="44" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillStudents.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillSections.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillTerms.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="14" column="15" lean-forward="true" selection-end-line="14" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/exam-center.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="104" column="58" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="58" />
+          <folding>
+            <element signature="n#!!block;n#initGrades#0" />
+            <element signature="n#!!block;n#fillSections#0" />
+            <element signature="n#!!block;n#fillTerms#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="684" lean-forward="true" selection-start-line="684" selection-end-line="684" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/head.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="10" column="15" lean-forward="true" selection-end-line="10" selection-end-column="15" />
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#38758#38992#2" expanded="true" />
+            <element signature="e#39680#39833#1" expanded="true" />
+            <element signature="e#39874#40108#1" expanded="true" />
+            <element signature="e#43625#43901#2" expanded="true" />
+            <element signature="e#44616#44769#1" expanded="true" />
+            <element signature="e#44810#45086#1" expanded="true" />
+            <element signature="e#82776#82963#2" expanded="true" />
+            <element signature="e#83222#83358#2" expanded="true" />
+            <element signature="e#83817#83950#2" expanded="true" />
+            <element signature="e#85308#85461#1" expanded="true" />
+            <element signature="e#99220#99447#2" expanded="true" />
+            <element signature="e#100472#100705#2" expanded="true" />
+            <element signature="e#134535#134712#2" expanded="true" />
+            <element signature="e#134768#134945#2" expanded="true" />
+            <element signature="e#395333#396082#2" expanded="true" />
+            <element signature="e#396361#397150#2" expanded="true" />
+            <element signature="e#397427#397916#2" expanded="true" />
+            <element signature="e#398197#398914#2" expanded="true" />
+            <element signature="e#421663#425970#1" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="24" selection-start-line="24" selection-end-line="29" selection-end-column="27" />
+        <state relative-caret-position="96">
+          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/exam_center/initGrades.js">
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="46" lean-forward="true" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        <state relative-caret-position="558">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+          <folding>
+            <element signature="n#style#0;n#tfoot#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/exam-center/reports/generate-reports.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="104" column="81" selection-start-line="104" selection-start-column="81" selection-end-line="104" selection-end-column="81" />
+        <state relative-caret-position="390">
+          <caret line="567" column="28" selection-start-line="567" selection-start-column="28" selection-end-line="567" selection-end-column="42" />
           <folding>
-            <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysql/fillStudents.php">
+    <entry file="file://$PROJECT_DIR$/css/print_report_card.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/exam_center/fillStudents.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+        <state relative-caret-position="108">
+          <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
         </state>
       </provider>
     </entry>
