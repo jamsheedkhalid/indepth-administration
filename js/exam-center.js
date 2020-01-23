@@ -1,6 +1,8 @@
-window.onload = initGrades();
+window.onload = initGrades('gradeSelect');
+window.onload = initGrades('sectionGradeSelect');
+window.onload = initGrades('gradeGradeSelect');
 
-function initGrades() {
+function initGrades(grade) {
     var gradeArray = ["No Grades!"];
     var httpGrade = new XMLHttpRequest();
     httpGrade.onreadystatechange = function () {
@@ -12,16 +14,16 @@ function initGrades() {
     httpGrade.open("GET", "/indepth-administration/mysql/exam-center/initGrades.php", false);
     httpGrade.send();
 
-    var select = document.getElementById('gradeSelect');
+    var select = document.getElementById(grade);
     delete gradeArray[gradeArray.length - 1];
     for (var i in gradeArray) {
         select.add(new Option(gradeArray[i]));
     }
 }
 
-function fillSections() {
-    var selected_grade = document.getElementById('gradeSelect').options[document.getElementById('gradeSelect').selectedIndex].text;
-    var sectionSelect = document.getElementById("sectionSelect");
+function fillSections(section, grade) {
+    var selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
+    var sectionSelect = document.getElementById(section);
     while (sectionSelect.length > 0)
         sectionSelect.remove(0);
 
@@ -107,5 +109,30 @@ function generateReportCard() {
     };
     httpResult.open("GET", "/indepth-administration/mysql/exam-center/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term, false);
     httpResult.send();
+
+}
+
+function fillTermsSectionWise(gradeId, id, termId, type) {
+    var grade = document.getElementById(gradeId).options[document.getElementById(gradeId).selectedIndex].text;
+    var section = document.getElementById(id).options[document.getElementById(id).selectedIndex].text;
+    var termSelect = document.getElementById(termId);
+
+    while (termSelect.length > 0)
+        termSelect.remove(0);
+
+    let httpTerm = new XMLHttpRequest();
+    httpTerm.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            let str = this.responseText;
+            termArray = str.split("\t");
+        }
+    };
+    httpTerm.open("GET", "/indepth-administration/mysql/exam-center/fillTerms_SectionWise.php?section=" + section + "&type=" + type + "&grade=" + grade, false);
+    httpTerm.send();
+
+    delete termArray[termArray.length - 1];
+    for (var i in termArray) {
+        termSelect.add(new Option(termArray[i]));
+    }
 
 }

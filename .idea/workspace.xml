@@ -1,13 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="290a7e99-509d-47af-9f1a-6f14e3e35d6d" name="Default Changelist" comment="init student section and result">
-      <change afterPath="$PROJECT_DIR$/css/print_report_card.css" afterDir="false" />
+    <list default="true" id="290a7e99-509d-47af-9f1a-6f14e3e35d6d" name="Default Changelist" comment="print report card for student">
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/FAQ.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/changelog.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/__construct.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/acceptpagebreak.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/addfont.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/addlink.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/addpage.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/aliasnbpages.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/cell.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/close.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/error.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/footer.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/getpageheight.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/getpagewidth.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/getstringwidth.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/getx.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/gety.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/header.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/image.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/index.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/line.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/link.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/ln.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/multicell.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/output.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/pageno.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/rect.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setauthor.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setautopagebreak.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setcompression.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setcreator.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setdisplaymode.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setdrawcolor.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setfillcolor.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setfont.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setfontsize.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setkeywords.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setleftmargin.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setlinewidth.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setlink.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setmargins.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setrightmargin.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setsubject.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/settextcolor.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/settitle.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/settopmargin.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setx.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/setxy.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/sety.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/text.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/doc/write.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/courier.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/courierb.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/courierbi.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/courieri.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/helvetica.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/helveticab.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/helveticabi.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/helveticai.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/symbol.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/times.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/timesb.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/timesbi.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/timesi.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/font/zapfdingbats.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/fpdf.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/fpdf.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/install.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/license.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1250.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1251.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1252.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1253.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1254.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1255.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1257.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp1258.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/cp874.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-1.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-11.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-15.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-16.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-2.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-4.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-5.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-7.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/iso-8859-9.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/koi8-r.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/koi8-u.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/makefont.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/makefont/ttfparser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/20k_c1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/20k_c2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/calligra.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/calligra.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/calligra.z" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/countries.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/index.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/makefont.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto1.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto2.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto3.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto3.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto4.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto4.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto5.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto5.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto6.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto6.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto7.htm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/fpdf/tutorial/tuto7.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/exam-center/fillTerms_SectionWise.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/exam-center/generate_pdf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam-center/reports/generate-reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/exam-center/reports/generate-reports.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/head.php" beforeDir="false" afterPath="$PROJECT_DIR$/head.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/exam-center.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/exam-center.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,20 +173,8 @@
       <file pinned="true" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
-              <folding>
-                <element signature="n#style#0;n#tfoot#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="120">
+              <caret line="66" selection-start-line="66" selection-end-line="85" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -81,20 +182,43 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/exam-center/reports/generate-reports.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="567" column="28" selection-start-line="567" selection-start-column="28" selection-end-line="567" selection-end-column="42" />
+            <state relative-caret-position="3495">
+              <caret line="200" column="87" selection-start-line="200" selection-start-column="87" selection-end-line="200" selection-end-column="87" />
               <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#label#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#select#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/css/print_report_card.css">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillTerms_SectionWise.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+            <state relative-caret-position="243">
+              <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysql/exam-center/generate_pdf.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="348">
+              <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="32" column="20" lean-forward="true" selection-start-line="10" selection-end-line="32" selection-end-column="20" />
+              <folding>
+                <element signature="e#2004#3550#0#PHP" />
+                <element signature="n#style#0;n#tfoot#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,8 +229,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -146,7 +270,6 @@
         <option value="$PROJECT_DIR$/app-header.html" />
         <option value="$PROJECT_DIR$/theme-setting.php" />
         <option value="$PROJECT_DIR$/main.css" />
-        <option value="$PROJECT_DIR$/app-header.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/footer-bar.php" />
         <option value="$PROJECT_DIR$/config/database.php" />
@@ -163,15 +286,19 @@
         <option value="$PROJECT_DIR$/js/exam_center/fillStudents.js" />
         <option value="$PROJECT_DIR$/js/exam_center/fillTerms.js" />
         <option value="$PROJECT_DIR$/js/exam_center/generateReportCard.js" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql" />
         <option value="$PROJECT_DIR$/mysql/exam-center/fillStudents.php" />
         <option value="$PROJECT_DIR$/mysql/exam-center/fillSections.php" />
-        <option value="$PROJECT_DIR$/js/exam-center.js" />
-        <option value="$PROJECT_DIR$/head.php" />
         <option value="$PROJECT_DIR$/css/main.css" />
         <option value="$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php" />
-        <option value="$PROJECT_DIR$/exam-center/reports/generate-reports.php" />
         <option value="$PROJECT_DIR$/css/print_report_card.css" />
+        <option value="$PROJECT_DIR$/head.php" />
+        <option value="$PROJECT_DIR$/js/main.js" />
+        <option value="$PROJECT_DIR$/app-header.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql" />
+        <option value="$PROJECT_DIR$/js/exam-center.js" />
+        <option value="$PROJECT_DIR$/mysql/exam-center/fillTerms_SectionWise.php" />
+        <option value="$PROJECT_DIR$/exam-center/reports/generate-reports.php" />
+        <option value="$PROJECT_DIR$/mysql/exam-center/generate_pdf.php" />
       </list>
     </option>
   </component>
@@ -179,13 +306,15 @@
     <option name="directoryName" value="jvcIGqHb" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.3" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1288" />
     <option name="y" value="-8" />
     <option name="width" value="1296" />
     <option name="height" value="1010" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -212,7 +341,13 @@
             <path>
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="css" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="assets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="assets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="images" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -229,6 +364,11 @@
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="js" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\xampp\htdocs\indepth-administration" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="libs" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="indepth-administration" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -257,8 +397,8 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hrdocs" />
+    <property name="database.console.LAST_STATE" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -270,6 +410,7 @@
       <recent name="C:\xampp\htdocs\indepth-administration\css" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\indepth-administration\libs" />
       <recent name="C:\xampp\htdocs\indepth-administration\assets\images" />
       <recent name="C:\xampp\htdocs\exam-center\assets\images\avatars" />
     </key>
@@ -325,7 +466,7 @@
       <updated>1579514043266</updated>
       <workItem from="1579514044704" duration="11657000" />
       <workItem from="1579584360532" duration="1689000" />
-      <workItem from="1579586285711" duration="41409000" />
+      <workItem from="1579586285711" duration="56640000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <created>1579603976010</created>
@@ -348,17 +489,31 @@
       <option name="project" value="LOCAL" />
       <updated>1579679087364</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="print report card for student">
+      <created>1579694502377</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1579694502377</updated>
+    </task>
+    <task id="LOCAL-00005" summary="full screen implemented">
+      <created>1579766504430</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1579766504430</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54755000" />
+    <option name="totallyTimeSpent" value="69986000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1288" y="-8" width="1296" height="1010" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21890146" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2003231" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="DB Browser" order="2" weight="0.32956383" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -366,11 +521,11 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39908257" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.51490825" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Console" order="7" weight="0.21330275" />
+      <window_info anchor="bottom" id="Database Console" order="7" visible="true" weight="0.34977064" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="DB Execution Console" order="10" />
@@ -394,7 +549,9 @@
     <MESSAGE value="init commit" />
     <MESSAGE value="init student name and grade" />
     <MESSAGE value="init student section and result" />
-    <option name="LAST_COMMIT_MESSAGE" value="init student section and result" />
+    <MESSAGE value="print report card for student" />
+    <MESSAGE value="full screen implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="full screen implemented" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -432,13 +589,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/images/logo-inverse.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app-header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="66" column="104" selection-start-line="66" selection-start-column="104" selection-end-line="66" selection-end-column="104" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/footer-bar.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -521,39 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillTerms.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="15" lean-forward="true" selection-end-line="14" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/exam-center.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="104" column="58" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="58" />
-          <folding>
-            <element signature="n#!!block;n#initGrades#0" />
-            <element signature="n#!!block;n#fillSections#0" />
-            <element signature="n#!!block;n#fillTerms#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="684" lean-forward="true" selection-start-line="684" selection-end-line="684" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/head.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -582,37 +699,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql">
+    <entry file="file://$PROJECT_DIR$/css/print_report_card.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/head.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app-header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="88" column="56" lean-forward="true" selection-start-line="88" selection-start-column="56" selection-end-line="88" selection-end-column="56" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="683" column="14" selection-start-line="683" selection-start-column="14" selection-end-line="683" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillTerms.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/exam-center.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
+          <folding>
+            <element signature="n#!!block;n#initGrades#0" />
+            <element signature="n#!!block;n#fillTerms#0" />
+            <element signature="n#!!block;n#generateReportCard#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/fpdf/font/times.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/fpdf/doc/ln.htm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
-          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+          <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b639e32a-a92a-4613-9dcb-70744e1379ed/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="66" selection-start-line="66" selection-end-line="85" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillReportCardResults.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
+        <state relative-caret-position="399">
+          <caret line="32" column="20" lean-forward="true" selection-start-line="10" selection-end-line="32" selection-end-column="20" />
           <folding>
+            <element signature="e#2004#3550#0#PHP" />
             <element signature="n#style#0;n#tfoot#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/fillTerms_SectionWise.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/exam-center/reports/generate-reports.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="567" column="28" selection-start-line="567" selection-start-column="28" selection-end-line="567" selection-end-column="42" />
+        <state relative-caret-position="3495">
+          <caret line="200" column="87" selection-start-line="200" selection-start-column="87" selection-end-line="200" selection-end-column="87" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#label#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/print_report_card.css">
+    <entry file="file://$PROJECT_DIR$/mysql/exam-center/generate_pdf.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+        <state relative-caret-position="348">
+          <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
         </state>
       </provider>
     </entry>
