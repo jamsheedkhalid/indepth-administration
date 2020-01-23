@@ -14,6 +14,6 @@
 <!--    printjs.crabbly.com-->
     <link href="  https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script type="text/javascript" src="  https://printjs-4de6.kxcdn.com/print.min.js"></script>
-
+    <script type="text/javascript" src="/indepth-administration/js/main.js"></script>
 
 </head>

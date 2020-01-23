@@ -61,8 +61,16 @@
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
+                        <button id="viewFullScreen"  class="font-icon-wrapper" style="margin: 10px" title="View Fullscreen" onclick="launchFullscreen(document.documentElement);">
+                            <i class="pe-7s-monitor icon-gradient bg-mean-fruit" size="5"></i>
+                        </button>
+                        <button id="exitFullScreen" class="font-icon-wrapper" style="margin: 10px; display: none" title="Exit Fullscreen" onclick="exitFullscreen(document.documentElement);">
+                            <i class="pe-7s-monitor icon-gradient bg-mean-fruit" size="5"></i>
+                        </button>
                         <div class="widget-content-left">
+
                             <div class="btn-group">
+
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                     <img width="42" class="rounded-circle" src="/indepth-administration/assets/images/avatars/1.jpg" alt="">
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>

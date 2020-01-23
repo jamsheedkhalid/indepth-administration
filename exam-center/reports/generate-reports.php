@@ -565,7 +565,7 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                     <div class="card-body" id="reportCardModalResult">
                     </div>
                 </div>
-                <div class="result-footer text-lg-right">Date: <?php echo date('d-m-Y');?></div>
+                <div class="result-footer text-lg-right">Date: <?php echo date('d-m-');?></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
