@@ -49,7 +49,7 @@
                         <li >
                             <a id="side_bar_report_card" href="/indepth-administration/exam-center/reports/generate-reports.php">
                                 <i class="metismenu-icon"></i>
-                                Report Card
+                                Evaluation Reports
                             </a>
                         </li>
                     </ul>
