@@ -47,7 +47,7 @@
                     </a>
                     <ul>
                         <li >
-                            <a id="side_bar_report_card" href="exam-center/reports/generate-reports.php">
+                            <a id="side_bar_report_card" href="/exam-center/reports/generate-reports.php">
                                 <i class="metismenu-icon"></i>
                                 Evaluation Reports
                             </a>
