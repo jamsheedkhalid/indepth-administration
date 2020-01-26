@@ -33,7 +33,7 @@
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Dashboards</li>
                 <li>
-                    <a id="side_bar_home" href="/index.php" >
+                    <a id="side_bar_home" href="/main.php" >
                         <i class="metismenu-icon pe-7s-home"></i>
                         Home
                     </a>
