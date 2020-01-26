@@ -3,7 +3,8 @@
         <div class="logo-src"></div>
         <div class="header__pane ml-auto">
             <div>
-                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                        data-class="closed-sidebar">
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
                             </span>
@@ -22,13 +23,15 @@
     </div>
     <div class="app-header__menu">
                 <span>
-                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                    <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
                         <span class="btn-icon-wrapper">
                             <i class="fa fa-ellipsis-v fa-w-6"></i>
                         </span>
                     </button>
                 </span>
-    </div>    <div class="app-header__content">
+    </div>
+    <div class="app-header__content">
         <div class="app-header-left">
             <div class="search-wrapper">
                 <div class="input-holder">
@@ -56,15 +59,18 @@
                         Settings
                     </a>
                 </li>
-            </ul>        </div>
+            </ul>
+        </div>
         <div class="app-header-right">
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
-                        <button id="viewFullScreen"  class="font-icon-wrapper" style="margin: 10px" title="View Fullscreen" onclick="launchFullscreen(document.documentElement);">
+                        <button id="viewFullScreen" class="font-icon-wrapper" style="margin: 10px"
+                                title="View Fullscreen" onclick="launchFullscreen(document.documentElement);">
                             <i class="pe-7s-monitor icon-gradient bg-mean-fruit" size="5"></i>
                         </button>
-                        <button id="exitFullScreen" class="font-icon-wrapper" style="margin: 10px; display: none" title="Exit Fullscreen" onclick="exitFullscreen(document.documentElement);">
+                        <button id="exitFullScreen" class="font-icon-wrapper" style="margin: 10px; display: none"
+                                title="Exit Fullscreen" onclick="exitFullscreen(document.documentElement);">
                             <i class="pe-7s-monitor icon-gradient bg-mean-fruit" size="5"></i>
                         </button>
                         <div class="widget-content-left">
@@ -75,13 +81,17 @@
                                     <img width="42" class="rounded-circle" src="/assets/images/avatars/1.jpg" alt="">
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                <div tabindex="-1" role="menu" aria-hidden="true"
+                                     class="dropdown-menu dropdown-menu-right">
                                     <button type="button" tabindex="0" class="dropdown-item">User Account</button>
                                     <button type="button" tabindex="0" class="dropdown-item">Settings</button>
                                     <h6 tabindex="-1" class="dropdown-header">Header</h6>
                                     <button type="button" tabindex="0" class="dropdown-item">Actions</button>
                                     <div tabindex="-1" class="dropdown-divider"></div>
-                                    <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                    <a href="/logout.php" style="margin-left: 25px; margin-right: auto"
+                                            type="button" tabindex="0" class=" btn-shadow btn btn-danger"><i
+                                                class="fa text-white fa-power-off pr-1 pl-1"> </i> Logout
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -100,6 +110,7 @@
                         </div>
                     </div>
                 </div>
-            </div>        </div>
+            </div>
+        </div>
     </div>
 </div>
