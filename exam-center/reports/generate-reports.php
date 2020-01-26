@@ -138,18 +138,39 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body"><h5>Marks Split in Percent</h5>
+                                    <div>
+                                        <div class="row">
+                                            <div class="position-relative form-group col-sm"><label
+                                                        for="studentAssessment">Assessment </label>
+                                                <input name="studentAssessment" type="number"
+                                                       id="studentAssessment" class="form-control-sm form-control "
+                                                       value="43"/>
+                                            </div>
+                                            <div class="position-relative form-group col-sm"><label for="studentTerm">Term</label>
+                                                <input name="studentTerm" type="number"
+                                                       id="studentTerm" class="form-control-sm form-control "
+                                                       value="57"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- --------------------------------section wise begins-------------------------------------------------->
 
                 <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="main-card mb-3 card">
-                                <div class="card-body">
-                                    <form method="post"
-                                          action="/indepth-administration/mysql/exam-center/generate_pdf.php">
+                    <div>
+                        <form method="post" class="row"
+                              action="/indepth-administration/mysql/exam-center/generate_pdf.php">
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+
                                         <div class="row">
                                             <div class="position-relative form-group col-sm"><label
                                                         for="sectionGradeSelect">Grade</label>
@@ -187,21 +208,44 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                                         <button type="submit" name="sectionSubmit" class="mt-1 btn btn-success ">
                                             Generate Report
                                         </button>
-                                    </form>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body"><h5>Marks Split in Percent</h5>
+                                        <div>
+                                            <div class="row">
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="sectionAssessment">Assessment </label>
+                                                    <input name="sectionAssessment" type="number"
+                                                           id="sectionAssessment" class="form-control-sm form-control "
+                                                           value="43"/>
+                                                </div>
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="sectionTerm">Term</label>
+                                                    <input name="sectionTerm" type="number"
+                                                           id="sectionTerm" class="form-control-sm form-control "
+                                                           value="57"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
                 <!---------------------------------------grade wise begins ----------------------------------- ---------->
                 <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="main-card mb-3 card">
-                                <div class="card-body">
-                                    <form method="post"
-                                          action="/indepth-administration/mysql/exam-center/generate_pdf_grade_wise.php">
+                    <div>
+                        <form method="post" class="row"
+                              action="/indepth-administration/mysql/exam-center/generate_pdf_grade_wise.php">
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+
 
                                         <div class="row">
                                             <div class="position-relative form-group col-sm"><label
@@ -212,7 +256,8 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                                                         id="gradeGradeSelect" class="form-control-sm form-control ">
                                                     <option disabled selected>Select Grade</option>
                                                 </select>
-                                                <input type="hidden" name="hidden_grade_gradeWise" id="hidden_grade_gradeWise" value=""/>
+                                                <input type="hidden" name="hidden_grade_gradeWise"
+                                                       id="hidden_grade_gradeWise" value=""/>
                                             </div>
                                             <div class="position-relative form-group col-sm ">
                                                 <label for="gradeTermSelect">Term</label>
@@ -220,15 +265,40 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                                                         class="form-control-sm form-control">
                                                     <option>Select Term</option>
                                                 </select>
-                                                <input type="hidden" name="hidden_term_gradeWise" id="hidden_term_gradeWise" value=""/>
+                                                <input type="hidden" name="hidden_term_gradeWise"
+                                                       id="hidden_term_gradeWise" value=""/>
                                             </div>
 
                                         </div>
-                                        <button type="submit" name="submitGradeWise" class="mt-1 btn btn-success">Generate Report</button>
-                                         </form>
+                                        <button type="submit" name="submitGradeWise" class="mt-1 btn btn-success">
+                                            Generate Report
+                                        </button>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body"><h5>Marks Split in Percent</h5>
+                                        <div>
+                                            <div class="row">
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="gradeAssessment">Assessment </label>
+                                                    <input name="gradeAssessment" type="number"
+                                                           id="gradeAssessment" class="form-control-sm form-control "
+                                                           value="43"/>
+                                                </div>
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="gradeTerm">Term</label>
+                                                    <input name="gradeTerm" type="number"
+                                                           id="gradeTerm" class="form-control-sm form-control "
+                                                           value="57"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                 </div>

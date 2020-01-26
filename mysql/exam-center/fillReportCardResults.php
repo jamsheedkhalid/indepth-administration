@@ -4,8 +4,9 @@ $student = $_REQUEST['student'];
 $grade = $_REQUEST['grade'];
 $section = $_REQUEST['section'];
 $term = $_REQUEST['term'];
-$result_params1 = 43;
-$result_params2 = 57;
+$result_params1 = $_REQUEST['assessment'];
+$result_params2 = $_REQUEST['term_percent'];
+$total_percent = $result_params1 + $result_params2;
 
 $sql = "
 select p.last_name                                                                                           name,
@@ -14,10 +15,10 @@ select p.last_name                                                              
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, NULL)), 0)            ASS,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, NULL)), 0)                               TE,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, NULL)) * $result_params2 / 100 +
-             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, NULL)) * $result_params1 / 100, 0) TR
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 0)                               TE,
+       round(MAX(IF(exam_groups.name = '$term',exam_scores.marks, 0)) * $result_params2 / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $result_params1 / 100, 0) TR
 
 from students p
          inner join exam_scores on p.id = exam_scores.student_id
@@ -55,9 +56,12 @@ if ($result->num_rows > 0) {
  <td >'.$row['subject'] .'</td>
  <td align="center">'.$row['max'] .'</td>
  <td align="center">'.$row['min'] .'</td>
- <td align="center">'.$row['ASS'] .'</td>
- <td align="center">'.$row['TE'] .'</td>
- <td align="center">'.$row['TR'] .'</td>
+ <td align="center">'.$row['ASS'] .'</td>';
+
+
+     echo '<td align="center">' . $row['TE'] . '</td>';
+
+ echo '<td align="center">'.$row['TR'] .'</td>
 </tr>
 ';
         $total_max += $row['max'];
@@ -74,7 +78,7 @@ if ($result->num_rows > 0) {
 <div class='col-sm-7' ><table class='table table-sm mb-0  mt-5 params-table' >
 <tr><td>ASS. 3</td><td>1st Assessment 2nd Term</td><td align='right'>$result_params1 %</td></tr>
 <tr><td>T.E.2</td><td>2nd Term</td><td align='right'>$result_params2 %</td></tr>
-<tr><td>T.R.2</td><td>2nd Term Result</td><td align='right'>100 %</td></tr>
+<tr><td>T.R.2</td><td>2nd Term Result</td><td align='right'>$total_percent %</td></tr>
 </table></div>";
 
 

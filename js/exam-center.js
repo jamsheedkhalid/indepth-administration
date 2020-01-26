@@ -103,6 +103,9 @@ function generateReportCard() {
     let section = document.getElementById("sectionSelect").options[document.getElementById('sectionSelect').selectedIndex].text;
     document.getElementById("reportCardModalStudentSection").innerHTML = section;
     let term = document.getElementById("termSelect").options[document.getElementById('termSelect').selectedIndex].text;
+    let assessment_percent = document.getElementById('studentAssessment').value;
+    let term_percent = document.getElementById('studentTerm').value;
+
     document.getElementById("reportCardModalStudentTerm").innerHTML = term;
 
 
@@ -112,7 +115,7 @@ function generateReportCard() {
             document.getElementById("reportCardModalResult").innerHTML = this.responseText;
         }
     };
-    httpResult.open("GET", "/indepth-administration/mysql/exam-center/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term, false);
+    httpResult.open("GET", "/indepth-administration/mysql/exam-center/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term + '&assessment=' + assessment_percent + '&term_percent=' + term_percent , false);
     httpResult.send();
 
 }

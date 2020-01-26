@@ -9,8 +9,8 @@ if (isset($_POST['submitGradeWise'])) {
 //    echo $grade;
     $term = $_REQUEST['hidden_term_gradeWise'];
 //    echo $term;
-    $ass_percent = '43';
-    $term_percent = '57';
+    $ass_percent = $_REQUEST['gradeAssessment'];
+    $term_percent =  $_REQUEST['gradeTerm'];
 
 
     class PDF extends FPDF
@@ -89,10 +89,10 @@ order by students.last_name; ";
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, NULL)), 0)            ASS,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, NULL)), 0)                               TE,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, NULL)) * $term_percent / 100 +
-             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, NULL)) * $ass_percent / 100, 0) TR
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 0)                               TE,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)) * $term_percent / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $ass_percent / 100, 0) TR
 from students p
          inner join exam_scores on p.id = exam_scores.student_id
          inner join exams on exam_scores.exam_id = exams.id
