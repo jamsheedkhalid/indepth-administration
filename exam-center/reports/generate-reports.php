@@ -148,33 +148,46 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                         <div class="col-md-6">
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="position-relative form-group col-sm"><label
-                                                    for="sectionGradeSelect">Grade</label>
-                                            <select name="sectionGradeSelect"
-                                                    onchange="fillSections('sectionSectionSelect',this.id);fillTermsSectionWise(this.id,'sectionSectionSelect','sectionTermSelect','sectionWise');"
-                                                    id="sectionGradeSelect" class="form-control-sm form-control ">
-                                                <option disabled selected>Select Grade</option>
-                                            </select></div>
-                                        <div class="position-relative form-group col-sm"><label
-                                                    for="sectionSectionSelect">Section</label>
-                                            <select name="sectionSectionSelect"
-                                                    onchange="fillTermsSectionWise('sectionGradeSelect',this.id,'sectionTermSelect','sectionWise');"
-                                                    id="sectionSectionSelect" class="form-control-sm form-control">
-                                                <option disabled selected>Select Section</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="position-relative form-group col-sm ">
-                                            <label for="sectionTermSelect">Term</label>
-                                            <select name="sectionTermSelect" id="sectionTermSelect"
-                                                    class="form-control-sm form-control">
-                                                <option>Select Term</option>
-                                            </select></div>
+                                    <form method="post"
+                                          action="/indepth-administration/mysql/exam-center/generate_pdf.php">
+                                        <div class="row">
+                                            <div class="position-relative form-group col-sm"><label
+                                                        for="sectionGradeSelect">Grade</label>
+                                                <select name="sectionGradeSelect"
+                                                        onchange="initialize_hidden_input('sectionGradeSelect','hidden_grade');fillSections('sectionSectionSelect',this.id);fillTermsSectionWise(this.id,'sectionSectionSelect','sectionTermSelect','sectionWise');"
+                                                        id="sectionGradeSelect" class="form-control-sm form-control ">
+                                                    <option disabled selected>Select Grade</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_grade" id="hidden_grade" value=""/>
 
-                                    </div>
-                                    <button class="mt-1 btn btn-success">Generate Report</button>
+                                            </div>
+                                            <div class="position-relative form-group col-sm"><label
+                                                        for="sectionSectionSelect">Section</label>
+                                                <select name="sectionSectionSelect"
+                                                        onchange="fillTermsSectionWise('sectionGradeSelect',this.id,'sectionTermSelect','sectionWise');"
+                                                        id="sectionSectionSelect" class="form-control-sm form-control">
+                                                    <option disabled selected>Select Section</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_section" id="hidden_section"
+                                                       value=""/>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="position-relative form-group col-sm ">
+                                                <label for="sectionTermSelect">Term</label>
+                                                <select name="sectionTermSelect" id="sectionTermSelect"
+                                                        class="form-control-sm form-control">
+                                                    <option>Select Term</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_term" id="hidden_term" value=""/>
+                                            </div>
+
+                                        </div>
+                                        <button type="submit" name="sectionSubmit" class="mt-1 btn btn-success ">
+                                            Generate Report
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -187,25 +200,32 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
                         <div class="col-md-6">
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="position-relative form-group col-sm"><label for="gradeGradeSelect">Grade</label>
-                                            <select
-                                                    name="gradeGradeSelect"
-                                                    onchange="fillTermsSectionWise(this.id, 'sectionSectionSelect' ,'gradeTermSelect', 'gradeWise')"
-                                                    id="gradeGradeSelect" class="form-control-sm form-control ">
-                                                <option disabled selected>Select Grade</option>
-                                            </select></div>
-                                        <div class="position-relative form-group col-sm ">
-                                            <label for="gradeTermSelect">Term</label>
-                                            <select name="gradeTermSelect" id="gradeTermSelect"
-                                                    class="form-control-sm form-control">
-                                                <option>Select Term</option>
-                                            </select></div>
+                                    <form method="post"
+                                          action="/indepth-administration/mysql/exam-center/generate_pdf_grade_wise.php">
 
-                                    </div>
-                                    <form method="post" action="/indepth-administration/mysql/exam-center/generate_pdf.php">
-                                    <button type="submit" class="mt-1 btn btn-success">Generate Report</button>
-                                    </form>
+                                        <div class="row">
+                                            <div class="position-relative form-group col-sm"><label
+                                                        for="gradeGradeSelect">Grade</label>
+                                                <select
+                                                        name="gradeGradeSelect"
+                                                        onchange="initialize_hidden_input('gradeGradeSelect','hidden_grade_gradeWise');fillTermsSectionWise(this.id, 'sectionSectionSelect' ,'gradeTermSelect', 'gradeWise')"
+                                                        id="gradeGradeSelect" class="form-control-sm form-control ">
+                                                    <option disabled selected>Select Grade</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_grade_gradeWise" id="hidden_grade_gradeWise" value=""/>
+                                            </div>
+                                            <div class="position-relative form-group col-sm ">
+                                                <label for="gradeTermSelect">Term</label>
+                                                <select name="gradeTermSelect" id="gradeTermSelect"
+                                                        class="form-control-sm form-control">
+                                                    <option>Select Term</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_term_gradeWise" id="hidden_term_gradeWise" value=""/>
+                                            </div>
+
+                                        </div>
+                                        <button type="submit" name="submitGradeWise" class="mt-1 btn btn-success">Generate Report</button>
+                                         </form>
                                 </div>
                             </div>
                         </div>
@@ -224,11 +244,6 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
 
     </div>
 </div>
-<script type="text/javascript" src="/indepth-administration/assets/scripts/main.js"></script>
-<script> document.getElementById('li_reports').classList.add("mm-active")</script>
-<script> document.getElementById('side_bar_report_card').classList.add("mm-active")</script>
-<script type="text/javascript" src="/indepth-administration/js/exam-center.js"></script>
-<script> document.title = "Reports - InDepth";</script>
 </body>
 
 <!--                    report card modal               -->
@@ -310,3 +325,9 @@ include($_SERVER['DOCUMENT_ROOT'] . 'indepth-administration/head.php');
 <!--                    end report card modal           -->
 
 </html>
+
+<script type="text/javascript" src="/indepth-administration/assets/scripts/main.js"></script>
+<script> document.getElementById('li_reports').classList.add("mm-active")</script>
+<script> document.getElementById('side_bar_report_card').classList.add("mm-active")</script>
+<script type="text/javascript" src="/indepth-administration/js/exam-center.js"></script>
+<script> document.title = "Reports - InDepth";</script>

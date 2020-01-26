@@ -6,16 +6,30 @@ $type = $_REQUEST['type'];
 
 //    echo "exam \t";
 if($type === 'sectionWise'){
-$sql = "select  exam_groups.name exam
+$sql = "select  
+     (CASE WHEN exam_groups.name LIKE '%Term 1%' THEN 'Term 1' 
+           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 3' 
+            WHEN exam_groups.name LIKE '%Term 3%' THEN 'Term 3' END) as  exam
 from exam_groups inner join batches on exam_groups.batch_id = batches.id
 inner join courses on batches.course_id = courses.id
-         where batches.name = '$section' and ( course_name = '$grade' or course_name = ' $grade')order by exam_groups.id desc ";
+         where batches.name = '$section' and ( course_name = '$grade' or course_name = ' $grade') 
+  and courses.is_deleted = 0
+  and batches.is_deleted = 0
+  and batches.is_active = 1 group by exam ";
 }
 else if($type === 'gradeWise'){
-   $sql = " select distinct  exam_groups.name exam
-from exam_groups inner join batches on exam_groups.batch_id = batches.id
-inner join courses on batches.course_id = courses.id
-where ( course_name = '$grade' or course_name = ' $grade') order by exam_groups.id desc ";
+   $sql = " select distinct
+      (CASE WHEN exam_groups.name LIKE '%Term 1%' THEN 'Term 1' 
+           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 3' 
+            WHEN exam_groups.name LIKE '%Term 3%' THEN 'Term 3' END) as  exam
+from exam_groups
+         inner join batches on exam_groups.batch_id = batches.id
+         inner join courses on batches.course_id = courses.id
+where ( course_name = '$grade' or course_name = ' $grade') 
+  and courses.is_deleted = 0
+  and batches.is_deleted = 0
+  and batches.name LIKE '%2020%'
+  and batches.is_active = 1  group by exam";
 
 }
 //echo $sql;

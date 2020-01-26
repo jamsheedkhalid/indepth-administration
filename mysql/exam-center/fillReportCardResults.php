@@ -14,10 +14,10 @@ select p.last_name                                                              
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, NULL)), 0)            ASS,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, NULL)), 0)                               TE,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, NULL)) * $result_params2 / 100 +
-             MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, NULL)) * $result_params1 / 100, 0) TR
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, NULL)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, NULL)), 0)                               TE,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, NULL)) * $result_params2 / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, NULL)) * $result_params1 / 100, 0) TR
 
 from students p
          inner join exam_scores on p.id = exam_scores.student_id

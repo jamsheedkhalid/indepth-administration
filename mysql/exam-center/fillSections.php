@@ -9,7 +9,8 @@ from batches
 where ( courses.course_name = ' $grade' or courses.course_name = '$grade')
   and batches.is_deleted = 0
   and batches.is_active = 1
-  order by batches.id desc ,batches.name desc";
+ and batches.name LIKE '%2020%'
+  order by batches.name ";
 //echo $sql;
 $result = $conn->query($sql);
 while ($row = mysqli_fetch_array($result)) {

@@ -19,9 +19,11 @@ function initGrades(grade) {
     for (var i in gradeArray) {
         select.add(new Option(gradeArray[i]));
     }
+
 }
 
 function fillSections(section, grade) {
+
     var selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
     var sectionSelect = document.getElementById(section);
     while (sectionSelect.length > 0)
@@ -41,6 +43,9 @@ function fillSections(section, grade) {
     for (var i in sectionArray) {
         sectionSelect.add(new Option(sectionArray[i]));
     }
+
+    initialize_hidden_input(grade,'hidden_grade');
+    initialize_hidden_input(section,'hidden_section');
 }
 
 function fillStudents() {
@@ -134,5 +139,15 @@ function fillTermsSectionWise(gradeId, id, termId, type) {
     for (var i in termArray) {
         termSelect.add(new Option(termArray[i]));
     }
+    initialize_hidden_input(gradeId,'hidden_grade');
+    initialize_hidden_input(id,'hidden_section');
+    initialize_hidden_input(termId,'hidden_term');
+    initialize_hidden_input('gradeTermSelect','hidden_term_gradeWise')
 
 }
+
+function initialize_hidden_input(select,hidden_input){
+    let selected = document.getElementById(select).options[document.getElementById(select).selectedIndex].text;
+    document.getElementById(hidden_input).value  =selected;
+}
+
