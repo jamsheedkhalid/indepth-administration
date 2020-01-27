@@ -175,13 +175,13 @@ group by subjects.id; ";
 
         switch ($term) {
             case 'Term 1':
-                $term_name = 'Second Term';
+                $term_name = '2nd Term';
                 break;
             case 'Term 2':
-                $term_name = 'Second Term';
+                $term_name = '2nd Term';
                 break;
             case 'Term 3';
-                $term_name = 'Third Term';
+                $term_name = '3rd Term';
                 break;
             default:
                 $term_name = 'Term Unknown';
