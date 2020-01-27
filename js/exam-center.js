@@ -20,6 +20,8 @@ function initGrades(grade) {
         select.add(new Option(gradeArray[i]));
     }
 
+
+
 }
 
 function fillSections(section, grade) {
@@ -46,6 +48,9 @@ function fillSections(section, grade) {
 
     initialize_hidden_input(grade,'hidden_grade');
     initialize_hidden_input(section,'hidden_section');
+    initialize_hidden_input('sectionSelect','hidden_section_studentWise');
+    initialize_hidden_input('studentSelect','hidden_student_studentWise');
+    initialize_hidden_input('termSelect','hidden_term_studentWise');
 }
 
 function fillStudents() {
@@ -69,6 +74,11 @@ function fillStudents() {
     for (var i in studentsArray) {
         studentSelect.add(new Option(studentsArray[i]));
     }
+
+
+    initialize_hidden_input('studentSelect','hidden_student_studentWise')
+
+
 }
 
 function fillTerms() {
@@ -92,6 +102,7 @@ function fillTerms() {
     for (var i in termArray) {
         termSelect.add(new Option(termArray[i]));
     }
+    initialize_hidden_input('termSelect','hidden_term_studentWise');
 
 }
 
