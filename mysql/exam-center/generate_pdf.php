@@ -172,26 +172,42 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, $total_TE, 1, 0, 'C');
         $pdf->Cell(20, 7, $total_TR, 1, 0, 'C');
 
+
+        switch ($term) {
+            case 'Term 1':
+                $term_name = '2nd Term';
+                break;
+            case 'Term 2':
+                $term_name = '2nd Term';
+                break;
+            case 'Term 3';
+                $term_name = '3rd Term';
+                break;
+            default:
+                $term_name = 'Term Unknown';
+        }
+
+
         $pdf->ln();
         $pdf->SetFont('times', '', 10);
         $pdf->SetXY(40, 220);
         $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
-        $pdf->Cell(70, 7, 'Class Evaluation for ' . $term, 'TB', 0, 'L');
+        $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
         $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
-        $pdf->Cell(70, 7, $term . ' Exam', 'TB', 0, 'L');
+        $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
-        $pdf->Cell(70, 7, $term . ' Result', 'TB', 0, 'L');
+        $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
 
 
     }
-    $pdf->Output('I', $grade . '-' . $section . 'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $section . '-'. $term_name. ' '.  'report-card.pdf', true);
     $pdf->Close();
 
 }

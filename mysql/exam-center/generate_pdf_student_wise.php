@@ -206,7 +206,7 @@ group by subjects.id; ";
 
 
     }
-    $pdf->Output('I', $grade . '-' . $section . 'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $section . '-'. $term_name. ' '.  'report-card.pdf', true);
     $pdf->Close();
 
 }
