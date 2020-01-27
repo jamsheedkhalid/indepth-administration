@@ -39,7 +39,21 @@ if(isset($_POST['sectionSubmit'])) {
             $this->Ln(15);
             $this->Cell(0, 0, 'ACADEMIC YEAR: 2019 - 2020', 0, 2, 'C');
             $this->Ln(10);
-            $this->Cell(0, 0, $term, 0, 2, 'C');
+            switch ($term) {
+                case 'Term 1':
+                    $term_name = 'First Term';
+                    break;
+                case 'Term 2':
+                    $term_name = 'Second Term';
+                    break;
+                case 'Term 3';
+                    $term_name = 'Third Term';
+                    break;
+                default:
+                    $term_name = 'Term Unknown';
+            }
+
+            $this->Cell(0, 0,$term_name, 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(130, 80, 80, 80);
 
@@ -122,9 +136,9 @@ group by subjects.id; ";
         $pdf->Cell(30, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'ASS. 3', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'T.E.2', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'T.R.2', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
 
         $pdf->SetFont('times', '', 10);
 
@@ -158,23 +172,22 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, $total_TE, 1, 0, 'C');
         $pdf->Cell(20, 7, $total_TR, 1, 0, 'C');
 
-        $pdf->ln(100);
+        $pdf->ln();
         $pdf->SetFont('times', '', 10);
-        $pdf->SetXY(40, 240);
-        $pdf->Cell(20, 7, 'ASS. ', 'LTB', 0, 'L');
-        $pdf->Cell(70, 7, '1st Assessment ' . $term, 'TB', 0, 'L');
+        $pdf->SetXY(40, 220);
+        $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
+        $pdf->Cell(70, 7, 'Class Evaluation for ' . $term, 'TB', 0, 'L');
         $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
-        $pdf->Cell(70, 7, $term, 'TB', 0, 'L');
+        $pdf->Cell(70, 7, $term . ' Exam', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
-        $pdf->Cell(70, 7, $term. ' Result', 'TB', 0, 'L');
+        $pdf->Cell(70, 7, $term . ' Result', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
-
 
 
     }
