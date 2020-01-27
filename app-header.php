@@ -32,7 +32,7 @@
                 </span>
     </div>
     <div class="app-header__content">
-        <div class="app-header-left">
+        <div hidden class="app-header-left">
             <div class="search-wrapper">
                 <div class="input-holder">
                     <input type="text" class="search-input" placeholder="Type to search">
@@ -73,7 +73,7 @@
                                 title="Exit Fullscreen" onclick="exitFullscreen(document.documentElement);">
                             <i class="pe-7s-monitor icon-gradient bg-mean-fruit" size="5"></i>
                         </button>
-                        <div class="widget-content-left">
+                        <div class="widget-content-left" hidden>
 
                             <div class="btn-group">
 
@@ -97,16 +97,20 @@
                         </div>
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading">
-                                Jamsheed Khalid
+                                <?php echo $_SESSION['name']; ?>
                             </div>
-                            <div class="widget-subheading">
+                            <div hidden class="widget-subheading">
                                 General Admin
                             </div>
                         </div>
                         <div class="widget-content-right header-user-info ml-3">
-                            <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                            <button type="button" hidden class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
                                 <i class="fa text-white fa-calendar pr-1 pl-1"></i>
                             </button>
+                            <a href="/logout.php" style="margin-left: 25px; margin-right: auto"
+                               type="button" tabindex="0" class=" btn-shadow btn btn-danger"><i
+                                        class="fa text-white fa-power-off pr-1 pl-1"> </i> Logout
+                            </a>
                         </div>
                     </div>
                 </div>

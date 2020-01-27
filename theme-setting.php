@@ -5,9 +5,9 @@
     <div class="theme-settings__inner">
         <div class="scrollbar-container">
             <div class="theme-settings__options-wrapper">
-                <h3 class="themeoptions-heading">Layout Options
+                <h3 hidden class="themeoptions-heading">Layout Options
                 </h3>
-                <div class="p-3">
+                <div hidden class="p-3">
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="widget-content p-0">
