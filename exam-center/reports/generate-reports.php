@@ -1,6 +1,6 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/config/database.php');
-include_once ($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
 checkLoggedIn()
 ?>
 
@@ -32,12 +32,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             </div>
                         </div>
                     </div>
-                    <div hidden  class="page-title-actions">
+                    <div hidden class="page-title-actions">
                         <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
                                 class="btn-shadow mr-3 btn btn-dark">
                             <i class="fa fa-star"></i>
                         </button>
-                        <div  class="d-inline-block dropdown">
+                        <div class="d-inline-block dropdown">
                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     class="btn-shadow dropdown-toggle btn btn-info">
                                             <span class="btn-icon-wrapper pr-2 opacity-7">
@@ -108,62 +108,84 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
                 <!-- -----------------------------------student wise begins------------------------------------------------>
                 <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="main-card mb-3 card">
-                                <div class="card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="position-relative form-group col-sm"><label for="gradeSelect">Grade</label>
-                                                <select onchange="fillSections('sectionSelect',this.id);fillStudents();fillTerms();"
-                                                        name="gradeSelect"
-                                                        id="gradeSelect" class="form-control-sm form-control ">
-                                                    <option disabled selected>Select Grade</option>
-                                                </select></div>
-                                            <div class="position-relative form-group col-sm"><label for="sectionSelect">Section</label>
-                                                <select onchange="fillStudents();fillTerms();" name="sectionSelect"
-                                                        id="sectionSelect" class="form-control-sm form-control ">
-                                                    <option disabled selected>Select Section</option>
-                                                </select></div>
-                                        </div>
-                                        <div class="position-relative form-group"><label for="studentSelect" class="">Student</label>
-                                            <select onchange="fillTerms();" name="studentSelect" id="studentSelect"
-                                                    class="form-control-sm form-control">
-                                                <option>Select Student</option>
-                                            </select></div>
-                                        <div class="position-relative form-group"><label for="termSelect"
-                                                                                         class="">Term</label>
-                                            <select name="termSelect" id="termSelect"
-                                                    class="form-control-sm form-control">
-                                                <option>Select Term</option>
-                                            </select></div>
-                                        <button class="mt-1 btn btn-success" onclick="generateReportCard();"
-                                                data-toggle="modal" data-target="#reportCardModal">Generate Report
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="main-card mb-3 card">
-                                <div class="card-body"><h5>Marks Split in Percent</h5>
-                                    <div>
-                                        <div class="row">
-                                            <div class="position-relative form-group col-sm"><label
-                                                        for="studentAssessment">Assessment </label>
-                                                <input name="studentAssessment" type="number" min="0" max="100"
-                                                       id="studentAssessment" class="form-control-sm form-control "
-                                                       value="43"/>
+
+                    <div >
+                        <form method="post" class="row"
+                              action="/mysql/exam-center/generate_pdf_student_wise.php">
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div>
+                                            <div class="row">
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="gradeSelect">Grade</label>
+                                                    <select onchange="initialize_hidden_input('gradeSelect','hidden_grade_studentWise');fillSections('sectionSelect',this.id);fillStudents();fillTerms();"
+                                                            name="gradeSelect"
+                                                            id="gradeSelect" class="form-control-sm form-control ">
+                                                        <option disabled selected>Select Grade</option>
+                                                    </select>
+                                                    <input type="hidden" name="hidden_grade_studentWise"
+                                                           id="hidden_grade_studentWise" value=""/>
+                                                </div>
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="sectionSelect">Section</label>
+                                                    <select onchange="initialize_hidden_input('sectionSelect','hidden_section_studentWise');fillStudents();fillTerms();" name="sectionSelect"
+                                                            id="sectionSelect" class="form-control-sm form-control ">
+                                                        <option disabled selected>Select Section</option>
+                                                    </select>
+                                                    <input type="hidden" name="hidden_section_studentWise"
+                                                           id="hidden_section_studentWise" value=""/>
+                                                </div>
                                             </div>
-                                            <div class="position-relative form-group col-sm"><label for="studentTerm">Term</label>
-                                                <input name="studentTerm" type="number" min="0" max="100"
-                                                       id="studentTerm" class="form-control-sm form-control "
-                                                       value="57"/></div>
+                                            <div class="position-relative form-group"><label for="studentSelect"
+                                                                                             class="">Student</label>
+                                                <select onchange="initialize_hidden_input('studentSelect','hidden_student_studentWise');fillTerms();" name="studentSelect" id="studentSelect"
+                                                        class="form-control-sm form-control">
+                                                    <option>Select Student</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_student_studentWise"
+                                                       id="hidden_student_studentWise" value=""/>
+
+                                            </div>
+                                            <div class="position-relative form-group"><label for="termSelect"
+                                                                                             class="">Term</label>
+                                                <select name="termSelect" id="termSelect" onchange="initialize_hidden_input('termSelect','hidden_term_studentWise');"
+                                                        class="form-control-sm form-control">
+                                                    <option>Select Term</option>
+                                                </select>
+                                                <input type="hidden" name="hidden_term_studentWise"
+                                                       id="hidden_term_studentWise" value=""/>
+                                            </div>
+
+                                            <button class="mt-1 btn btn-success" name="studentSubmit" type="submit">
+                                                Generate Report
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body"><h5>Marks Split in Percent</h5>
+                                        <div>
+                                            <div class="row">
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="studentAssessment">Assessment </label>
+                                                    <input name="studentAssessment" type="number" min="0" max="100"
+                                                           id="studentAssessment" class="form-control-sm form-control "
+                                                           value="43"/>
+                                                </div>
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="studentTerm">Term</label>
+                                                    <input name="studentTerm" type="number" min="0" max="100"
+                                                           id="studentTerm" class="form-control-sm form-control "
+                                                           value="57"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
