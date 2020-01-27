@@ -10,14 +10,15 @@ if (isset($_POST['submitGradeWise'])) {
     $term = $_REQUEST['hidden_term_gradeWise'];
 //    echo $term;
     $ass_percent = $_REQUEST['gradeAssessment'];
-    $term_percent =  $_REQUEST['gradeTerm'];
+    $term_percent = $_REQUEST['gradeTerm'];
 
 
     class PDF extends FPDF
     {
 // Page header
         public function Header()
-        {   $term = $_REQUEST['hidden_term_gradeWise'];
+        {
+            $term = $_REQUEST['hidden_term_gradeWise'];
             // Logo
             $this->Image('../../assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
             $this->SetFont('times', 'B', 13);
@@ -36,7 +37,21 @@ if (isset($_POST['submitGradeWise'])) {
             $this->Ln(15);
             $this->Cell(0, 0, 'ACADEMIC YEAR: 2019 - 2020', 0, 2, 'C');
             $this->Ln(10);
-            $this->Cell(0, 0, $term, 0, 2, 'C');
+            switch ($term) {
+                case 'Term 1':
+                    $term_name = 'First Term';
+                    break;
+                case 'Term 2':
+                    $term_name = 'Second Term';
+                    break;
+                case 'Term 3';
+                    $term_name = 'Third Term';
+                    break;
+                default:
+                    $term_name = 'Term Unknown';
+            }
+
+            $this->Cell(0, 0,$term_name, 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(130, 80, 80, 80);
 
@@ -65,7 +80,7 @@ if (isset($_POST['submitGradeWise'])) {
 
     $sql_grade = "select batches.name section 
                     from batches inner join courses on batches.course_id = courses.id 
-                    where batches.is_active =1 and courses.is_deleted = 0 and  batches.is_deleted = 0 and 
+                    where batches.is_active =1 and courses.is_deleted = 0 and  batches.is_deleted = 0 and batches.name LIKE '%2020%' and 
                      (courses.course_name = ' $grade' or courses.course_name = '$grade') ;  ";
     $result_grade = $conn->query($sql_grade);
 
@@ -127,7 +142,7 @@ group by subjects.id; ";
             $pdf->Cell(30, 7, 'Subjects', 1, 0, 'C');
             $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
             $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
-            $pdf->Cell(20, 7, 'ASS. ', 1, 0, 'C');
+            $pdf->Cell(20, 7, 'C.E. ', 1, 0, 'C');
             $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
             $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
 
@@ -165,19 +180,19 @@ group by subjects.id; ";
 
             $pdf->ln();
             $pdf->SetFont('times', '', 10);
-            $pdf->SetXY(40, 240);
-            $pdf->Cell(20, 7, 'ASS. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, '1st Assessment '. $term, 'TB', 0, 'L');
+            $pdf->SetXY(40, 220);
+            $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
+            $pdf->Cell(70, 7, 'Class Evaluation for ' . $term, 'TB', 0, 'L');
             $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
             $pdf->ln();
             $pdf->SetX(40);
             $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, $term, 'TB', 0, 'L');
+            $pdf->Cell(70, 7, $term . ' Exam', 'TB', 0, 'L');
             $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
             $pdf->ln();
             $pdf->SetX(40);
             $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, $term.' Result', 'TB', 0, 'L');
+            $pdf->Cell(70, 7, $term . ' Result', 'TB', 0, 'L');
             $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
 
 

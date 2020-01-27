@@ -27,7 +27,7 @@ function login()
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $_SESSION['login'] = 1;
-            header('Location: /main.php');
+            header('Location: /exam-center/reports/generate-reports.php');
         } else {
             $sql = "SELECT
             *
@@ -36,7 +36,7 @@ function login()
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $_SESSION['login'] = 1;
-                header('Location: /main.php');
+                header('Location:  /exam-center/reports/generate-reports.php');
             } else {
                 $_SESSION['noaccess'] = 1;
                 header('Location: /index.php');

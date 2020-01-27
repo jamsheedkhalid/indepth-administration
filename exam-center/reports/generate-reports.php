@@ -32,12 +32,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             </div>
                         </div>
                     </div>
-                    <div class="page-title-actions">
+                    <div hidden  class="page-title-actions">
                         <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
                                 class="btn-shadow mr-3 btn btn-dark">
                             <i class="fa fa-star"></i>
                         </button>
-                        <div class="d-inline-block dropdown">
+                        <div  class="d-inline-block dropdown">
                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     class="btn-shadow dropdown-toggle btn btn-info">
                                             <span class="btn-icon-wrapper pr-2 opacity-7">
