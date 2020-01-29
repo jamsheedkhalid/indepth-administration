@@ -110,7 +110,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
 
                     <div >
-                        <form method="post" class="row"
+                        <form   target="_blank" method="post" class="row"
                               action="/mysql/exam-center/generate_pdf_student_wise.php">
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
@@ -193,7 +193,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
                 <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                     <div>
-                        <form method="post" class="row"
+                        <form  target="_blank" method="post" class="row"
                               action="/mysql/exam-center/generate_pdf.php">
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
@@ -268,7 +268,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <!---------------------------------------grade wise begins ----------------------------------- ---------->
                 <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
                     <div>
-                        <form method="post" class="row"
+                        <form  target="_blank" method="post" class="row"
                               action="/mysql/exam-center/generate_pdf_grade_wise.php">
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">

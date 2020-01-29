@@ -104,10 +104,10 @@ order by students.last_name; ";
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 1)            ASS,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 1)                               TE,
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 0)                               TE,
        round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)) * $term_percent / 100 +
-             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $ass_percent / 100, 1) TR
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $ass_percent / 100, 0) TR
 from students p
          inner join exam_scores on p.id = exam_scores.student_id
          inner join exams on exam_scores.exam_id = exams.id
@@ -151,22 +151,52 @@ group by subjects.id; ";
 
             $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
             while ($row = mysqli_fetch_array($result)) {
+                if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
 
+                    $total_max += $row['max'];
+                    $total_min += $row['min'];
+                    $total_ASS += $row['ASS'];
+                    $total_TE += $row['TE'];
+                    $total_TR += $row['TR'];
 
-                $total_max += $row['max'];
-                $total_min += $row['min'];
-                $total_ASS += $row['ASS'];
-                $total_TE += $row['TE'];
-                $total_TR += $row['TR'];
+                    $pdf->ln();
+                    $pdf->SetX(40);
+                    $pdf->Cell(30, 7, $row['subject'], 1);
+                    $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
 
-                $pdf->ln();
-                $pdf->SetX(40);
-                $pdf->Cell(30, 7, $row['subject'], 1);
-                $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                }
+
+                else if($grade === 'GR 9'
+                    || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12')
+                {
+                    if ($row['subject'] === 'Moral Education') {
+                        $ME['subject'] = $row['subject'];
+                        $ME['max'] = $row['max'];
+                        $ME['min'] = $row['min'];
+                        $ME['ASS'] = $row['ASS'];
+                        $ME['TE'] = $row['TE'];
+                        $ME['TR'] = $row['TR'];
+                    } else {
+                        $total_max += $row['max'];
+                        $total_min += $row['min'];
+                        $total_ASS += $row['ASS'];
+                        $total_TE += $row['TE'];
+                        $total_TR += $row['TR'];
+                        $pdf->ln();
+                        $pdf->SetX(40);
+                        $pdf->Cell(30, 7, $row['subject'], 1);
+                        $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
+                        $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+                        $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                        $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                        $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                    }
+
+                }
             }
             $pdf->ln();
             $pdf->SetX(40);
@@ -177,6 +207,18 @@ group by subjects.id; ";
             $pdf->Cell(20, 7, $total_ASS, 1, 0, 'C');
             $pdf->Cell(20, 7, $total_TE, 1, 0, 'C');
             $pdf->Cell(20, 7, $total_TR, 1, 0, 'C');
+            if ($grade === 'GR 9'
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+                $pdf->SetFont('times', '', 10);
+                $pdf->ln(10);
+                $pdf->SetX(40);
+                $pdf->Cell(30, 7, $ME['subject'], 1);
+                $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $ME['TE'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
+            }
 
             switch ($term) {
                 case 'Term 1':

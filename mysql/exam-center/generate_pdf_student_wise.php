@@ -3,7 +3,7 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
 
-if(isset($_POST['studentSubmit'])) {
+if (isset($_POST['studentSubmit'])) {
 
     $grade = $_POST['hidden_grade_studentWise'];
     $student = $_POST['hidden_student_studentWise'];
@@ -13,15 +13,16 @@ if(isset($_POST['studentSubmit'])) {
     $term = $_REQUEST['hidden_term_studentWise'];
 //    echo $term;
     $ass_percent = $_REQUEST['studentAssessment'];
-    $term_percent =  $_REQUEST['studentTerm'];
-    $total_percent =  $ass_percent + $term_percent;
+    $term_percent = $_REQUEST['studentTerm'];
+    $total_percent = $ass_percent + $term_percent;
 
 
     class PDF extends FPDF
     {
 // Page header
         public function Header()
-        {  $term = $_REQUEST['hidden_term_studentWise'];
+        {
+            $term = $_REQUEST['hidden_term_studentWise'];
             // Logo
             $this->Image('../../assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
             $this->SetFont('times', 'B', 13);
@@ -54,7 +55,7 @@ if(isset($_POST['studentSubmit'])) {
                     $term_name = 'Term Unknown';
             }
 
-            $this->Cell(0, 0,$term_name, 0, 2, 'C');
+            $this->Cell(0, 0, $term_name, 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(130, 80, 80, 80);
 
@@ -97,10 +98,10 @@ and  students.last_name = '$student'; ";
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 1)            ASS,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 1)                               TE,
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 0)                               TE,
        round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)) * $term_percent / 100 +
-             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $ass_percent / 100, 1) TR
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $ass_percent / 100, 0) TR
 from students p
          inner join exam_scores on p.id = exam_scores.student_id
          inner join exams on exam_scores.exam_id = exams.id
@@ -146,22 +147,48 @@ group by subjects.id; ";
 
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
         while ($row = mysqli_fetch_array($result)) {
+            if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
+                $total_max += $row['max'];
+                $total_min += $row['min'];
+                $total_ASS += $row['ASS'];
+                $total_TE += $row['TE'];
+                $total_TR += $row['TR'];
 
+                $pdf->ln();
+                $pdf->SetX(40);
+                $pdf->Cell(30, 7, $row['subject'], 1);
+                $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+            } else if ($grade === 'GR 9'
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 
-            $total_max += $row['max'];
-            $total_min += $row['min'];
-            $total_ASS += $row['ASS'];
-            $total_TE += $row['TE'];
-            $total_TR += $row['TR'];
+                if ($row['subject'] === 'Moral Education') {
+                    $ME['subject'] = $row['subject'];
+                    $ME['max'] = $row['max'];
+                    $ME['min'] = $row['min'];
+                    $ME['ASS'] = $row['ASS'];
+                    $ME['TE'] = $row['TE'];
+                    $ME['TR'] = $row['TR'];
+                } else {
+                    $total_max += $row['max'];
+                    $total_min += $row['min'];
+                    $total_ASS += $row['ASS'];
+                    $total_TE += $row['TE'];
+                    $total_TR += $row['TR'];
+                    $pdf->ln();
+                    $pdf->SetX(40);
+                    $pdf->Cell(30, 7, $row['subject'], 1);
+                    $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                }
 
-            $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(30, 7, $row['subject'], 1);
-            $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
-            $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
-            $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-            $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-            $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+            }
         }
         $pdf->ln();
         $pdf->SetX(40);
@@ -172,7 +199,18 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, $total_ASS, 1, 0, 'C');
         $pdf->Cell(20, 7, $total_TE, 1, 0, 'C');
         $pdf->Cell(20, 7, $total_TR, 1, 0, 'C');
-
+        if ($grade === 'GR 9'
+            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+            $pdf->SetFont('times', '', 10);
+            $pdf->ln(10);
+            $pdf->SetX(40);
+            $pdf->Cell(30, 7, $ME['subject'], 1);
+            $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
+            $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
+            $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
+            $pdf->Cell(20, 7, $ME['TE'], 1, 0, 'C');
+            $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
+        }
         switch ($term) {
             case 'Term 1':
                 $term_name = '2nd Term';
@@ -206,7 +244,7 @@ group by subjects.id; ";
 
 
     }
-    $pdf->Output('I', $grade . '-' . $section . '-'. $term_name. ' '.  'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $section . '-' . $term_name . ' ' . 'report-card.pdf', true);
     $pdf->Close();
 
 }
