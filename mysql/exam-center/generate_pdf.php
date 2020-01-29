@@ -203,7 +203,15 @@ group by subjects.id; ";
         if ($grade === 'GR 9'
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
             $pdf->SetFont('times', '', 10);
-            $pdf->ln(10);
+            $pdf->ln();
+            $pdf->SetX(40);
+            $pdf->Cell(30, 1, '' , 'LTB');
+            $pdf->Cell(20, 1, '', 'TB', 0, 'C');
+            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+            $pdf->Cell(20, 1, '', 'BTR', 0, 'C');
+            $pdf->ln();
             $pdf->SetX(40);
             $pdf->Cell(30, 7, $ME['subject'], 1);
             $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
