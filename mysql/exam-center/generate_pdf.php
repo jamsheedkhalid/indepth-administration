@@ -233,9 +233,7 @@ group by subjects.id; ";
             }
         }
 
-        $ratio_ASS = round((($total_max * $total_ASS) / $max_ASS), 0, PHP_ROUND_HALF_UP,);
-        $ratio_TE = round((($total_max * $total_TE) / $max_TE), 0, PHP_ROUND_HALF_UP,);
-        $ratio_TR = round((($total_max * $total_TR) / $max_TR), 0, PHP_ROUND_HALF_UP,);
+
 
 
         $pdf->ln();
@@ -246,6 +244,14 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, $total_min, 1, 0, 'C');
 
         if ($grade === 'GR11' || $grade === 'GR12') {
+
+            if($max_ASS !== 0 )
+            $ratio_ASS = round((($total_max * $total_ASS) / $max_ASS), 0, PHP_ROUND_HALF_UP,);
+            if($max_TE !== 0 )
+            $ratio_TE = round((($total_max * $total_TE) / $max_TE), 0, PHP_ROUND_HALF_UP,);
+            if($max_TR !== 0 )
+            $ratio_TR = round((($total_max * $total_TR) / $max_TR), 0, PHP_ROUND_HALF_UP,);
+
             $pdf->Cell(20, 7, $total_ASS . ' / ' . $ratio_ASS, 1, 0, 'C');
             $pdf->Cell(20, 7, $total_TE . ' / ' . $ratio_TE, 1, 0, 'C');
             $pdf->Cell(20, 7, $total_TR . ' / ' . $ratio_TR, 1, 0, 'C');

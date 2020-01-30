@@ -51,7 +51,7 @@ if (isset($_POST['submitGradeWise'])) {
                     $term_name = 'Term Unknown';
             }
 
-            $this->Cell(0, 0,$term_name, 0, 2, 'C');
+            $this->Cell(0, 0, $term_name, 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(130, 80, 80, 80);
 
@@ -171,7 +171,7 @@ group by subjects.id; ";
                     $pdf->Cell(30, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
-                    if (!is_null($row['ASS'] ))
+                    if (!is_null($row['ASS']))
                         $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
                     ELSE
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
@@ -186,11 +186,8 @@ group by subjects.id; ";
                     ELSE
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-                }
-
-                else if($grade === 'GR 9'
-                    || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12')
-                {
+                } else if ($grade === 'GR 9'
+                    || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
                     if ($row['subject'] === 'Moral Education') {
                         $ME['subject'] = $row['subject'];
                         $ME['max'] = $row['max'];
@@ -218,7 +215,7 @@ group by subjects.id; ";
                         $pdf->Cell(30, 7, $row['subject'], 1);
                         $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                         $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
-                        if (!is_null($row['ASS'] ))
+                        if (!is_null($row['ASS']))
                             $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
                         ELSE
                             $pdf->Cell(20, 7, '-', 1, 0, 'C');
@@ -238,12 +235,6 @@ group by subjects.id; ";
             }
 
 
-
-            $ratio_ASS = round((($total_max * $total_ASS) / $max_ASS), 0, PHP_ROUND_HALF_UP,);
-            $ratio_TE = round((($total_max * $total_TE) / $max_TE), 0, PHP_ROUND_HALF_UP,);
-            $ratio_TR = round((($total_max * $total_TR) / $max_TR), 0, PHP_ROUND_HALF_UP,);
-
-
             $pdf->ln();
             $pdf->SetX(40);
             $pdf->SetFont('times', 'B', 10);
@@ -252,20 +243,28 @@ group by subjects.id; ";
             $pdf->Cell(20, 7, $total_min, 1, 0, 'C');
 
             if ($grade === 'GR11' || $grade === 'GR12') {
+
+                if ($max_ASS !== 0)
+                    $ratio_ASS = round((($total_max * $total_ASS) / $max_ASS), 0, PHP_ROUND_HALF_UP,);
+                if ($max_TE !== 0)
+                    $ratio_TE = round((($total_max * $total_TE) / $max_TE), 0, PHP_ROUND_HALF_UP,);
+                if ($max_TR !== 0)
+                    $ratio_TR = round((($total_max * $total_TR) / $max_TR), 0, PHP_ROUND_HALF_UP,);
+
                 $pdf->Cell(20, 7, $total_ASS . ' / ' . $ratio_ASS, 1, 0, 'C');
                 $pdf->Cell(20, 7, $total_TE . ' / ' . $ratio_TE, 1, 0, 'C');
                 $pdf->Cell(20, 7, $total_TR . ' / ' . $ratio_TR, 1, 0, 'C');
             } else {
-                $pdf->Cell(20, 7, $total_ASS , 1, 0, 'C');
-                $pdf->Cell(20, 7, $total_TE , 1, 0, 'C');
-                $pdf->Cell(20, 7, $total_TR , 1, 0, 'C');
+                $pdf->Cell(20, 7, $total_ASS, 1, 0, 'C');
+                $pdf->Cell(20, 7, $total_TE, 1, 0, 'C');
+                $pdf->Cell(20, 7, $total_TR, 1, 0, 'C');
             }
             if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
                 $pdf->SetFont('times', '', 10);
                 $pdf->ln();
                 $pdf->SetX(40);
-                $pdf->Cell(30, 1, '' , 'LTB');
+                $pdf->Cell(30, 1, '', 'LTB');
                 $pdf->Cell(20, 1, '', 'TB', 0, 'C');
                 $pdf->Cell(20, 1, '', 'BT', 0, 'C');
                 $pdf->Cell(20, 1, '', 'BT', 0, 'C');
@@ -315,7 +314,7 @@ group by subjects.id; ";
 
         }
     }
-    $pdf->Output('I', $grade . '-' . $section . '-'. $term_name. ' '.  'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $section . '-' . $term_name . ' ' . 'report-card.pdf', true);
     $pdf->Close();
 
 
