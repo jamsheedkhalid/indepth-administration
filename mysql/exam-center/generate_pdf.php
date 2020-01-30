@@ -98,8 +98,8 @@ order by students.last_name; ";
        round(exams.minimum_marks, 0)                                                                      min,
        round(MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)), 0)            ASS,
        round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)), 0)                               TE,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 57 / 100 +
-             MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 43 / 100, 0) TR
+       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * $term_percent / 100 +
+             MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * $ass_percent / 100, 0) TR
 from students p
           inner join batches on p.batch_id = batches.id
          inner join subjects on batches.id = subjects.batch_id
@@ -244,13 +244,12 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, $total_min, 1, 0, 'C');
 
         if ($grade === 'GR11' || $grade === 'GR12') {
-
             if($max_ASS !== 0 )
-            $ratio_ASS = round((($total_max * $total_ASS) / $max_ASS), 0, PHP_ROUND_HALF_UP,);
+                $ratio_ASS = round(($total_max * $total_ASS)/$max_ASS);
             if($max_TE !== 0 )
-            $ratio_TE = round((($total_max * $total_TE) / $max_TE), 0, PHP_ROUND_HALF_UP,);
+                $ratio_TE = round(($total_max * $total_TE)/$max_TE);
             if($max_TR !== 0 )
-            $ratio_TR = round((($total_max * $total_TR) / $max_TR), 0, PHP_ROUND_HALF_UP,);
+                $ratio_TR = round(($total_max * $total_TR)/$max_TR);
 
             $pdf->Cell(20, 7, $total_ASS . ' / ' . $ratio_ASS, 1, 0, 'C');
             $pdf->Cell(20, 7, $total_TE . ' / ' . $ratio_TE, 1, 0, 'C');
