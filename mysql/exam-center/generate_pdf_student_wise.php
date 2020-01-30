@@ -98,17 +98,17 @@ and  students.last_name = '$student'; ";
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)), 0)            ASS,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)), 0)                               TE,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, 0)) * $term_percent / 100 +
-             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, 0)) * $ass_percent / 100, 0) TR
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)), 0)                               TE,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)) * $term_percent / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)) * $ass_percent / 100, 0) TR
 from students p
-         inner join exam_scores on p.id = exam_scores.student_id
-         inner join exams on exam_scores.exam_id = exams.id
-         inner join exam_groups on exams.exam_group_id = exam_groups.id
-         inner join batches on exam_groups.batch_id = batches.id
+          inner join batches on p.batch_id = batches.id
+         inner join subjects on batches.id = subjects.batch_id
          inner join courses on batches.course_id = courses.id
-         inner join subjects on exams.subject_id = subjects.id
+         inner join exams on subjects.id = exams.subject_id
+         inner join exam_groups on exams.exam_group_id = exam_groups.id
+         left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
 where (exam_groups.name = '$term' or exam_groups.name = '$term - Class Evaluation')
   and p.last_name = \"$row_section[name]\"
 group by subjects.id; ";
@@ -146,22 +146,46 @@ group by subjects.id; ";
 
 
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
+        $max_ASS = $max_TE = $max_TR = 0;
         while ($row = mysqli_fetch_array($result)) {
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
                 $total_max += $row['max'];
                 $total_min += $row['min'];
-                $total_ASS += $row['ASS'];
-                $total_TE += $row['TE'];
-                $total_TR += $row['TR'];
+
+                if ($row['ASS'] !== null) {
+                    $total_ASS += $row['ASS'];
+                    $max_ASS += $row['max'];
+                }
+                if ($row['TE'] !== null) {
+                    $total_TE += $row['TE'];
+                    $max_TE += $row['max'];
+                }
+                if ($row['TR'] !== null) {
+                    $total_TR += $row['TR'];
+                    $max_TR += $row['max'];
+                }
 
                 $pdf->ln();
                 $pdf->SetX(40);
                 $pdf->Cell(30, 7, $row['subject'], 1);
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+
+                if (!is_null($row['ASS']))
+                    $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                ELSE
+                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
+                if (!is_null($row['TE']))
+                    $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                ELSE
+                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
+                if (!is_null($row['TR']))
+                    $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                ELSE
+                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 
@@ -175,36 +199,69 @@ group by subjects.id; ";
                 } else {
                     $total_max += $row['max'];
                     $total_min += $row['min'];
-                    $total_ASS += $row['ASS'];
-                    $total_TE += $row['TE'];
-                    $total_TR += $row['TR'];
+                    if ($row['ASS'] !== null) {
+                        $total_ASS += $row['ASS'];
+                        $max_ASS += $row['max'];
+                    }
+                    if ($row['TE'] !== null) {
+                        $total_TE += $row['TE'];
+                        $max_TE += $row['max'];
+                    }
+                    if ($row['TR'] !== null) {
+                        $total_TR += $row['TR'];
+                        $max_TR += $row['max'];
+                    }
                     $pdf->ln();
                     $pdf->SetX(40);
                     $pdf->Cell(30, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
-                    $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                    $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                    $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                    if (!is_null($row['ASS']))
+                        $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                    ELSE
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
+                    if (!is_null($row['TE']))
+                        $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                    ELSE
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
+                    if (!is_null($row['TR']))
+                        $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                    ELSE
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
                 }
 
             }
         }
+
+        $ratio_ASS = round((($total_max * $total_ASS) / $max_ASS), 0, PHP_ROUND_HALF_UP,);
+        $ratio_TE = round((($total_max * $total_TE) / $max_TE), 0, PHP_ROUND_HALF_UP,);
+        $ratio_TR = round((($total_max * $total_TR) / $max_TR), 0, PHP_ROUND_HALF_UP,);
+
+
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(30, 7, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 7, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 7, $total_min, 1, 0, 'C');
-        $pdf->Cell(20, 7, $total_ASS, 1, 0, 'C');
-        $pdf->Cell(20, 7, $total_TE, 1, 0, 'C');
-        $pdf->Cell(20, 7, $total_TR, 1, 0, 'C');
+
+        if ($grade === 'GR11' || $grade === 'GR12') {
+            $pdf->Cell(20, 7, $total_ASS . ' / ' . $ratio_ASS, 1, 0, 'C');
+            $pdf->Cell(20, 7, $total_TE . ' / ' . $ratio_TE, 1, 0, 'C');
+            $pdf->Cell(20, 7, $total_TR . ' / ' . $ratio_TR, 1, 0, 'C');
+        } else {
+            $pdf->Cell(20, 7, $total_ASS , 1, 0, 'C');
+            $pdf->Cell(20, 7, $total_TE , 1, 0, 'C');
+            $pdf->Cell(20, 7, $total_TR , 1, 0, 'C');
+        }
         if ($grade === 'GR 9'
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
             $pdf->SetFont('times', '', 10);
             $pdf->ln();
             $pdf->SetX(40);
-            $pdf->Cell(30, 1, '' , 'LTB');
+            $pdf->Cell(30, 1, '', 'LTB');
             $pdf->Cell(20, 1, '', 'TB', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
@@ -233,9 +290,10 @@ group by subjects.id; ";
                 $term_name = 'Term Unknown';
         }
 
-        $pdf->ln();
+
+        $pdf->ln(15);
         $pdf->SetFont('times', '', 10);
-        $pdf->SetXY(40, 220);
+        $pdf->SetX(40);
         $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
         $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
         $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
