@@ -43,7 +43,7 @@ if (isset($_POST['studentSubmit'])) {
             $this->Ln(10);
             switch ($term) {
                 case 'Term 1':
-                    $term_name = 'Second Term';
+                    $term_name = 'First Term';
                     break;
                 case 'Term 2':
                     $term_name = 'Second Term';
@@ -282,7 +282,7 @@ group by subjects.id; ";
         }
         switch ($term) {
             case 'Term 1':
-                $term_name = '2nd Term';
+                $term_name = '1st Term';
                 break;
             case 'Term 2':
                 $term_name = '2nd Term';
