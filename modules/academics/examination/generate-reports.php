@@ -344,88 +344,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 </div>
 </body>
 
-<!--                    report card modal               -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="reportCardModal"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reportCardModalTitle">Student Evaluation Report</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span
-                </button>
-            </div>
 
-            <div class="modal-body hide-scroll" id="reportCardModalBody"
-                 style="max-height: calc(100vh - 210px);overflow-y:scroll">
-                <div class="text-center student-report-card-header">
-                    <img id="alsanwabarLogoReportCard" alt="Al Sanawbar School"
-                         src="/assets/images/sanawbar-logo.jpeg"
-                         width="80" height="80"/>
-                    <h4 class="pt-lg-2"><strong>AL SANAWBAR SCHOOL</strong></h4>
-                    <h6 class="pt-lg-1"><strong>AL AIN - U.A.E</strong></h6>
-                    <h6 class="pt-lg-1">
-                        <small>STUDENT EVALUATION REPORT</small>
-                    </h6>
-                    <hr>
-                </div>
-                <div class="text-center student-report-card-header ">
-                    <h6 class="pt-lg-2"><strong>Academic Year: 2019-2020</strong></h6>
-                    <h6 class="pt-lg-1"><strong id="reportCardModalStudentTerm">SECOND TERM</strong></h6>
-                    <hr class="header-line-thick" width="200"/>
-                </div>
-                <div class="row">
-                    <table style="min-width: 100%" class="report-card-student-details">
-                        <tr>
-                            <td align="right">
-                                Student's Name :
-
-                            </td>
-                            <td id="reportCardModalStudentName" class=" ">
-                                Select student name
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" width="150">
-                                Grade :
-                            </td>
-                            <td id="reportCardModalStudentGrade">
-                                Select grade
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">
-                                Section :
-                            </td>
-                            <td id="reportCardModalStudentSection">
-                                Select section
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="main-card mb-3 card">
-                    <div class="card-body" id="reportCardModalResult">
-                    </div>
-                </div>
-                <div class="result-footer text-lg-right">Date: <?php echo date('d-m-'); ?></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"
-                        onclick="printJS({printable: 'reportCardModalBody', type: 'html', showModal: true, css: '/css/print_report_card.css'});">
-                    Print
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--                    end report card modal           -->
 
 </html>
 
 <script type="text/javascript" src="/assets/scripts/main.js"></script>
-<script> document.getElementById('li_reports').classList.add("mm-active")</script>
-<script> document.getElementById('side_bar_report_card').classList.add("mm-active")</script>
+<script> document.getElementById('liExamination').classList.add("mm-active")</script>
+<script> document.getElementById('liExamination_ReportCard').classList.add("mm-active")</script>
 <script type="text/javascript" src="/js/exam-center.js"></script>
 <script> document.title = "Reports - InDepth";</script>

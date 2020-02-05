@@ -41,18 +41,33 @@
                         Home
                     </a>
                 </li>
-                <li class="app-sidebar__heading ">EXAMINATION</li>
-                <li id="li_reports">
+                <li class="app-sidebar__heading ">ACADEMICS</li>
+                <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
-                        REPORTS
+                        EXAMINATION
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
                         <li>
-                            <a id="side_bar_report_card" href="/exam-center/reports/generate-reports.php">
+                            <a id="liExamination_ReportCard" href="/modules/academics/examination/generate-reports.php">
                                 <i class="metismenu-icon"></i>
                                 Evaluation Reports
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li id="liAssignment">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-note"></i>
+                        ASSIGNMENTS
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="liAssignment_studentAssignment" href="/modules/academics/assignment/student_assignment.php">
+                                <i class="metismenu-icon"></i>
+                                My Assignments
                             </a>
                         </li>
                     </ul>
@@ -71,9 +86,9 @@
                         </i>WPS
                     </a>
                 </li>
-                <li class="app-sidebar__heading">HR</li>
+                <li hidden class="app-sidebar__heading" >HR</li>
                 <li>
-                    <a href="https://certs.alsanawbar.school/index.php">
+                    <a hidden href="https://certs.alsanawbar.school/index.php">
                         <i class="metismenu-icon pe-7s-ribbon">
                         </i>Certificates
                     </a>
