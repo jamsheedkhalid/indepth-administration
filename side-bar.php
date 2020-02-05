@@ -34,11 +34,17 @@
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
-                <li hidden class="app-sidebar__heading">Dashboards</li>
-                <li hidden >
+                <li  class="app-sidebar__heading">Dashboards</li>
+                <li  >
                     <a id="side_bar_home" href="/main.php">
                         <i class="metismenu-icon pe-7s-home"></i>
                         Home
+                    </a>
+                </li>
+                <li>
+                    <a id="home_parent" href="/parent-home.php">
+                        <i class="metismenu-icon pe-7s-home"></i>
+                      Parent Home
                     </a>
                 </li>
                 <li class="app-sidebar__heading ">ACADEMICS</li>

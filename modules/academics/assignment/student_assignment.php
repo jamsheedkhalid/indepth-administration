@@ -43,26 +43,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
             <ul id='studentListAssignment' class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
 
             </ul>
-            <div class="tab-content">
-
-                <!-- ----------------------------------------------------------------------------------->
-                <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-
-                    <div>
-
-                        <div class="col-md">
-                            <div class="main-card mb-3 card">
-                                <div id='studentAssignment1'  class="card-body">
+            <div class="tab-content"  id='studentAssignment1'>
 
 
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
 
 
             </div>
