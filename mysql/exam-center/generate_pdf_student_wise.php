@@ -15,6 +15,8 @@ if (isset($_POST['studentSubmit'])) {
     $ass_percent = $_REQUEST['studentAssessment'];
     $term_percent = $_REQUEST['studentTerm'];
     $total_percent = $ass_percent + $term_percent;
+    $is_non_islamic = 0;
+    $term_name ='';
 
 
     class PDF extends FPDF
@@ -147,6 +149,7 @@ group by subjects.id; ";
 
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
         $max_ASS = $max_TE = $max_TR = 0;
+        $ratio_TR = $ratio_TE = $ratio_ASS = 0;
         while ($row = mysqli_fetch_array($result)) {
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
                 $total_max += $row['max'];
@@ -170,6 +173,16 @@ group by subjects.id; ";
                 $pdf->Cell(30, 7, $row['subject'], 1);
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+
+
+//                check non islamic
+                                if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
+                                {
+                                   $is_non_islamic = 1;
+                                }
+
+//                end check non islamic
+
 
                 if (!is_null($row['ASS']))
                     $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
@@ -211,11 +224,23 @@ group by subjects.id; ";
                         $total_TR += $row['TR'];
                         $max_TR += $row['max'];
                     }
+
+
+
+
                     $pdf->ln();
                     $pdf->SetX(40);
                     $pdf->Cell(30, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+
+                    //                check non islamic
+                    if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
+                    {
+                        $is_non_islamic = 1;
+                    }
+
+//                end check non islamic
                     if (!is_null($row['ASS']))
                         $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
                     ELSE
@@ -242,7 +267,7 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 7, $total_min, 1, 0, 'C');
 
-        if ($grade === 'GR11' || $grade === 'GR12') {
+        if ($grade === 'GR11' || $grade === 'GR12' || $is_non_islamic === 1) {
 
 
             if($max_ASS !== 0 )
@@ -314,7 +339,7 @@ group by subjects.id; ";
 
 
     }
-    $pdf->Output('I', $grade . '-' . $section . '-' . $term_name . ' ' . 'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $section . '-' .$term_name.' '. 'report-card.pdf', true);
     $pdf->Close();
 
 }
