@@ -27,21 +27,38 @@ function login()
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $_SESSION['login'] = 1;
+            $_SESSION['user_type'] = 'teacher';
             header('Location: /../modules/academics/examination/generate-reports.php');
         } else {
             $sql = "SELECT
             *
-            FROM users WHERE id='$user' AND ( username = 'James' OR username = 'admin' OR username = 'Hesham' OR username = 'p539933') ";
+            FROM users WHERE id='$user' AND ( username = 'James' OR username = 'admin' OR username = 'Hesham' ) ";
 //        echo $sql;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $_SESSION['login'] = 1;
-                header('Location:  /modules/academics/examination/generate-reports.php');
+                $_SESSION['user_type'] = 'admin';
+                header('Location:  /main.php');
             } else {
-                $_SESSION['noaccess'] = 1;
-                header('Location: /index.php');
+              $sql = " SELECT * from guardians where guardians.user_id ='$user'; ";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    $_SESSION['login'] = 1;
+                    $_SESSION['user_type'] = 'parent';
+                    header('Location:  /parent-home.php');
+                }
+                else {
+                    $_SESSION['noaccess'] = 1;
+                    header('Location: /index.php');
+                }
+
             }
         }
+
+
+
+
+
     }
 
 

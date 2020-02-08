@@ -1,7 +1,9 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
-checkLoggedIn()
+checkLoggedIn();
+if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin' )
+{
 ?>
 
 <!doctype html>
@@ -132,3 +134,4 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 <script type="text/javascript" src="/js/assignment.js"></script>
 
 <script> document.title = "Reports - InDepth";</script>
+<?php }?>

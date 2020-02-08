@@ -33,21 +33,29 @@
     </div>
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
-            <ul class="vertical-nav-menu">
+            <ul  class="vertical-nav-menu">
                 <li  class="app-sidebar__heading">Dashboards</li>
-                <li  >
+
+                <?php if($_SESSION['user_type'] === 'admin'){?>
+                <li>
                     <a id="side_bar_home" href="/main.php">
                         <i class="metismenu-icon pe-7s-home"></i>
                         Home
                     </a>
                 </li>
+                <?php } if($_SESSION['user_type'] === 'parent'){?>
+
+
                 <li>
                     <a id="home_parent" href="/parent-home.php">
                         <i class="metismenu-icon pe-7s-home"></i>
-                      Parent Home
+                       Home
                     </a>
                 </li>
+                <?php }?>
+
                 <li class="app-sidebar__heading ">ACADEMICS</li>
+                <?php  if($_SESSION['user_type'] === 'teacher'){?>
                 <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
@@ -63,6 +71,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php } if($_SESSION['user_type'] === 'parent'){?>
                 <li id="liAssignment">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-note"></i>
@@ -78,6 +87,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php } ?>
 
                 <li hidden class="app-sidebar__heading">FINANCE</li>
                 <li hidden >

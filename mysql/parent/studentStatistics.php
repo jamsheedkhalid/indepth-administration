@@ -78,7 +78,7 @@ order by duedate desc ";
         } else {
             echo '<div> No Assignments Due</div> ';
         }
-        echo '<a style="float: left; bottom: 0px; color: silver" href="/modules/academics/assignment/student_assignment.php/#tab-content-'.$tabIndex.'"><small>View More</small></a> ';
+        echo '<a style="float: left; bottom: 0px; color: silver" href="/modules/academics/assignment/student_assignment.php/"><small>View All</small></a> ';
         $tabIndex++;
         echo ' </div>
                                 <div class="widget-content-right">

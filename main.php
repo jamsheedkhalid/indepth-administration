@@ -1,7 +1,11 @@
+
+
 <?php
 include($_SERVER['DOCUMENT_ROOT'].'/config/database.php');
 include_once ($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
-checkLoggedIn()
+checkLoggedIn();
+ if($_SESSION['user_type'] === 'admin')
+ {
 ?>
 
 
@@ -698,3 +702,6 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
 <script> document.title = "InDepth Administration";</script>
 </body>
 </html>
+<?php }
+
+    ?>
