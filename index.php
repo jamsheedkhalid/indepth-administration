@@ -14,6 +14,7 @@ if (isset($_SESSION['login'])) {
         header('Location: modules/academics/examination/generate-reports.php');
     }
 }
+else {
 ?>
 
 
@@ -256,3 +257,4 @@ if (isset($_SESSION['login'])) {
 
 </body>
 </html>
+<?php } ?>
