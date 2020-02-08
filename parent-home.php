@@ -81,7 +81,13 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
 <!--                    </div>    </div>-->
             </div>
                 <div style="margin-top: 10px" class="row" id="student_statistics">
-                <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+
+
+
+
+
+
+                <div hidden class="d-xl-none d-lg-block col-md-6 col-xl-4">
                     <div class="card mb-3 widget-content bg-premium-dark">
                         <div class="widget-content-wrapper text-white">
                             <div class="widget-content-left">
@@ -95,7 +101,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div hidden class="row">
                 <div class="col-md-12 col-lg-6">
                     <div class="mb-3 card">
                         <div class="card-header-tab card-header-tab-animation card-header">
@@ -353,7 +359,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div hidden class="row">
                 <div class="col-md-6 col-xl-4">
                     <div class="card mb-3 widget-content">
                         <div class="widget-content-outer">
@@ -424,7 +430,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div hidden class="row">
                 <div class="col-md-12">
                     <div class="main-card mb-3 card">
                         <div class="card-header">Active Users
@@ -556,7 +562,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div hidden class="row">
                 <div class="col-md-6 col-lg-3">
                     <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
                         <div class="widget-content">

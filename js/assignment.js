@@ -1,6 +1,6 @@
 // noinspection JSValidateTypes
 window.onload = loadStudents("studentListAssignment");
-window.onload = filAssignments("studentAssignment1");
+window.onload = fillAssignments("studentAssignment1","all","");
 
 
 function loadStudents(div) {
@@ -15,14 +15,14 @@ function loadStudents(div) {
 
 }
 
-function filAssignments(div) {
+function fillAssignments(div,type,date) {
     let httpStudent = new XMLHttpRequest();
     httpStudent.onreadystatechange = function () {
         if (this.readyState === 4) {
             document.getElementById(div).innerHTML = this.responseText;
         }
     };
-    httpStudent.open("GET", "/mysql/assignment/fillAssignment.php", false);
+    httpStudent.open("GET", "/mysql/assignment/fillAssignment.php?date=" + date + "&type=" + type, false);
     httpStudent.send();
 
 }
