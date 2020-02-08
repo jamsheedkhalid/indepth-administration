@@ -4,13 +4,13 @@ session_start();
 date_default_timezone_set('Asia/Dubai');
 
 if (isset($_SESSION['login'])) {
-    if(S_SESSION['user_type'] === 'admin') {
+    if($_SESSION['user_type'] === 'admin') {
         header('Location: main.php');
     }
-    else if(S_SESSION['user_type'] === 'parent') {
+    else if($_SESSION['user_type'] === 'parent') {
         header('Location: parent-home.php');
     }
-    else if(S_SESSION['user_type'] === 'teacher') {
+    else if($_SESSION['user_type'] === 'teacher') {
         header('Location: modules/academics/examination/generate-reports.php');
     }
 }
