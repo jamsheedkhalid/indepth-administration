@@ -81,7 +81,7 @@ order by duedate desc ";
         echo '<a style="float: left; bottom: 0px; color: silver" href="/modules/academics/assignment/student_assignment.php"><small>View All</small></a> ';
         $tabIndex++;
         echo ' </div>
-                                <div class="widget-content-right">
+                                <div hidden class="widget-content-right">
                                     <div align="right" class="widget-subheading">Score</div>
                                     <div align="right" class="widget-numbers text-white"><span>10</span></div>
                                 </div>
