@@ -357,4 +357,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 <script> document.title = "Reports - InDepth";</script>
 
 <?php }
-    ?>
+else {
+    header('Location: no-access/index.html');
+}
+
+?>

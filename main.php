@@ -703,5 +703,8 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
 </body>
 </html>
 <?php }
+ else {
+     header('Location: no-access/index.html');
+ }
 
     ?>

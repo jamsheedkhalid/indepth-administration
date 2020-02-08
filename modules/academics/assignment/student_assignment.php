@@ -134,4 +134,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 <script type="text/javascript" src="/js/assignment.js"></script>
 
 <script> document.title = "Reports - InDepth";</script>
-<?php }?>
+<?php }
+else {
+    header('Location: no-access/index.html');
+}
+
+?>
