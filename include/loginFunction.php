@@ -21,7 +21,7 @@ function login()
             ON
             A.user_id = B.user_id
             WHERE
-            A.privilege_id = 26 AND A.user_id='$user'";
+            A.privilege_id = 1 AND A.user_id='$user'";
 
 //        echo $sql;
         $result = $conn->query($sql);
@@ -40,23 +40,19 @@ function login()
                 $_SESSION['user_type'] = 'admin';
                 header('Location:  /main.php');
             } else {
-              $sql = " SELECT * from guardians where guardians.user_id ='$user'; ";
+                $sql = " SELECT * from guardians where guardians.user_id ='$user'; ";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $_SESSION['login'] = 1;
                     $_SESSION['user_type'] = 'parent';
                     header('Location:  /parent-home.php');
-                }
-                else {
+                } else {
                     $_SESSION['noaccess'] = 1;
                     header('Location: /index.php');
                 }
 
             }
         }
-
-
-
 
 
     }
