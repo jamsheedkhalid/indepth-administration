@@ -10,7 +10,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $i = 0;
     while ($row = mysqli_fetch_array($result)) {
-        $sql = " select id, first_name, last_name from students where familyid = '$row[familyid]' ";
+        $sql = " select students.id id, first_name, last_name, batches.name section, course_name grade from students 
+                inner join batches on students.batch_id = batches.id
+                inner join courses on batches. course_id = courses.id where familyid = '$row[familyid]' ";
         $student = $conn->query($sql);
         if ($student->num_rows > 0) {
             while ($row_student = mysqli_fetch_array($student)) {
@@ -45,13 +47,15 @@ if ($result->num_rows > 0) {
                         <div class="col-md">
                             <div class="main-card mb-3 card">
                                 <div  class="card-body">
-                        <h6 ><b>' . $row_student['last_name'] . '</b></h6>
-';
+                                <div class="align-content-around">
+                        <a  ><b>' . $row_student['last_name'] . '</b></a>
+                        <a style="float: right" ><b>' .$row_student['grade']. ' '.$row_student['section']. '</b></a>
+</div>';
                 $i++;
                 if ($result_assignment->num_rows > 0) {
                     echo ' 
- 
-                    <table class="mb-0 table table-striped table-hover table-bordered">';
+ <div class="table-responsive">
+                    <table class="mb-0 table table-striped table-hover table-bordered mb-0 table">';
                     echo '<thead>
                     <tr>
                     <th>Subject</th>
@@ -73,7 +77,7 @@ if ($result->num_rows > 0) {
                            <td>' . $row_assignment['employee'] . '</td>
                         </tr> ';
                     }
-                    echo '</table>  <br><br>';
+                    echo '</table></div>  <br><br>';
                 } else {
                     if ($type === 'all') {
                         echo 'No Assignments Found!';

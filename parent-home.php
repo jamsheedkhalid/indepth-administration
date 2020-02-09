@@ -80,6 +80,21 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
 <!--                        </div>-->
 <!--                    </div>    </div>-->
             </div>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">MY CHILDREN
+                                <div class="btn-actions-pane-right">
+
+                                </div>
+                            </div>
+                            <div id="parent_studentsInfo_table" class="table-responsive">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div style="margin-top: 10px" class="row" id="student_statistics">
 
 

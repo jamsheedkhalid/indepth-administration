@@ -17,8 +17,8 @@ if ($result->num_rows > 0) {
             $i=0;
             while ($row_student = mysqli_fetch_array($student)) {
                 echo '                <li class="nav-item">
-                    <a role="tab" title="'.$row_student['last_name'].'" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-'.$i.'">
-                        <span>' . $row_student['first_name'] . '</span>
+                    <a role="tab" title="'.$row_student['first_name'].'" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-'.$i.'">
+                        <span>' . $row_student['last_name'] . '</span>
                     </a>
                 </li>';
                 $i++;

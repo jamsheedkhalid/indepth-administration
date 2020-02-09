@@ -4,7 +4,7 @@ session_start();
 
 $sql = " select students.last_name student, students.id id from guardians
 inner join students on guardians.familyid = students.familyid
-where guardians.user_id = '$_SESSION[user]'; ";
+where guardians.user_id = '$_SESSION[user]' order by students.last_name asc";
 
 //echo $sql;
 $result = $conn->query($sql);
@@ -36,9 +36,9 @@ order by duedate desc ";
 
 
         echo '
-                    <div class="col-md-6 col-xl-4">
+                    <div class="col-md-8 col-xl-4">
                         <div class="card mb-3 widget-content bg-midnight-bloom">
-                            <div class="widget-content-wrapper text-white">
+                            <div class=" text-white">
                                 <div class="widget-content-left">
                                     <div class="widget-heading">' . ucwords($student[0]) . '</div>
                                     <div class="widget-subheading"><a  >Todays\' Assignment</a></div>';
@@ -81,10 +81,7 @@ order by duedate desc ";
         echo '<a style="float: left; bottom: 0px; color: silver" href="/modules/academics/assignment/student_assignment.php"><small>View All</small></a> ';
         $tabIndex++;
         echo ' </div>
-                                <div hidden class="widget-content-right">
-                                    <div align="right" class="widget-subheading">Score</div>
-                                    <div align="right" class="widget-numbers text-white"><span>10</span></div>
-                                </div>
+
 
                             </div>
                         </div>
