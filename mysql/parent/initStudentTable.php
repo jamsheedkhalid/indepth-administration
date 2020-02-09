@@ -26,14 +26,14 @@ if ($result->num_rows > 0) {
                                         <th class="text-center">ID</th>
                                         <th>Name</th>
                                         <th class="text-lg-left">Grade</th>
-                                        <th class="text-center">Fee Status</th>
+                                        <th class="text-center">Fees Due</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>                        
     <tbody>';
             while ($row1 = mysqli_fetch_array($result1)) {
 
-                $fee_balance = " Select sum(balance) balance from finance_fees where student_id = '$row1[id]' ";
+                $fee_balance = " Select round(sum(balance),2) balance from finance_fees where student_id = '$row1[id]' ";
                 $result_fee = $conn->query($fee_balance);
                 if ($result_fee->num_rows > 0) {
                     while ($row_fee = mysqli_fetch_array($result_fee)) {
