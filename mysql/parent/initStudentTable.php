@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
     <tbody>';
             while ($row1 = mysqli_fetch_array($result1)) {
 
-                $fee_balance = " Select round(sum(balance),2) balance from finance_fees where student_id = '$row1[id]' ";
+                $fee_balance = " Select CAST(sum(balance) as DECIMAL (9,2)) balance from finance_fees where student_id = '$row1[id]' ";
                 $result_fee = $conn->query($fee_balance);
                 if ($result_fee->num_rows > 0) {
                     while ($row_fee = mysqli_fetch_array($result_fee)) {
@@ -55,10 +55,10 @@ if ($result->num_rows > 0) {
                                         <td class="text-lg-left">' . $row1['grade'] . '-' . $row1['section'] . '</td>
                                         <td class="text-center">
                                         ';
-                        if($row_fee['balance'] !== 0.00) {
+                        if($row_fee['balance'] !== '0.00') {
                             echo '   <a class="badge badge-warning">' . $row_fee['balance'] . '</a>';
                         }
-                        else if ($row_fee['balance'] === 0.00) {
+                        else if ($row_fee['balance'] === '0.00') {
                             echo '   <div class="badge badge-success"> PAID </div>';
                         }
 
