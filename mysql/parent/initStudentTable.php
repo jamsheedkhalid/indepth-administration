@@ -14,13 +14,10 @@ if ($result->num_rows > 0) {
        students.first_name first_name, 
        admission_no, 
        course_name grade, 
-       batches.name section,
-       employees.first_name tutor
+       batches.name section
         from students 
         inner join batches on students.batch_id = batches.id
         inner join courses on courses.id = batches.course_id  
-        inner join batch_tutors on students.batch_id = batch_tutors.batch_id
-        inner join employees on batch_tutors.employee_id = employees.id
         where familyid = '$row[familyid]'
         order by last_name  ";
 //        echo $student_sql;
@@ -34,7 +31,6 @@ if ($result->num_rows > 0) {
                                         <th class="text-center">ID</th>
                                         <th>Name</th>
                                         <th class="text-lg-left">Grade</th>
-                                        <th class="text-lg-left">Class Teacher</th>
                                         <th class="text-center">Fees Due</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -62,7 +58,6 @@ if ($result->num_rows > 0) {
                                             </div>
                                         </td>
                                         <td class="text-lg-left">' . $row1['grade'] . '-' . $row1['section'] . '</td>
-                                        <td class="text-left ">' . $row1['tutor'] . '</td>
                                       
                                         <td class="text-center">
                                         ';

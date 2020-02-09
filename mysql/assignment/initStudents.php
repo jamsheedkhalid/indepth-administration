@@ -10,7 +10,7 @@ if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
 //        echo $row['familyid'];
 
-        $sql = " select id,first_name, last_name from students where familyid = '$row[familyid]' ";
+        $sql = " select id,first_name, last_name from students where familyid = '$row[familyid]' order by students.last_name ";
 //        echo $sql;
         $student = $conn->query($sql);
         if ($student->num_rows > 0) {

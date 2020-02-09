@@ -12,7 +12,7 @@ if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
         $sql = " select students.id id, first_name, last_name, batches.name section, course_name grade from students 
                 inner join batches on students.batch_id = batches.id
-                inner join courses on batches. course_id = courses.id where familyid = '$row[familyid]' ";
+                inner join courses on batches. course_id = courses.id where familyid = '$row[familyid]' order by students.last_name ";
         $student = $conn->query($sql);
         if ($student->num_rows > 0) {
             while ($row_student = mysqli_fetch_array($student)) {
