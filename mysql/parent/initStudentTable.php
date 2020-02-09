@@ -58,7 +58,7 @@ if ($result->num_rows > 0) {
                         if($row_fee['balance'] !== 0.00) {
                             echo '   <a class="badge badge-warning">' . $row_fee['balance'] . '</a>';
                         }
-                        else if ($row_fee['balance'] === 0) {
+                        else if ($row_fee['balance'] === 0.00) {
                             echo '   <div class="badge badge-success"> PAID </div>';
                         }
 
