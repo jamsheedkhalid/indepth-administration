@@ -334,7 +334,7 @@ if ($_SESSION['user_type'] === 'admin') {
     <script> document.title = "HR - InDepth";</script>
 
 <?php } else {
-    header('Location: no-access/index.html');
+    header('Location: /no-access/index.html');
 }
 
 ?>
