@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
                                         <th class="text-center">ID</th>
                                         <th>Name</th>
                                         <th class="text-lg-left">Grade</th>
-                                        <th class="text-center">Fees Due</th>
+                                        <th class="text-center">Outstanding Fees</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>                        

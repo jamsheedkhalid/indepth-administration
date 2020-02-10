@@ -55,7 +55,7 @@
                 <?php }?>
 
                 <li class="app-sidebar__heading ">ACADEMICS</li>
-                <?php  if($_SESSION['user_type'] === 'teacher'){?>
+                <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin'){?>
                 <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
@@ -71,7 +71,7 @@
                         </li>
                     </ul>
                 </li>
-                <?php } if($_SESSION['user_type'] === 'parent'){?>
+                <?php } if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
                 <li id="liAssignment">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-note"></i>
@@ -102,16 +102,25 @@
                         </i>WPS
                     </a>
                 </li>
-                <li hidden class="app-sidebar__heading" >HR</li>
-                <li>
-                    <a hidden href="https://certs.alsanawbar.school/index.php">
-                        <i class="metismenu-icon pe-7s-ribbon">
-                        </i>Certificates
+                <li hidden id="" class="app-sidebar__heading" >HR</li>
+                <li hidden id="liHR">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-ribbon"></i>
+                        CERTIFICATES
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
+                    <ul>
+                        <li >
+                            <a id="liHR_Certificate" href="/modules/hr/certificate/employee-certificate.php" >
+                                <i class="metismenu-icon"></i>
+                                Employee Certificates
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
-
             </ul>
+
         </div>
     </div>
 </div>

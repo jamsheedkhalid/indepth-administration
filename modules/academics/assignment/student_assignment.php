@@ -133,7 +133,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 <script> document.getElementById('liAssignment_studentAssignment').classList.add("mm-active")</script>
 <script type="text/javascript" src="/js/assignment.js"></script>
 
-<script> document.title = "Reports - InDepth";</script>
+<script> document.title = "Assignments - InDepth";</script>
 <?php }
 else {
     header('Location: no-access/index.html');
