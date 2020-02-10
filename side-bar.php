@@ -102,8 +102,8 @@
                         </i>WPS
                     </a>
                 </li>
-                <li hidden id="" class="app-sidebar__heading" >HR</li>
-                <li hidden id="liHR">
+                <li  id="" class="app-sidebar__heading" >HR</li>
+                <li  id="liHR">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-ribbon"></i>
                         CERTIFICATES
