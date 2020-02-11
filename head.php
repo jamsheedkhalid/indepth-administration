@@ -16,6 +16,7 @@
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="  https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
     <script type="text/javascript" src="/js/main.js"></script>
 
 </head>

@@ -124,23 +124,48 @@ if ($_SESSION['user_type'] === 'admin') {
                                                 <div class="row">
                                                     <div class="position-relative form-group col-sm"><label
                                                                 for="coe_toAddress">To</label>
-                                                        <input required
-                                                                name="coe_toAddress" autocapitalize="on" type="text"
-                                                                id="coe_toAddress" class="form-control-sm form-control"
-                                                                placeholder="To Address" >
+                                                        <input required value="Whom It May Concern"
+                                                               name="coe_toAddress" autocapitalize="on" type="text"
+                                                               id="coe_toAddress" class="form-control-sm form-control"
+                                                               placeholder="To Address">
 
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="position-relative form-group col-sm"><label
-                                                                for="coe_name">Employee</label>
-                                                        <input onfocusin="employeeArray(this.value,'coe_name')"
-                                                               onchange="fillEmployeeDetails('coe_')"
-                                                                name="coe_name" type="text" list="coe_display"
-                                                                id="coe_name" class="form-control-sm form-control"
-                                                                placeholder="Name" required>
+                                                    <div class="position-relative form-group col-sm-4"><label
+                                                                for="coe_id">ID</label>
+                                                        <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
+                                                        <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
+                                                        <input
+                                                                name="coe_id" type="text" onchange="fillEmployeeDetails();"
+                                                                id="coe_id" class="form-control-sm form-control"
+                                                                placeholder="ID" required >
+                                                        <input
+                                                                name="coe_ms"  id="coe_ms" type="text" hidden >
+                                                        <div>
+
+                                                        </div>
 
                                                     </div>
+                                                    <div class="position-relative form-group col-sm"><label
+                                                                for="coe_name">Employee</label>
+                                                        <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
+                                                        <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
+                                                        <input
+                                                                name="coe_name" type="text" onchange="fillEmployeeDetails();"
+                                                                id="coe_name" class="form-control-sm form-control"
+                                                                placeholder="Name" required>
+                                                        <div>
+
+                                                        </div>
+
+                                                    </div>  </div>
+                                                    <div class="row"
+
+                                                <datalist class="list-inline"
+                                                          style="max-height: 200px; overflow-y: scroll"
+                                                          id="coe_display"></datalist>
+
                                                 </div>
                                                 <div class="row">
 
@@ -148,18 +173,18 @@ if ($_SESSION['user_type'] === 'admin') {
                                                         <label
                                                                 for="coe_passport">Passport/EID</label>
                                                         <input required
-                                                                name="coe_passport"
-                                                                id="coe_passport" class="form-control-sm form-control"
-                                                                placeholder="Passport Number">
+                                                               name="coe_passport"
+                                                               id="coe_passport" class="form-control-sm form-control"
+                                                               placeholder="Passport Number">
 
                                                     </div>
                                                     <div class="position-relative form-group col-sm">
                                                         <label
                                                                 for="coe_nationality">Nationality</label>
                                                         <input required
-                                                                name="coe_nationality"
-                                                                id="coe_nationality" class="form-control-sm form-control"
-                                                                placeholder="Nationality">
+                                                               name="coe_nationality"
+                                                               id="coe_nationality" class="form-control-sm form-control"
+                                                               placeholder="Nationality">
 
                                                     </div>
                                                 </div>
@@ -167,18 +192,18 @@ if ($_SESSION['user_type'] === 'admin') {
                                                     <div class="position-relative form-group col-sm"><label
                                                                 for="coe_jobTitle">Designation</label>
                                                         <input required
-                                                                name="coe_jobTitle"
-                                                                id="coe_jobTitle" class="form-control-sm form-control"
-                                                                placeholder="Job Title">
+                                                               name="coe_jobTitle"
+                                                               id="coe_jobTitle" class="form-control-sm form-control"
+                                                               placeholder="Job Title">
 
                                                     </div>
                                                     <div class="position-relative form-group col-sm">
                                                         <label
                                                                 for="coe_joinDate">Joining Date</label>
                                                         <input required
-                                                                name="coe_joinDate"
-                                                                id="coe_joinDate" class="form-control-sm form-control"
-                                                                placeholder="Date of Joining">
+                                                               name="coe_joinDate"
+                                                               id="coe_joinDate" class="form-control-sm form-control"
+                                                               placeholder="Date of Joining">
 
                                                     </div>
                                                 </div>

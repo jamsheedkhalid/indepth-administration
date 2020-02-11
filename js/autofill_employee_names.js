@@ -1,128 +1,81 @@
-function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
-    var currentFocus;
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function (e) {
-        var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
-        closeAllLists();
-        if (!val) {
-            return false;
-        }
-        currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
-        /*for each item in the array...*/
-        for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                /*create a DIV element for each matching element:*/
-                b = document.createElement("DIV");
-                /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
-                /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input autofocus type='hidden' value='" + arr[i] + "'>";
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function (e) {
-                    /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:*/
-                    closeAllLists();
-                });
-                a.appendChild(b);
-            }
-        }
-    });
-    /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function (e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-        } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-        } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-                /*and simulate a click on the "active" item:*/
-                if (x) x[currentFocus].click();
-            }
-        }
-    });
+//Getting value from "ajax.php".
+function fill(Name,ID) {
+    //Assigning value to "employeeName" div in "employeeName.php" file.
+    $('#coe_name').val(Name);
+    $('#coe_id').val(ID);
+    //Hiding "display" div in "employeeName.php" file.
+    $('#coe_display').hide();
 
-    function addActive(x) {
-        /*a function to classify an item as "active":*/
-        if (!x) return false;
-        /*start by removing the "active" class on all items:*/
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
-    }
-
-    function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
-        for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
-        }
-    }
-
-    function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
-                x[i].parentNode.removeChild(x[i]);
-            }
-        }
-    }
-
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
+    // $('#coe_display_id').hide();
 }
-
-/*An array containing all the country names in the world:*/
-
-let employee;
-let countries;
-
-function employeeArray(emp,div) {
-    let httpEmp = new XMLHttpRequest();
-    httpEmp.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            employee = this.responseText;
+$(document).ready(function() {
+    //On pressing a key on "Search box" in "employeeName.php" file. This function will be called.
+    $("#coe_name").keyup(function () {
+        //Assigning employeeName box value to javascript variable named as "name".
+        var name = $('#coe_name').val();
+        //Validating, if "name" is empty.
+        if (name == "") {
+            //Assigning empty value to "display" div in "employeeName.php" file.
+            $("#coe_display").html("");
         }
-    };
-    httpEmp.open("GET", "/mysql/hr/certificate/coe_employeeSearch.php?emp=" + emp, false);
-    httpEmp.send();
+        //If name is not empty.
+        else {
+            //AJAX is called.
+            $.ajax({
+                //AJAX type is "Post".
+                type: "POST",
+                //Data will be sent to "ajax.php".
+                url: "/mysql/hr/certificate/employeeSearch.php",
+                //Data, that will be sent to "ajax.php".
+                data: {
+                    //Assigning value of "name" into "employeeName" variable.
+                    name: name
+                },
 
-    countries = employee.split(',');
-    // alert(countries);
+                //If result found, this funtion will be called.
+                success: function (html) {
+                    //Assigning result to "display" div in "employeeName.php" file.
+                    $("#coe_display").html(html).show();
+                }
+            });
+        }
+    });
 
-// countries = ["sikender", 'rahman'];
 
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-    autocomplete(document.getElementById(div), countries);
 
-}
 
+
+    // employee name search with id
+    $("#coe_id").keyup(function () {
+        //Assigning employeeName box value to javascript variable named as "name".
+        var id = $('#coe_id').val();
+        //Validating, if "name" is empty.
+        if (id == "") {
+            //Assigning empty value to "display" div in "employeeName.php" file.
+            $("#coe_display").html("");
+        }
+        //If name is not empty.
+        else {
+            //AJAX is called.
+            $.ajax({
+                //AJAX type is "Post".
+                type: "POST",
+                //Data will be sent to "ajax.php".
+                url: "/mysql/hr/certificate/employeeSearchID.php",
+                //Data, that will be sent to "ajax.php".
+                data: {
+                    //Assigning value of "name" into "employeeName" variable.
+                    id: id
+                },
+
+                //If result found, this funtion will be called.
+                success: function (html) {
+                    //Assigning result to "display" div in "employeeName.php" file.
+                    $("#coe_display").html(html).show();
+                }
+            });
+        }
+    });
+
+
+});
