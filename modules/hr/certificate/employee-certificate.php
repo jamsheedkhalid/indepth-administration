@@ -99,20 +99,20 @@ if ($_SESSION['user_type'] === 'admin') {
                     <li class="nav-item">
                         <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"
                            title="Salary Certificate">
-                            <span>SALARY</span>
+                            <span>NOL</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2"
                            title="No Objection Letter">
-                            <span>NOL</span>
+                            <span>SALARY</span>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
 
                     <!-- -----------------------------------COE begins------------------------------------------------>
-                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                    <div class="tab-pane tabs-animation fade show active " id="tab-content-0" role="tabpanel">
 
                         <div>
                             <form target="_blank" method="post" class="row" autocomplete="off"
@@ -232,66 +232,130 @@ if ($_SESSION['user_type'] === 'admin') {
                         </div>
                     </div>
 
-                    <!-- --------------------------------section wise begins-------------------------------------------------->
+                    <!-- --------------------------------NOL begins-------------------------------------------------->
 
-                    <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                        <div>
-                            <form target="_blank" method="post" class="row"
-                                  action="/mysql/exam-center/generate_pdf.php">
-                                <div class="col-md-6">
-                                    <div class="main-card mb-3 card">
-                                        <div class="card-body">
+                <div class="tab-pane tabs-animation fade " id="tab-content-0" role="tabpanel">
 
+                    <div>
+                        <form target="_blank" method="post" class="row" autocomplete="off"
+                              action="/mysql/hr/certificate/print-nol.php">
+                            <div class="col-md-6">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div>
                                             <div class="row">
                                                 <div class="position-relative form-group col-sm"><label
-                                                            for="sectionGradeSelect">Grade</label>
-                                                    <select name="sectionGradeSelect"
-                                                            onchange="initialize_hidden_input('sectionGradeSelect','hidden_grade');fillSections('sectionSectionSelect',this.id);fillTermsSectionWise(this.id,'sectionSectionSelect','sectionTermSelect','sectionWise');"
-                                                            id="sectionGradeSelect"
-                                                            class="form-control-sm form-control ">
-                                                        <option disabled selected>Select Grade</option>
-                                                    </select>
-                                                    <input type="hidden" name="hidden_grade" id="hidden_grade"
-                                                           value=""/>
-
-                                                </div>
-                                                <div class="position-relative form-group col-sm"><label
-                                                            for="sectionSectionSelect">Section</label>
-                                                    <select name="sectionSectionSelect"
-                                                            onchange="fillTermsSectionWise('sectionGradeSelect',this.id,'sectionTermSelect','sectionWise');"
-                                                            id="sectionSectionSelect"
-                                                            class="form-control-sm form-control">
-                                                        <option disabled selected>Select Section</option>
-                                                    </select>
-                                                    <input type="hidden" name="hidden_section" id="hidden_section"
-                                                           value=""/>
+                                                            for="nol_toAddress">To</label>
+                                                    <input required value="Whom It May Concern"
+                                                           name="nol_toAddress" autocapitalize="on" type="text"
+                                                           id="nol_toAddress" class="form-control-sm form-control"
+                                                           placeholder="To Address">
 
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="position-relative form-group col-sm ">
-                                                    <label for="sectionTermSelect">Term</label>
-                                                    <select name="sectionTermSelect" id="sectionTermSelect"
-                                                            class="form-control-sm form-control">
-                                                        <option>Select Term</option>
-                                                    </select>
-                                                    <input type="hidden" name="hidden_term" id="hidden_term" value=""/>
-                                                </div>
+                                                <div class="position-relative form-group col-sm-4"><label
+                                                            for="nol_id">ID</label>
+                                                    <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
+                                                    <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
+                                                    <input
+                                                            name="nol_id" type="text"
+                                                            id="nol_id" class="form-control-sm form-control"
+                                                            placeholder="ID" required >
+                                                    <input
+                                                            name="nol_ms"  id="nol_ms" type="text" hidden >
+                                                    <div>
 
-                                            </div>
-                                            <button type="submit" name="sectionSubmit" class="mt-1 btn btn-success ">
-                                                Generate Report
-                                            </button>
+                                                    </div>
+
+                                                </div>
+                                                <div class="position-relative form-group col-sm"><label
+                                                            for="nol_name">Employee</label>
+                                                    <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
+                                                    <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
+                                                    <input
+                                                            name="nol_name" type="text"
+                                                            id="nol_name" class="form-control-sm form-control"
+                                                            placeholder="Name" required>
+                                                    <div>
+
+                                                    </div>
+
+                                                </div>  </div>
+                                            <div class="row"
+
+                                            <datalist class="list-inline"
+                                                      style="max-height: 200px; overflow-y: scroll"
+                                                      id="nol_display"></datalist>
 
                                         </div>
+                                        <div class="row">
+
+                                            <div class="position-relative form-group col-sm">
+                                                <label
+                                                        for="nol_passport">Passport/EID</label>
+                                                <input required
+                                                       name="nol_passport"
+                                                       id="nol_passport" class="form-control-sm form-control"
+                                                       placeholder="Passport Number">
+
+                                            </div>
+                                            <div class="position-relative form-group col-sm">
+                                                <label
+                                                        for="nol_nationality">Nationality</label>
+                                                <input required
+                                                       name="nol_nationality"
+                                                       id="nol_nationality" class="form-control-sm form-control"
+                                                       placeholder="Nationality">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="position-relative form-group col-sm"><label
+                                                        for="nol_jobTitle">Designation</label>
+                                                <input required
+                                                       name="nol_jobTitle"
+                                                       id="nol_jobTitle" class="form-control-sm form-control"
+                                                       placeholder="Job Title">
+
+                                            </div>
+                                            <div class="position-relative form-group col-sm">
+                                                <label
+                                                        for="nol_joinDate">Joining Date</label>
+                                                <input required
+                                                       name="nol_joinDate"
+                                                       id="nol_joinDate" class="form-control-sm form-control"
+                                                       placeholder="Date of Joining">
+
+                                            </div>
+                                        </div>
+                                        <div class="position-relative form-group"><label for="nol_authorizer"
+                                                                                         class="">Authorizer</label>
+                                            <select name="nol_authorizer" id="nol_authorizer"
+                                                    class="form-control-sm form-control">
+                                                <option value="1">MR. OMAR SARRIEDINE</option>
+                                                <option value="2">MS. REEMA SARRIEDINE</option>
+                                                <option value="3">MR. TALAAT SARRIEDINE</option>
+                                            </select>
+                                            <input type="hidden" name="hidden_nol_authorizer"
+                                                   id="hidden_term_studentWise" value=""/>
+                                        </div>
+
+                                        <button class="mt-1 btn btn-block btn-outline-success" name="nolSubmit"
+                                                type="submit">
+                                            Generate
+                                        </button>
                                     </div>
                                 </div>
-
-                            </form>
-                        </div>
+                            </div>
                     </div>
 
-                    <!---------------------------------------grade wise begins ----------------------------------- ---------->
+                    </form>
+                </div>
+            </div>
+
+
+            <!---------------------------------------grade wise begins ----------------------------------- ---------->
                     <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
                         <div>
                             <form target="_blank" method="post" class="row"
