@@ -28,3 +28,5 @@ function fillEmployeeDetails() {
     httpEmployee.open("GET", "/mysql/hr/certificate/fillEmployeeDetails.php?id=" + id, false);
     httpEmployee.send();
 }
+
+

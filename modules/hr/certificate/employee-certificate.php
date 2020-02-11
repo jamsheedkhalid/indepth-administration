@@ -33,60 +33,6 @@ if ($_SESSION['user_type'] === 'admin') {
                                 </div>
                             </div>
                         </div>
-                        <div hidden class="page-title-actions">
-                            <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
-                                    class="btn-shadow mr-3 btn btn-dark">
-                                <i class="fa fa-star"></i>
-                            </button>
-                            <div class="d-inline-block dropdown">
-                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        class="btn-shadow dropdown-toggle btn btn-info">
-                                            <span class="btn-icon-wrapper pr-2 opacity-7">
-                                                <i class="fa fa-business-time fa-w-20"></i>
-                                            </span>
-                                    Buttons
-                                </button>
-                                <div tabindex="-1" role="menu" aria-hidden="true"
-                                     class="dropdown-menu dropdown-menu-right">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                <i class="nav-link-icon lnr-inbox"></i>
-                                                <span>
-                                                            Inbox
-                                                        </span>
-                                                <div class="ml-auto badge badge-pill badge-secondary">86</div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                <i class="nav-link-icon lnr-book"></i>
-                                                <span>
-                                                            Book
-                                                        </span>
-                                                <div class="ml-auto badge badge-pill badge-danger">5</div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                <i class="nav-link-icon lnr-picture"></i>
-                                                <span>
-                                                            Picture
-                                                        </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a disabled href="javascript:void(0);" class="nav-link disabled">
-                                                <i class="nav-link-icon lnr-file-empty"></i>
-                                                <span>
-                                                            File Disabled
-                                                        </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
@@ -134,8 +80,6 @@ if ($_SESSION['user_type'] === 'admin') {
                                                 <div class="row">
                                                     <div class="position-relative form-group col-sm-4"><label
                                                                 for="coe_id">ID</label>
-                                                        <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
-                                                        <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
                                                         <input
                                                                 name="coe_id" type="text" onchange="fillEmployeeDetails();"
                                                                 id="coe_id" class="form-control-sm form-control"
@@ -237,120 +181,6 @@ if ($_SESSION['user_type'] === 'admin') {
                 <div class="tab-pane tabs-animation fade " id="tab-content-0" role="tabpanel">
 
                     <div>
-                        <form target="_blank" method="post" class="row" autocomplete="off"
-                              action="/mysql/hr/certificate/print-nol.php">
-                            <div class="col-md-6">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-body">
-                                        <div>
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm"><label
-                                                            for="nol_toAddress">To</label>
-                                                    <input required value="Whom It May Concern"
-                                                           name="nol_toAddress" autocapitalize="on" type="text"
-                                                           id="nol_toAddress" class="form-control-sm form-control"
-                                                           placeholder="To Address">
-
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-4"><label
-                                                            for="nol_id">ID</label>
-                                                    <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
-                                                    <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
-                                                    <input
-                                                            name="nol_id" type="text"
-                                                            id="nol_id" class="form-control-sm form-control"
-                                                            placeholder="ID" required >
-                                                    <input
-                                                            name="nol_ms"  id="nol_ms" type="text" hidden >
-                                                    <div>
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="position-relative form-group col-sm"><label
-                                                            for="nol_name">Employee</label>
-                                                    <!--                                                                onfocusin="employeeArray(this.value,'coe_name')"-->
-                                                    <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
-                                                    <input
-                                                            name="nol_name" type="text"
-                                                            id="nol_name" class="form-control-sm form-control"
-                                                            placeholder="Name" required>
-                                                    <div>
-
-                                                    </div>
-
-                                                </div>  </div>
-                                            <div class="row"
-
-                                            <datalist class="list-inline"
-                                                      style="max-height: 200px; overflow-y: scroll"
-                                                      id="nol_display"></datalist>
-
-                                        </div>
-                                        <div class="row">
-
-                                            <div class="position-relative form-group col-sm">
-                                                <label
-                                                        for="nol_passport">Passport/EID</label>
-                                                <input required
-                                                       name="nol_passport"
-                                                       id="nol_passport" class="form-control-sm form-control"
-                                                       placeholder="Passport Number">
-
-                                            </div>
-                                            <div class="position-relative form-group col-sm">
-                                                <label
-                                                        for="nol_nationality">Nationality</label>
-                                                <input required
-                                                       name="nol_nationality"
-                                                       id="nol_nationality" class="form-control-sm form-control"
-                                                       placeholder="Nationality">
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="position-relative form-group col-sm"><label
-                                                        for="nol_jobTitle">Designation</label>
-                                                <input required
-                                                       name="nol_jobTitle"
-                                                       id="nol_jobTitle" class="form-control-sm form-control"
-                                                       placeholder="Job Title">
-
-                                            </div>
-                                            <div class="position-relative form-group col-sm">
-                                                <label
-                                                        for="nol_joinDate">Joining Date</label>
-                                                <input required
-                                                       name="nol_joinDate"
-                                                       id="nol_joinDate" class="form-control-sm form-control"
-                                                       placeholder="Date of Joining">
-
-                                            </div>
-                                        </div>
-                                        <div class="position-relative form-group"><label for="nol_authorizer"
-                                                                                         class="">Authorizer</label>
-                                            <select name="nol_authorizer" id="nol_authorizer"
-                                                    class="form-control-sm form-control">
-                                                <option value="1">MR. OMAR SARRIEDINE</option>
-                                                <option value="2">MS. REEMA SARRIEDINE</option>
-                                                <option value="3">MR. TALAAT SARRIEDINE</option>
-                                            </select>
-                                            <input type="hidden" name="hidden_nol_authorizer"
-                                                   id="hidden_term_studentWise" value=""/>
-                                        </div>
-
-                                        <button class="mt-1 btn btn-block btn-outline-success" name="nolSubmit"
-                                                type="submit">
-                                            Generate
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-                    </form>
                 </div>
             </div>
 
