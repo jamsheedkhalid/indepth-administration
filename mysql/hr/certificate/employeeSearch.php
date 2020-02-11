@@ -7,7 +7,7 @@ if (isset($_POST['name'])) {
 //Search query.
 
     $Query = "SELECT CONCAT(employees.first_name,' ',employees.middle_name,' ',employees.last_name) Name, employee_number FROM employees "
-        . "WHERE employee_number LIKE '$Name%' OR first_name LIKE '$Name%' OR last_name LIKE '$Name%' OR  middle_name  LIKE '$Name%' ORDER BY '$Name' ; ";
+        . "WHERE  first_name LIKE '$Name%' OR last_name LIKE '$Name%' OR  middle_name  LIKE '$Name%' ORDER BY '$Name' ; ";
 //echo $Query;
 
 //Query execution

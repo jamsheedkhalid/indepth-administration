@@ -1,13 +1,4 @@
-//Getting value from "ajax.php".
-function fill(Name,ID) {
-    //Assigning value to "employeeName" div in "employeeName.php" file.
-    $('#nol_name').val(Name);
-    $('#nol_id').val(ID);
-    //Hiding "display" div in "employeeName.php" file.
-    $('#nol_display').hide();
 
-    // $('#nol_display_id').hide();
-}
 $(document).ready(function() {
     //On pressing a key on "Search box" in "employeeName.php" file. This function will be called.
     $("#nol_name").keyup(function () {

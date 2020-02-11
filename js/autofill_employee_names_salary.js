@@ -1,32 +1,13 @@
-//Getting value from "ajax.php".
-function fill(Name,ID) {
-    //Assigning value to "employeeName" div in "employeeName.php" file.
-    $('#coe_name').val(Name);
-    $('#coe_id').val(ID);
-    //Hiding "display" div in "employeeName.php" file.
-    $('#coe_display').hide();
-    //Assigning value to "employeeName" div in "employeeName.php" file.
-    $('#nol_name').val(Name);
-    $('#nol_id').val(ID);
-    //Hiding "display" div in "employeeName.php" file.
-    $('#nol_display').hide();
-    //Assigning value to "employeeName" div in "employeeName.php" file.
-    $('#salary_name').val(Name);
-    $('#salary_id').val(ID);
-    //Hiding "display" div in "employeeName.php" file.
-    $('#salary_display').hide();
 
-    // $('#coe_display_id').hide();
-}
 $(document).ready(function() {
     //On pressing a key on "Search box" in "employeeName.php" file. This function will be called.
-    $("#coe_name").keyup(function () {
+    $("#salary_name").keyup(function () {
         //Assigning employeeName box value to javascript variable named as "name".
-        var name = $('#coe_name').val();
+        var name = $('#salary_name').val();
         //Validating, if "name" is empty.
         if (name == "") {
             //Assigning empty value to "display" div in "employeeName.php" file.
-            $("#coe_display").html("");
+            $("#salary_display").html("");
         }
         //If name is not empty.
         else {
@@ -45,7 +26,7 @@ $(document).ready(function() {
                 //If result found, this funtion will be called.
                 success: function (html) {
                     //Assigning result to "display" div in "employeeName.php" file.
-                    $("#coe_display").html(html).show();
+                    $("#salary_display").html(html).show();
                 }
             });
         }
@@ -56,13 +37,13 @@ $(document).ready(function() {
 
 
     // employee name search with id
-    $("#coe_id").keyup(function () {
+    $("#salary_id").keyup(function () {
         //Assigning employeeName box value to javascript variable named as "name".
-        var id = $('#coe_id').val();
+        var id = $('#salary_id').val();
         //Validating, if "name" is empty.
         if (id == "") {
             //Assigning empty value to "display" div in "employeeName.php" file.
-            $("#coe_display").html("");
+            $("#salary_display").html("");
         }
         //If name is not empty.
         else {
@@ -81,7 +62,7 @@ $(document).ready(function() {
                 //If result found, this funtion will be called.
                 success: function (html) {
                     //Assigning result to "display" div in "employeeName.php" file.
-                    $("#coe_display").html(html).show();
+                    $("#salary_display").html(html).show();
                 }
             });
         }
