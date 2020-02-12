@@ -75,7 +75,7 @@ if (isset($_POST['salarySubmit'])) {
     $pdf->Cell(0, 30, "To " . $to_address, 0, '1', 'L');
     $pdf->SetFont('times', '', 12);
     $pdf->Ln(8);
-    $pdf->MultiCell(0, 5, "This is to confirm certify that $ms $employee_name, $employee_nationality nationality, holder of passsport number $employee_passport is currently employed full time at Al Sanawbar School as $employee_jobTitle since $employee_joinDate with a total monthaly salary of $whole $decimal (AED $employee_salary).", 0, 'L', false);
+    $pdf->MultiCell(0, 5, "This is to confirm  that $ms $employee_name, $employee_nationality nationality, holder of passsport number $employee_passport is currently employed full time at Al Sanawbar School as $employee_jobTitle since $employee_joinDate with a total monthly salary of $whole $decimal (AED $employee_salary).", 0, 'L', false);
     $pdf->Ln(6);
     $pdf->MultiCell(0, 5, "This letter has been given upon $hs request without any responsiblity from our part.", 0, 'L', false);
     $pdf->MultiCell(0, 5, "Please feel free to contact us if you require any further informatinon.", 0, 'L', false);
