@@ -136,7 +136,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 <script> document.title = "Assignments - InDepth";</script>
 <?php }
 else {
-    header('Location: no-access/index.html');
+    header('Location: /no-access/index.html');
 }
 
 ?>

@@ -358,7 +358,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
 <?php }
 else {
-    header('Location: no-access/index.html');
+    header('Location: /no-access/index.html');
 }
 
 ?>

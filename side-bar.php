@@ -53,9 +53,9 @@
                     </a>
                 </li>
                 <?php }?>
-
-                <li class="app-sidebar__heading ">ACADEMICS</li>
                 <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin'){?>
+                <li class="app-sidebar__heading ">ACADEMICS</li>
+
                 <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
@@ -102,6 +102,7 @@
                         </i>WPS
                     </a>
                 </li>
+                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin'){?>
                 <li  id="" class="app-sidebar__heading" >HR</li>
                 <li  id="liHR">
                     <a href="#">
@@ -118,7 +119,7 @@
                         </li>
                     </ul>
                 </li>
-
+                <?php } ?>
             </ul>
 
         </div>
