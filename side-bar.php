@@ -53,9 +53,9 @@
                     </a>
                 </li>
                 <?php }?>
-                <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin'){?>
+                <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'parent' ){?>
                 <li class="app-sidebar__heading ">ACADEMICS</li>
-
+                <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin' ){?>
                 <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
@@ -71,7 +71,7 @@
                         </li>
                     </ul>
                 </li>
-                <?php } if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
+                <?php }} if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
                 <li id="liAssignment">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-note"></i>
