@@ -79,15 +79,31 @@
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
+
                         <li>
                             <a id="liAssignment_studentAssignment" href="/modules/academics/assignment/student_assignment.php">
                                 <i class="metismenu-icon"></i>
                                 My Assignments
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <?php } ?>
+
+                 <li>
+                    <a id="liPlanner" href="/modules/academics/planner/student_planner.php">
+                        <i class="metismenu-icon pe-7s-date"></i>
+                        PLANNER
+                    </a>
+                </li>
+                <li>
+                    <a id="liWeeklyPlanner" href="/modules/academics/planner/weekly_planner.php">
+                        <i class="metismenu-icon pe-7s-date"></i>
+                        WEEKLY PLANNER
+                    </a>
+                </li>
+
 
                 <li hidden class="app-sidebar__heading">FINANCE</li>
                 <li hidden >
