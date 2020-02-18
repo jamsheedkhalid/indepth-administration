@@ -55,7 +55,7 @@ if ($result->num_rows > 0) {
                 if ($result_assignment->num_rows > 0) {
                     echo ' 
  <div class="table-responsive">
-                    <table class="mb-0 table table-striped table-hover table-bordered mb-0 table">';
+                    <table class="mb-0 table table-striped table-hover table-bordered ">';
                     echo '<thead>
                     <tr>
                     <th>Subject</th>

@@ -16,9 +16,17 @@ if ($result->num_rows > 0) {
         if ($student->num_rows > 0) {
             $i=0;
             while ($row_student = mysqli_fetch_array($student)) {
+
+                $parent = str_replace(' ', '', $_SESSION['name']);
+                $parent = strtolower($parent);
+                $student_name = strtolower($row_student['last_name']);
+                $student_name = str_replace(' ', '', $student_name);
+                $student_name = explode($parent, $student_name);
+
+
                 echo '                <li class="nav-item">
                     <a role="tab" title="'.$row_student['first_name'].'" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-'.$i.'">
-                        <span>' . $row_student['last_name'] . '</span>
+                        <span>' .ucwords($student_name[0])  . '</span>
                     </a>
                 </li>';
                 $i++;
