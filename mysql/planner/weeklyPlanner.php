@@ -86,15 +86,14 @@ if ($result->num_rows > 0) {
                         echo '<th>' . date('l (d/M/y) ', $ts) . ' </th>';
                     }
                     echo ' </tr>
-                            </th></thead>';
+                            </th></thead><tbody style="font-size: 10px">';
                     while ($row_assignment = mysqli_fetch_array($result_assignment)) {
                         echo '
-                        <tr>
+                        <tr >
                            <td>' . $row_assignment['subject'] . '</td>';
 
-                        echo date('N', strtotime($row_assignment['posted_on']));
                         if (date('N', strtotime($row_assignment['posted_on'])) === 0) {
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
@@ -104,7 +103,7 @@ if ($result->num_rows > 0) {
                         }
                         else if (date('N', strtotime($row_assignment['posted_on'])) === '1') {
                             echo '<td></td>';
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
@@ -114,7 +113,7 @@ if ($result->num_rows > 0) {
                         else if (date('N', strtotime($row_assignment['posted_on'])) === '2') {
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
@@ -124,7 +123,7 @@ if ($result->num_rows > 0) {
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
@@ -134,7 +133,7 @@ if ($result->num_rows > 0) {
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                         }
@@ -144,7 +143,7 @@ if ($result->num_rows > 0) {
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
                             echo '<td></td>';
                         }
                         else if (date('N', strtotime($row_assignment['posted_on'])) === '6') {
@@ -154,7 +153,7 @@ if ($result->num_rows > 0) {
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td>' . $row_assignment['title'] . '</td>';
+                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
 
                         } else {
                             echo '<td>  - </td>';
@@ -169,7 +168,7 @@ if ($result->num_rows > 0) {
 
                         echo '</tr> ';
                     }
-                    echo '</table></div>  <br><br>';
+                    echo '</tbody></table></div>  <br><br>';
                 } else {
                     echo 'No Assignments Found!';
 

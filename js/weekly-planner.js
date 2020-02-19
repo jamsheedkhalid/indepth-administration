@@ -1,5 +1,9 @@
 window.onload = loadStudents("studentList");
 
+
+
+
+
 function loadStudents(div) {
     let httpStudent = new XMLHttpRequest();
     httpStudent.onreadystatechange = function () {
@@ -19,6 +23,20 @@ function loadWeeklyPlanner(div) {
     httpStudent.onreadystatechange = function () {
         if (this.readyState === 4) {
             document.getElementById(div).innerHTML = this.responseText;
+            const table = document.querySelector('table');
+
+            let headerCell = null;
+
+            for (let row of table.rows) {
+                const firstCell = row.cells[0];
+
+                if (headerCell === null || firstCell.innerText !== headerCell.innerText) {
+                    headerCell = firstCell;
+                } else {
+                    headerCell.rowSpan++;
+                    firstCell.remove();
+                }
+            }
         }
     };
     httpStudent.open("GET", "/mysql/planner/weeklyPlanner.php", false);
