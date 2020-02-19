@@ -5,15 +5,16 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 
 
 //check the current day
-if (date('D') != 'Sun') {
+if (date('D') !== 'Sun') {
     //take the last monday
-    $weekStart = date('Y-m-d', strtotime('last Sunday'));
+    $weekStart = date('Y-m-d', strtotime('last Sunday' .
+        ''));
 } else {
     $weekStart = date('Y-m-d');
 }
 
-if (date('D') != 'Sat') {
-    $weekEnd = date('Y-m-d', strtotime('next Saturday'));
+if (date('D') !== 'Sat') {
+    $weekEnd = date('Y-m-d', strtotime(' next Saturday'));
 } else {
     $weekEnd = date('Y-m-d');
 }
@@ -81,7 +82,7 @@ if ($result->num_rows > 0) {
                     for ($j = 0; $j <= 6; $j++) {
                         // timestamp from ISO week date format
                         $ts = strtotime($year . 'W' . $week . $j);
-                        echo '<th>' . date('l (d/M/y) ', $ts) . ' </th>';
+                        echo '<th>' . date('l (d/M) ', $ts) . ' </th>';
                     }
                     echo ' </tr>
                             </th></thead><tbody >';
@@ -95,7 +96,7 @@ if ($result->num_rows > 0) {
 
                         if ($days < 0) {
                             $assignmentCard = '
-                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-premium-dark"  
+                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-danger "  
                          data-toggle="popover" data-placement="right" data-content="'.$row_assignment['content'].'"
                         style=" font-size: 10px; padding: 0; ">
                         <a  href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
@@ -121,7 +122,7 @@ if ($result->num_rows > 0) {
                         <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
                         <a> Due ' . time_elapsed_string($row_assignment['duedate']) . ' </a>
 
-                       </td>
+                       </td> 
                         ';
                         } else if ($days < 4 && $days >= 2) {
                             $assignmentCard = '

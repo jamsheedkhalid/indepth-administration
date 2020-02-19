@@ -89,9 +89,9 @@
 
                     </ul>
                 </li>
-                <?php } ?>
 
-                 <li>
+
+                 <li hidden>
                     <a id="liPlanner" href="/modules/academics/planner/student_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
                         PLANNER
@@ -103,7 +103,7 @@
                         WEEKLY PLANNER
                     </a>
                 </li>
-
+                <?php } ?>
 
                 <li hidden class="app-sidebar__heading">FINANCE</li>
                 <li hidden >
