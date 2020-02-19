@@ -17,8 +17,8 @@ if (date('D') != 'Sat') {
 } else {
     $weekEnd = date('Y-m-d');
 }
-echo $weekStart;
-echo $weekEnd;
+//echo $weekStart;
+//echo $weekEnd;
 
 
 $sql = " select familyid from guardians where user_id = '$_SESSION[user]' ";
@@ -51,15 +51,12 @@ if ($result->num_rows > 0) {
                 from assignments
                 inner join subjects on assignments.subject_id = subjects.id
                 inner join employees on assignments.employee_id = employees.id
-                where find_in_set($row_student[id], `student_list`) and (assignments.created_at between '$weekStart' and '$weekEnd')";
+                where find_in_set($row_student[id], `student_list`) and ((assignments.created_at between '$weekStart' and '$weekEnd')
+                OR (assignments.duedate between '$weekStart' and '$weekEnd') )";
                 $assignment_sql .= '  order by subjects.name asc  ';
 //                echo $assignment_sql;
-
-
                 $result_assignment = $conn->query($assignment_sql);
-
-
-                echo '<div class="tab-pane tabs-animation fade show "  id="tab-content-' . $i . '"  role="tabpanel">
+                echo '<div class="tab-pane tabs-animation fade show mt-3 "  id="tab-content-' . $i . '"  role="tabpanel">
                     <div>
                         <div class="col-md">
                             <div class="main-card mb-3 card">
@@ -67,11 +64,12 @@ if ($result->num_rows > 0) {
                      ';
                 $i++;
                 if ($result_assignment->num_rows > 0) {
+
                     echo ' 
      <div  class="table-responsive">
        
                                     <table style="white-space: pre-line!important;" 
-                                    class="mb-0 table table-striped table-hover table-bordered mb-0 table">
+                                    class="mb-0 table  table-hover table-bordered mb-0 table">
                                         <colgroup>
                                             <col span="6">
                                             <col span="2" style="background-color: navajowhite">
@@ -86,74 +84,125 @@ if ($result->num_rows > 0) {
                         echo '<th>' . date('l (d/M/y) ', $ts) . ' </th>';
                     }
                     echo ' </tr>
-                            </th></thead><tbody style="font-size: 10px">';
+                            </th></thead><tbody >';
+
+
                     while ($row_assignment = mysqli_fetch_array($result_assignment)) {
+
+                        $days = strtotime($row_assignment['duedate']) - strtotime(date('Y-m-d'));
+                        $days = round($days / (60 * 60 * 24));
+//                        echo $days;
+
+                        if ($days < 0) {
+                            $assignmentCard = '
+                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-premium-dark"  
+                         data-toggle="popover" data-placement="right" data-content="'.$row_assignment['content'].'"
+                        style=" font-size: 10px; padding: 0; ">
+                        <a  href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
+                        <a> Due ' . time_elapsed_string($row_assignment['duedate']) . ' </a>
+                       </td>';
+                        }
+                        else if ($days === 0 ) {
+                            $assignmentCard = '
+                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-danger"  
+                           data-toggle="popover" data-placement="right" data-content="'.$row_assignment['content'].'"
+                        style=" font-size: 10px; padding: 0; ">
+                        <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
+                        <a> Already due </a>
+
+                       </td>
+                        ';
+                        }
+                        else if ( $days > 0 && $days < 2) {
+                            $assignmentCard = '
+                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-danger"  
+                           data-toggle="popover" data-placement="right" data-content="'.$row_assignment['content'].'"
+                        style=" font-size: 10px; padding: 0; ">
+                        <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
+                        <a> Due ' . time_elapsed_string($row_assignment['duedate']) . ' </a>
+
+                       </td>
+                        ';
+                        } else if ($days < 4 && $days >= 2) {
+                            $assignmentCard = '
+                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-warning"  
+                           data-toggle="popover" data-placement="right" data-content="'.$row_assignment['content'].'"
+                        style=" font-size: 10px; padding: 0; ">                                              
+                        <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
+                       <a> Due ' . time_elapsed_string($row_assignment['duedate']) . ' </a>
+                       </td>
+                        ';
+                        } else if ($days >= 4) {
+                            $assignmentCard = '
+                        <td align = "center" class="mt-1 card card-sm text-white card-body bg-success"  
+                           data-toggle="popover" data-placement="right" data-content="'.$row_assignment['content'].'"
+                        style=" font-size: 10px; padding: 0; ">
+                        <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="text-white card-title">' . $row_assignment['title'] . '</a>
+                        <a> Due ' . time_elapsed_string($row_assignment['duedate']) . ' </a>
+
+                       </td>
+                        ';
+                        }
+
                         echo '
                         <tr >
                            <td>' . $row_assignment['subject'] . '</td>';
-
-                        if (date('N', strtotime($row_assignment['posted_on'])) === 0) {
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
+                        if (date('N', strtotime($row_assignment['posted_on'])) === '0' || date('N', strtotime($row_assignment['duedate'])) === '0') {
+                            echo $assignmentCard;
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                        }
-                        else if (date('N', strtotime($row_assignment['posted_on'])) === '1') {
+                        } else if (date('N', strtotime($row_assignment['posted_on'])) === '1' || date('N', strtotime($row_assignment['duedate'])) === '1') {
                             echo '<td></td>';
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                        }
-                        else if (date('N', strtotime($row_assignment['posted_on'])) === '2') {
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                        }
-                        else if (date('N', strtotime($row_assignment['posted_on'])) === '3') {
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                        }
-                        else if (date('N', strtotime($row_assignment['posted_on'])) === '4') {
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
-                            echo '<td></td>';
-                            echo '<td></td>';
-                        }
-                        else if (date('N', strtotime($row_assignment['posted_on'])) === '5') {
+                            echo $assignmentCard;
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
+                        } else if (date('N', strtotime($row_assignment['posted_on'])) === '2' || date('N', strtotime($row_assignment['duedate'])) === '2') {
                             echo '<td></td>';
-                        }
-                        else if (date('N', strtotime($row_assignment['posted_on'])) === '6') {
+                            echo '<td></td>';
+                            echo $assignmentCard;
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                        } else if (date('N', strtotime($row_assignment['posted_on'])) === '3' || date('N', strtotime($row_assignment['duedate'])) === '3') {
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo $assignmentCard;
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                        } else if (date('N', strtotime($row_assignment['posted_on'])) === '4' || date('N', strtotime($row_assignment['duedate'])) === '4') {
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo $assignmentCard;
+                            echo '<td></td>';
+                            echo '<td></td>';
+                        } else if (date('N', strtotime($row_assignment['posted_on'])) === '5' || date('N', strtotime($row_assignment['duedate'])) === '5') {
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo $assignmentCard;
+                            echo '<td></td>';
+                        } else if (date('N', strtotime($row_assignment['posted_on'])) === '6' || date('N', strtotime($row_assignment['duedate'])) === '6') {
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
                             echo '<td></td>';
-                            echo '<td><a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '">' . $row_assignment['title'] . '</a></td>';
+                            echo $assignmentCard;
 
                         } else {
                             echo '<td>  - </td>';
@@ -164,8 +213,6 @@ if ($result->num_rows > 0) {
                             echo '<td>  - </td>';
                             echo '<td>  - </td>';
                         }
-
-
                         echo '</tr> ';
                     }
                     echo '</tbody></table></div>  <br><br>';
@@ -180,14 +227,42 @@ if ($result->num_rows > 0) {
                        </div>
 ';
             }
-
-
         }
     }
 }
 
 
 
+
+function time_elapsed_string($date) {
+    if (empty($date)) {
+        return "No date provided";
+    }
+    $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
+    $now = time();
+    $unix_date = strtotime($date);
+// check validity of date
+    if (empty($unix_date)) {
+        return "Bad date";
+    }
+// is it future date or past date
+    if ($now > $unix_date) {
+        $difference = $now - $unix_date;
+        $tense = "ago";
+    } else {
+        $difference = $unix_date - $now;
+        $tense = "from now";
+    }
+    for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
+        $difference /= $lengths[$j];
+    }
+    $difference = round($difference);
+    if ($difference != 1) {
+        $periods[$j].= "s";
+    }
+    return "$difference $periods[$j] {$tense}";
+}
 
 
 //echo '
