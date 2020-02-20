@@ -46,9 +46,9 @@ if ($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin') {
 
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm nav btn-group">
-                            <a data-toggle="tab" class="btn-shadow  btn btn-primary"> LAST WEEK </a>
-                            <a data-toggle="tab" class="btn-shadow  active btn btn-primary"> CURRENT WEEK </a>
-                            <a data-toggle="tab" class="btn-shadow  btn btn-primary"> NEXT WEEK </a>
+                            <a data-toggle="tab"  onclick="loadWeeklyPlanner('weekly-planner-table', 'last');"  class="btn-shadow  btn btn-primary"> LAST WEEK </a>
+                            <a data-toggle="tab"  onclick="loadWeeklyPlanner('weekly-planner-table', 'curr');"   class="btn-shadow  active btn btn-primary"> CURRENT WEEK </a>
+                            <a data-toggle="tab"  onclick="loadWeeklyPlanner('weekly-planner-table', 'next');"   class="btn-shadow  btn btn-primary"> NEXT WEEK </a>
                         </div>
                     </div>
                 </div>

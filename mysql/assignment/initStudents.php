@@ -15,6 +15,7 @@ if ($result->num_rows > 0) {
         $student = $conn->query($sql);
         if ($student->num_rows > 0) {
             $i=0;
+            $active = 'active';
             while ($row_student = mysqli_fetch_array($student)) {
 
                 $parent = str_replace(' ', '', $_SESSION['name']);
@@ -25,10 +26,11 @@ if ($result->num_rows > 0) {
 
 
                 echo '                <li class="nav-item">
-                    <a role="tab" title="'.$row_student['first_name'].'" class="nav-link  " id="tab-1" data-toggle="tab" href="#tab-content-'.$i.'">
+                    <a role="tab" title="'.$row_student['first_name'].'" class="nav-link '.$active.' " id="tab-1" data-toggle="tab" href="#tab-content-'.$i.'">
                         <span>' .ucwords($student_name[0])  . '</span>
                     </a>
                 </li>';
+                $active = 'a';
                 $i++;
             }
         }
