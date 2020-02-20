@@ -36,6 +36,18 @@ function loadWeeklyPlanner(div, date_type) {
                     firstCell.remove();
                 }
             }
+
+            if(date_type === 'curr') {
+                var d = new Date();
+                var n = d.getDay();
+                var elements = document.getElementsByClassName("table-weekly-planner");
+                for(var i=0; i<elements.length; i++) {
+                  let x = elements[i]. getElementsByTagName("col");
+                    x[n].style.backgroundColor = "#f0c0c0";
+                }
+
+            }
+
         }
     };
     httpStudent.open("GET", "/mysql/planner/weeklyPlanner.php?date_type=" + date_type, false);

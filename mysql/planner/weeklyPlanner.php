@@ -81,10 +81,15 @@ if ($result->num_rows > 0) {
                     echo ' 
                      <div  class="table-responsive">
        
-                                    <table style="table-layout: fixed" 
-                                    class="mb-0 table  table-hover table-bordered mb-0 table">
+                                    <table style="table-layout: fixed" id=""  
+                                    class="mb-0 table  table-sm table-bordered table-weekly-planner  mb-0 table">
                                         <colgroup>
-                                            <col span="6">
+                                            <col span="1" >
+                                            <col span="1">
+                                            <col span="1">
+                                            <col span="1" >
+                                            <col span="1">
+                                            <col span="1">
                                             <col span="2" style="background-color: navajowhite">
                                         </colgroup>
                                         <thead>
@@ -115,7 +120,7 @@ if ($result->num_rows > 0) {
                         $assignmentCard = '<td></td>';
                         if ($days < 0) {
                             $assignmentCard = '
-                        <td align = "center" class="card-shadow-secondary border mb-1 card card-body border-secondary "   
+                        <td align = "center" class="card-shadow-secondary border mb-1 card card-body  border-secondary bg-transparent "   
                          data-toggle="popover" data-placement="right" data-content="' . $row_assignment['content'] . '"
                         style=" font-size: 10px; padding: 0; ">
                         <a  href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="card-title">' . $row_assignment['title'] . '</a>
@@ -124,7 +129,7 @@ if ($result->num_rows > 0) {
                         }
                         else if ($days == 0) {
                        $assignmentCard = '
-                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-danger"  
+                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-secondary bg-transparent"  
                            data-toggle="popover" data-placement="right" data-content="' . $row_assignment['content'] . '"
                         style=" font-size: 10px; padding: 0; ">
                         <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="card-title">' . $row_assignment['title'] . '</a>
@@ -135,7 +140,7 @@ if ($result->num_rows > 0) {
                         }
                         else if ($days > 0 && $days < 2) {
                             $assignmentCard = '
-                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-danger"  
+                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-danger bg-transparent"  
                            data-toggle="popover" data-placement="right" data-content="' . $row_assignment['content'] . '"
                         style=" font-size: 10px; padding: 0; ">
                         <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="card-title">' . $row_assignment['title'] . '</a>
@@ -146,7 +151,7 @@ if ($result->num_rows > 0) {
                         }
                         else if ($days < 4 && $days >= 2) {
                             $assignmentCard = '
-                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-warning"  
+                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-warning bg-transparent"  
                            data-toggle="popover" data-placement="right" data-content="' . $row_assignment['content'] . '"
                         style=" font-size: 10px; padding: 0; ">                                              
                         <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="card-title">' . $row_assignment['title'] . '</a>
@@ -156,7 +161,7 @@ if ($result->num_rows > 0) {
                         }
                         else if ($days >= 4) {
                             $assignmentCard = '
-                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-success"  
+                        <td align = "center" class="card-shadow-secondary border mb-3 card card-body border-success bg-transparent"  
                            data-toggle="popover" data-placement="right" data-content="' . $row_assignment['content'] . '"
                         style=" font-size: 10px; padding: 0; ">
                         <a href="https://alsanawbar.school/assignments/' . $row_assignment['id'] . '" class="card-title">' . $row_assignment['title'] . '</a>
