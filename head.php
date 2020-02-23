@@ -8,12 +8,33 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/exam-center.css" rel="stylesheet">
-
-<!--    printjs.crabbly.com-->
-    <link href="  https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
-    <script type="text/javascript" src="  https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <link href="/css/planner.css" rel="stylesheet">
     <script type="text/javascript" src="/js/main.js"></script>
+
+
+
+<!--    fullcalender.io                -->
+    <link href='/libs/full-calendar/packages/core/main.css' rel='stylesheet' />
+    <link href='/libs/full-calendar/packages/daygrid/main.css' rel='stylesheet' />
+
+    <script src='/libs/full-calendar/packages/core/main.js'></script>
+    <script src='/libs/full-calendar/packages/daygrid/main.js'></script>
+    <link href='/libs/full-calendar/packages/core/main.css' rel='stylesheet' />
+    <link href='/libs/full-calendar/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='/libs/full-calendar/packages/timegrid/main.css' rel='stylesheet' />
+    <link href='/libs/full-calendar/packages/list/main.css' rel='stylesheet' />
+    <script src='/libs/full-calendar/packages/core/main.js'></script>
+    <script src='/libs/full-calendar/packages/interaction/main.js'></script>
+    <script src='/libs/full-calendar/packages/daygrid/main.js'></script>
+    <script src='/libs/full-calendar/packages/timegrid/main.js'></script>
+    <script src='/libs/full-calendar/packages/list/main.js'></script>
+    <script src='/libs/full-calendar/examples/js/theme-chooser.js'></script>
+
+
+
 
 </head>
