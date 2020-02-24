@@ -63,9 +63,9 @@ if ($result->num_rows > 0) {
             echo '<td> Due on ' . date('d-m-Y', strtotime($row['due_date'])) . '</td>';
         }
         echo '<td>
-<form method="post" target="_blank"  action="/mysql/tax-invoice/print-tax-invoice.php">
-<button type="submit" name="printTaxInvoice" value="'.$row['invoice_no'].'">View Invoice</button>
-</form></td>';
+        <form method="post" target="_blank"  action="/mysql/tax-invoice/print-tax-invoice.php">
+            <button type="submit" name="printTaxInvoice" value="'.$row['invoice_no'].'">View Invoice</button>
+        </form></td>';
         echo '</tr>';
 
 
