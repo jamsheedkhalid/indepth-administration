@@ -5,3 +5,14 @@
     font-size: 14px;
 }
 
+ .weekly-planner  {
+     table-layout: fixed;
+     /*white-space: nowrap;*/
+    width: 100em !important;
+    height: 50em !important;
+
+
+}
+
+
+

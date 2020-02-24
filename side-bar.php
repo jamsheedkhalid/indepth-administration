@@ -89,13 +89,14 @@
 
                     </ul>
                 </li>
-
-                    <li hidden>
+                <?php } if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin'){?>
+                    <li >
                     <a id="liPlanner" href="/modules/academics/planner/student_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
-                        PLANNER
+                       WEEKLY PLANNER1
                     </a>
                 </li>
+                <?php } if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
                 <li>
                     <a id="liWeeklyPlanner" href="/modules/academics/planner/weekly_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
