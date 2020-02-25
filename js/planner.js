@@ -190,19 +190,68 @@ function saveTask() {
 }
 
 function viewTaskDetails(id) {
-    let viewModal = document.getElementById('viewWeeklyModal');
+    $('#weeklyModal').modal('hide');
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
+    let viewModal = document.getElementById('viewModalBody');
     let httpTask = new XMLHttpRequest();
     httpTask.onreadystatechange = function () {
         if (this.readyState === 4) {
             viewModal.innerHTML = this.responseText;
+
+            $('#viewWeeklyModal').modal('show');
+
         }
     };
-    httpTask.open("GET", "/mysql/planner/view-task.php?id=" + id, false);
+    httpTask.open("GET", "/mysql/planner/view-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section, false);
     httpTask.send();
-    $('#viewWeeklyModal').modal('show');
 
 
 }
+
+function delTask(id) {
+    let conf = confirm("Are you sure you want to delete?");
+    if (conf === true) {
+
+        let httpTask = new XMLHttpRequest();
+        httpTask.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                loadStudentPlanner("student-planner", "curr");
+                // document.getElementById('student-planner').innerHTML=this.responseText;
+
+            }
+        };
+        httpTask.open("GET", "/mysql/planner/del-task.php?id=" + id, false);
+        httpTask.send();
+    } else {
+        loadStudentPlanner("student-planner", "curr");
+
+    }
+    $('#viewWeeklyModal').modal('hide');
+}
+
+function editTask(id) {
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
+    let editModal = document.getElementById('editModalBody');
+
+        let httpTask = new XMLHttpRequest();
+        httpTask.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                $('#editWeeklyModal').modal('show');
+              editModal.innerHTML=this.responseText;
+
+            }
+        };
+        httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id  + "&grade=" + selected_grade + "&section=" + selected_section, false);
+        httpTask.send();
+
+        loadStudentPlanner("student-planner", "curr");
+
+    $('#viewWeeklyModal').modal('hide');
+    $('#editWeeklyModal').modal('show');
+}
+
 
 
 

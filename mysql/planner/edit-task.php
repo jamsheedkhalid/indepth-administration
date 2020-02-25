@@ -35,15 +35,15 @@ if ($result->num_rows > 0) {
         while ($row_sub = mysqli_fetch_array($result_sub)) {
             echo '<div align="right" class="col"><label> Subject:<b> ' . $row_sub['name'] . '</b></label></div></div>';
         }
-        echo '<div><label>Title: <b> ' . $row['title'] . '</b></label></div>';
-        echo '<div><label> Content: <b> ' . $row['content'] . '</b></label></div>';
+        echo '<div><label>Title:</label> <input class="form-control-sm form-control" value=" ' . $row['title'] . '"/></div>';
+        echo '<div><label> Content: </label><textarea class="form-control-sm form-control" >' . $row['content'] . '</textarea></div>';
+        echo '<div><label> Students: </label></div><div><textarea class="form-control-sm form-control" >' . $row['student_list'] . '</textarea></div>';
 
 
         echo ' </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-danger" onclick="delTask('.$row['id'].')">Delete</button>
-                        <button class="btn btn-success" onclick="editTask('.$row['id'].')">Edit</button> ';
+                        <button class="btn btn-success" onclick="updateTask('.$row['id'].')">Save</button> ';
 
     }
 }
