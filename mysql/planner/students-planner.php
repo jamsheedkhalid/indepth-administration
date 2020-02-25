@@ -43,8 +43,7 @@ $week = date('W', $ts);
 $show = 'show active';
 
 echo '<div class="tab-pane tabs-animation fade ' . $show . '  mt-3 "  id="tab-content-0"  role="tabpanel">
-                   
-                            <div class=" card">
+                                               <div class=" card">
                                 <div  class="card-body">';
 echo ' 
                      <div  class="table-responsive">
@@ -54,6 +53,7 @@ echo '
                                         <thead>
                                         <tr align="center">
                                             <th class="headcol"  >DAY \ SUB</th>';
+
 $sql = "select subjects.id id, subjects.name name from subjects
 where subjects.is_deleted = 0
   and batch_id = '$section';
@@ -64,32 +64,46 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $col_count = 0;
     while ($row = mysqli_fetch_array($result)) {
-        echo '<th>' . $row['name'] . '</th>';
-        $col_count++;
+        echo '<th id="'.$row['id'].'">' . $row['name'] . '</th>';
     }
 }
-
 echo ' </tr>  </th></thead><tbody >';
 for ($j = 0; $j <= 6; $j++) {
-
-    $col = $col_count;
     // timestamp from ISO week date format
     $ts = strtotime($year . 'W' . $week . $j);
     if ($show_date === 1) {
-        echo '<tr ><th class="headcol" title="' . date('d-M-Y', $ts) . '" ><' . strtoupper(date('l d/M', $ts)) . ' </th>';
-        while ($col !== 0) {
-            echo '<td>Hi</td>';
-            $col--;
-        }
+        echo '<tr ><th class="headcol"  title="' . date('Y-m-d', $ts) . '" ><' . strtoupper(date('l d/M', $ts)) . ' </th>';
         echo '</tr>';
 
     } else {
-        echo '<tr><th  class="headcol"  title="' . date('d-M-Y', $ts) . '" >' . strtoupper(date('l ', $ts)) . ' </th>';
-        while ($col !== 0) {
-            echo '<td></td>';
-            $col--;
+        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l ', $ts)) . ' </th>';
+        $result = $conn->query($sql);
 
+        if ($result->num_rows > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                $date = date('Y-m-d', $ts);
+                $task = " select id,title from indepth_weekly_planner where alsanawbar.indepth_weekly_planner.subject_id = '$row[id]' and duedate = '$date'; ";
+                $task_result = $conn->query($task);
+// echo $task;
+                if ($task_result->num_rows > 0) {
+                    echo '<td>';
+                    while ($task_row = mysqli_fetch_array($task_result)) {
+                        echo '<a  onclick="viewTaskDetails(this.id)" id="'.$task_row['id'].'" class="mb-2 mr-2 badge badge-warning " >' .$task_row['title'].'</a><br>';
+                    }
+                    echo '</td>';
+                }
+                else {
+                    echo '<td ></td>';
+                }
+
+            }
         }
+
+//        while ($col !== 0) {
+//            echo '<td></td>';
+//            $col--;
+//
+//        }
         echo '</tr>';
     }
 

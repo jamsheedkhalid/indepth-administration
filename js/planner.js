@@ -1,29 +1,29 @@
 window.onload = initGrades();
 
 function initGrades() {
-    var items="";
-    $.getJSON("/mysql/planner/initGrades.php",function(data){
-        $.each(data,function(index,item)
-        {
-            items+="<option value='"+item.course_id+"'>"+item.course_name+"</option>";
+    var items = "";
+    $.getJSON("/mysql/planner/initGrades.php", function (data) {
+        $.each(data, function (index, item) {
+            items += "<option value='" + item.course_id + "'>" + item.course_name + "</option>";
         });
         $("#grade").html(items);
         selectSection();
     });
 }
+
 function selectSection() {
     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
 
-        let httpSection = new XMLHttpRequest();
-        httpSection.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                document.getElementById('section').innerHTML = this.responseText;
+    let httpSection = new XMLHttpRequest();
+    httpSection.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            document.getElementById('section').innerHTML = this.responseText;
 
-            }
-        };
-        httpSection.open("GET", "/mysql/planner/fillSections.php?grade=" + selected_grade, false);
-        httpSection.send();
-        loadStudentPlanner("student-planner", "curr");
+        }
+    };
+    httpSection.open("GET", "/mysql/planner/fillSections.php?grade=" + selected_grade, false);
+    httpSection.send();
+    loadStudentPlanner("student-planner", "curr");
 
 
 }
@@ -66,14 +66,19 @@ function loadStudentPlanner(div, date_type) {
     };
     httpPlanner.open("GET", "/mysql/planner/students-planner.php?date_type=" + date_type + "&section=" + selected_section + "&grade=" + selected_grade, false);
     httpPlanner.send();
-   highlight_row();
+    highlight_row();
+
 
 }
 
 
 function highlight_row() {
+
     var table = document.getElementById('weekly-planner');
     var cells = table.getElementsByTagName('td');
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
+
 
     for (var i = 0; i < cells.length; i++) {
         // Take each cell
@@ -82,7 +87,8 @@ function highlight_row() {
         cell.onclick = function () {
             // Get the row id where the cell exists
             var rowId = this.parentNode.rowIndex;
-            var colId = this.cellIndex;
+            var cellId = this.cellIndex;
+
 
             var rowsNotSelected = table.getElementsByTagName('tr');
             for (var row = 0; row < rowsNotSelected.length; row++) {
@@ -91,25 +97,112 @@ function highlight_row() {
                 rowsNotSelected[row].classList.remove('selected');
             }
             var rowSelected = table.getElementsByTagName('tr')[rowId];
+            var rowSubject = table.getElementsByTagName('tr')[0];
             // rowSelected.style.backgroundColor = "#D5ECED";
             rowSelected.style.backgroundColor = "#D5ECED";
             rowSelected.style.color = "black";
             rowSelected.className += " selected";
+            subject = rowSubject.cells[cellId].innerHTML;
+            date = new Date(rowSelected.cells[0].title).toDateString();
 
-            msg = ' <label> Day: ' + rowSelected.cells[0].innerHTML + ', ' + rowSelected.cells[0].title + '</label>  ';
-            msg += '<input type="text" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
-            msg += '<textarea type="text" placeholder="Description" class="form-control-sm form-control" />';
+            msg = ' <label>Day: ' + date + '</label>   ';
+            msg += ' <div class="row"><div class="col"><b><label>' + selected_grade + ' ' + selected_section + '</label> </b></div> ';
+            msg += '<div class="col"> <label><b>Sub: ' + subject + '</b> </label></div></div>   ';
+            // msg += '<select id="task-subject" class="form-control-sm form-control"><option selected disabled>Select Subject</option></select><br>';
+            msg += '<input id="subject_id" type="hidden" value="' + rowSubject.cells[cellId].id + '" />';
+            msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
+            msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
+            msg += '<textarea id="task_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" ></textarea><br>';
+            msg += '<select id="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
             // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
             // msg += '\n Cell value: ' + this.innerHTML;
 //            alert(msg);
 
             document.getElementById('modalBody').innerHTML = msg;
+            loadSubjects();
+            loadStudents();
             // $("#weeklyModal .modal-body").innerHTML = msg;
             $('#weeklyModal').modal('show');
         }
     }
 
 } //end of function
+
+
+function loadStudents() {
+
+    var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+    var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
+
+    let httpStudent = new XMLHttpRequest();
+    httpStudent.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            document.getElementById('task-select').innerHTML = this.responseText;
+        }
+    };
+    httpStudent.open("GET", "/mysql/planner/task-students.php?section=" + selected_section + "&grade=" + selected_grade, false);
+    httpStudent.send();
+
+    $('.select_all').click(function () {
+        $('#task-select option').prop('selected', true);
+    });
+
+}
+
+function loadSubjects() {
+
+    var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+    var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
+
+    let httpStudent = new XMLHttpRequest();
+    httpStudent.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            document.getElementById('task-subject').innerHTML = this.responseText;
+        }
+    };
+    httpStudent.open("GET", "/mysql/planner/fill-subjects.php?section=" + selected_section + "&grade=" + selected_grade, false);
+    httpStudent.send();
+
+
+}
+
+function saveTask() {
+    let selected_students = $('#task-select').val();
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
+    let subject = document.getElementById('subject_id').value;
+    let title = document.getElementById('task_title').value;
+    let content = document.getElementById('task_content').value;
+    let date = document.getElementById('date').value;
+
+
+    let httpTask = new XMLHttpRequest();
+    httpTask.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            // document.getElementById('student-planner').innerHTML = this.responseText;
+        }
+    };
+    httpTask.open("GET", "/mysql/planner/save-task.php?section=" + selected_section + "&grade=" + selected_grade + "&selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&date=" + date, false);
+    httpTask.send();
+    $('#weeklyModal').modal('hide');
+
+    loadStudentPlanner("student-planner", "curr");
+}
+
+function viewTaskDetails(id) {
+    let viewModal = document.getElementById('viewWeeklyModal');
+    let httpTask = new XMLHttpRequest();
+    httpTask.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            viewModal.innerHTML = this.responseText;
+        }
+    };
+    httpTask.open("GET", "/mysql/planner/view-task.php?id=" + id, false);
+    httpTask.send();
+    $('#viewWeeklyModal').modal('show');
+
+
+}
 
 
 

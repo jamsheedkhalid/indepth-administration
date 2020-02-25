@@ -6,13 +6,12 @@
 }
 
  .weekly-planner  {
-     table-layout: fixed;
-     /*white-space: nowrap;*/
-    width: 100em !important;
+     padding: 0;
+     /*table-layout: fixed;*/
+     /*white-space: nowrap!important;*/
+    min-width: 100em !important;
     height: 50em !important;
 
 
 }
-
-
 
