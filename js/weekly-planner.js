@@ -36,7 +36,7 @@ function loadWeeklyPlanner(div, date_type) {
     let httpPlanner = new XMLHttpRequest();
     httpPlanner.onreadystatechange = function () {
         if (this.readyState === 4) {
-            document.getElementById(div).innerHTML = this.responseText;
+            document.getElementById('weekly-planner').innerHTML = this.responseText;
             // const table = document.querySelector('table');
             //
             // let headerCell = null;
@@ -107,7 +107,6 @@ function highlight_row() {
 
 
 
-            document.getElementById('modalBody').innerHTML = msg;
             loadSubjects();
             loadStudents('task-select');
 
@@ -137,22 +136,22 @@ function loadStudents(id) {
 
 }
 
-function loadSubjects() {
-
-    var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
-    var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
-
-    let httpStudent = new XMLHttpRequest();
-    httpStudent.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            document.getElementById('task-subject').innerHTML = this.responseText;
-        }
-    };
-    httpStudent.open("GET", "/mysql/planner/fill-subjects.php?section=" + selected_section + "&grade=" + selected_grade, false);
-    httpStudent.send();
-
-
-}
+// function loadSubjects() {
+//
+//     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+//     var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
+//
+//     let httpStudent = new XMLHttpRequest();
+//     httpStudent.onreadystatechange = function () {
+//         if (this.readyState === 4) {
+//             document.getElementById('task-subject').innerHTML = this.responseText;
+//         }
+//     };
+//     httpStudent.open("GET", "/mysql/planner/fill-subjects.php?section=" + selected_section + "&grade=" + selected_grade, false);
+//     httpStudent.send();
+//
+//
+// }
 
 
 
