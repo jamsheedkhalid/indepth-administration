@@ -105,7 +105,7 @@
 
 
                 <?php } ?>
-                <li >
+                <li  hidden >
                     <a id="liPlanner" href="/modules/academics/planner/weekly_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
                         WEEKLY PLANNER
