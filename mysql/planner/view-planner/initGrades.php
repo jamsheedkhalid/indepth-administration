@@ -4,7 +4,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = array();
 
 $sql = 'select distinct courses.course_name course_name, courses.id course_id from
-       courses where is_deleted = 0 order by course_name; ';
+       courses where is_deleted = 0 and courses.id != 13 and courses.id != 14 order by course_name; ';
 
 //echo $sql;
 $result = $conn->query($sql);

@@ -10,7 +10,7 @@ inner join subjects on employees_subjects.subject_id = subjects.id
 inner join batches on subjects.batch_id = batches.id
 inner join courses on batches.course_id = courses.id
 where employees.user_id = '$_SESSION[user]' and batches.is_active = 1 and batches.is_deleted = 0
-and subjects.is_deleted = 0 and courses.is_deleted=0 order by course_name; ";
+and subjects.is_deleted = 0 and courses.is_deleted=0 and courses.id != 13 and courses.id != 14 order by course_name; ";
 
 //echo $sql;
 $result = $conn->query($sql);
