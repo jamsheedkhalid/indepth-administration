@@ -1,84 +1,128 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
-checkLoggedIn();
-if ($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin') {
-    ?>
+?>
 
-    <!doctype html>
-    <html lang="en">
+
+<!doctype html>
+<html lang="en">
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
+?>
+<body>
+
+<div class="app-container app-theme-white body-tabs-shadow">
     <?php
-    include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
+    //        include($_SERVER['DOCUMENT_ROOT'] . '/app-header.php');
+    //        include($_SERVER['DOCUMENT_ROOT'] . '/theme-setting.php');
     ?>
-    <body>
-
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-main">
         <?php
-        include($_SERVER['DOCUMENT_ROOT'] . '/app-header.php');
-        include($_SERVER['DOCUMENT_ROOT'] . '/theme-setting.php');
+        //            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
         ?>
-        <div class="app-main">
-            <?php
-            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
-            ?>
-            <div class="app-main__inner">
-                <div class="app-page-title">
-                    <div class="page-title-wrapper">
-                        <div class="page-title-heading">
-                            <div class="page-title-icon">
-                                <i class="pe-7s-date icon-gradient bg-premium-dark">
-                                </i>
-                            </div>
-                            <div>WEEKLY PLANNER
-                                <div class="page-title-subheading">Weekly planner for students academics activities
-                                </div>
+        <div class="app-main__inner">
+            <div class="app-page-title">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="page-title-icon">
+                            <i class="pe-7s-date icon-gradient bg-premium-dark">
+                            </i>
+                        </div>
+                        <div>WEEKLY PLANNER
+                            <div class="page-title-subheading">Planner for students academics activities
                             </div>
                         </div>
-
                     </div>
-                </div>
-                <div class="card-header">
-                    <div class="btn-actions-pane-left">
-                        <ul id='studentList' class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <div class="page-title-actions">
 
-                        </ul>
-                    </div>
-
-                    <div class="btn-actions-pane-right">
-                        <div role="group" class="btn-group-sm nav btn-group">
-                            <a data-toggle="tab"  onclick="loadWeeklyPlanner('weekly-planner-table', 'last');"  class="btn-shadow  btn btn-primary"> LAST WEEK </a>
-                            <a data-toggle="tab"  onclick="loadWeeklyPlanner('weekly-planner-table', 'curr');"   class="btn-shadow  active btn btn-primary"> CURRENT WEEK </a>
-                            <a data-toggle="tab"  onclick="loadWeeklyPlanner('weekly-planner-table', 'next');"   class="btn-shadow  btn btn-primary"> NEXT WEEK </a>
+                        <div class="d-inline-block dropdown">
+                            <a href="/index.php"
+                                    class="btn-shadow btn btn-dark">
+                                                                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                                            <i class="fas fa-edit "></i>
+                                                                        </span>
+                                Edit Planner
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="tab-content" id='weekly-planner-table'>
 
                 </div>
             </div>
+            <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel">
+                <div class="main-card mb-3 card">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="position-relative form-group col-sm-3">
+                                <label for="grade"
+                                       class="">Select Grade</label>
+                                <select name="grade" id="grade" onchange="selectSection();"
+                                        class="form-control-sm form-control">
+                                </select>
+                                <input type="hidden" name="hidden_select"
+                                       value=""/>
+                            </div>
+                            <div class="position-relative form-group col-sm-3">
+                                <label for="section"
+                                       class="">Select Section</label>
+                                <select name="section" id="section"
+                                        onchange=" loadWeeklyPlanner('student-planner', 'curr');"
+                                        class="form-control-sm form-control">
+                                </select>
+                                <input type="hidden" name="hidden_section"
+                                       value=""/>
+                            </div>
+                        </div>
+                        <div>
+                            <div id='weekly-planner'>
+                            </div>
+                        </div>
 
 
-            <?php
-            include($_SERVER['DOCUMENT_ROOT'] . '/footer-bar.php');
-            ?>
+                    </div>
 
-            <!--        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+                </div>
+
+            </div>
+
 
         </div>
+
+
+        <?php
+        //            include($_SERVER['DOCUMENT_ROOT'] . '/footer-bar.php');
+        ?>
+
+        <!--        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+
     </div>
-    </body>
+</div>
 
 
-    </html>
+<div class="modal fade" id="viewWeeklyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="viewModalBody">
 
-    <script type="text/javascript" src="/assets/scripts/main.js"></script>
-    <script> document.getElementById('liWeeklyPlanner').classList.add("mm-active")</script>
-        <script type="text/javascript" src="/js/weekly-planner.js"></script>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
-    <script> document.title = "Planner - InDepth";</script>
-<?php } else {
-    header('Location: /no-access/index.html');
-}
+</body>
 
-?>
+
+</html>
+
+<script type="text/javascript" src="/assets/scripts/main.js"></script>
+<!--    <script> document.getElementById('liPlanner').classList.add("mm-active")</script>-->
+<script type="text/javascript" src="/js/weekly-planner.js"></script>
+
+<script> document.title = "Planner - InDepth";</script>

@@ -250,6 +250,10 @@ function editTask(id) {
 
         loadStudentPlanner("student-planner", "curr");
 
+    $('.select_all').click(function () {
+        $('#task-select-edit option').prop('selected', true);
+    });
+
     $('#viewWeeklyModal').modal('hide');
     $('#editWeeklyModal').modal('show');
     loadStudents('task-select-edit')

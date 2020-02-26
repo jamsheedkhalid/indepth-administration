@@ -1,5 +1,4 @@
 <?php
-session_start();
 date_default_timezone_set('Asia/Dubai');
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 
@@ -42,14 +41,12 @@ $week = date('W', $ts);
 // print week for the current date
 $show = 'show active';
 
-echo '<div class="tab-pane tabs-animation fade ' . $show . '  mt-3 "  id="tab-content-0"  role="tabpanel">
-                                               <div class=" card">
-                                <div  class="card-body">';
+
 echo ' 
-                     <div  class="table-responsive">
+                     <div  class="table-responsive" style="overflow-x: scroll">
        
-                                    <table  style="width: 100%" id="student-planner"
-                                    class="mb-0 table table-bordered student-planner ">
+                                    <table  style="min-width: 100%!important; " id="weekly-planner"
+                                    class="mb-0 table table-striped table-bordered weekly-planner ">
                                         <thead>
                                         <tr align="center">
                                             <th class="headcol"  >DAY \ SUB</th>';
@@ -82,7 +79,7 @@ for ($j = 0; $j <= 6; $j++) {
         if ($result->num_rows > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 $date = date('Y-m-d', $ts);
-                $task = " select id,title from indepth_weekly_planner where alsanawbar.indepth_weekly_planner.subject_id = '$row[id]' and duedate = '$date'; ";
+                $task = " select id,title from indepth_weekly_planner where indepth_weekly_planner.subject_id = '$row[id]' and duedate = '$date'; ";
                 $task_result = $conn->query($task);
 // echo $task;
                 if ($task_result->num_rows > 0) {
@@ -109,43 +106,10 @@ for ($j = 0; $j <= 6; $j++) {
 
 }
 echo '</tbody></table></div>  <br><br>';
-echo ' </div>
-                            </div>
-                        </div>
-                      
-';
 
 
-function time_elapsed_string($date)
-{
-    if (empty($date)) {
-        return "No date provided";
-    }
-    $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
-    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
-    $now = time();
-    $unix_date = strtotime($date);
-// check validity of date
-    if (empty($unix_date)) {
-        return "Bad date";
-    }
-// is it future date or past date
-    if ($now > $unix_date) {
-        $difference = $now - $unix_date;
-        $tense = "ago";
-    } else {
-        $difference = $unix_date - $now;
-        $tense = "from now";
-    }
-    for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
-        $difference /= $lengths[$j];
-    }
-    $difference = round($difference);
-    if ($difference != 1) {
-        $periods[$j] .= "s";
-    }
-    return "$difference $periods[$j] {$tense}";
-}
+
+
 
 
 

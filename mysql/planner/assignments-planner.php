@@ -82,7 +82,7 @@ if ($result->num_rows > 0) {
                      <div  class="table-responsive">
        
                                     <table style="table-layout: fixed" id=""  
-                                    class="mb-0 table  table-sm table-bordered table-weekly-planner  mb-0 table">
+                                    class="mb-0 table  table-sm table-bordered table-assignments-planner  mb-0 table">
                                         <colgroup>
                                             <col span="1" >
                                             <col span="1">

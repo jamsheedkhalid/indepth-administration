@@ -21,7 +21,7 @@ function login()
             ON
             A.user_id = B.user_id
             WHERE
-          (  A.privilege_id = 1 AND A.user_id='$user') OR A.user_id = '5047'";
+            A.privilege_id = 15 AND A.user_id='$user'";
 
 //        echo $sql;
         $result = $conn->query($sql);

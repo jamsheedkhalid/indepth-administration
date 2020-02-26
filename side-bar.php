@@ -55,7 +55,7 @@
                 <?php }?>
                 <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'parent' ){?>
                 <li class="app-sidebar__heading ">ACADEMICS</li>
-                <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin' ){?>
+                <?php  if( $_SESSION['user_type'] === 'admin' ){?>
                 <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
@@ -86,6 +86,12 @@
                                 My Assignments
                             </a>
                         </li>
+                        <li>
+                            <a id="liAssignmentPlanner" href="/modules/academics/planner/assignment_planner.php">
+                                <i class="metismenu-icon "></i>
+                                Assignments Planner
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
@@ -93,17 +99,21 @@
                     <li >
                     <a id="liPlanner" href="/modules/academics/planner/student_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
-                       WEEKLY PLANNER1
+                       WEEKLY PLANNER
                     </a>
                 </li>
-                <?php } if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
-                <li>
-                    <a id="liWeeklyPlanner" href="/modules/academics/planner/weekly_planner.php">
+
+
+                <?php } ?>
+                <li >
+                    <a id="liPlanner" href="/modules/academics/planner/weekly_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
                         WEEKLY PLANNER
                     </a>
                 </li>
-                <?php } ?>
+
+
+
                 <?php if ( $_SESSION['user_type'] === 'admin'){?>
                 <li  class="app-sidebar__heading">FINANCE</li>
                 <li  >

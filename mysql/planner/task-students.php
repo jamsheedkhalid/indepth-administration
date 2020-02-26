@@ -15,7 +15,7 @@ $sql = " select last_name name, students.id id from students
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-    $section = ' <option class="select_all" value=""  > Select All </option>';
+    $section = ' <option class=" select_all " value=""  > Select All </option>';
     while ($row = mysqli_fetch_array($result)) {
         $section .= ' <option  value=' . $row['id'] . '>' . $row['name'] . '</option>';
     }
