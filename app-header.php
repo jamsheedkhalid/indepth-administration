@@ -73,6 +73,7 @@
                                 title="Exit Fullscreen" onclick="exitFullscreen(document.documentElement);">
                             <i class="pe-7s-monitor icon-gradient bg-mean-fruit" size="5"></i>
                         </button>
+
                         <div class="widget-content-left" hidden>
 
                             <div class="btn-group">
@@ -103,7 +104,7 @@
                                 General Admin
                             </div>
                         </div>
-                        <div class="widget-content-right header-user-info ml-3">
+                        <div class="">
                             <button type="button" hidden class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
                                 <i class="fa text-white fa-calendar pr-1 pl-1"></i>
                             </button>

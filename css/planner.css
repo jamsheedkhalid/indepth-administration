@@ -1,0 +1,34 @@
+#student-planner {
+    max-width: 900px;
+    margin: auto;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+}
+#weekly-planner {
+    max-width: 900px;
+    margin: auto;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+ .student-planner  {
+     padding: 0;
+     /*table-layout: fixed;*/
+     /*white-space: nowrap!important;*/
+    min-width: 100em !important;
+    height: 50em !important;
+
+
+}
+.weekly-planner  {
+     padding: 0;
+     /*table-layout: fixed;*/
+     /*white-space: nowrap!important;*/
+    min-width: 100% !important;
+    height: 50em !important;
+
+
+}
+
+
+

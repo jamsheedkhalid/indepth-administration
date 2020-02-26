@@ -5,15 +5,15 @@
  * Email: jamsheedkhalid35@gmail.com
  */
 
-$servername = "localhost";
-$username = "fedena";
-$password = "fedenapw";
-$DB = "alsanawabar";
+$servername = 'localhost';
+$username = 'fedena';
+$password = 'fedenapw';
+$DB = 'alsanawbar';
 
 $conn = new mysqli($servername, $username, $password, $DB);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error . "\n");
+    die('Connection failed: ' . $conn->connect_error . "\n");
 }
 
 //   -----------arabic encoding----------------
