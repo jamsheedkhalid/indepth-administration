@@ -28,7 +28,7 @@ function login()
         if ($result->num_rows > 0) {
             $_SESSION['login'] = 1;
             $_SESSION['user_type'] = 'teacher';
-            header('Location: /../modules/academics/examination/generate-reports.php');
+            header('Location: /../modules/academics/planner/student_planner.php');
         } else {
             $sql = "SELECT
             *
