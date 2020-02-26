@@ -68,12 +68,8 @@ echo ' </tr>  </th></thead><tbody >';
 for ($j = 0; $j <= 6; $j++) {
     // timestamp from ISO week date format
     $ts = strtotime($year . 'W' . $week . $j);
-    if ($show_date === 1) {
-        echo '<tr ><th class="headcol"  title="' . date('Y-m-d', $ts) . '" ><' . strtoupper(date('l d/M', $ts)) . ' </th>';
-        echo '</tr>';
-
-    } else {
-        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l  d/M ', $ts)) . ' </th>';
+  {
+        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' .strtoupper(date('l', $ts)) . '<br>'. (date('d-M-Y', $ts)). ' </th>';
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
