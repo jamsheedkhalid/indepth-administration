@@ -64,7 +64,7 @@ function login()
                         header('Location:  /modules/hr/certificate/employee-certificate.php');
                     } else {
                         $_SESSION['noaccess'] = 1;
-                        header('Location: /../index.html');
+                        header('Location: /index.php');
                     }
                 }
 
@@ -81,6 +81,6 @@ function checkLoggedIn()
 {
     if (!isset($_SESSION['login'])) {
         $_SESSION['notloggedin'] = 1;
-        header('Location: /../index.html');
+        header('Location: /index.php');
     }
 }

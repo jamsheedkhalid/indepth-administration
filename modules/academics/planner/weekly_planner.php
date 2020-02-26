@@ -35,7 +35,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                     <div class="page-title-actions">
 
                         <div class="d-inline-block dropdown">
-                            <a href="/index.html"
+                            <a href="/index.php"
                                     class="btn-shadow btn btn-dark">
                                                                         <span class="btn-icon-wrapper pr-2 opacity-7">
                                                                             <i class="fas fa-edit "></i>

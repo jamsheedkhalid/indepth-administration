@@ -24129,7 +24129,7 @@
                 title: {display: !1, text: "Chart.js Line Chart"},
                 legend: {display: !1},
                 layout: {padding: {left: 10, right: 10, top: 10, bottom: 0}},
-                tooltips: {mode: "index.html", intersect: !1},
+                tooltips: {mode: "index", intersect: !1},
                 hover: {mode: "nearest", intersect: !0},
                 pointBackgroundColor: "#fff",
                 pointBorderColor: window.chartColors.blue,
@@ -24207,7 +24207,7 @@
                 data: l,
                 options: {
                     title: {display: !0, text: "Chart.js Bar Chart - Stacked"},
-                    tooltips: {mode: "index.html", intersect: !1},
+                    tooltips: {mode: "index", intersect: !1},
                     responsive: !0,
                     scales: {xAxes: [{stacked: !0}], yAxes: [{stacked: !0}]}
                 }
@@ -26557,7 +26557,7 @@
             }], yAxes: [{type: "linear"}]
         }
     }), i._set("horizontalBar", {
-        hover: {mode: "index.html", axis: "y"},
+        hover: {mode: "index", axis: "y"},
         scales: {
             xAxes: [{type: "linear", position: "bottom"}],
             yAxes: [{
@@ -26578,7 +26578,7 @@
                 }, label: function (e, t) {
                     return (t.datasets[e.datasetIndex].label || "") + ": " + e.xLabel
                 }
-            }, mode: "index.html", axis: "y"
+            }, mode: "index", axis: "y"
         }
     }), e.exports = function (e) {
         e.controllers.bar = e.DatasetController.extend({
