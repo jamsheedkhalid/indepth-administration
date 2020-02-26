@@ -73,7 +73,7 @@ for ($j = 0; $j <= 6; $j++) {
         echo '</tr>';
 
     } else {
-        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l ', $ts)) . ' </th>';
+        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l  d/M ', $ts)) . ' </th>';
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
