@@ -39,7 +39,7 @@ VALUES (NULL, '$emp_id', '$subject', '$student', '$title', '$content', '$date', 
 if ($conn->query($save_task) === TRUE) {
     echo 'New record created successfully';
 } else {
-    echo 'Error: ' . $sql . '<br>' . $conn->error;
+    echo 'Error: ' . $save_task . '<br>' . $conn->error;
 }
 
 $conn->close();

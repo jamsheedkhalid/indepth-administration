@@ -35,9 +35,9 @@ if ($result->num_rows > 0) {
         while ($row_sub = mysqli_fetch_array($result_sub)) {
             echo '<div align="right" class="col"><label> Subject:<b> ' . $row_sub['name'] . '</b></label></div></div>';
         }
-        echo '<div><label>Title:</label> <input class="form-control-sm form-control" value=" ' . $row['title'] . '"/></div>';
-        echo '<div><label> Content: </label><textarea class="form-control-sm form-control" >' . $row['content'] . '</textarea></div>';
-        echo '<div><label> Students: </label></div><div><textarea class="form-control-sm form-control" >' . $row['student_list'] . '</textarea></div>';
+        echo '<div><label for="edit_title">Title:</label> <input id="edit_title" class="form-control-sm form-control" value=" ' . $row['title'] . '"/></div>';
+        echo '<br><label for="edit_content">Content:</label><textarea id="edit_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" >' . $row['content'] . '</textarea><br>';
+        echo '<label for="task-select-edit">Select Student</label><select id="task-select-edit" name="task-select-edit" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
 
 
         echo ' </div>

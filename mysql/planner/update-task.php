@@ -1,0 +1,36 @@
+<?php
+session_start();
+date_default_timezone_set('Asia/Dubai');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
+
+$student = $_REQUEST['selected_students'];
+$title = $_REQUEST['title'];
+$content = $_REQUEST['content'];
+$id = $_REQUEST['id'];
+
+
+$sql = "UPDATE indepth_weekly_planner  
+                SET 
+                    student_list = '$student', 
+                    title = '$title', 
+                    content = '$content',
+                    attachment_file_name = NULL, 
+                    attachment_content_type = NULL, 
+                    attachment_file_size = NULL, 
+                    attachment_updated_at = NULL,  
+                    updated_at = CURRENT_DATE()  
+             WHERE id = '$id'";
+
+echo $sql;
+if ($conn->query($sql) === TRUE) {
+    echo 'Updated successfully';
+} else {
+    echo 'Error: ' . $sql . '<br>' . $conn->error;
+}
+
+$conn->close();
+
+
+
+
+

@@ -113,14 +113,14 @@ function highlight_row() {
             msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
             msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
             msg += '<textarea id="task_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" ></textarea><br>';
-            msg += '<select id="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
+            msg += '<label for="task-select">Select Student</label><select id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
             // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
             // msg += '\n Cell value: ' + this.innerHTML;
 //            alert(msg);
 
             document.getElementById('modalBody').innerHTML = msg;
             loadSubjects();
-            loadStudents();
+            loadStudents('task-select');
             // $("#weeklyModal .modal-body").innerHTML = msg;
             $('#weeklyModal').modal('show');
         }
@@ -129,7 +129,7 @@ function highlight_row() {
 } //end of function
 
 
-function loadStudents() {
+function loadStudents(id) {
 
     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
@@ -137,7 +137,7 @@ function loadStudents() {
     let httpStudent = new XMLHttpRequest();
     httpStudent.onreadystatechange = function () {
         if (this.readyState === 4) {
-            document.getElementById('task-select').innerHTML = this.responseText;
+            document.getElementById(id).innerHTML = this.responseText;
         }
     };
     httpStudent.open("GET", "/mysql/planner/task-students.php?section=" + selected_section + "&grade=" + selected_grade, false);
@@ -231,27 +231,57 @@ function delTask(id) {
 }
 
 function editTask(id) {
-    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
-    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
-    let editModal = document.getElementById('editModalBody');
+
+        let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+        let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
+        let editModal = document.getElementById('editModalBody');
 
         let httpTask = new XMLHttpRequest();
         httpTask.onreadystatechange = function () {
             if (this.readyState === 4) {
                 $('#editWeeklyModal').modal('show');
-              editModal.innerHTML=this.responseText;
+                editModal.innerHTML = this.responseText;
+
 
             }
         };
-        httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id  + "&grade=" + selected_grade + "&section=" + selected_section, false);
+        httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section, false);
         httpTask.send();
 
         loadStudentPlanner("student-planner", "curr");
 
     $('#viewWeeklyModal').modal('hide');
     $('#editWeeklyModal').modal('show');
+    loadStudents('task-select-edit')
 }
 
+function updateTask(id) {
+    let conf = confirm("Are you sure you want to edit?");
+    if (conf === true) {
+    let selected_students = $('#task-select-edit').val();
+    let title = document.getElementById('edit_title').value;
+    let content = document.getElementById('edit_content').value;
+
+
+    let httpTask = new XMLHttpRequest();
+    httpTask.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            // document.getElementById('student-planner').innerHTML = this.responseText;
+            loadStudentPlanner("student-planner", "curr");
+        }
+    };
+    httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content+ "&id=" + id , false);
+    httpTask.send();   }
+    else
+    {
+        loadStudentPlanner("student-planner", "curr");
+
+    }
+    $('#weeklyModal').modal('hide');
+    $('#viewWeeklyModal').modal('hide');
+    $('#editWeeklyModal').modal('hide');
+
+}
 
 
 
