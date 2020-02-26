@@ -82,7 +82,7 @@ for ($j = 0; $j <= 6; $j++) {
         if ($result->num_rows > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 $date = date('Y-m-d', $ts);
-                $task = " select id,title from indepth_weekly_planner where alsanawbar.indepth_weekly_planner.subject_id = '$row[id]' and duedate = '$date'; ";
+                $task = " select id,title from indepth_weekly_planner where indepth_weekly_planner.subject_id = '$row[id]' and duedate = '$date'; ";
                 $task_result = $conn->query($task);
 // echo $task;
                 if ($task_result->num_rows > 0) {
