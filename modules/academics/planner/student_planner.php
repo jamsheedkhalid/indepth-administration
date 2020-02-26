@@ -15,11 +15,11 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . '/app-header.php');
-        include($_SERVER['DOCUMENT_ROOT'] . '/theme-setting.php');
+//        include($_SERVER['DOCUMENT_ROOT'] . '/theme-setting.php');
         ?>
         <div class="app-main">
             <?php
-            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
+//            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
             ?>
             <div class="app-main__inner">
                 <div class="app-page-title">
@@ -34,7 +34,16 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                                 </div>
                             </div>
                         </div>
-                        <div class="page-title-actions">
+                        <div class="page-title-actions col-sm-3">
+                            <div  class="">
+                                <label  for="grade"
+                                        class="">Select Grade</label>
+                                <select name="grade" id="grade" onchange="selectSection();"
+                                        class="form-control-sm form-control">
+                                </select>
+                                <input type="hidden" name="hidden_select"
+                                       value=""/>
+                            </div>
 
                             <!--                        <div class="d-inline-block dropdown">-->
                             <!--                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
@@ -104,20 +113,12 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel">
+                <div>
                     <div class="main-card mb-3 card">
                         <div class="card-body ">
-                            <div class="row">
-                                <div class="position-relative form-group col-sm-3">
-                                    <label for="grade"
-                                           class="">Select Grade</label>
-                                    <select name="grade" id="grade" onchange="selectSection();"
-                                            class="form-control-sm form-control">
-                                    </select>
-                                    <input type="hidden" name="hidden_select"
-                                           value=""/>
-                                </div>
-                                <div class="position-relative form-group col-sm-3">
+                            <div class="row ">
+
+                                <div hidden aria-hidden="true" class="position-relative form-group col-sm-3">
                                     <label for="section"
                                            class="">Select Section</label>
                                     <select name="section" id="section"
@@ -127,11 +128,12 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                                     <input type="hidden" name="hidden_section"
                                            value=""/>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div id='student-planner'>
+                                <div  style="overflow-x: scroll;min-width: 100% !important; " >
+                                    <div id='student-planner'>
+                                    </div>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>
@@ -142,7 +144,7 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
 
 
             <?php
-            include($_SERVER['DOCUMENT_ROOT'] . '/footer-bar.php');
+//            include($_SERVER['DOCUMENT_ROOT'] . '/footer-bar.php');
             ?>
 
             <!--        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->

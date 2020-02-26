@@ -43,17 +43,26 @@ $show = 'show active';
 
 
 echo ' 
-                     <div  class="table-responsive" style="overflow-x: scroll">
-       
-                                    <table  style="min-width: 100%!important; " id="weekly-planner"
+                     <div >
+                                    <table   
                                     class="mb-0 table table-striped table-bordered weekly-planner ">
                                         <thead>
                                         <tr align="center">
                                             <th class="headcol"  >DAY \ SUB</th>';
 
-$sql = "select subjects.id id, subjects.name name from subjects
+$sql = "
+select subjects.id id, subjects.name name
+from subjects
+         inner join batches on subjects.batch_id = batches.id
+         inner join courses on batches.course_id = courses.id
 where subjects.is_deleted = 0
-  and batch_id = '$section';
+  and courses.id = '$grade'
+  and courses.is_deleted = 0
+  and batches.is_deleted = 0
+  and batches.is_active = 1
+  and batches.name LIKE '%2020%'
+group by subjects.name
+order by subjects.name;
 ";
 //echo $sql;
 $result = $conn->query($sql);
@@ -70,10 +79,7 @@ for ($j = 0; $j <= 6; $j++) {
     $ts = strtotime($year . 'W' . $week . $j);
     {
         echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l', $ts)) . '<br>' . (date('d-M-Y', $ts)) . ' </th>';
-        $sql = "select subjects.id id, subjects.name name from subjects
-                where subjects.is_deleted = 0
-                and batch_id = '$section';
-        ";
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {

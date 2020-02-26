@@ -77,6 +77,7 @@ function highlight_row() {
     var table = document.getElementById('student-planner');
     var cells = table.getElementsByTagName('td');
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+    let selected_grade_id = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
 
 
@@ -97,32 +98,52 @@ function highlight_row() {
                 rowsNotSelected[row].classList.remove('selected');
             }
             var rowSelected = table.getElementsByTagName('tr')[rowId];
+
             var rowSubject = table.getElementsByTagName('tr')[0];
             // rowSelected.style.backgroundColor = "#D5ECED";
             rowSelected.style.backgroundColor = "#D5ECED";
             rowSelected.style.color = "black";
             rowSelected.className += " selected";
-            subject = rowSubject.cells[cellId].innerHTML;
-            date = new Date(rowSelected.cells[0].title).toDateString();
+            let subject = rowSubject.cells[cellId].innerHTML;
+            let date = new Date(rowSelected.cells[0].title).toDateString();
 
-            msg = ' <label>Day: ' + date + '</label>   ';
-            msg += ' <div class="row"><div class="col"><b><label>' + selected_grade + ' ' + selected_section + '</label> </b></div> ';
-            msg += '<div class="col"> <label><b>Sub: ' + subject + '</b> </label></div></div>   ';
-            // msg += '<select id="task-subject" class="form-control-sm form-control"><option selected disabled>Select Subject</option></select><br>';
-            msg += '<input id="subject_id" type="hidden" value="' + rowSubject.cells[cellId].id + '" />';
-            msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
-            msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
-            msg += '<textarea id="task_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" ></textarea><br>';
-            msg += '<label for="task-select">Select Student</label><select id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
-            // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
-            // msg += '\n Cell value: ' + this.innerHTML;
+            let sub_id = rowSubject.cells[cellId].id;
+
+            let httpTask = new XMLHttpRequest();
+            httpTask.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    let is_teaching = this.responseText;
+                    // alert(is_teaching);
+                    if(is_teaching == 1){
+                        msg = ' <label>Day: ' + date + '</label>   ';
+                        msg += ' <div class="row"><div class="col"><b><label> Grade: ' + selected_grade + ' ' + '</label> </b></div> ';
+                        msg += '<div class="col"> <label><b>Sub: ' + subject + '</b> </label></div></div>   ';
+                        // msg += '<select id="task-subject" class="form-control-sm form-control"><option selected disabled>Select Subject</option></select><br>';
+                        msg += '<input id="subject_id" type="hidden" value="' + rowSubject.cells[cellId].id + '" />';
+                        msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
+                        msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
+                        msg += '<textarea id="task_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" ></textarea><br>';
+                        msg += '<label for="task-select" hidden >Select Student</label><select hidden id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
+                        // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
+                        // msg += '\n Cell value: ' + this.innerHTML;
 //            alert(msg);
 
-            document.getElementById('modalBody').innerHTML = msg;
-            loadSubjects();
-            loadStudents('task-select');
-            // $("#weeklyModal .modal-body").innerHTML = msg;
-            $('#weeklyModal').modal('show');
+                        document.getElementById('modalBody').innerHTML = msg;
+                        loadSubjects();
+                        loadStudents('task-select');
+                        // $("#weeklyModal .modal-body").innerHTML = msg;
+                        $('#weeklyModal').modal('show')
+                    }
+                    else{
+                        alert("Subject is not assigned! Please select your subjects only");
+                    }
+                }
+            };
+            httpTask.open("GET", "/mysql/planner/subject-privilege.php?id=" + sub_id + '&grade=' + selected_grade_id , false);
+            httpTask.send();
+
+
+;
         }
     }
 
@@ -231,24 +252,23 @@ function delTask(id) {
 }
 
 function editTask(id) {
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
+    let editModal = document.getElementById('editModalBody');
 
-        let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
-        let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
-        let editModal = document.getElementById('editModalBody');
-
-        let httpTask = new XMLHttpRequest();
-        httpTask.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                $('#editWeeklyModal').modal('show');
-                editModal.innerHTML = this.responseText;
+    let httpTask = new XMLHttpRequest();
+    httpTask.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            $('#editWeeklyModal').modal('show');
+            editModal.innerHTML = this.responseText;
 
 
-            }
-        };
-        httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section, false);
-        httpTask.send();
+        }
+    };
+    httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section, false);
+    httpTask.send();
 
-        loadStudentPlanner("student-planner", "curr");
+    loadStudentPlanner("student-planner", "curr");
 
     $('.select_all').click(function () {
         $('#task-select-edit option').prop('selected', true);
@@ -262,22 +282,21 @@ function editTask(id) {
 function updateTask(id) {
     let conf = confirm("Are you sure you want to edit?");
     if (conf === true) {
-    let selected_students = $('#task-select-edit').val();
-    let title = document.getElementById('edit_title').value;
-    let content = document.getElementById('edit_content').value;
+        let selected_students = $('#task-select-edit').val();
+        let title = document.getElementById('edit_title').value;
+        let content = document.getElementById('edit_content').value;
 
 
-    let httpTask = new XMLHttpRequest();
-    httpTask.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            // document.getElementById('student-planner').innerHTML = this.responseText;
-            loadStudentPlanner("student-planner", "curr");
-        }
-    };
-    httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content+ "&id=" + id , false);
-    httpTask.send();   }
-    else
-    {
+        let httpTask = new XMLHttpRequest();
+        httpTask.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                // document.getElementById('student-planner').innerHTML = this.responseText;
+                loadStudentPlanner("student-planner", "curr");
+            }
+        };
+        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&id=" + id, false);
+        httpTask.send();
+    } else {
         loadStudentPlanner("student-planner", "curr");
 
     }

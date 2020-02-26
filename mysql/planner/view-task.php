@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
         echo "</div>";
 
 
-        echo '<div class="row"><div class="col"><label>Section: <b>' . $grade . ' ' . $section . '</b></label></div>';
+        echo '<div class="row"><div class="col"><label>Grade: <b>' . $grade . '</b></label></div>';
 
         $sql_sub = "select name from subjects where id = '$row[subject_id]'; ";
         $result_sub = $conn->query($sql_sub);

@@ -4,6 +4,10 @@
     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
     font-size: 14px;
 }
+
+ td{
+    min-width: 150px!important;
+}
 #weekly-planner {
     max-width: 900px;
     margin: auto;
@@ -23,8 +27,8 @@
 .weekly-planner  {
      padding: 0;
      /*table-layout: fixed;*/
-     /*white-space: nowrap!important;*/
-    min-width: 100% !important;
+     white-space: nowrap!important;
+    /*min-width: 100% !important;*/
     height: 50em !important;
 
 

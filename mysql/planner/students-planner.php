@@ -42,21 +42,29 @@ $week = date('W', $ts);
 // print week for the current date
 $show = 'show active';
 
-echo '<div class="tab-pane tabs-animation fade ' . $show . '  mt-3 "  id="tab-content-0"  role="tabpanel">
-                                               <div class=" card">
-                                <div  class="card-body">';
+
 echo ' 
-                     <div  class="table-responsive">
+                     <div style="min-width: 100%!important;" >
        
-                                    <table  style="width: 100%" id="student-planner"
-                                    class="mb-0 table table-bordered student-planner ">
+                                    <table   style="min-width: 100%!important;"
+                                    class="mb-0 table table-bordered table-striped  student-planner ">
                                         <thead>
                                         <tr align="center">
                                             <th class="headcol"  >DAY \ SUB</th>';
 
-$sql = "select subjects.id id, subjects.name name from subjects
+$sql = "
+select subjects.id id, subjects.name name
+from subjects
+         inner join batches on subjects.batch_id = batches.id
+         inner join courses on batches.course_id = courses.id
 where subjects.is_deleted = 0
-  and batch_id = '$section';
+  and courses.id = '$grade'
+  and courses.is_deleted = 0
+  and batches.is_deleted = 0
+  and batches.is_active = 1
+  and batches.name LIKE '%2020%'
+group by subjects.name
+order by subjects.name;
 ";
 //echo $sql;
 $result = $conn->query($sql);
@@ -64,15 +72,15 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $col_count = 0;
     while ($row = mysqli_fetch_array($result)) {
-        echo '<th id="'.$row['id'].'">' . $row['name'] . '</th>';
+        echo '<th id="' . $row['id'] . '">' . $row['name'] . '</th>';
     }
 }
 echo ' </tr>  </th></thead><tbody >';
 for ($j = 0; $j <= 6; $j++) {
     // timestamp from ISO week date format
     $ts = strtotime($year . 'W' . $week . $j);
-  {
-        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l', $ts)) . '<br>'. (date('d-M-Y', $ts)). ' </th>';
+    {
+        echo '<tr><th  class="headcol"  title="' . date('Y-m-d', $ts) . '" >' . strtoupper(date('l', $ts)) . '<br>' . (date('d-M-Y', $ts)) . ' </th>';
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -82,14 +90,13 @@ for ($j = 0; $j <= 6; $j++) {
                 $task_result = $conn->query($task);
 // echo $task;
                 if ($task_result->num_rows > 0) {
-                    echo '<td>';
+                    echo '<td >';
                     while ($task_row = mysqli_fetch_array($task_result)) {
-                        echo '<a  onclick="viewTaskDetails(this.id)" id="'.$task_row['id'].'" class="mb-2 mr-2 badge badge-warning " >' .$task_row['title'].'</a><br>';
+                        echo '<a  onclick="viewTaskDetails(this.id)" id="' . $task_row['id'] . '" class="mb-2 mr-2 badge badge-warning " >' . $task_row['title'] . '</a><br>';
                     }
                     echo '</td>';
-                }
-                else {
-                    echo '<td ></td>';
+                } else {
+                    echo '<td  ></td>';
                 }
 
             }
@@ -105,11 +112,7 @@ for ($j = 0; $j <= 6; $j++) {
 
 }
 echo '</tbody></table></div>  <br><br>';
-echo ' </div>
-                            </div>
-                        </div>
-                      
-';
+
 
 
 function time_elapsed_string($date)

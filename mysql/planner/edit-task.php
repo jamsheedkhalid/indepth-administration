@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
 
 
-        echo '<div class="row"><div class="col"><label>Section: <b>' . $grade . ' ' . $section . '</b></label></div>';
+        echo '<div class="row"><div class="col"><label>Grade: <b>' . $grade .  '</b></label></div>';
 
         $sql_sub = "select name from subjects where id = '$row[subject_id]'; ";
         $result_sub = $conn->query($sql_sub);
@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
         }
         echo '<div><label for="edit_title">Title:</label> <input id="edit_title" class="form-control-sm form-control" value=" ' . $row['title'] . '"/></div>';
         echo '<br><label for="edit_content">Content:</label><textarea id="edit_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" >' . $row['content'] . '</textarea><br>';
-        echo '<label for="task-select-edit">Select Student</label><select id="task-select-edit" name="task-select-edit" multiple="multiple"  size = "5" class="form-control-sm form-control select_all "><option>Select Students</option></select>';
+        echo '<label for="task-select-edit" hidden>Select Student</label><select  hidden id="task-select-edit" name="task-select-edit" multiple="multiple"  size = "5" class="form-control-sm form-control select_all "><option>Select Students</option></select>';
 
 
         echo ' </div>

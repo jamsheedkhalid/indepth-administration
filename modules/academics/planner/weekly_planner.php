@@ -19,22 +19,32 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
         <?php
         //            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
         ?>
-        <div class="app-main__inner">
-            <div class="app-page-title">
+        <div class="app-main__inner ">
+            <div class="app-page-title ">
                 <div class="page-title-wrapper">
-                    <div class="page-title-heading">
+                    <div class="page-title-heading col ">
                         <div class="page-title-icon">
                             <i class="pe-7s-date icon-gradient bg-premium-dark">
                             </i>
                         </div>
-                        <div>WEEKLY PLANNER
+                        <div c>WEEKLY PLANNER
                             <div class="page-title-subheading">Planner for students academics activities
                             </div>
                         </div>
                     </div>
-                    <div class="page-title-actions">
+                    <div class="page-title-actions col-sm-4 ">
+                        <div class="row m-0 p-0">
+                        <div class="position-relative form-group col-sm-6 ">
+                            <label for="grade"
+                                   class="">Select Grade</label>
+                            <select name="grade" id="grade" onchange="selectSection();"
+                                    class="form-control-sm form-control">
+                            </select>
+                            <input type="hidden" name="hidden_select"
+                                   value=""/>
+                        </div>
 
-                        <div class="d-inline-block dropdown">
+                        <div  class="d-inline-block dropdown  col-sm-6">
                             <a href="/index.php"
                                     class="btn-shadow btn btn-dark">
                                                                         <span class="btn-icon-wrapper pr-2 opacity-7">
@@ -43,24 +53,18 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                 Edit Planner
                             </a>
                         </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
-            <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel">
-                <div class="main-card mb-3 card">
-                    <div class="card-body ">
+            <div>
+                <div class="
+                 mb-3 card">
+
                         <div class="row">
-                            <div class="position-relative form-group col-sm-3">
-                                <label for="grade"
-                                       class="">Select Grade</label>
-                                <select name="grade" id="grade" onchange="selectSection();"
-                                        class="form-control-sm form-control">
-                                </select>
-                                <input type="hidden" name="hidden_select"
-                                       value=""/>
-                            </div>
-                            <div class="position-relative form-group col-sm-3">
+
+                            <div hidden class="position-relative form-group col-sm-3">
                                 <label for="section"
                                        class="">Select Section</label>
                                 <select name="section" id="section"
@@ -72,12 +76,11 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             </div>
                         </div>
                         <div>
-                            <div id='weekly-planner'>
+                            <div id='weekly-planner' style=" min-width: 100% !important; overflow-x:scroll ">
                             </div>
                         </div>
 
 
-                    </div>
 
                 </div>
 
