@@ -46,7 +46,7 @@ body {
 }
 
 .notfound .notfound-404 {
-  position: absolute;
+  position: relative;
   height: 200px;
 }
 

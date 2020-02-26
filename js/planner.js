@@ -74,7 +74,7 @@ function loadStudentPlanner(div, date_type) {
 
 function highlight_row() {
 
-    var table = document.getElementById('weekly-planner');
+    var table = document.getElementById('student-planner');
     var cells = table.getElementsByTagName('td');
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
