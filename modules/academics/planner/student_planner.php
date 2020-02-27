@@ -220,6 +220,7 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
 
     <script type="text/javascript" src="/assets/scripts/main.js"></script>
     <script> document.getElementById('liPlanner').classList.add("mm-active")</script>
+    <script> document.getElementById('liPlanner_edit').classList.add("mm-active")</script>
     <script type="text/javascript" src="/js/planner.js"></script>
 
     <script> document.title = "Planner - InDepth";</script>

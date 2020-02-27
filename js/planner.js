@@ -114,7 +114,7 @@ function highlight_row() {
                 if (this.readyState === 4) {
                     let is_teaching = this.responseText;
                     // alert(is_teaching);
-                    if(is_teaching == 1){
+                    if (is_teaching == 1) {
                         msg = ' <label>Day: ' + date + '</label>   ';
                         msg += ' <div class="row"><div class="col"><b><label> Grade: ' + selected_grade + ' ' + '</label> </b></div> ';
                         msg += '<div class="col"> <label><b>Sub: ' + subject + '</b> </label></div></div>   ';
@@ -122,7 +122,7 @@ function highlight_row() {
                         msg += '<input id="subject_id" type="hidden" value="' + rowSubject.cells[cellId].id + '" />';
                         msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
                         msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
-                        msg += '<textarea id="task_content" type="text" maxlength="500" style="height: 100px" placeholder="Description (Max 500 words)" class="form-control-sm form-control" ></textarea><br>';
+                        msg += '<textarea id="task_content" type="text"  style="height: 100px" placeholder="Description" class="form-control-sm form-control" ></textarea><br>';
                         msg += '<label for="task-select" hidden >Select Student</label><select hidden id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
                         // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
                         // msg += '\n Cell value: ' + this.innerHTML;
@@ -133,17 +133,16 @@ function highlight_row() {
                         loadStudents('task-select');
                         // $("#weeklyModal .modal-body").innerHTML = msg;
                         $('#weeklyModal').modal('show')
-                    }
-                    else{
+                    } else {
                         alert("Subject is not assigned! Please select your subjects only");
                     }
                 }
             };
-            httpTask.open("GET", "/mysql/planner/subject-privilege.php?id=" + sub_id + '&grade=' + selected_grade_id , false);
+            httpTask.open("GET", "/mysql/planner/subject-privilege.php?id=" + sub_id + '&grade=' + selected_grade_id, false);
             httpTask.send();
 
 
-;
+            ;
         }
     }
 
@@ -197,10 +196,11 @@ function saveTask() {
     let content = document.getElementById('task_content').value;
     let date = document.getElementById('date').value;
 
+    content = content.replace(/\n\r?/g, '<br />');
+
     if (!title.replace(/\s/g, '').length) {
-      alert("Please enter the title");
-    }
-    else {
+        alert("Please enter the title");
+    } else {
         let httpTask = new XMLHttpRequest();
         httpTask.onreadystatechange = function () {
             if (this.readyState === 4) {
@@ -247,16 +247,15 @@ function delTask(id) {
             if (this.readyState === 4) {
                 let response = this.responseText;
 
-                if(response == 0){
+                if (response == 0) {
                     alert("Sorry, you are not allowed to delete this task!");
-                }
-                else {
+                } else {
                     loadStudentPlanner("student-planner", "curr");
                     // document.getElementById('student-planner').innerHTML=this.responseText;
                 }
             }
         };
-        httpTask.open("GET", "/mysql/planner/del-task.php?id=" + id + "&grade=" + selected_grade , false);
+        httpTask.open("GET", "/mysql/planner/del-task.php?id=" + id + "&grade=" + selected_grade, false);
         httpTask.send();
     } else {
         loadStudentPlanner("student-planner", "curr");
@@ -276,18 +275,16 @@ function editTask(id) {
     let httpTask = new XMLHttpRequest();
     httpTask.onreadystatechange = function () {
         if (this.readyState === 4) {
-          let response = this.responseText;
-         if(response == 0){
-             alert("Sorry, you are not allowed to edit this task!");
-         }
-         else {
-             editModal.innerHTML = response;
-             $('#viewWeeklyModal').modal('hide');
-             // loadStudents('task-select-edit');
-             $('#editWeeklyModal').modal('show');
-             loadStudentPlanner("student-planner", "curr");
-         }
-
+            let response = this.responseText;
+            if (response == 0) {
+                alert("Sorry, you are not allowed to edit this task!");
+            } else {
+                editModal.innerHTML = response;
+                $('#viewWeeklyModal').modal('hide');
+                // loadStudents('task-select-edit');
+                $('#editWeeklyModal').modal('show');
+                loadStudentPlanner("student-planner", "curr");
+            }
 
 
         }
@@ -317,7 +314,7 @@ function updateTask(id) {
                 loadStudentPlanner("student-planner", "curr");
             }
         };
-        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students +  "&title=" + title + "&content=" + content + "&id=" + id, false);
+        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&title=" + title + "&content=" + content + "&id=" + id, false);
         httpTask.send();
     } else {
         loadStudentPlanner("student-planner", "curr");

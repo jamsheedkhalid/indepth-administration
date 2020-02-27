@@ -81,7 +81,7 @@
                     <ul>
 
                         <li>
-                            <a id="liAssignment_studentAssignment" href="/modules/academics/assignment/student_assignment.php">
+                            <a href="/modules/academics/assignment/student_assignment.php">
                                 <i class="metismenu-icon"></i>
                                 My Assignments
                             </a>
@@ -96,13 +96,19 @@
                     </ul>
                 </li>
                 <?php } if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin'){?>
-                    <li >
-                    <a id="liPlanner" href="/modules/academics/planner/student_planner.php">
+                    <li  id="liPlanner" >
+                    <a href="#"  >
                         <i class="metismenu-icon pe-7s-date"></i>
                        WEEKLY PLANNER
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                         <ul>
+                            <li >
+                                <a id="liPlanner_edit"  href="/modules/academics/planner/student_planner.php">
+                                    <i class="metismenu-icon pe-7s-date"></i>
+                                    Edit
+                                </a>
+                            </li>
                             <li >
                                 <a href="/modules/academics/planner/weekly_planner.php" target="_blank">
                                     <i class="metismenu-icon pe-7s-date"></i>

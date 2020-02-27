@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
             echo '<div align="right" class="col"><label> Subject:<b> ' . $row_sub['name'] . '</b></label></div></div>';
         }
         echo '<div><label>Title: <b> ' . $row['title'] . '</b></label></div>';
-        echo '<div><label> Content: <b> ' . $row['content'] . '</b></label></div>';
+        echo '<label>Content:</label><div style="max-height: 200px; overflow-y: scroll">  <b> ' . $row['content'] . '</b></div>';
 
 
         echo ' </div>
