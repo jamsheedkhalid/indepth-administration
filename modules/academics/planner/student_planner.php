@@ -15,11 +15,11 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . '/app-header.php');
-//        include($_SERVER['DOCUMENT_ROOT'] . '/theme-setting.php');
+        include($_SERVER['DOCUMENT_ROOT'] . '/theme-setting.php');
         ?>
         <div class="app-main">
             <?php
-//            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
+            include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
             ?>
             <div class="app-main__inner">
                 <div class="app-page-title">
@@ -144,7 +144,7 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
 
 
             <?php
-//            include($_SERVER['DOCUMENT_ROOT'] . '/footer-bar.php');
+            include($_SERVER['DOCUMENT_ROOT'] . '/footer-bar.php');
             ?>
 
             <!--        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>-->

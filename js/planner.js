@@ -252,15 +252,27 @@ function delTask(id) {
 }
 
 function editTask(id) {
-    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+
+
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
     let editModal = document.getElementById('editModalBody');
 
     let httpTask = new XMLHttpRequest();
     httpTask.onreadystatechange = function () {
         if (this.readyState === 4) {
-            $('#editWeeklyModal').modal('show');
-            editModal.innerHTML = this.responseText;
+          let response = this.responseText;
+         if(response == 0){
+             alert("Sorry, you are not allowed to edit this task!");
+         }
+         else {
+             editModal.innerHTML = response;
+             $('#viewWeeklyModal').modal('hide');
+             // loadStudents('task-select-edit');
+             $('#editWeeklyModal').modal('show');
+             loadStudentPlanner("student-planner", "curr");
+         }
+
 
 
         }
@@ -268,15 +280,11 @@ function editTask(id) {
     httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section, false);
     httpTask.send();
 
-    loadStudentPlanner("student-planner", "curr");
-
     $('.select_all').click(function () {
         $('#task-select-edit option').prop('selected', true);
     });
 
-    $('#viewWeeklyModal').modal('hide');
-    $('#editWeeklyModal').modal('show');
-    loadStudents('task-select-edit')
+
 }
 
 function updateTask(id) {
@@ -294,7 +302,7 @@ function updateTask(id) {
                 loadStudentPlanner("student-planner", "curr");
             }
         };
-        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&id=" + id, false);
+        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students +  "&title=" + title + "&content=" + content + "&id=" + id, false);
         httpTask.send();
     } else {
         loadStudentPlanner("student-planner", "curr");

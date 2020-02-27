@@ -100,13 +100,22 @@
                     <a id="liPlanner" href="/modules/academics/planner/student_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
                        WEEKLY PLANNER
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
+                        <ul>
+                            <li >
+                                <a href="/modules/academics/planner/weekly_planner.php" target="_blank">
+                                    <i class="metismenu-icon pe-7s-date"></i>
+                                  View
+                                </a>
+                            </li>
+                        </ul>
                 </li>
 
 
                 <?php } ?>
                 <li  hidden >
-                    <a id="liPlanner" href="/modules/academics/planner/weekly_planner.php">
+                    <a  href="/modules/academics/planner/weekly_planner.php">
                         <i class="metismenu-icon pe-7s-date"></i>
                         WEEKLY PLANNER
                     </a>

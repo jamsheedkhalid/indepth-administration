@@ -90,7 +90,7 @@ for ($j = 0; $j <= 6; $j++) {
                 $task_result = $conn->query($task);
 // echo $task;
                 if ($task_result->num_rows > 0) {
-                    echo '<td >';
+                    echo '<td align="center" >';
                     while ($task_row = mysqli_fetch_array($task_result)) {
                         echo '<a  onclick="viewTaskDetails(this.id)" id="' . $task_row['id'] . '" class="mb-2 mr-2 badge badge-warning " >' . $task_row['title'] . '</a><br>';
                     }

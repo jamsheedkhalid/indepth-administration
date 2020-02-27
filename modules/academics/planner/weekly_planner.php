@@ -125,7 +125,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 </html>
 
 <script type="text/javascript" src="/assets/scripts/main.js"></script>
-<!--    <script> document.getElementById('liPlanner').classList.add("mm-active")</script>-->
+    <script> document.getElementById('liPlanner').classList.add("mm-active")</script>
 <script type="text/javascript" src="/js/weekly-planner.js"></script>
 
 <script> document.title = "Planner - InDepth";</script>
