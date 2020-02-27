@@ -6,6 +6,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 
 $id = $_REQUEST['id'];
 $grade = $_REQUEST['grade'];
+$gradeID = $_REQUEST['gradeid'];
 $section = $_REQUEST['section'];
 $is_teaching = 0;
 
@@ -20,7 +21,7 @@ from employees_subjects
          inner join subjects on employees_subjects.subject_id = subjects.id
          inner join batches on subjects.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
-where employees.user_id = '$_SESSION[user]' and course_id = '$grade'
+where employees.user_id = '$_SESSION[user]' and course_id = '$gradeID'
   and subjects.is_deleted = 0; ";
 //echo $sql;
         $is_teaching = 0;

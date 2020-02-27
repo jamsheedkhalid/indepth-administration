@@ -231,18 +231,27 @@ function viewTaskDetails(id) {
 }
 
 function delTask(id) {
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+    let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
+
     let conf = confirm("Are you sure you want to delete?");
     if (conf === true) {
 
         let httpTask = new XMLHttpRequest();
         httpTask.onreadystatechange = function () {
             if (this.readyState === 4) {
-                loadStudentPlanner("student-planner", "curr");
-                // document.getElementById('student-planner').innerHTML=this.responseText;
+                let response = this.responseText;
 
+                if(response == 0){
+                    alert("Sorry, you are not allowed to delete this task!");
+                }
+                else {
+                    loadStudentPlanner("student-planner", "curr");
+                    // document.getElementById('student-planner').innerHTML=this.responseText;
+                }
             }
         };
-        httpTask.open("GET", "/mysql/planner/del-task.php?id=" + id, false);
+        httpTask.open("GET", "/mysql/planner/del-task.php?id=" + id + "&grade=" + selected_grade , false);
         httpTask.send();
     } else {
         loadStudentPlanner("student-planner", "curr");
@@ -254,7 +263,8 @@ function delTask(id) {
 function editTask(id) {
 
 
-    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
+    let selected_grade_id = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
     let editModal = document.getElementById('editModalBody');
 
@@ -277,7 +287,7 @@ function editTask(id) {
 
         }
     };
-    httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section, false);
+    httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section + "&gradeid=" + selected_grade_id, false);
     httpTask.send();
 
     $('.select_all').click(function () {
