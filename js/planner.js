@@ -188,6 +188,7 @@ function loadSubjects() {
 }
 
 function saveTask() {
+
     let selected_students = $('#task-select').val();
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
@@ -196,18 +197,22 @@ function saveTask() {
     let content = document.getElementById('task_content').value;
     let date = document.getElementById('date').value;
 
+    if (!title.replace(/\s/g, '').length) {
+      alert("Please enter the title");
+    }
+    else {
+        let httpTask = new XMLHttpRequest();
+        httpTask.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                // document.getElementById('student-planner').innerHTML = this.responseText;
+                loadStudentPlanner("student-planner", "curr");
+            }
+        };
+        httpTask.open("GET", "/mysql/planner/save-task.php?section=" + selected_section + "&grade=" + selected_grade + "&selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&date=" + date, false);
+        httpTask.send();
+        $('#weeklyModal').modal('hide');
+    }
 
-    let httpTask = new XMLHttpRequest();
-    httpTask.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            // document.getElementById('student-planner').innerHTML = this.responseText;
-        }
-    };
-    httpTask.open("GET", "/mysql/planner/save-task.php?section=" + selected_section + "&grade=" + selected_grade + "&selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&date=" + date, false);
-    httpTask.send();
-    $('#weeklyModal').modal('hide');
-
-    loadStudentPlanner("student-planner", "curr");
 }
 
 function viewTaskDetails(id) {
