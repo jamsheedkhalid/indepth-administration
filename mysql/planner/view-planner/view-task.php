@@ -36,10 +36,13 @@ if ($result->num_rows > 0) {
             echo '<div align="right" class="col"><label> Subject:<b> ' . $row_sub['name'] . '</b></label></div></div>';
         }
         echo '<div><label>Title: <b> ' . $row['title'] . '</b></label></div>';
-        echo "<a href='/mysql/planner/view-planner/download.php?name=".$row['file']."'>download</a>sfcsdf ";
 
         echo '<label>Content:</label><div style="max-height: 200px; overflow-y: scroll">  <b> ' . $row['content'] . '</b></div>';
+        if($row['file'] != '') {
+            echo '<br><label for="download_file">Attachment: </label>';
+            echo "<a id='download_file' href='/mysql/planner/view-planner/download.php?name=" . $row['file'] . "'> Download</a> ";
 
+        }
 
         echo ' </div>
                     <div class="modal-footer">

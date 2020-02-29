@@ -21,7 +21,7 @@ $temp_name = $_FILES['file']['tmp_name'];
 $size = $_FILES['file']['size'];
 //echo $name;
 
-    if (isset($name) and !empty($name)) {
+    if (isset( $_FILES['file']['name']) and !empty( $_FILES['file']['name'])) {
         $location = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
         if (move_uploaded_file($temp_name, $location . $name)) {
             if(is_file($location.$name)) {
@@ -29,6 +29,8 @@ $size = $_FILES['file']['size'];
 
             }
         }
+    } else {
+        $name = '';
     }
 
 
