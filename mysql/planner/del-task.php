@@ -29,6 +29,18 @@ where employees.user_id = '$_SESSION[user]' and course_id = '$gradeID'
             while ($row = mysqli_fetch_array($result)) {
                 if ($row['id'] === $row_sub['subject_id']) {
 
+                    $del_file = " select attachment_file_name file from indepth_weekly_planner where id = '$id'";
+                    $result_del = $conn->query($del_file);
+
+                    if ($result_del->num_rows > 0) {
+                        while ($row_del = mysqli_fetch_array($result_del)) {
+                            unlink($_SERVER['DOCUMENT_ROOT'] . '/uploads/'.$row_del['file']);
+                            echo 'file deleted successfully';
+                        }
+                    } else {
+                        echo 'Error: ' . $del_file . '<br>' . $conn->error;
+                    }
+
                     $del_task = " delete from indepth_weekly_planner where id = '$id'";
 
                     echo $del_task;

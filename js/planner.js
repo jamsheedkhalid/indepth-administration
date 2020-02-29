@@ -118,17 +118,19 @@ function highlight_row() {
                     // alert(is_teaching);
                     if (is_teaching == 1) {
                         msg = '<form method="post" enctype="multipart/form-data"> <label>Day: ' + date + '</label>   ';
+                        msg += ' <div id="pogress_bar" class="progress-bar progress-bar-animated bg-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 25%;" ></div>';
                         msg += ' <div class="row"><div class="col"><b><label> Grade: ' + selected_grade + ' ' + '</label> </b></div> ';
                         msg += '<div class="col"> <label><b>Sub: ' + subject + '</b> </label></div></div>   ';
                         // msg += '<select id="task-subject" class="form-control-sm form-control"><option selected disabled>Select Subject</option></select><br>';
                         msg += '<input id="subject_id" type="hidden" value="' + rowSubject.cells[cellId].id + '" />';
                         msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
-                        msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
+                        msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class=" form-control-sm form-control" /><br>';
+                        msg += '<small id="title_warning" style="display: none"><div class="alert alert-sm alert-danger  alert-dismissible  fade show" role="alert">Please enter Title!</div></small><br>';
                         msg += '<textarea id="task_content" type="text"  style="height: 100px" placeholder="Description" class="form-control-sm form-control" ></textarea><br>';
                         msg += '<div class="position-relative form-group">' +
                             '<label for="file_upload" class="">Upload File</label>'+
-                            '<input name="file_upload" id="file_upload" type="file" class="form-control-file">'+
-                            ' </div></form> ';
+                            '<input name="file_upload" id="file_upload" type="file" onchange="fileValidation()" class="form-control-file"><br>'+
+                            '<small id="upload_warning" style="display: none"><div class="alert alert-sm alert-danger fade show" role="alert">File too large to upload! (Max 30MB)</div></small></div></form> ';
                         msg += '<label for="task-select" hidden >Select Student</label><select hidden id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
                         // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
                         // msg += '\n Cell value: ' + this.innerHTML;
@@ -192,6 +194,31 @@ function loadSubjects() {
 
 }
 
+
+function fileValidation() {
+    const fi = document.getElementById('file_upload');
+    if (fi.files.length > 0) {
+        for (const i = 0; i <= fi.files.length - 1; i++) {
+
+            const fsize = fi.files.item(i).size;
+            const file = Math.round((fsize / 1024));
+            // The size of the file.
+            if (file >= 30720) {
+
+                     document.getElementById("saveBtn").disabled = true;
+                     document.getElementById("upload_warning").style.display = 'inline';
+
+
+            }  else {
+                document.getElementById("saveBtn").disabled = false;
+                document.getElementById("upload_warning").style.display = 'none';
+
+            }
+        }
+    }
+}
+
+
 function saveTask() {
     let selected_students = $('#task-select').val();
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
@@ -203,29 +230,30 @@ function saveTask() {
     var file_data = $('#file_upload').prop('files')[0];
     var form_data = new FormData();
     form_data.append('file', file_data);
-
-
-
     content = content.replace(/\n\r?/g, '<br />');
-
     if (!title.replace(/\s/g, '').length) {
-        alert("Please enter the title");
+        document.getElementById('title_warning').style.display = 'inline';
     } else {
+        document.getElementById("title_warning").style.display = 'none';
         let httpTask = new XMLHttpRequest();
-
-
         httpTask.onreadystatechange = function () {
             if (this.readyState === 4) {
                 // document.getElementById('student-planner').innerHTML = this.responseText;
-                loadStudentPlanner("student-planner", date);
+                // alert(this.responseText);
+                    loadStudentPlanner("student-planner", date);
+                    $('#weeklyModal').modal('hide');
             }
         };
 
         httpTask.open("POST", "/mysql/planner/save-task.php?section=" + selected_section + "&grade=" + selected_grade + "&selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&date=" + date +"&data=" + form_data, false);
         httpTask.send(form_data);
+        // progress bar
+        var progress = document.getElementById('progress_bar');
 
-
-        $('#weeklyModal').modal('hide');
+        httpTask.upload.addEventListener("progress", function(e) {
+            var pc = parseInt(100 - (e.loaded / e.total * 100));
+            progress.setAttribute("aria-valuenow",pc.toString());
+        }, false)
     }
 
 }

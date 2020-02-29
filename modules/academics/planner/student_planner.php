@@ -177,11 +177,11 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                     </button>
                 </div>
 
-                <div class="modal-body" id='modalBody'>
+                <div class="modal-body" id='modalBody' >
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" onclick="saveTask();">Save</button>
+                    <button class="btn btn-success" id="saveBtn" onclick="saveTask();">Save</button>
 
                 </div>
 
