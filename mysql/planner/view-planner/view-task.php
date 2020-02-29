@@ -11,7 +11,7 @@ $section = $_REQUEST['section'];
 echo ' <div class="modal-body">';
 
 
-$sql = "select id,employee_id, subject_id, student_list, title, content, duedate from indepth_weekly_planner where id = '$id'; ";
+$sql = "select id,employee_id, subject_id, student_list, title, content, attachment_file_name file, duedate from indepth_weekly_planner where id = '$id'; ";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -36,6 +36,8 @@ if ($result->num_rows > 0) {
             echo '<div align="right" class="col"><label> Subject:<b> ' . $row_sub['name'] . '</b></label></div></div>';
         }
         echo '<div><label>Title: <b> ' . $row['title'] . '</b></label></div>';
+        echo "<a href='/mysql/planner/view-planner/download.php?name=".$row['file']."'>download</a>sfcsdf ";
+
         echo '<label>Content:</label><div style="max-height: 200px; overflow-y: scroll">  <b> ' . $row['content'] . '</b></div>';
 
 
