@@ -27,32 +27,51 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             <i class="pe-7s-date icon-gradient bg-premium-dark">
                             </i>
                         </div>
-                        <div c>WEEKLY PLANNER
+                        <div>WEEKLY PLANNER
                             <div class="page-title-subheading">Planner for students academics activities
                             </div>
                         </div>
                     </div>
-                    <div class="page-title-actions col-sm-4 ">
+                    <div class="page-title-actions col-sm-6 ">
                         <div class="row m-0 p-0">
-                        <div class="position-relative form-group col-sm-6 ">
-                            <label for="grade"
-                                   class="">Select Grade</label>
-                            <select name="grade" id="grade" onchange="selectSection();"
-                                    class="form-control-sm form-control">
-                            </select>
-                            <input type="hidden" name="hidden_select"
-                                   value=""/>
-                        </div>
+                            <div class="position-relative form-group col-sm-3 ">
+                                <label for="grade"
+                                       class="">Select Grade</label>
+                                <select name="grade" id="grade" onchange="selectSection();"
+                                        class="form-control-sm form-control">
+                                </select>
+                                <input type="hidden" name="hidden_select"
+                                       value=""/>
+                            </div>
+                            <div class="position-relative form-group col-sm-4 " >
+                            <label for="week_date"
+                                   class="">Select Week</label>
+                            <input name="week_date" id="week_date" type="date"
+                                   onchange="loadWeeklyPlanner('weekly-planner',this.value)"
+                                   class="form-control-sm form-control"
+                                   value="<?php echo date('Y-m-d'); ?>"
+                            >
+                            </div>
 
-                        <div  class="d-inline-block dropdown  col-sm-6">
-                            <a href="/index.php"
-                                    class="btn-shadow btn btn-dark">
+                            <div class="d-inline-block dropdown  col-sm-4 text-right"  style="margin-top: 30px!important;"   >
+                                <div class="row">
+                                <a href="/mysql/planner/print.php"
+                                   class="btn-shadow btn-sm btn-outline-focus">
                                                                         <span class="btn-icon-wrapper pr-2 opacity-7">
                                                                             <i class="fas fa-edit "></i>
                                                                         </span>
-                                Edit Planner
-                            </a>
-                        </div>
+                                    Edit Planner
+                                </a>
+
+                                <a onclick="printPlanner()"
+                                   class="btn-shadow btn-sm btn-outline-focus">
+                                                                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                                            <i class="fas fa-print "></i>
+                                                                        </span>
+                                    Print
+                                </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -62,24 +81,23 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <div class="
                  mb-3 card">
 
-                        <div class="row">
+                    <div class="row">
 
-                            <div hidden class="position-relative form-group col-sm-3">
-                                <label for="section"
-                                       class="">Select Section</label>
-                                <select name="section" id="section"
-                                        onchange=" loadWeeklyPlanner('student-planner', 'curr');"
-                                        class="form-control-sm form-control">
-                                </select>
-                                <input type="hidden" name="hidden_section"
-                                       value=""/>
-                            </div>
+                        <div hidden class="position-relative form-group col-sm-3">
+                            <label for="section"
+                                   class="">Select Section</label>
+                            <select name="section" id="section"
+                                    onchange=" loadWeeklyPlanner('student-planner', 'curr');"
+                                    class="form-control-sm form-control">
+                            </select>
+                            <input type="hidden" name="hidden_section"
+                                   value=""/>
                         </div>
-                        <div>
-                            <div id='weekly-planner' style=" min-width: 100% !important; overflow-x:scroll ">
-                            </div>
+                    </div>
+                    <div>
+                        <div id='weekly-planner' style=" min-width: 100% !important; overflow-x:scroll ">
                         </div>
-
+                    </div>
 
 
                 </div>
@@ -125,7 +143,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 </html>
 
 <script type="text/javascript" src="/assets/scripts/main.js"></script>
-    <script> document.getElementById('liPlanner').classList.add("mm-active")</script>
+<script> document.getElementById('liPlanner').classList.add("mm-active")</script>
 <script type="text/javascript" src="/js/weekly-planner.js"></script>
 
 <script> document.title = "Planner - InDepth";</script>

@@ -13,7 +13,7 @@ function initGrades() {
 
 function selectSection() {
     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
-
+    date = document.getElementById('week_date').value;
     let httpSection = new XMLHttpRequest();
     httpSection.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -23,7 +23,7 @@ function selectSection() {
     };
     httpSection.open("GET", "/mysql/planner/view-planner/fillSections.php?grade=" + selected_grade, false);
     httpSection.send();
-    loadWeeklyPlanner("weekly-planner", "curr");
+    loadWeeklyPlanner("weekly-planner", date);
 
 
 }
@@ -105,10 +105,8 @@ function highlight_row() {
             subject = rowSubject.cells[cellId].innerHTML;
             date = new Date(rowSelected.cells[0].title).toDateString();
 
-
-
-            loadSubjects();
-            loadStudents('task-select');
+            // loadSubjects();
+            // loadStudents('task-select');
 
         }
     }
@@ -116,25 +114,25 @@ function highlight_row() {
 } //end of function
 
 
-function loadStudents(id) {
-
-    var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
-    var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
-
-    let httpStudent = new XMLHttpRequest();
-    httpStudent.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            document.getElementById(id).innerHTML = this.responseText;
-        }
-    };
-    httpStudent.open("GET", "/mysql/planner/task-students.php?section=" + selected_section + "&grade=" + selected_grade, false);
-    httpStudent.send();
-
-    $('.select_all').click(function () {
-        $('#task-select option').prop('selected', true);
-    });
-
-}
+// function loadStudents(id) {
+//
+//     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+//     var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
+//
+//     let httpStudent = new XMLHttpRequest();
+//     httpStudent.onreadystatechange = function () {
+//         if (this.readyState === 4) {
+//             document.getElementById(id).innerHTML = this.responseText;
+//         }
+//     };
+//     httpStudent.open("GET", "/mysql/planner/task-students.php?section=" + selected_section + "&grade=" + selected_grade, false);
+//     httpStudent.send();
+//
+//     $('.select_all').click(function () {
+//         $('#task-select option').prop('selected', true);
+//     });
+//
+// }
 
 // function loadSubjects() {
 //
@@ -173,6 +171,19 @@ function viewTaskDetails(id) {
 
 }
 
+function printPlanner() {
+    let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+    let httpTask = new XMLHttpRequest();
+    httpTask.onreadystatechange = function () {
+        if (this.readyState === 4) {
+
+
+        }
+    };
+    httpTask.open("GET", "/mysql/planner/view-planner/print.php?grade=" + selected_grade , false);
+    httpTask.send();
+
+}
 
 
 

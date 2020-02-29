@@ -3,29 +3,18 @@ session_start();
 date_default_timezone_set('Asia/Dubai');
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 
-$date_type = $_REQUEST['date_type'];
+$date = $_REQUEST['date_type'];
 $section = $_REQUEST['section'];
 $grade = $_REQUEST['grade'];
 
 
-switch ($date_type) {
-    case 'curr':
-        $date = date('Y-m-d', strtotime('Sunday next week'));
-        $show_date = 0;
-        break;
-    case 'last':
-        $date = date('Y-m-d', strtotime('Sunday last week'));
-        $show_date = 1;
-        break;
-    case 'next':
-        $date = date('Y-m-d', strtotime('Sunday next week'));
-        $show_date = 1;
-        break;
-    default:
-        $date = date('Y-m-d', strtotime('Sunday this week'));
-        $show_date = 0;
+
+
+if(date('w',strtotime($date)) == 0) {
+//    echo 'Event is on a sunday';
+    $date = date('Y-m-d',strtotime($date. ' + 1 days'));
 }
-// parse about any English textual datetime description into a Unix timestamp
+//echo $date;
 $ts = strtotime($date);
 // find the year (ISO-8601 year number) and the current week
 $year = date('o', $ts);

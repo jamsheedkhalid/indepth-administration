@@ -34,16 +34,27 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                                 </div>
                             </div>
                         </div>
-                        <div class="page-title-actions col-sm-3">
-                            <div  class="">
-                                <label  for="grade"
-                                        class="">Select Grade</label>
-                                <select name="grade" id="grade" onchange="selectSection();"
-                                        class="form-control-sm form-control">
-                                </select>
-                                <input type="hidden" name="hidden_select"
-                                       value=""/>
+                        <div class="page-title-actions col-sm-6">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="grade"
+                                           class="">Select Grade</label>
+                                    <select name="grade" id="grade" onchange="selectSection();"
+                                            class="form-control-sm form-control">
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="week_date"
+                                           class="">Select Week</label>
+                                    <input name="week_date" id="week_date" type="date"
+                                           onchange="loadStudentPlanner('student-planner',this.value)"
+                                           class="form-control-sm form-control"
+                                           value="<?php echo date('Y-m-d'); ?>"
+                                    >
+
+                                </div>
                             </div>
+
 
                             <!--                        <div class="d-inline-block dropdown">-->
                             <!--                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
@@ -120,15 +131,16 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
 
                                 <div hidden aria-hidden="true" class="position-relative form-group col-sm-3">
                                     <label for="section"
-                                           class="">Select Section</label>
+                                           class="">Select Grade </label>
                                     <select name="section" id="section"
                                             onchange=" loadStudentPlanner('student-planner', 'curr');"
                                             class="form-control-sm form-control">
                                     </select>
-                                    <input type="hidden" name="hidden_section"
-                                           value=""/>
+
+
                                 </div>
-                                <div  style="overflow-x: scroll;min-width: 100% !important; " >
+
+                                <div style="overflow-x: scroll;min-width: 100% !important; ">
                                     <div id='student-planner'>
                                     </div>
                                 </div>
@@ -189,11 +201,11 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                 </div>
                 <div id="viewModalBody">
 
-                    </div>
                 </div>
-
             </div>
+
         </div>
+    </div>
     <div class="modal fade" id="editWeeklyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
         <div class="modal-dialog " role="document">
@@ -206,11 +218,11 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                 </div>
                 <div id="editModalBody">
 
-                    </div>
                 </div>
-
             </div>
+
         </div>
+    </div>
 
 
     </body>

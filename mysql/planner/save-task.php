@@ -12,6 +12,14 @@ $content = $_REQUEST['content'];
 $emp_id = $_SESSION['user'];
 $date = $_REQUEST['date'];
 
+$name       = $_FILES['file']['name'];
+$temp_name  = $_FILES['file']['tmp_name'];
+if(isset($name) and !empty($name)){
+    $location =$_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+    if(move_uploaded_file($temp_name, $location.$name)){
+//        echo 'File uploaded successfully';
+    }}
+
 //$student_list = '';
 //
 //$students = explode(',', $student);

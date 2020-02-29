@@ -11,9 +11,10 @@ function initGrades() {
     });
 }
 
+
 function selectSection() {
     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
-
+    var date =  document.getElementById('week_date').value;
     let httpSection = new XMLHttpRequest();
     httpSection.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -23,12 +24,13 @@ function selectSection() {
     };
     httpSection.open("GET", "/mysql/planner/fillSections.php?grade=" + selected_grade, false);
     httpSection.send();
-    loadStudentPlanner("student-planner", "curr");
+
+    loadStudentPlanner("student-planner", date);
 
 
 }
 
-function loadStudentPlanner(div, date_type) {
+function loadStudentPlanner(div, date) {
     var selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     var selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
 
@@ -64,7 +66,7 @@ function loadStudentPlanner(div, date_type) {
 
         }
     };
-    httpPlanner.open("GET", "/mysql/planner/students-planner.php?date_type=" + date_type + "&section=" + selected_section + "&grade=" + selected_grade, false);
+    httpPlanner.open("GET", "/mysql/planner/students-planner.php?date_type=" + date + "&section=" + selected_section + "&grade=" + selected_grade, false);
     httpPlanner.send();
     highlight_row();
 
@@ -115,7 +117,7 @@ function highlight_row() {
                     let is_teaching = this.responseText;
                     // alert(is_teaching);
                     if (is_teaching == 1) {
-                        msg = ' <label>Day: ' + date + '</label>   ';
+                        msg = '<form method="post" enctype="multipart/form-data"> <label>Day: ' + date + '</label>   ';
                         msg += ' <div class="row"><div class="col"><b><label> Grade: ' + selected_grade + ' ' + '</label> </b></div> ';
                         msg += '<div class="col"> <label><b>Sub: ' + subject + '</b> </label></div></div>   ';
                         // msg += '<select id="task-subject" class="form-control-sm form-control"><option selected disabled>Select Subject</option></select><br>';
@@ -123,6 +125,10 @@ function highlight_row() {
                         msg += '<input id="date" type="hidden" value="' + rowSelected.cells[0].title + '" />';
                         msg += '<input id="task_title" type="text" required="required" autocapitalize="on" placeholder="Title" class="form-control-sm form-control" /><br>';
                         msg += '<textarea id="task_content" type="text"  style="height: 100px" placeholder="Description" class="form-control-sm form-control" ></textarea><br>';
+                        msg += '<div class="position-relative form-group">' +
+                            '<label for="file_upload" class="">Upload File</label>'+
+                            '<input name="file_upload" id="file_upload" type="file" class="form-control-file">'+
+                            ' </div></form> ';
                         msg += '<label for="task-select" hidden >Select Student</label><select hidden id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
                         // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
                         // msg += '\n Cell value: ' + this.innerHTML;
@@ -187,7 +193,6 @@ function loadSubjects() {
 }
 
 function saveTask() {
-
     let selected_students = $('#task-select').val();
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
@@ -195,6 +200,11 @@ function saveTask() {
     let title = document.getElementById('task_title').value;
     let content = document.getElementById('task_content').value;
     let date = document.getElementById('date').value;
+    var file_data = $('#file_upload').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('file', file_data);
+
+
 
     content = content.replace(/\n\r?/g, '<br />');
 
@@ -202,14 +212,19 @@ function saveTask() {
         alert("Please enter the title");
     } else {
         let httpTask = new XMLHttpRequest();
+
+
         httpTask.onreadystatechange = function () {
             if (this.readyState === 4) {
                 // document.getElementById('student-planner').innerHTML = this.responseText;
-                loadStudentPlanner("student-planner", "curr");
+                loadStudentPlanner("student-planner", date);
             }
         };
-        httpTask.open("GET", "/mysql/planner/save-task.php?section=" + selected_section + "&grade=" + selected_grade + "&selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&date=" + date, false);
-        httpTask.send();
+
+        httpTask.open("POST", "/mysql/planner/save-task.php?section=" + selected_section + "&grade=" + selected_grade + "&selected_students=" + selected_students + "&subject=" + subject + "&title=" + title + "&content=" + content + "&date=" + date +"&data=" + form_data, false);
+        httpTask.send(form_data);
+
+
         $('#weeklyModal').modal('hide');
     }
 
@@ -236,6 +251,7 @@ function viewTaskDetails(id) {
 }
 
 function delTask(id) {
+    var date =  document.getElementById('week_date').value;
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].value;
 
@@ -250,7 +266,7 @@ function delTask(id) {
                 if (response == 0) {
                     alert("Sorry, you are not allowed to delete this task!");
                 } else {
-                    loadStudentPlanner("student-planner", "curr");
+                    loadStudentPlanner("student-planner", date);
                     // document.getElementById('student-planner').innerHTML=this.responseText;
                 }
             }
@@ -258,7 +274,7 @@ function delTask(id) {
         httpTask.open("GET", "/mysql/planner/del-task.php?id=" + id + "&grade=" + selected_grade, false);
         httpTask.send();
     } else {
-        loadStudentPlanner("student-planner", "curr");
+        loadStudentPlanner("student-planner", date);
 
     }
     $('#viewWeeklyModal').modal('hide');
@@ -266,7 +282,7 @@ function delTask(id) {
 
 function editTask(id) {
 
-
+    var date =  document.getElementById('week_date').value;
     let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].text;
     let selected_grade_id = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
@@ -283,7 +299,7 @@ function editTask(id) {
                 $('#viewWeeklyModal').modal('hide');
                 // loadStudents('task-select-edit');
                 $('#editWeeklyModal').modal('show');
-                loadStudentPlanner("student-planner", "curr");
+                loadStudentPlanner("student-planner", date);
             }
 
 
@@ -300,6 +316,8 @@ function editTask(id) {
 }
 
 function updateTask(id) {
+    var date =  document.getElementById('week_date').value;
+
     let conf = confirm("Are you sure you want to edit?");
     if (conf === true) {
         let selected_students = $('#task-select-edit').val();
@@ -311,13 +329,13 @@ function updateTask(id) {
         httpTask.onreadystatechange = function () {
             if (this.readyState === 4) {
                 // document.getElementById('student-planner').innerHTML = this.responseText;
-                loadStudentPlanner("student-planner", "curr");
+                loadStudentPlanner("student-planner", date);
             }
         };
         httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&title=" + title + "&content=" + content + "&id=" + id, false);
         httpTask.send();
     } else {
-        loadStudentPlanner("student-planner", "curr");
+        loadStudentPlanner("student-planner", date);
 
     }
     $('#weeklyModal').modal('hide');
@@ -325,6 +343,7 @@ function updateTask(id) {
     $('#editWeeklyModal').modal('hide');
 
 }
+
 
 
 
