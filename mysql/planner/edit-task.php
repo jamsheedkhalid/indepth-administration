@@ -70,7 +70,7 @@ where employees.user_id = '$_SESSION[user]' and course_id = '$grade'
         $is_teaching = 1;
         break;
     } else {
-        $is_teaching = 1;
+        $is_teaching = 0;
     }
 }
 //$is_teaching = true;
