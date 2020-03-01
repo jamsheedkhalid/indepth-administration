@@ -3,6 +3,7 @@
     margin: auto;
     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
     font-size: 14px;
+
 }
 
  td{
@@ -16,20 +17,21 @@
 }
 
  .student-planner  {
-     padding: 0;
+     padding: 0 !important;
      /*table-layout: fixed;*/
      /*white-space: nowrap!important;*/
-    min-width: 100em !important;
-    height: 50em !important;
+    /*min-width: 100em !important;*/
+    /*height: 10em !important;*/
+     background-color: white;
 
 
 }
 .weekly-planner  {
-     padding: 0;
+     padding: 0 !important;
      /*table-layout: fixed;*/
      white-space: nowrap!important;
     /*min-width: 100% !important;*/
-    height: 50em !important;
+    /*height: 50em !important;*/
 
 
 }

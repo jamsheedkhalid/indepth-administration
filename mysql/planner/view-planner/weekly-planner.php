@@ -31,7 +31,7 @@ $show = 'show active';
 
 echo ' 
                      <div >
-                                    <table   
+                                    <table  
                                     class="mb-0 table table-striped table-bordered weekly-planner ">
                                         <thead>
                                         <tr align="center">
@@ -60,7 +60,7 @@ if ($result->num_rows > 0) {
         echo '<th id="' . $row['id'] . '">' . $row['name'] . '</th>';
     }
 }
-echo ' </tr>  </th></thead><tbody >';
+echo ' </tr>  </th></thead><tbody  align="center" >';
 for ($j = 0; $j <= 6; $j++) {
     // timestamp from ISO week date format
     $ts = strtotime($year . 'W' . $week . $j);
