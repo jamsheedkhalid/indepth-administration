@@ -5,8 +5,8 @@ $id = $_REQUEST['id'];
 $grade = $_REQUEST['grade'];
 $subject_name = '';
 $subject_array = [];
+$is_teaching = 0;
 //echo $id;
-
 
 $sql = " select name from subjects where id = '$id'";
 $result = $conn->query($sql);
@@ -15,7 +15,8 @@ if ($result->num_rows > 0) {
         $subject_name = $row['name'];
     }
 }
-
+//echo $sql;
+//echo "--". $subject_name;
 
 $sql = "select subjects.id id, subjects.name name from subjects
 inner join batches on subjects.batch_id = batches.id
@@ -34,6 +35,9 @@ if ($result->num_rows > 0) {
     }
 }
 
+//foreach ($subject_array as $key => $val) {
+//    echo "$val" . "\n";
+//}
 
 foreach ($subject_array as $key => $val) {
 
@@ -46,25 +50,16 @@ from employees_subjects
 where employees.user_id = '$_SESSION[user]' and course_id = '$grade'
   and subjects.id = $val
   and subjects.is_deleted = 0; ";
-
 //echo $sql;
-    $is_teaching = 0;
-
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
             $is_teaching = 1;
+            break;
     } else {
         $is_teaching = 0;
     }
 
-
-
 }
-
-
-
-
-
 echo $is_teaching;
 
 

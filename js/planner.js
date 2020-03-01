@@ -320,9 +320,9 @@ function editTask(id) {
     httpTask.onreadystatechange = function () {
         if (this.readyState === 4) {
             let response = this.responseText;
-            if (response == 0) {
+            if (!response) {
                 alert("Sorry, you are not allowed to edit this task!");
-            } else {
+            } else  {
                 editModal.innerHTML = response;
                 $('#viewWeeklyModal').modal('hide');
                 // loadStudents('task-select-edit');
@@ -333,7 +333,7 @@ function editTask(id) {
 
         }
     };
-    httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" + selected_grade + "&section=" + selected_section + "&gradeid=" + selected_grade_id, false);
+    httpTask.open("GET", "/mysql/planner/edit-task.php?id=" + id + "&grade=" +  selected_grade_id, false);
     httpTask.send();
 
     $('.select_all').click(function () {

@@ -11,7 +11,7 @@ $section = $_REQUEST['section'];
 echo ' <div class="modal-body">';
 
 
-$sql = "select id,employee_id, subject_id, student_list, title, content, duedate from indepth_weekly_planner where id = '$id'; ";
+$sql = "select id,employee_id, subject_id, student_list, title, content,attachment_file_name file, duedate from indepth_weekly_planner where id = '$id'; ";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
                 echo '<div class="col" align="right"><label> <i><small>Created by: ' . $row_emp['first_name'] . '</small></i></label></div>';
             }
         }
-        echo "</div>";
+        echo '</div>';
 
 
         echo '<div class="row"><div class="col"><label>Grade: <b>' . $grade . '</b></label></div>';
@@ -37,7 +37,11 @@ if ($result->num_rows > 0) {
         }
         echo '<div><label>Title: <b> ' . $row['title'] . '</b></label></div>';
         echo '<label>Content:</label><div style="max-height: 200px; overflow-y: scroll">  <b> ' . $row['content'] . '</b></div>';
+        if($row['file'] != '') {
+            echo '<br><label for="download_file">Attachment: </label>';
+            echo "<a id='download_file' href='/mysql/planner/view-planner/download.php?name=" . $row['file'] . "'> Download</a> ";
 
+        }
 
         echo ' </div>
                     <div class="modal-footer">
