@@ -5,7 +5,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 
 $id = $_REQUEST['id'];
 $grade = $_REQUEST['grade'];
-$is_teaching = false;
+$is_teaching = 0;
 $subject_name = '';
 $subject_array = [];
 $subject_id = '';
@@ -67,14 +67,14 @@ where employees.user_id = '$_SESSION[user]' and course_id = '$grade'
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $is_teaching = true;
+        $is_teaching = 1;
         break;
     } else {
-        $is_teaching = false;
+        $is_teaching = 1;
     }
 }
 //$is_teaching = true;
-if ($is_teaching) {
+if ($is_teaching == 1) {
     echo ' <div class="modal-body">';
     $sql = "select id,employee_id, subject_id, student_list, title, content, duedate from indepth_weekly_planner where id = '$id'; ";
 //    echo $sql;
@@ -106,9 +106,9 @@ if ($is_teaching) {
             echo '<br><label for="edit_content">Content:</label><textarea id="edit_content" type="text"  style="height: 100px" placeholder="Description" class="form-control-sm form-control" >' . nl2br(str_replace('<br />', ' ', $row['content'])) . '</textarea><br>';
             echo '<label for="task-select-edit" hidden>Select Student</label><select  hidden id="task-select-edit" name="task-select-edit" multiple="multiple"  size = "5" class="form-control-sm form-control select_all "><option>Select Students</option></select>';
             echo '<form method="post" enctype="multipart/form-data">';
-            echo '<label for="file_upload_edit" class="">Upload File</label>'.
-            '<input name="file_upload_edit" id="file_upload_edit" type="file" onchange="fileValidation(\'file_upload_edit\',\'upload_warning-edit\',\'btnUpdate\')" class="form-control-file"><br>'.
-            '<small id="upload_warning-edit" style="display: none"><div class="alert alert-sm alert-danger fade show" role="alert">File too large to upload! (Max 30MB)</div></small></form> ';
+            echo '<label hidden for="file_upload_edit" class="">Upload File</label>'.
+            '<input hidden name="file_upload_edit" id="file_upload_edit" type="file" onchange="fileValidation(\'file_upload_edit\',\'upload_warning-edit\',\'btnUpdate\')" class="form-control-file"><br>'.
+            '<small hidden id="upload_warning-edit" style="display: none"><div class="alert alert-sm alert-danger fade show" role="alert">File too large to upload! (Max 30MB)</div></small></form> ';
 
             echo ' </div>
                     <div class="modal-footer">

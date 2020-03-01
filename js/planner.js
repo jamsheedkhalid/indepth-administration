@@ -196,12 +196,12 @@ function loadSubjects() {
 
 
 function fileValidation(id,warning_id,saveBtn_id) {
-    const fi = document.getElementById(id);
+     fi = document.getElementById(id);
     if (fi.files.length > 0) {
-        for (const i = 0; i <= fi.files.length - 1; i++) {
+        for ( i = 0; i <= fi.files.length - 1; i++) {
 
-            const fsize = fi.files.item(i).size;
-            const file = Math.round((fsize / 1024));
+             fsize = fi.files.item(i).size;
+             file = Math.round((fsize / 1024));
             // The size of the file.
             if (file >= 30720) {
 
@@ -322,7 +322,7 @@ function editTask(id) {
     httpTask.onreadystatechange = function () {
         if (this.readyState === 4) {
             let response = this.responseText;
-            if (!response) {
+            if (response == 0) {
                 alert("Sorry, you are not allowed to edit this task!");
             } else  {
                 editModal.innerHTML = response;
@@ -347,6 +347,10 @@ function editTask(id) {
 
 function updateTask(id) {
     var date =  document.getElementById('week_date').value;
+    var file_data = $('#file_upload_edit').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('file', file_data);
+
 
     let conf = confirm("Are you sure you want to edit?");
     if (conf === true) {
@@ -354,9 +358,6 @@ function updateTask(id) {
         let title = document.getElementById('edit_title').value;
         let content = document.getElementById('edit_content').value;
         let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
-        var file_data = $('#file_upload_edit').prop('files')[0];
-        var form_data = new FormData();
-        form_data.append('file', file_data);
 
 
         let httpTask = new XMLHttpRequest();
@@ -366,7 +367,7 @@ function updateTask(id) {
                 loadStudentPlanner("student-planner", date);
             }
         };
-        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&grade=" + selected_grade  + "&title=" + title + "&content=" + content + "&id=" + id, false);
+        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&grade=" + selected_grade  + "&title=" + title + "&content=" + content + "&id=" + id + "&data=" + form_data, false);
         httpTask.send(form_data);
     } else {
         loadStudentPlanner("student-planner", date);
