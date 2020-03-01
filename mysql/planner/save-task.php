@@ -11,6 +11,7 @@ $title = $_REQUEST['title'];
 $content = $_REQUEST['content'];
 $emp_id = $_SESSION['user'];
 $date = $_REQUEST['date'];
+
 $size = null;
 $the_content_type = '';
 

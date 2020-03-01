@@ -99,19 +99,21 @@ if ($is_teaching) {
             $sql_sub = "select name from subjects where id = '$row[subject_id]'; ";
             $result_sub = $conn->query($sql_sub);
             while ($row_sub = mysqli_fetch_array($result_sub)) {
+
                 echo '<div align="right" class="col"><label> Subject:<b> ' . $row_sub['name'] . '</b></label></div></div>';
             }
             echo '<div><label for="edit_title">Title:</label> <input id="edit_title" class="form-control-sm form-control" value=" ' . $row['title'] . '"/></div>';
             echo '<br><label for="edit_content">Content:</label><textarea id="edit_content" type="text"  style="height: 100px" placeholder="Description" class="form-control-sm form-control" >' . nl2br(str_replace('<br />', ' ', $row['content'])) . '</textarea><br>';
             echo '<label for="task-select-edit" hidden>Select Student</label><select  hidden id="task-select-edit" name="task-select-edit" multiple="multiple"  size = "5" class="form-control-sm form-control select_all "><option>Select Students</option></select>';
-             echo '<label for="file_upload" class="">Upload File</label>'.
-            '<input name="file_upload" id="file_upload" type="file" onchange="fileValidation()" class="form-control-file"><br>'.
-            '<small id="upload_warning" style="display: none"><div class="alert alert-sm alert-danger fade show" role="alert">File too large to upload! (Max 30MB)</div></small></div></form> ';
+            echo '<form method="post" enctype="multipart/form-data">';
+            echo '<label for="file_upload_edit" class="">Upload File</label>'.
+            '<input name="file_upload_edit" id="file_upload_edit" type="file" onchange="fileValidation(\'file_upload_edit\',\'upload_warning-edit\',\'btnUpdate\')" class="form-control-file"><br>'.
+            '<small id="upload_warning-edit" style="display: none"><div class="alert alert-sm alert-danger fade show" role="alert">File too large to upload! (Max 30MB)</div></small></form> ';
 
             echo ' </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-success" onclick="updateTask(' . $row['id'] . ')">Save</button> ';
+                        <button class="btn btn-success" id="btnUpdate" onclick="updateTask(' . $row['id'] . ')">Save</button> ';
 
         }
     }

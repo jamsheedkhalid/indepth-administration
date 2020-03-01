@@ -129,7 +129,7 @@ function highlight_row() {
                         msg += '<textarea id="task_content" type="text"  style="height: 100px" placeholder="Description" class="form-control-sm form-control" ></textarea><br>';
                         msg += '<div class="position-relative form-group">' +
                             '<label for="file_upload" class="">Upload File</label>'+
-                            '<input name="file_upload" id="file_upload" type="file" onchange="fileValidation()" class="form-control-file"><br>'+
+                            '<input name="file_upload" id="file_upload" type="file" onchange="fileValidation(\'file_upload\',\'upload_warning\',\'saveBtn\')" class="form-control-file"><br>'+
                             '<small id="upload_warning" style="display: none"><div class="alert alert-sm alert-danger fade show" role="alert">File too large to upload! (Max 30MB)</div></small></div></form> ';
                         msg += '<label for="task-select" hidden >Select Student</label><select hidden id="task-select" name="task-select" multiple="multiple"  size = "5" class="form-control-sm form-control"><option>Select Students</option></select>';
                         // msg += '\n Sub: ' + rowSelected.cells[1].innerHTML;
@@ -195,8 +195,8 @@ function loadSubjects() {
 }
 
 
-function fileValidation() {
-    const fi = document.getElementById('file_upload');
+function fileValidation(id,warning_id,saveBtn_id) {
+    const fi = document.getElementById(id);
     if (fi.files.length > 0) {
         for (const i = 0; i <= fi.files.length - 1; i++) {
 
@@ -205,13 +205,13 @@ function fileValidation() {
             // The size of the file.
             if (file >= 30720) {
 
-                     document.getElementById("saveBtn").disabled = true;
-                     document.getElementById("upload_warning").style.display = 'inline';
+                     document.getElementById(saveBtn_id).disabled = true;
+                     document.getElementById(warning_id).style.display = 'inline';
 
 
             }  else {
-                document.getElementById("saveBtn").disabled = false;
-                document.getElementById("upload_warning").style.display = 'none';
+                document.getElementById(saveBtn_id).disabled = false;
+                document.getElementById(warning_id).style.display = 'none';
 
             }
         }
@@ -230,6 +230,7 @@ function saveTask() {
     var file_data = $('#file_upload').prop('files')[0];
     var form_data = new FormData();
     form_data.append('file', file_data);
+
     content = content.replace(/\n\r?/g, '<br />');
     if (!title.replace(/\s/g, '').length) {
         document.getElementById('title_warning').style.display = 'inline';
@@ -316,6 +317,7 @@ function editTask(id) {
     let selected_section = document.getElementById('section').options[document.getElementById('section').selectedIndex].text;
     let editModal = document.getElementById('editModalBody');
 
+
     let httpTask = new XMLHttpRequest();
     httpTask.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -351,6 +353,10 @@ function updateTask(id) {
         let selected_students = $('#task-select-edit').val();
         let title = document.getElementById('edit_title').value;
         let content = document.getElementById('edit_content').value;
+        let selected_grade = document.getElementById('grade').options[document.getElementById('grade').selectedIndex].value;
+        var file_data = $('#file_upload_edit').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
 
 
         let httpTask = new XMLHttpRequest();
@@ -360,8 +366,8 @@ function updateTask(id) {
                 loadStudentPlanner("student-planner", date);
             }
         };
-        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&title=" + title + "&content=" + content + "&id=" + id, false);
-        httpTask.send();
+        httpTask.open("GET", "/mysql/planner/update-task.php?selected_students=" + selected_students + "&grade=" + selected_grade  + "&title=" + title + "&content=" + content + "&id=" + id, false);
+        httpTask.send(form_data);
     } else {
         loadStudentPlanner("student-planner", date);
 
