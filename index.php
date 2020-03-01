@@ -11,7 +11,7 @@ if (isset($_SESSION['login'])) {
         header('Location: parent-home.php');
     }
     else if($_SESSION['user_type'] === 'teacher') {
-        header('Location: modules/academics/examination/generate-reports.php');
+        header('Location: modules/academics/planner/student_planner.php');
     }
 }
 else {

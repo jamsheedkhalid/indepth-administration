@@ -55,7 +55,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
                             <div class="d-inline-block dropdown  col-sm-4 text-right"  style="margin-top: 30px!important;"   >
                                 <div class="row">
-                                <a href="/mysql/planner/print.php"
+                                <a href="/index.php"
                                    class="btn-shadow btn-sm btn-outline-focus">
                                                                         <span class="btn-icon-wrapper pr-2 opacity-7">
                                                                             <i class="fas fa-edit "></i>
