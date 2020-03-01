@@ -32,12 +32,15 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             </div>
                         </div>
                     </div>
-                    <div class="page-title-actions col-sm-6 ">
-                        <div class="row m-0 p-0">
+
+                    <div class="page-title-actions col-sm-6 " >
+
+                        <form class="row m-0 p-0"  id="print_form" method="post" action="/mysql/planner/print.php" target="_blank">
+
                             <div class="position-relative form-group col-sm-3 ">
                                 <label for="grade"
                                        class="">Select Grade</label>
-                                <select name="grade" id="grade" onchange="selectSection();"
+                                <select form="print_form" name="grade" id="grade" onchange="selectSection();"
                                         class="form-control-sm form-control">
                                 </select>
                                 <input type="hidden" name="hidden_select"
@@ -53,6 +56,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             >
                             </div>
 
+
                             <div class="d-inline-block dropdown  col-sm-4 text-right"  style="margin-top: 30px!important;"   >
                                 <div class="row">
                                 <a href="/index.php"
@@ -63,18 +67,19 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                     Edit Planner
                                 </a>
 
-                                <a onclick="printPlanner()"
+                                <button type="submit"
                                    class="btn-shadow btn-sm btn-outline-focus">
                                                                         <span class="btn-icon-wrapper pr-2 opacity-7">
                                                                             <i class="fas fa-print "></i>
                                                                         </span>
                                     Print
-                                </a>
+                                </button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
+                        </form>
+
+                    </div>
                 </div>
             </div>
             <div>
