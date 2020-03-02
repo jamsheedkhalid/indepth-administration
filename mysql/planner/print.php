@@ -67,11 +67,13 @@ if (isset($_POST['grade'], $_POST['week_date'])) {
     $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
 // set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+
     $pdf->setFontSubsetting(true);
 
 
     $pdf->AddPage('L', 'A4');
-    $fontFamily = 'Helvetica'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
+    $fontFamily = 'dejavusans'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
     $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
     $fontSize = 8.5; // float, in point
     $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
