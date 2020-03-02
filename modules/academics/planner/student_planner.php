@@ -31,14 +31,17 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                             </div>
                             <div>WEEKLY PLANNER
                                 <div class="page-title-subheading">
-                                    Updated regularly, <span style="color:darkred" >&#9733</span> Indicates updates tasks
-                                    <br>    تحديثها بانتظام ،    <span style="color:darkred" >&#9733</span>  ويشير مهام التحديثات
+                                    Updated regularly, <span style="color:darkred">&#9733</span> Indicates updates tasks
+                                    <br> تحديثها بانتظام ، <span style="color:darkred">&#9733</span> ويشير مهام
+                                    التحديثات
 
                                 </div>
                             </div>
                         </div>
                         <div class="page-title-actions col-sm-6">
-                            <div class="row">
+
+                                <form class="row"  id="print_form" method="post" action="/mysql/planner/print_report.php" target="_blank">
+
                                 <div class="col">
                                     <label for="grade"
                                            class="">Select Grade</label>
@@ -56,7 +59,11 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                                     >
 
                                 </div>
-                            </div>
+                                <div class="col">
+                                    <button class="btn btn-sm " title="Print Planner Report" style="margin-top: 30px"   ><i class="fa fa-print"> Print Report</i></button>
+                                </div>
+                                </form>
+
 
 
                             <!--                        <div class="d-inline-block dropdown">-->
@@ -180,7 +187,7 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                     </button>
                 </div>
 
-                <div class="modal-body" id='modalBody' >
+                <div class="modal-body" id='modalBody'>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
