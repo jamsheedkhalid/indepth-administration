@@ -195,8 +195,5 @@ $tbl .= <<<EOD
 EOD;
 
 $pdf->writeHTML($tbl, true, false, false, false, '');
-//ob_end_clean();
+ob_end_clean();
 $pdf->Output('planner.pdf', 'I');
-
-
-
