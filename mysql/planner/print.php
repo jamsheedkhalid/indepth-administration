@@ -3,6 +3,7 @@
 /** @noinspection ALL */
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
+date_default_timezone_set('Asia/Dubai');
 
 
 class PDF extends TCPDF
@@ -42,63 +43,67 @@ class PDF extends TCPDF
         $this->Cell(0, 10, 'Date ' . $date, 0, 0, 'R');
     }
 }
-$grade = $_REQUEST['grade'];
-$date = $_REQUEST['week_date'];
-if (date('w', strtotime($date)) == 0) {
+
+if (isset($_POST['grade']) && isset($_POST['week_date'])) {
+
+
+    $grade = $_REQUEST['grade'];
+    $date = $_REQUEST['week_date'];
+    if (date('w', strtotime($date)) == 0) {
 //    echo 'Event is on a sunday';
-    $date = date('Y-m-d', strtotime($date . ' + 1 days'));
-}
-$ts = strtotime($date);
-$year = date('o', $ts);
-$week = date('W', $ts);
-$weekStart = strtotime($year . 'W' . $week . 0);
-$week_start = date('Y-m-d', $weekStart);
-$weekEnd = strtotime($year . 'W' . $week . 6);
-$week_end = date('Y-m-d', $weekEnd);
-$pdf = new PDF('L');
-$pdf->SetTitle('Weekly Planner');
-$pdf->SetMargins(10, 60, 10);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-// set auto page breaks
-$pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-// set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-$pdf->setFontSubsetting(true);
-
-
-$pdf->AddPage('L','A4');
-$fontFamily = 'Helvetica'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
-$fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
-$fontSize = 8.5; // float, in point
-$pdf->SetFont($fontFamily, $fontStyle, $fontSize);
-
-$pdf->Cell(0, 0, 'Week: ' . date('d.M.Y', $weekStart) . ' - ' . date('d.M.Y', $weekEnd), 0, 1, 'C', 0);
-$sql = "SELECT course_name grade from courses where id = '$grade'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while ($row = mysqli_fetch_array($result)) {
-        $pdf->Cell(0, 10, 'Grade: ' . $row['grade'], 0, 2, 'C', 0);
+        $date = date('Y-m-d', strtotime($date . ' + 1 days'));
     }
-}
-$pdf->SetLineWidth(0.2);
-$pdf->Line(100, 77, 200, 77);
-$pdf->Ln(10);
-$tbl = <<<EOD
+    $ts = strtotime($date);
+    $year = date('o', $ts);
+    $week = date('W', $ts);
+    $weekStart = strtotime($year . 'W' . $week . 0);
+    $week_start = date('Y-m-d', $weekStart);
+    $weekEnd = strtotime($year . 'W' . $week . 6);
+    $week_end = date('Y-m-d', $weekEnd);
+    $pdf = new PDF('L');
+    $pdf->SetTitle('Weekly Planner');
+    $pdf->SetMargins(10, 60, 10);
+    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+// set auto page breaks
+    $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+// set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    $pdf->setFontSubsetting(true);
+
+
+    $pdf->AddPage('L', 'A4');
+    $fontFamily = 'Helvetica'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
+    $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
+    $fontSize = 8.5; // float, in point
+    $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
+
+    $pdf->Cell(0, 0, 'Week: ' . date('d.M.Y', $weekStart) . ' - ' . date('d.M.Y', $weekEnd), 0, 1, 'C', 0);
+    $sql = "SELECT course_name grade from courses where id = '$grade'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $pdf->Cell(0, 10, 'Grade: ' . $row['grade'], 0, 2, 'C', 0);
+        }
+    }
+    $pdf->SetLineWidth(0.2);
+    $pdf->Line(100, 77, 200, 77);
+    $pdf->Ln(10);
+    $tbl = <<<EOD
 <style>
 table {
     border-collapse:collapse;
     }
     </style>'
 EOD;
-$tbl .= <<<EOD
+    $tbl .= <<<EOD
              <table  cellspacing="0" cellpadding="1" border="1" >
         
                 
                   <tr nobr="false">
                   <th  width="80" style="border-top-color:#000000;border-top-width:1px;border-top-style:solid;"> DAY \ SUB</th>
 EOD;
-$sql = "
+    $sql = "
 select subjects.id id, subjects.name name
 from subjects
          inner join batches on subjects.batch_id = batches.id
@@ -112,69 +117,69 @@ where subjects.is_deleted = 0
 group by subjects.name
 order by subjects.name;
 ";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    $col_count = 0;
-    while ($row = mysqli_fetch_array($result)) {
-        $tbl .= <<<EOD
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $col_count = 0;
+        while ($row = mysqli_fetch_array($result)) {
+            $tbl .= <<<EOD
    <th   align="center"> $row[name]</th>
 EOD;
+        }
     }
-}
-$tbl .= <<<EOD
+    $tbl .= <<<EOD
     </tr>                      
  EOD;
-for ($j = 0; $j <= 6; $j++) {
-    // timestamp from ISO week date format
-    $ts = strtotime($year . 'W' . $week . $j);
-    $days = strtoupper(date('l', $ts));
-    $dates = date('d-M', $ts);
-    {
-        $tbl .= <<<EOD
+    for ($j = 0; $j <= 6; $j++) {
+        // timestamp from ISO week date format
+        $ts = strtotime($year . 'W' . $week . $j);
+        $days = strtoupper(date('l', $ts));
+        $dates = date('d-M', $ts);
+        {
+            $tbl .= <<<EOD
        <tr><th width="80"> $days <br></th>
 EOD;
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            while ($row = mysqli_fetch_array($result)) {
-                $date = date('Y-m-d', $ts);
-                $task = " select id,title from indepth_weekly_planner where subject_id = '$row[id]' and duedate = '$date'; ";
-                $task_result = $conn->query($task);
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = mysqli_fetch_array($result)) {
+                    $date = date('Y-m-d', $ts);
+                    $task = " select id,title from indepth_weekly_planner where subject_id = '$row[id]' and duedate = '$date'; ";
+                    $task_result = $conn->query($task);
 //                echo $task;
-                if ($task_result->num_rows > 0) {
-                    $tbl .= <<<EOD
+                    if ($task_result->num_rows > 0) {
+                        $tbl .= <<<EOD
                     <td align="left">
                     EOD;
-                    $si = 1;
-                    while ($task_row = mysqli_fetch_array($task_result)) {
-                        $tbl .= <<<EOD
+                        $si = 1;
+                        while ($task_row = mysqli_fetch_array($task_result)) {
+                            $tbl .= <<<EOD
                         $si. $task_row[title] <br>
                         EOD;
-                        $si++;
-                    }
-                    $tbl .= <<<EOD
+                            $si++;
+                        }
+                        $tbl .= <<<EOD
                     </td>
                     EOD;
-                } else {
-                    $tbl .= <<<EOD
+                    } else {
+                        $tbl .= <<<EOD
                   <td ></td>
                   EOD;
+                    }
+
                 }
-
             }
-        }
 
 
-        $tbl .= <<<EOD
+            $tbl .= <<<EOD
             </tr>
          EOD;
-    }
+        }
 
-}
-$tbl .= <<<EOD
+    }
+    $tbl .= <<<EOD
 </table>  <br><br>
 EOD;
-$pdf->writeHTML($tbl, true, false, true, false, '');
-ob_end_clean();
-$pdf->Output('planner.pdf', 'I');
-$pdf->Close();
-?>
+    $pdf->writeHTML($tbl, true, false, true, false, '');
+    ob_end_clean();
+    $pdf->Output();
+    $pdf->Close();
+}
