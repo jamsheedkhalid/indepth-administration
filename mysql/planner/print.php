@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection ALL */
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
@@ -137,10 +138,7 @@ EOD;
 }
 
 $tbl .= <<<EOD
-             </tr>
-            
-   
-           
+             </tr>                      
  EOD;
 
 for ($j = 0; $j <= 6; $j++) {
@@ -194,7 +192,7 @@ $tbl .= <<<EOD
 </table>  <br><br>
 EOD;
 
-$pdf->writeHTML($tbl, true, false, false, false, '');
+$pdf->writeHTML($tbl, true, false, true, false, '');
 ob_end_clean();
 $pdf->Output('planner.pdf', 'I');
-?>
+
