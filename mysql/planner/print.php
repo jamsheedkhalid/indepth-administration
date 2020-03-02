@@ -42,27 +42,19 @@ class PDF extends TCPDF
         $this->Cell(0, 10, 'Date ' . $date, 0, 0, 'R');
     }
 }
-
-
-$grade = $_POST['grade'];
-$date = $_POST['week_date'];
-
-//echo $date;
-
+$grade = $_REQUEST['grade'];
+$date = $_REQUEST['week_date'];
 if (date('w', strtotime($date)) == 0) {
 //    echo 'Event is on a sunday';
     $date = date('Y-m-d', strtotime($date . ' + 1 days'));
 }
-//echo $date;
 $ts = strtotime($date);
-// find the year (ISO-8601 year number) and the current week
 $year = date('o', $ts);
 $week = date('W', $ts);
 $weekStart = strtotime($year . 'W' . $week . 0);
 $week_start = date('Y-m-d', $weekStart);
 $weekEnd = strtotime($year . 'W' . $week . 6);
 $week_end = date('Y-m-d', $weekEnd);
-
 $pdf = new PDF('L');
 $pdf->SetTitle('Weekly Planner');
 $pdf->SetMargins(10, 60, 10);
@@ -75,7 +67,7 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf->setFontSubsetting(true);
 
 
-$pdf->AddPage();
+$pdf->AddPage('L','A4');
 $fontFamily = 'Helvetica'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
 $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 8.5; // float, in point
@@ -91,9 +83,7 @@ if ($result->num_rows > 0) {
 }
 $pdf->SetLineWidth(0.2);
 $pdf->Line(100, 77, 200, 77);
-
 $pdf->Ln(10);
-
 $tbl = <<<EOD
 <style>
 table {
@@ -101,7 +91,6 @@ table {
     }
     </style>'
 EOD;
-
 $tbl .= <<<EOD
              <table  cellspacing="0" cellpadding="1" border="1" >
         
@@ -109,8 +98,6 @@ $tbl .= <<<EOD
                   <tr nobr="false">
                   <th  width="80" style="border-top-color:#000000;border-top-width:1px;border-top-style:solid;"> DAY \ SUB</th>
 EOD;
-
-
 $sql = "
 select subjects.id id, subjects.name name
 from subjects
@@ -126,21 +113,17 @@ group by subjects.name
 order by subjects.name;
 ";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
     $col_count = 0;
     while ($row = mysqli_fetch_array($result)) {
         $tbl .= <<<EOD
    <th   align="center"> $row[name]</th>
-
 EOD;
     }
 }
-
 $tbl .= <<<EOD
-             </tr>                      
+    </tr>                      
  EOD;
-
 for ($j = 0; $j <= 6; $j++) {
     // timestamp from ISO week date format
     $ts = strtotime($year . 'W' . $week . $j);
@@ -151,7 +134,6 @@ for ($j = 0; $j <= 6; $j++) {
        <tr><th width="80"> $days <br></th>
 EOD;
         $result = $conn->query($sql);
-
         if ($result->num_rows > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 $date = date('Y-m-d', $ts);
@@ -191,7 +173,6 @@ EOD;
 $tbl .= <<<EOD
 </table>  <br><br>
 EOD;
-
 $pdf->writeHTML($tbl, true, false, true, false, '');
 ob_end_clean();
 $pdf->Output('planner.pdf', 'I');
