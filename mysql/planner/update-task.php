@@ -30,7 +30,7 @@ if (isset( $_FILES['file']['name']) and !empty( $_FILES['file']['name'])) {
 } else {
     $name = '';
 }
-
+$timestamp = date('Y-m-d H:i:s');
 $sql = "UPDATE indepth_weekly_planner  
                 SET 
                     student_list = '$student', 
@@ -40,7 +40,7 @@ $sql = "UPDATE indepth_weekly_planner
                     attachment_content_type = '$the_content_type', 
                     attachment_file_size = '$size', 
                     attachment_updated_at = NULL,  
-                    updated_at = CURRENT_DATE()  
+                    updated_at = '$timestamp'  
              WHERE id = '$id'";
 
 echo $sql;

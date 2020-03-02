@@ -7,9 +7,9 @@ $section = $_REQUEST['section'];
 $grade = $_REQUEST['grade'];
 
 
-if(date('w',strtotime($date)) == 0) {
+if (date('w', strtotime($date)) == 0) {
 //    echo 'Event is on a sunday';
-    $date = date('Y-m-d',strtotime($date. ' + 1 days'));
+    $date = date('Y-m-d', strtotime($date . ' + 1 days'));
 }
 //echo $date;
 $ts = strtotime($date);
@@ -72,13 +72,17 @@ for ($j = 0; $j <= 6; $j++) {
         if ($result->num_rows > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 $date = date('Y-m-d', $ts);
-                $task = " select id,title from indepth_weekly_planner where subject_id = '$row[id]' and duedate = '$date'; ";
+                $task = " select id,title,created_at,updated_at from indepth_weekly_planner where subject_id = '$row[id]' and duedate = '$date'; ";
                 $task_result = $conn->query($task);
 //                echo $task;
                 if ($task_result->num_rows > 0) {
                     echo '<td>';
                     while ($task_row = mysqli_fetch_array($task_result)) {
-                        echo '<a  onclick="viewTaskDetails(this.id)" id="' . $task_row['id'] . '" class="mb-2 mr-2 badge badge-warning " >' . $task_row['title'] . '</a><br>';
+                        if ($task_row['created_at'] == $task_row['updated_at']) {
+                            echo '<a  onclick="viewTaskDetails(this.id)" id="' . $task_row['id'] . '" class="mb-2 mr-2 badge badge-warning " >' . $task_row['title'] . '</a><br>';
+                        } else {
+                            echo '<a  onclick="viewTaskDetails(this.id)" id="' . $task_row['id'] . '" class="mb-2 mr-2 badge badge-warning " >' . $task_row['title'] . '<span style="color:darkred" >&#9733</span></a><br>';
+                        }
                     }
                     echo '</td>';
                 } else {

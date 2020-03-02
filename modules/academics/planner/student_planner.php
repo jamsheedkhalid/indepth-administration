@@ -30,7 +30,8 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                                 </i>
                             </div>
                             <div>WEEKLY PLANNER
-                                <div class="page-title-subheading">Planner for students academics activities
+                                <div class="page-title-subheading">
+                                    <b style="color:darkred;">  Updated regularly, <span class="mb-2 mr-2 badge badge-pill badge-danger p-0 " >&#9733</span>Indicates updates tasks </b>
                                 </div>
                             </div>
                         </div>

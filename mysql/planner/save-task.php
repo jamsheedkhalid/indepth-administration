@@ -43,10 +43,11 @@ if ($result->num_rows > 0) {
         $emp_id = $row['id'];
     }
 }
+$timestamp = date('Y-m-d H:i:s');
 
 $save_task = "INSERT INTO indepth_weekly_planner (id, employee_id, subject_id, student_list, title, content, duedate, attachment_file_name,
                                     attachment_content_type, attachment_file_size, attachment_updated_at, created_at, updated_at, school_id)
-VALUES (NULL, '$emp_id', '$subject', '$student', '$title', '$content', '$date', '$name', '$the_content_type', '$size', NULL, CURRENT_DATE(), CURRENT_DATE(), '1')";
+VALUES (NULL, '$emp_id', '$subject', '$student', '$title', '$content', '$date', '$name', '$the_content_type', '$size', NULL, '$timestamp', '$timestamp', '1')";
 
 //echo $save_task;
 if ($conn->query($save_task) === TRUE) {

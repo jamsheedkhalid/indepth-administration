@@ -28,7 +28,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             </i>
                         </div>
                         <div>WEEKLY PLANNER
-                            <div class="page-title-subheading">Planner for students academics activities
+                            <div >
+                                <small >  Updated regularly, <span style="color:darkred" >&#9733</span> Indicates updates tasks </small>
+                              <br> <small >   تحديثها بانتظام ،    <span style="color:darkred" >&#9733</span>  ويشير مهام التحديثات </small>
                             </div>
                         </div>
                     </div>
