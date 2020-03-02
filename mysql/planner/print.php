@@ -1,12 +1,11 @@
 <?php
 
-/** @noinspection ALL */
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 date_default_timezone_set('Asia/Dubai');
 
 
-class PDF extends TCPDF
+class PDF2 extends TCPDF
 {
 
 // Page header
@@ -44,9 +43,7 @@ class PDF extends TCPDF
     }
 }
 
-if (isset($_POST['grade']) && isset($_POST['week_date'])) {
-
-
+if (isset($_POST['grade'], $_POST['week_date'])) {
     $grade = $_REQUEST['grade'];
     $date = $_REQUEST['week_date'];
     if (date('w', strtotime($date)) == 0) {
@@ -60,7 +57,8 @@ if (isset($_POST['grade']) && isset($_POST['week_date'])) {
     $week_start = date('Y-m-d', $weekStart);
     $weekEnd = strtotime($year . 'W' . $week . 6);
     $week_end = date('Y-m-d', $weekEnd);
-    $pdf = new PDF('L');
+
+    $pdf = new PDF2('L');
     $pdf->SetTitle('Weekly Planner');
     $pdf->SetMargins(10, 60, 10);
     $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
@@ -127,8 +125,8 @@ EOD;
         }
     }
     $tbl .= <<<EOD
-    </tr>                      
- EOD;
+    </tr>
+EOD;
     for ($j = 0; $j <= 6; $j++) {
         // timestamp from ISO week date format
         $ts = strtotime($year . 'W' . $week . $j);
@@ -148,21 +146,21 @@ EOD;
                     if ($task_result->num_rows > 0) {
                         $tbl .= <<<EOD
                     <td align="left">
-                    EOD;
+EOD;
                         $si = 1;
                         while ($task_row = mysqli_fetch_array($task_result)) {
                             $tbl .= <<<EOD
                         $si. $task_row[title] <br>
-                        EOD;
+EOD;
                             $si++;
                         }
                         $tbl .= <<<EOD
                     </td>
-                    EOD;
+EOD;
                     } else {
                         $tbl .= <<<EOD
                   <td ></td>
-                  EOD;
+EOD;
                     }
 
                 }
@@ -171,7 +169,7 @@ EOD;
 
             $tbl .= <<<EOD
             </tr>
-         EOD;
+EOD;
         }
 
     }
@@ -180,6 +178,6 @@ EOD;
 EOD;
     $pdf->writeHTML($tbl, true, false, true, false, '');
     ob_end_clean();
-    $pdf->Output();
+    $pdf->Output('planner','I');
     $pdf->Close();
 }
