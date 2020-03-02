@@ -11,7 +11,7 @@ $section = $_REQUEST['section'];
 echo ' <div class="modal-body">';
 
 
-$sql = "select id,employee_id, subject_id, student_list, title, content, attachment_file_name file, duedate from indepth_weekly_planner where id = '$id'; ";
+$sql = "select id,employee_id, subject_id, student_list, title, content, attachment_file_name file, duedate, updated_at from indepth_weekly_planner where id = '$id'; ";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -22,7 +22,8 @@ if ($result->num_rows > 0) {
 
         if ($result_emp->num_rows > 0) {
             while ($row_emp = mysqli_fetch_array($result_emp)) {
-                echo '<div class="col" align="right"><label> <i><small>Created by: ' . $row_emp['first_name'] . '</small></i></label></div>';
+                echo '<div class="col" align="right"><label> <i><small>Created by: ' . $row_emp['first_name'] . '</small></i></label>
+  <label> <small><i> Last updated on: ' . date('d-F-Y h:i a',strtotime($row['updated_at'])) . '</i></small> </label> </div>';
             }
         }
         echo "</div>";

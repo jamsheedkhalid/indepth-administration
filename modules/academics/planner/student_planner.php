@@ -31,7 +31,9 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                             </div>
                             <div>WEEKLY PLANNER
                                 <div class="page-title-subheading">
-                                    <b >  Updated regularly, <span style="color:darkred" >&#9733</span> Indicates updates tasks </b>
+                                    Updated regularly, <span style="color:darkred" >&#9733</span> Indicates updates tasks
+                                    <br>    تحديثها بانتظام ،    <span style="color:darkred" >&#9733</span>  ويشير مهام التحديثات
+
                                 </div>
                             </div>
                         </div>
