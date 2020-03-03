@@ -47,6 +47,7 @@ if (isset($_POST['grade'], $_POST['week_date'])) {
     $grade = $_REQUEST['grade'];
     $date = $_REQUEST['week_date'];
     $subject_array = [];
+
     if (date('w', strtotime($date)) == 0) {
 //    echo 'Event is on a sunday';
         $date = date('Y-m-d', strtotime($date . ' + 1 days'));
@@ -91,10 +92,10 @@ if (isset($_POST['grade'], $_POST['week_date'])) {
     $tbl = <<<EOD
              <table  cellspacing="0" cellpadding="1" border="1"  >
              <tbody style="padding: 5px">
-            <tr  style="background-color: silver" align="center"><th > Subject</th>
-            <th>Teacher</th>
+            <tr  style="background-color: lightblue" align="center"><th > Subject</th>
+            <th width="290">Teacher</th>
             <th>Task Status</th>
-            <th># of Tasks</th>
+            <th width="50">Tasks </th>
             </tr>
 EOD;
     for ($j = 0; $j <= 6; $j++) {
@@ -104,29 +105,27 @@ EOD;
         $dates = date('d-m-y', $ts);
         $dueDate = date('Y-m-d', $ts);
         $tbl .= <<<EOD
-        <tr><th colspan="4" style="background-color: #ccc" align="center"><b> $days  ($dates) </b></th></tr>
+        <tr><th colspan="4" style="background-color: lightskyblue" align="center"><b> $days  ($dates) </b></th></tr>
 EOD;
         $sql = "
-select subjects.id id, subjects.name name
-from subjects
-         inner join batches on subjects.batch_id = batches.id
-         inner join courses on batches.course_id = courses.id
-where subjects.is_deleted = 0
-  and courses.id = '$grade'
-  and courses.is_deleted = 0
-  and batches.is_deleted = 0
-  and batches.is_active = 1
-  and batches.name LIKE '%2020%'
-group by subjects.name
-order by subjects.name;
-";
-
+                select subjects.id id, subjects.name name
+                from subjects
+                inner join batches on subjects.batch_id = batches.id
+                inner join courses on batches.course_id = courses.id
+                where subjects.is_deleted = 0
+                and courses.id = '$grade'
+                and courses.is_deleted = 0
+                and batches.is_deleted = 0
+                and batches.is_active = 1
+                and batches.name LIKE '%2020%'
+                group by subjects.name
+                order by subjects.name;
+                ";
 
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = mysqli_fetch_array($result)) {
 
-//
                 $sql_sub = "select subjects.id id, subjects.name name from subjects
                             inner join batches on subjects.batch_id = batches.id
                             inner join courses on batches.course_id = courses.id
@@ -136,9 +135,7 @@ order by subjects.name;
                             and batches.is_deleted = 0
                             and courses.is_deleted = 0
                             and batches.name LIKE '%2020%'
-                            and subjects.name = '$row[name]';";
-//
-//
+                            and subjects.name = '$row[name]'";
                 $result_sub = $conn->query($sql_sub);
                 $subject_array = [];
                 $flag = 0;
@@ -147,45 +144,57 @@ order by subjects.name;
                         $subject_array[] = $row_sub['id'];
                     }
                 }
-//
+                $subject_ids = implode(',', $subject_array);
 
-                foreach ($subject_array as $key => $val) {
+                $sql_task = "
+                             select   employee_id, count(*) count, updated_at from indepth_weekly_planner 
+                             where subject_id in ($subject_ids) and duedate = '$dueDate' group by employee_id; ";
+//                echo $sql_task;
+                $result_task = $conn->query($sql_task);
+                if ($result_task->num_rows > 0) {
+                    $row_count = mysqli_num_rows($result_task);
+//                    echo $row_count;
+                    $tbl .= <<<EOD
+                                                   <tr><td rowspan="$row_count"> $row[name] </td>
+EOD;
+                    $line = 0;
 
-                    $sql_task = "select distinct  employee_id, count(*) count from indepth_weekly_planner 
-                where subject_id = '$val' and duedate = '$dueDate'";
-//                    echo $sql_task;
-                    $result_task = $conn->query($sql_task);
-                    if ($result_task->num_rows > 0) {
-                        while ($row_task = mysqli_fetch_array($result_task)) {
-//                            $sql_emp = " select first_name name from employees where user_id = '$row_task[employee_id]' ";
-//                            echo $sql_emp;
-//                            $result_emp = $conn->query($sql_emp);
-//                            if ($result_emp->num_rows > 0) {
-//                                while ($row_emp = mysqli_fetch_array($result_emp)) {
-//                                    $tbl .= <<<EOD
+                    while ($row_task = mysqli_fetch_array($result_task)) {
+
+                        $sql_emp = " select first_name name from employees where id = '$row_task[employee_id]' ";
+                        echo $sql_emp;
+                        $result_emp = $conn->query($sql_emp);
+                        if ($result_emp->num_rows > 0) {
+
+                            while ($row_emp = mysqli_fetch_array($result_emp)) {
+                               $updated_date = date('d-F-Y', strtotime($row_task['updated_at']));
+                                if ($line === 0) {
+                                    $tbl .= <<<EOD
+                                                   <td> $row_emp[name] </td><td align="center">Updated on $updated_date</td><td align="center"> $row_task[count] </td>
+                                                     </tr>
+EOD;
+                                    $line++;
+                                } else {
+                                    $tbl .= <<<EOD
+                                                  <tr><td> $row_emp[name] </td><td align="center">Updated on $updated_date</td><td align="center"> $row_task[count] </td>
+                                                     </tr>
+EOD;
+                                }
+
+                            }
+                        }
+
+//                            $tbl .= <<<EOD
 //                             <tr ><td> $row[name] </td>
-//                               <td> $row_emp[name] </td><td></td><td align="center"> $row_task[count] </td>
+//                               <td> $row_task[employee_id] </td><td></td><td align="center"> $row_task[count] </td>
 //                               </tr>
 //EOD;
-//
-//                                }
-//                            }
-
-                            $tbl .= <<<EOD
-                             <tr ><td> $row[name] </td>
-                               <td> $row_task[employee_id] </td><td></td><td align="center"> $row_task[count] </td>
-                               </tr>
-EOD;
-                        }
-                        $flag = 1;
-                        break;
-                    } else {
                     }
-
-                }
-                if ($flag == 0) {
+                    $flag = 1;
+//                    break;
+                } else {
                     $tbl .= <<<EOD
- <tr ><td> $row[name] </td><td colspan="3" align="center"> Not yet submitted</td>
+ <tr style="background-color: #F7CACA"><td> $row[name] </td><td colspan="3" align="center"> Not yet submitted</td>
                             </tr>
 EOD;
                 }
