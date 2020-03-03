@@ -44,6 +44,10 @@ if ($result->num_rows > 0) {
             echo "<a id='download_file' href='/mysql/planner/view-planner/download.php?name=" . $row['file'] . "'> Download</a> ";
 
         }
+        else  {
+            echo '<br><label for="download_file">Attachment: Not available </label>';
+
+        }
 
         echo ' </div>
                     <div class="modal-footer">
