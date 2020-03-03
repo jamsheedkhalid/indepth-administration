@@ -40,7 +40,8 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
                         </div>
                         <div class="page-title-actions col-sm-6">
 
-                                <form class="row"  id="print_form" method="post" action="/mysql/planner/print_report.php" target="_blank">
+                            <form class="row" id="print_form" method="post"
+                                  target="_blank">
 
                                 <div class="col">
                                     <label for="grade"
@@ -60,77 +61,52 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
 
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-sm " title="Print Planner Report" style="margin-top: 30px"   ><i class="fa fa-print"> Print Report</i></button>
+                                    <div class="d-inline-block dropdown" style="margin-top: 25px">
+                                        <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false"
+                                                class="btn-shadow dropdown-toggle btn btn-dark">
+                                                                                <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                                                    <i class="fas fa-print fa-w-20"></i>
+                                                                                </span>
+                                            Print
+                                        </button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                             class="dropdown-menu dropdown-menu-right">
+                                            <ul class="nav flex-column">
+
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);"
+                                                       class="nav-link">
+                                                        <span>
+                                                                        <button class="btn btn-sm "
+                                                                                formaction="/mysql/planner/print_report.php"
+                                                                                title="Print Planner Report"
+                                                                        > Submission Report</button>
+                                                                                            </span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);"
+                                                       class="nav-link">
+                                                        <span>
+                                                                        <button class="btn btn-sm "
+                                                                                formaction="/mysql/planner/print.php"
+                                                                                title="Print Planner "
+                                                                        > Planner</button>
+                                                                                            </span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <!--                                    <button class="btn btn-sm " title="Print Planner Report" style="margin-top: 30px"   ><i class="fa fa-print"> Print Report</i></button>-->
                                 </div>
-                                </form>
+                            </form>
 
 
-
-                            <!--                        <div class="d-inline-block dropdown">-->
-                            <!--                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
-                            <!--                                    class="btn-shadow dropdown-toggle btn btn-info">-->
-                            <!--                                            <span class="btn-icon-wrapper pr-2 opacity-7">-->
-                            <!--                                                <i class="fas fa-filter fa-w-20"></i>-->
-                            <!--                                            </span>-->
-                            <!--                                Filters-->
-                            <!--                            </button>-->
-                            <!--                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">-->
-                            <!--                                <ul class="nav flex-column">-->
-                            <!--                                    <li class="nav-item">-->
-                            <!---->
-                            <!--                                        <a href="javascript:void(0);" class="nav-link">-->
-                            <!--                                            <i class="nav-link-icon lnr-picture"></i>-->
-                            <!--                                            <span>-->
-                            <!--                                                             <label for="assignment_date"> Select Due Date</label><input-->
-                            <!--                                                        type="date" id="assignment_date" placeholder="Select Due Date "-->
-                            <!--                                                        name="assignment_date"-->
-                            <!--                                                        onchange="fillAssignments('studentAssignment1','due',this.value);">-->
-                            <!--                                                        </span>-->
-                            <!--                                        </a>-->
-                            <!---->
-                            <!---->
-                            <!--                                    </li>-->
-                            <!--                                    <li class="nav-item">-->
-                            <!---->
-                            <!--                                        <a href="javascript:void(0);" class="nav-link">-->
-                            <!--                                            <i class="nav-link-icon lnr-picture"></i>-->
-                            <!--                                            <span>-->
-                            <!--                                                             <label for="assignment_date"> Select Post Date</label><input-->
-                            <!--                                                        type="date" id="assignment_date" placeholder="Select Post Date "-->
-                            <!--                                                        name="assignment_date"-->
-                            <!--                                                        onchange="fillAssignments('studentAssignment1','post',this.value);">-->
-                            <!--                                                        </span>-->
-                            <!--                                        </a>-->
-                            <!---->
-                            <!---->
-                            <!--                                    </li>-->
-                            <!--                                    <li class="nav-item">-->
-                            <!--                                        <a href="javascript:void(0);" onclick="fillAssignments('studentAssignment1','today',this.value);" class="nav-link">-->
-                            <!--                                            <i class="nav-link-icon lnr-book"></i>-->
-                            <!--                                            <span>-->
-                            <!--                                                            Today's Assignments-->
-                            <!--                                                        </span>-->
-                            <!--                                        </a>-->
-                            <!--                                    </li>-->
-                            <!--                                    <li class="nav-item">-->
-                            <!--                                        <a href="javascript:void(0);" onclick="fillAssignments('studentAssignment1','tomarrow',this.value);" class="nav-link">-->
-                            <!--                                            <i class="nav-link-icon lnr-picture"></i>-->
-                            <!--                                            <span>-->
-                            <!--                                                            Tomarrow's Assignment-->
-                            <!--                                                        </span>-->
-                            <!--                                        </a>-->
-                            <!--                                    </li>-->
-                            <!--                                    <li class="nav-item">-->
-                            <!--                                        <a href="javascript:void(0);" onclick="fillAssignments('studentAssignment1','yesterday',this.value);" class="nav-link">-->
-                            <!--                                            <i class="nav-link-icon lnr-picture"></i>-->
-                            <!--                                            <span>-->
-                            <!--                                                           Yesterday's Assignment-->
-                            <!--                                                        </span>-->
-                            <!--                                        </a>-->
-                            <!--                                    </li>-->
-                            <!--                                </ul>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
                         </div>
                     </div>
                 </div>

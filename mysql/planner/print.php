@@ -101,7 +101,7 @@ EOD;
         
                 
                   <tr nobr="false">
-                  <th  width="80" style="border-top-color:#000000;border-top-width:1px;border-top-style:solid;"> DAY \ SUB</th>
+                  <th  width="85" style="background-color:lightskyblue;"><b> DAY \ SUB</b></th>
 EOD;
     $sql = "
 select subjects.id id, subjects.name name
@@ -122,7 +122,7 @@ order by subjects.name;
         $col_count = 0;
         while ($row = mysqli_fetch_array($result)) {
             $tbl .= <<<EOD
-   <th   align="center"> $row[name]</th>
+   <th   align="center" style="background-color: lightskyblue;"><b> $row[name]</b></th>
 EOD;
         }
     }
@@ -136,7 +136,7 @@ EOD;
         $dates = date('d-M', $ts);
         {
             $tbl .= <<<EOD
-       <tr><th width="80"> $days <br></th>
+       <tr><th width="85" style="background-color: lightblue"><b> $days </b> <br></th>
 EOD;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
