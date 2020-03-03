@@ -41,5 +41,26 @@
     overflow-y: auto;
 }
 
+thead th:first-child {
+    left: 0;
+    z-index: 1;
+    background-color: white;
+}
+thead th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 0;
+    background-color: white;
+
+}
+
+tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+    background-color: white;
+
+}
+
 
 
