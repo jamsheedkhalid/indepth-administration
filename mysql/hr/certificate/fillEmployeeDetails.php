@@ -16,8 +16,8 @@ from employees
          left join employee_additional_details on employees.id = employee_additional_details.employee_id and additional_field_id = 13
          left join countries on employees.nationality_id = countries.id
          inner join employee_positions on employees.employee_position_id = employee_positions.id 
-left join employee_salary_structures on employees.id = employee_salary_structures.id
-where  employee_number = '$id' ; ";
+left join employee_salary_structures on employees.id = employee_salary_structures.employee_id
+where  employees.employee_number = '$id' ; ";
 
 //Query execution
 $result = $conn->query($Query);

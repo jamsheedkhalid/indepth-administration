@@ -61,6 +61,7 @@ $sql = "select fee_invoices.invoice_number              invoice_no,
        guardians.first_name                     guardian,
        guardians.mobile_phone                   contact_no,
        finance_fees.particular_total            due_amount,
+       finance_fees.balance                     balance,
        finance_fee_collections.name             fee_name,
        finance_fee_collections.start_date       invoice_date,
        finance_fee_collections.due_date         due_date,
@@ -90,7 +91,7 @@ from fee_invoices
 
 where fee_invoices.is_active = 1 and fee_invoices.id = '$invoice_no'  ;";
 
-//echo $sql;
+echo $sql;
 $result = $conn->query($sql);
 
 
@@ -140,13 +141,32 @@ if ($result->num_rows > 0) {
         $pdf->SetXY(165, 95);
         $pdf->MultiCell(30, 8, 'Total', 'LTBR', 'C', 1);
         $pdf->Cell(60, 8, $row['particular'], 'LTBR', '', 'L');
-        $pdf->Cell(30, 8, $row['particular_amount'], 'LTBR', '', 'R');
+        $pdf->Cell(30, 8, $row['particular_amount']+0, 'LTBR', '', 'R');
         $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
         $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
-        $pdf->Cell(30, 8, $row['particular_amount'], 'LTBR', '1', 'R');
+        $pdf->Cell(30, 8, $row['particular_amount']+0, 'LTBR', '1', 'R');
         $pdf->MultiCell(0, 8, 'Discount', 'LTBR', 'L', 1);
         $pdf->Cell(60, 8, $row['particular'], 'LTBR', '', 'L');
-
+        $pdf->Cell(30, 8, $row['discount_amount'] + 0, 'LTBR', '', 'R');
+        $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
+        $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
+        $pdf->Cell(30, 8, $row['discount_amount'] + 0, 'LTBR', '1', 'R');
+        $pdf->Cell(120, 8, '', '', '', 'R');
+        $pdf->Cell(30, 8, 'Total VAT', 'LTBR', '', 'L');
+        $pdf->Cell(30, 8, 0, 'LTBR', '1', 'R');
+        $pdf->Cell(120, 8, '', '', '', 'R');
+        $pdf->Cell(30, 8, 'Total ', 'LTBR', '', 'L');
+        $pdf->Cell(30, 8, $row['discount_amount'] + $row['particular_amount'], 'LTBR', '1', 'R');
+        if($row['is_paid'] == 1) {
+            $pdf->Cell(120, 8, '', '', '', 'R');
+            $pdf->Cell(30, 8, 'Paid ', 'LTBR', '', 'L');
+            $pdf->Cell(30, 8, $row['pay_amount'] , 'LTBR', '', 'R');
+        } else {
+            $pdf->Cell(120, 8, '', '', '', 'R');
+            $pdf->Cell(30, 8, 'Balance ', 'LTBR', '', 'L');
+            $pdf->Cell(30, 8, $row['balance'] , 'LTBR', '', 'R');
+        }
+        break;
 
     }
 }

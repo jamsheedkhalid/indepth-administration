@@ -366,7 +366,7 @@ if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' )
                                                 <!--                                                               onchange="fillEmployeeDetails('coe_')"-->
                                                 <input
                                                         name="salary_name" type="text"
-                                                        onchange="fillEmployeeDetailsSalary();"
+                                                        onfocusout="fillEmployeeDetailsSalary();"
                                                         id="salary_name" class="form-control-sm form-control"
                                                         placeholder="Name" required>
                                                 <div>

@@ -61,6 +61,7 @@ if ($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin') 
 
                                 </div>
                                 <div class="col">
+
                                     <div class="d-inline-block dropdown" style="margin-top: 25px">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false"
