@@ -22,7 +22,7 @@ function loadInvoices(div) {
     $('#invoiceTable tfoot th').each( function () {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
+     } );
 
     // DataTable
     var table = $('#invoiceTable').DataTable();
