@@ -19,7 +19,7 @@ class PDF1 extends FPDF
     function Header()
     {
         // Logo
-        $this->SetTitle('Tax Invoice-' . $this->invoice);
+        $this->SetTitle('Tax Invoice' );
         $this->Rect(10, 10, 190, 257, 'D'); //For A4
         $this->Image('../../assets/images/sanawbar-logo.jpeg', 15, 13, 20, 20);
         $this->SetFont('times', 'B', 13);
@@ -115,7 +115,6 @@ where (finance_fee_collections.start_date BETWEEN '$start_date' AND '$end_date')
             $discount = (double)$row['discount'];
             $particular = (double)$row['particular_amount'];
 
-
             $pdf->SetLeftMargin(15);
             $pdf->SetRightMargin(15);
             $pdf->Cell(10, 0, 'Bill To', '', '1', 'L');
@@ -191,7 +190,7 @@ where (finance_fee_collections.start_date BETWEEN '$start_date' AND '$end_date')
     }
 
 
-    $pdf->Output('I', 'cvs', true);
+    $pdf->Output('I', 'Tax-invoice', true);
     $pdf->Close();
 
 }
