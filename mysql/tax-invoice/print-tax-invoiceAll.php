@@ -6,7 +6,7 @@ setlocale(LC_MONETARY, 'en_US');
 
 session_start();
 
-class PDF1 extends FPDF
+class PDF_INVOICE extends FPDF
 {
     private $invoice;
 
@@ -103,7 +103,7 @@ where (finance_fee_collections.start_date BETWEEN '$start_date' AND '$end_date')
     $result = $conn->query($sql);
 
 
-    $pdf = new PDF1();
+    $pdf = new PDF_INVOICE();
 
     $pdf->SetFont('times', '', 10);
     $pdf->ln();
