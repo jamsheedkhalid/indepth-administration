@@ -8,6 +8,7 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">-->
@@ -17,9 +18,9 @@
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/exam-center.css" rel="stylesheet">
     <link href="/css/planner.css" rel="stylesheet">
+    <link href="/css/finance.css" rel="stylesheet">
+    <link href="/css/dataTable.css" rel="stylesheet">
     <script type="text/javascript" src="/js/main.js"></script>
-
-
 
 <!--    fullcalender.io                -->
 <!--    <link href='/libs/full-calendar/packages/core/main.css' rel='stylesheet' />-->

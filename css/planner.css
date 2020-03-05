@@ -6,7 +6,12 @@
 
 }
 
- td{
+#student-planner td{
+    min-width: 150px!important;
+
+
+}
+#weekly-planner td{
     min-width: 150px!important;
 }
 #weekly-planner {
@@ -41,12 +46,12 @@
     overflow-y: auto;
 }
 
-thead th:first-child {
+.weekly-planner thead th:first-child {
     left: 0;
     z-index: 1;
     background-color: white;
 }
-thead th {
+.weekly-planner thead th {
     position: -webkit-sticky; /* for Safari */
     position: sticky;
     top: 0;
@@ -54,13 +59,38 @@ thead th {
 
 }
 
-tbody th {
+.weekly-planner tbody th {
     position: -webkit-sticky; /* for Safari */
     position: sticky;
     left: 0;
     background-color: white;
 
 }
+
+
+
+.student-planner thead th:first-child {
+    left: 0;
+    z-index: 1;
+    background-color: white;
+}
+.student-planner thead th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 0;
+    background-color: white;
+
+}
+
+.student-planner tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+    background-color: white;
+
+}
+
+
 
 
 

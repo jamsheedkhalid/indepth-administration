@@ -5,7 +5,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
 setlocale(LC_MONETARY, 'en_US');
 
 session_start();
-$invoice_no = $_POST['printTaxInvoice'];
 
 class PDF1 extends FPDF
 {
@@ -57,7 +56,14 @@ class PDF1 extends FPDF
     }
 }
 
-$sql = "
+
+if (isset($_POST['start_date'], $_POST['end_date'])) {
+
+
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+
+    $sql = "
 select fee_invoices.invoice_number             invoice_no,
        students.last_name                      student_name,
        students.admission_no                   admission_no,
@@ -90,101 +96,103 @@ from fee_invoices
                     on collection_particulars.finance_fee_particular_id = finance_fee_particulars.id and batches.id = finance_fee_particulars.batch_id
         left join fee_discounts on finance_fee_categories.id = fee_discounts.finance_fee_category_id and  students.id = fee_discounts.receiver_id
         left join finance_transactions on finance_fees.id = finance_transactions.finance_fees_id
-where fee_invoices.invoice_number ='$invoice_no';
+where (finance_fee_collections.start_date BETWEEN '$start_date' AND '$end_date');
 ";
 
 //echo $sql;
-$result = $conn->query($sql);
+    $result = $conn->query($sql);
 
 
-$pdf = new PDF1();
-$pdf->AddPage();
-$pdf->setInvoiceNo($invoice_no);
-$pdf->SetFont('times', '', 10);
-$pdf->ln();
-$pdf->SetFillColor(192, 192, 192);
-if ($result->num_rows > 0) {
-    while ($row = mysqli_fetch_array($result)) {
-        $discount = (double)$row['discount'];
-        $particular = (double)$row['particular_amount'];
+    $pdf = new PDF1();
+
+    $pdf->SetFont('times', '', 10);
+    $pdf->ln();
+    $pdf->SetFillColor(192, 192, 192);
+    if ($result->num_rows > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $pdf->AddPage();
+            $pdf->setInvoiceNo($row['invoice_no']);
+            $discount = (double)$row['discount'];
+            $particular = (double)$row['particular_amount'];
 
 
-        $pdf->SetLeftMargin(15);
-        $pdf->SetRightMargin(15);
-        $pdf->Cell(10, 0, 'Bill To', '', '1', 'L');
-        $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(20, 10, 'Name', '', '', 'L');
-        $pdf->Cell(40, 10, ':  ' . $row['parent'], '', 1, 'L');
-        $pdf->Cell(20, 0, 'Parent ID', '', '', 'L');
-        $pdf->Cell(40, 0, ':  ' . $row['family_id'], '', 1, 'L');
-        $pdf->Cell(20, 10, 'Tel', '', '', 'L');
-        $pdf->Cell(40, 10, ':  ' . $row['contact_no'], '', 1, 'L');
-        $pdf->SetXY(130, 55);
-        $pdf->Cell(20, 0, 'Invoice No', '', '', 'L');
-        $pdf->Cell(20, 0, ':  ' . $row['invoice_no'], '', '', 'L');
-        $pdf->SetXY(130, 55);
-        $pdf->Cell(20, 10, 'Invoice Date', '', '', 'L');
-        $pdf->Cell(20, 10, ':  ' . date('d-m-Y', strtotime($row['invoice_date'])), '', '2', 'L');
-        $pdf->SetX(0);
-        $pdf->ln(12);
-        $pdf->SetFont('times', 'BU', 13);
-        $pdf->Cell(0, 0, $row['collection_name'], '', '', 'C');
-        $pdf->ln(12);
-        $pdf->SetFont('times', '', 10);
-        $pdf->Cell(0, 0, 'Student: ' . $row['admission_no'] . ' - ' . $row['student_name'], '', 1, 'L');
+            $pdf->SetLeftMargin(15);
+            $pdf->SetRightMargin(15);
+            $pdf->Cell(10, 0, 'Bill To', '', '1', 'L');
+            $pdf->SetFont('times', 'B', 10);
+            $pdf->Cell(20, 10, 'Name', '', '', 'L');
+            $pdf->Cell(40, 10, ':  ' . $row['parent'], '', 1, 'L');
+            $pdf->Cell(20, 0, 'Parent ID', '', '', 'L');
+            $pdf->Cell(40, 0, ':  ' . $row['family_id'], '', 1, 'L');
+            $pdf->Cell(20, 10, 'Tel', '', '', 'L');
+            $pdf->Cell(40, 10, ':  ' . $row['contact_no'], '', 1, 'L');
+            $pdf->SetXY(130, 55);
+            $pdf->Cell(20, 0, 'Invoice No', '', '', 'L');
+            $pdf->Cell(20, 0, ':  ' . $row['invoice_no'], '', '', 'L');
+            $pdf->SetXY(130, 55);
+            $pdf->Cell(20, 10, 'Invoice Date', '', '', 'L');
+            $pdf->Cell(20, 10, ':  ' . date('d-m-Y', strtotime($row['invoice_date'])), '', '2', 'L');
+            $pdf->SetX(0);
+            $pdf->ln(12);
+            $pdf->SetFont('times', 'BU', 13);
+            $pdf->Cell(0, 0, $row['collection_name'], '', '', 'C');
+            $pdf->ln(12);
+            $pdf->SetFont('times', '', 10);
+            $pdf->Cell(0, 0, 'Student: ' . $row['admission_no'] . ' - ' . $row['student_name'], '', 1, 'L');
 //        $pdf->Cell(0, 0, , '', '', 'C');
-        $pdf->Cell(0, 0, 'Grade: ' . $row['grade'] . ' - ' . $row['section'] . '    AY: ' . '2019-2020', '', '', 'R');
-        $pdf->SetFont('times', '', 10);
-        $pdf->SetXY(0, 85);
-        $pdf->ln(10);
-        $pdf->MultiCell(60, 8, 'Particular', 'LTBR', 'C', 1);
-        $pdf->SetXY(75, 95);
-        $pdf->MultiCell(30, 8, 'Amount', 'LTBR', 'C', 1);
-        $pdf->SetXY(105, 95);
-        $pdf->MultiCell(30, 8, 'VAT (%)', 'LTBR', 'C', 1);
-        $pdf->SetXY(135, 95);
-        $pdf->MultiCell(30, 8, 'VAT Amount', 'LTBR', 'C', 1);
-        $pdf->SetXY(165, 95);
-        $pdf->MultiCell(30, 8, 'Total', 'LTBR', 'C', 1);
-        $pdf->Cell(60, 8, $row['particular'], 'LTBR', '', 'L');
-        $pdf->Cell(30, 8, $row['particular_amount'], 'LTBR', '', 'R');
-        $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
-        $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
-        $pdf->Cell(30, 8, $row['particular_amount'], 'LTBR', '1', 'R');
-
-        if ($row['discount'] != 0) {
-            $pdf->MultiCell(0, 8, 'Discount', 'LTBR', 'L', 1);
-            $pdf->Cell(60, 8, $row['discount_name'] . '(' . $row['particular'] . ')', 'LTBR', '', 'L');
-            $pdf->Cell(30, 8, $row['discount'], 'LTBR', '', 'R');
+            $pdf->Cell(0, 0, 'Grade: ' . $row['grade'] . ' - ' . $row['section'] . '    AY: ' . '2019-2020', '', '', 'R');
+            $pdf->SetFont('times', '', 10);
+            $pdf->SetXY(0, 85);
+            $pdf->ln(10);
+            $pdf->MultiCell(60, 8, 'Particular', 'LTBR', 'C', 1);
+            $pdf->SetXY(75, 95);
+            $pdf->MultiCell(30, 8, 'Amount', 'LTBR', 'C', 1);
+            $pdf->SetXY(105, 95);
+            $pdf->MultiCell(30, 8, 'VAT (%)', 'LTBR', 'C', 1);
+            $pdf->SetXY(135, 95);
+            $pdf->MultiCell(30, 8, 'VAT Amount', 'LTBR', 'C', 1);
+            $pdf->SetXY(165, 95);
+            $pdf->MultiCell(30, 8, 'Total', 'LTBR', 'C', 1);
+            $pdf->Cell(60, 8, $row['particular'], 'LTBR', '', 'L');
+            $pdf->Cell(30, 8, $row['particular_amount'], 'LTBR', '', 'R');
             $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
             $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
-            $pdf->Cell(30, 8, $row['discount'], 'LTBR', '1', 'R');
-        }
-        $pdf->Cell(120, 8, '', '', '', 'R');
-        $pdf->Cell(30, 8, 'Total VAT', 'LTBR', '', 'L');
-        $pdf->Cell(30, 8, 0, 'LTBR', '1', 'R');
-        $pdf->Cell(120, 8, '', '', '', 'R');
-        $pdf->Cell(30, 8, 'Total to pay', 'LTBR', '', 'L');
-        $pdf->Cell(30, 8, number_format($particular - $discount, 2), 'LTBR', '1', 'R');
+            $pdf->Cell(30, 8, $row['particular_amount'], 'LTBR', '1', 'R');
 
-        $pdf->Cell(120, 8, '', '', '', 'R');
-        $pdf->Cell(30, 8, 'Paid ', 'LTBR', '', 'L');
+            if ($row['discount'] != 0) {
+                $pdf->MultiCell(0, 8, 'Discount', 'LTBR', 'L', 1);
+                $pdf->Cell(60, 8, $row['discount_name'] . '(' . $row['particular'] . ')', 'LTBR', '', 'L');
+                $pdf->Cell(30, 8, $row['discount'], 'LTBR', '', 'R');
+                $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
+                $pdf->Cell(30, 8, '', 'LTBR', '', 'R');
+                $pdf->Cell(30, 8, $row['discount'], 'LTBR', '1', 'R');
+            }
+            $pdf->Cell(120, 8, '', '', '', 'R');
+            $pdf->Cell(30, 8, 'Total VAT', 'LTBR', '', 'L');
+            $pdf->Cell(30, 8, 0, 'LTBR', '1', 'R');
+            $pdf->Cell(120, 8, '', '', '', 'R');
+            $pdf->Cell(30, 8, 'Total to pay', 'LTBR', '', 'L');
+            $pdf->Cell(30, 8, number_format($particular - $discount, 2), 'LTBR', '1', 'R');
+
+            $pdf->Cell(120, 8, '', '', '', 'R');
+            $pdf->Cell(30, 8, 'Paid ', 'LTBR', '', 'L');
 //        if ($row['paid']!= null){
 //            $pdf->Cell(30, 8, number_format($row['paid'], 2), 'LTBR', '1', 'R');
 //        }
 //            else {
             $pdf->Cell(30, 8, number_format(($particular - $discount - $row['balance']), 2), 'LTBR', '1', 'R');
 //
-//        }
-            $pdf->Cell(120, 8, '', '', '', 'R');
+//        }            $pdf->Cell(120, 8, '', '', '', 'R');
             $pdf->Cell(30, 8, 'Balance ', 'LTBR', '', 'L');
             $pdf->Cell(30, 8, number_format($row['balance'], 2), 'LTBR', '', 'R');
 
 
+        }
     }
+
+
+    $pdf->Output('I', 'cvs', true);
+    $pdf->Close();
+
 }
-
-
-$pdf->Output('I', 'cvs', true);
-$pdf->Close();
 
