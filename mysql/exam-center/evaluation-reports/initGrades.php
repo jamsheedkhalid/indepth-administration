@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/config/database.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 
 $sql = 'SELECT  course_name FROM courses where is_deleted = 0 ORDER BY course_name';
 //echo $sql;

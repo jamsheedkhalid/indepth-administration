@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/config/database.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $student = $_REQUEST['student'];
 
 $sql = "select 

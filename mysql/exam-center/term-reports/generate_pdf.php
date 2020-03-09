@@ -3,20 +3,19 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
 
-if (isset($_POST['studentSubmit'])) {
+if (isset($_POST['sectionSubmit'])) {
 
-    $grade = $_POST['hidden_grade_studentWise'];
-    $student = $_POST['hidden_student_studentWise'];
+    $grade = $_POST['hidden_grade'];
 //    echo $grade;
-    $section = $_REQUEST['hidden_section_studentWise'];
+    $section = $_REQUEST['hidden_section'];
 //    echo $section;
-    $term = $_REQUEST['hidden_term_studentWise'];
+    $term = $_REQUEST['hidden_term'];
 //    echo $term;
-    $ass_percent = $_REQUEST['studentAssessment'];
-    $term_percent = $_REQUEST['studentTerm'];
+    $ass_percent = $_REQUEST['sectionAssessment'];
+    $term_percent = $_REQUEST['sectionTerm'];
     $total_percent = $ass_percent + $term_percent;
     $is_non_islamic = 0;
-    $term_name ='';
+    $term_name = '';
 
 
     class PDF extends FPDF
@@ -24,9 +23,9 @@ if (isset($_POST['studentSubmit'])) {
 // Page header
         public function Header()
         {
-            $term = $_REQUEST['hidden_term_studentWise'];
+            $term = $_REQUEST['hidden_term'];
             // Logo
-            $this->Image('../../assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
+            $this->Image($_SERVER['DOCUMENT_ROOT'] . '/assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
             $this->SetFont('times', 'B', 13);
             // Move to the right
             $this->Ln(25);
@@ -36,7 +35,7 @@ if (isset($_POST['studentSubmit'])) {
             $this->Ln(7);
             $this->Cell(0, 0, 'Al AIN - U.A.E', 0, 2, 'C');
             $this->Ln(5);
-            $this->Cell(0, 0, 'STUDENT EVALUATION REPORT', 0, 2, 'C');
+            $this->Cell(0, 0, 'STUDENT TERM REPORT', 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(10, 52, 200, 52);
             $this->SetFont('times', '', 10);
@@ -91,15 +90,14 @@ from students
          inner join courses on batches.course_id = courses.id
 where (courses.course_name = ' $grade' or courses.course_name = '$grade')
   AND courses.is_deleted = 0 AND batches.name LIKE '$section'
-and  students.last_name = '$student'; ";
+order by students.last_name; ";
     $result_section = $conn->query($sql_section);
 
     while ($row_section = mysqli_fetch_array($result_section)) {
 
-        $sql = " select     
-       subjects.name                                                                                         subject,
-       round(exams.maximum_marks, 0)                                                                         max,
-       round(exams.minimum_marks, 0)                                                                         min,
+        $sql = " select subjects.name                                                                                      subject,
+       round(exams.maximum_marks, 0)                                                                      max,
+       round(exams.minimum_marks, 0)                                                                      min,
        round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)), 0)            ASS,
        round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)), 0)                               TE,
        round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)) * $term_percent / 100 +
@@ -112,6 +110,7 @@ from students p
          inner join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
 where (exam_groups.name = '$term' or exam_groups.name = '$term - Class Evaluation')
+  and subjects.is_deleted = 0
   and p.last_name = \"$row_section[name]\"
 group by subjects.id; ";
 
@@ -120,8 +119,8 @@ group by subjects.id; ";
 
 
         $pdf->AddPage();
+        $is_non_islamic = 0;
         $pdf->SetFont('times', '', 10);
-
         $pdf->Cell(50, 5, "Admission No. :", 0, 0, 'R');
         $pdf->Cell(100, 5, $row_section['admission'], 0, 0, 'L');
         $pdf->ln();
@@ -133,8 +132,6 @@ group by subjects.id; ";
         $pdf->ln();
         $pdf->Cell(50, 5, "Section :", 0, 0, 'R');
         $pdf->Cell(100, 5, $row_section['section'], 0, 0, 'L');
-
-
         $pdf->SetFont('times', 'B', 10);
         $pdf->SetXY(40, 120);
         $pdf->Cell(30, 7, 'Subjects', 1, 0, 'C');
@@ -143,18 +140,17 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
         $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
         $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
-
         $pdf->SetFont('times', '', 10);
 
-
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
+        $ratio_ASS = $ratio_TE = $ratio_TR = 0;
         $max_ASS = $max_TE = $max_TR = 0;
-        $ratio_TR = $ratio_TE = $ratio_ASS = 0;
         while ($row = mysqli_fetch_array($result)) {
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
+
+
                 $total_max += $row['max'];
                 $total_min += $row['min'];
-
                 if ($row['ASS'] !== null) {
                     $total_ASS += $row['ASS'];
                     $max_ASS += $row['max'];
@@ -174,15 +170,11 @@ group by subjects.id; ";
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
-
 //                check non islamic
-                                if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
-                                {
-                                   $is_non_islamic = 1;
-                                }
-
+                if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
+                    $is_non_islamic = 1;
+                }
 //                end check non islamic
-
 
                 if (!is_null($row['ASS']))
                     $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
@@ -201,7 +193,6 @@ group by subjects.id; ";
 
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
-
                 if ($row['subject'] === 'Moral Education') {
                     $ME['subject'] = $row['subject'];
                     $ME['max'] = $row['max'];
@@ -209,7 +200,8 @@ group by subjects.id; ";
                     $ME['ASS'] = $row['ASS'];
                     $ME['TE'] = $row['TE'];
                     $ME['TR'] = $row['TR'];
-                } else {
+                }
+                else {
                     $total_max += $row['max'];
                     $total_min += $row['min'];
                     if ($row['ASS'] !== null) {
@@ -219,15 +211,12 @@ group by subjects.id; ";
                     if ($row['TE'] !== null) {
                         $total_TE += $row['TE'];
                         $max_TE += $row['max'];
+
                     }
                     if ($row['TR'] !== null) {
                         $total_TR += $row['TR'];
                         $max_TR += $row['max'];
                     }
-
-
-
-
                     $pdf->ln();
                     $pdf->SetX(40);
                     $pdf->Cell(30, 7, $row['subject'], 1);
@@ -235,12 +224,13 @@ group by subjects.id; ";
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
                     //                check non islamic
-                    if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
-                    {
+
+                    if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
                         $is_non_islamic = 1;
                     }
-
 //                end check non islamic
+
+
                     if (!is_null($row['ASS']))
                         $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
                     ELSE
@@ -257,8 +247,10 @@ group by subjects.id; ";
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
                 }
 
+
             }
         }
+
 
         $pdf->ln();
         $pdf->SetX(40);
@@ -269,13 +261,12 @@ group by subjects.id; ";
 
         if ($grade === 'GR11' || $grade === 'GR12' || $is_non_islamic === 1) {
 
-
-            if($max_ASS !== 0 )
-                $ratio_ASS = round(($total_max * $total_ASS)/$max_ASS);
-            if($max_TE !== 0 )
-                $ratio_TE = round(($total_max * $total_TE)/$max_TE);
-            if($max_TR !== 0 )
-                $ratio_TR = round(($total_max * $total_TR)/$max_TR);
+            if ($max_ASS !== 0)
+                $ratio_ASS = round(($total_max * $total_ASS) / $max_ASS);
+            if ($max_TE !== 0)
+                $ratio_TE = round(($total_max * $total_TE) / $max_TE);
+            if ($max_TR !== 0)
+                $ratio_TR = round(($total_max * $total_TR) / $max_TR);
 
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10, $total_ASS , 'LTB', 0, 'C');
@@ -295,13 +286,12 @@ group by subjects.id; ";
             $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10,  $ratio_TR, 'RTB', 0, 'C');
-
-
         } else {
-            $pdf->Cell(20, 10, $total_ASS , 1, 0, 'C');
-            $pdf->Cell(20, 10, $total_TE , 1, 0, 'C');
-            $pdf->Cell(20, 10, $total_TR , 1, 0, 'C');
+            $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
+            $pdf->Cell(20, 10, $total_TE, 1, 0, 'C');
+            $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
         }
+
         if ($grade === 'GR 9'
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
             $pdf->SetFont('times', '', 10);
@@ -322,6 +312,8 @@ group by subjects.id; ";
             $pdf->Cell(20, 7, $ME['TE'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
         }
+
+
         switch ($term) {
             case 'Term 1':
                 $term_name = '1st Term';
@@ -356,7 +348,7 @@ group by subjects.id; ";
 
 
     }
-    $pdf->Output('I', $grade . '-' . $section . '-' .$term_name.' '. 'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $section . '-' . $term_name . ' ' . 'report-card.pdf', true);
     $pdf->Close();
 
 }
