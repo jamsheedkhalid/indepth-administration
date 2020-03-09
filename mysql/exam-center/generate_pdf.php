@@ -98,10 +98,10 @@ order by students.last_name; ";
         $sql = " select subjects.name                                                                                      subject,
        round(exams.maximum_marks, 0)                                                                      max,
        round(exams.minimum_marks, 0)                                                                      min,
-       round(MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)), 0)            ASS,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)), 0)                               TE,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * $term_percent / 100 +
-             MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * $ass_percent / 100, 0) TR
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)), 0)                               TE,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)) * $term_percent / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)) * $ass_percent / 100, 0) TR
 from students p
           inner join batches on p.batch_id = batches.id
          inner join subjects on batches.id = subjects.batch_id

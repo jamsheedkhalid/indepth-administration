@@ -8,7 +8,7 @@ $type = $_REQUEST['type'];
 if($type === 'sectionWise'){
 $sql = "select  
      (CASE WHEN exam_groups.name LIKE '%Term 1%' THEN 'Term 1' 
-           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 3' 
+           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 2' 
             WHEN exam_groups.name LIKE '%Term 3%' THEN 'Term 3' END) as  exam
 from exam_groups inner join batches on exam_groups.batch_id = batches.id
 inner join courses on batches.course_id = courses.id
@@ -20,7 +20,7 @@ inner join courses on batches.course_id = courses.id
 else if($type === 'gradeWise'){
    $sql = " select distinct
       (CASE WHEN exam_groups.name LIKE '%Term 1%' THEN 'Term 1' 
-           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 3' 
+           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 2' 
             WHEN exam_groups.name LIKE '%Term 3%' THEN 'Term 3' END) as  exam
 from exam_groups
          inner join batches on exam_groups.batch_id = batches.id
