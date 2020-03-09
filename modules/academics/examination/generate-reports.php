@@ -29,8 +29,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             <i class="pe-7s-graph2 icon-gradient bg-premium-dark">
                             </i>
                         </div>
-                        <div>STUDENT EVALUATION REPORTS
-                            <div class="page-title-subheading">Generate and print evaluation report cards for students
+                        <div>STUDENT TERM REPORTS
+                            <div class="page-title-subheading">Generate and print term report cards for students
                             </div>
                         </div>
                     </div>

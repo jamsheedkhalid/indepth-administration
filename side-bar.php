@@ -66,7 +66,7 @@
                         <li>
                             <a id="liExamination_ReportCard" href="/modules/academics/examination/generate-reports.php">
                                 <i class="metismenu-icon"></i>
-                                Evaluation Reports
+                                Term Reports
                             </a>
                         </li>
                     </ul>

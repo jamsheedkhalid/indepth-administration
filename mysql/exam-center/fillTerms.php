@@ -4,7 +4,7 @@ $student = $_REQUEST['student'];
 
 $sql = "select 
        (CASE WHEN exam_groups.name LIKE '%Term 1%' THEN 'Term 1' 
-           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 3' 
+           WHEN exam_groups.name LIKE '%Term 2%' THEN 'Term 2' 
             WHEN exam_groups.name LIKE '%Term 3%' THEN 'Term 3' END) as  exam
 from exam_groups
          inner join students on exam_groups.batch_id = students.batch_id 
