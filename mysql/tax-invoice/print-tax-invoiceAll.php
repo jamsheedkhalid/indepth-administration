@@ -110,7 +110,7 @@ where (finance_fee_collections.start_date BETWEEN '$start_date' AND '$end_date')
     $pdf->SetFillColor(192, 192, 192);
     if ($result->num_rows > 0) {
         while ($row = mysqli_fetch_array($result)) {
-            $pdf->AddPage();
+            $pdf->AddPage('P','A4');
             $pdf->setInvoiceNo($row['invoice_no']);
             $discount = (double)$row['discount'];
             $particular = (double)$row['particular_amount'];
