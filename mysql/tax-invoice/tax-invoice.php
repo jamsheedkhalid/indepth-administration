@@ -18,7 +18,7 @@ if (isset($_REQUEST['start_date'], $_REQUEST['end_date'])) {
        finance_fee_collections.start_date start_date,
        finance_fees.is_paid is_paid,
        batches.name section,
-       courses.course_name grade,
+       courses.course_name grade, 
        finance_transactions.transaction_date pay_date,
        round(finance_transactions.amount,2) pay_amount
 from fee_invoices
