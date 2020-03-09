@@ -22,7 +22,7 @@ if (isset($_POST['submitGradeWise'])) {
         {
             $term = $_REQUEST['hidden_term_gradeWise'];
             // Logo
-            $this->Image('../../assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
+            $this->Image($_SERVER['DOCUMENT_ROOT'] . '/assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
             $this->SetFont('times', 'B', 13);
             // Move to the right
             $this->Ln(25);
@@ -32,7 +32,7 @@ if (isset($_POST['submitGradeWise'])) {
             $this->Ln(7);
             $this->Cell(0, 0, 'Al AIN - U.A.E', 0, 2, 'C');
             $this->Ln(5);
-            $this->Cell(0, 0, 'STUDENT EVALUATION REPORT', 0, 2, 'C');
+            $this->Cell(0, 0, 'STUDENT TERM REPORT', 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(10, 52, 200, 52);
             $this->SetFont('times', '', 10);
@@ -335,7 +335,7 @@ group by subjects.id; ";
 
         }
     }
-    $pdf->Output('I', $grade . '-' . $section . '-' . $term_name . ' ' . 'report-card.pdf', true);
+    $pdf->Output('I', $grade  . '-' . $term_name . ' ' . 'report-card.pdf', true);
     $pdf->Close();
 
 

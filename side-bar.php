@@ -64,9 +64,15 @@
                     </a>
                     <ul>
                         <li>
-                            <a id="liExamination_ReportCard" href="/modules/academics/examination/generate-reports.php">
+                            <a id="liExamination_ReportCard" href="/modules/academics/examination/term-reports.php">
                                 <i class="metismenu-icon"></i>
                                 Term Reports
+                            </a>
+                        </li>
+                        <li>
+                            <a id="liEvaluation_ReportCard" href="/modules/academics/examination/evaluation-reports.php">
+                                <i class="metismenu-icon"></i>
+                               Class Evaluation Reports
                             </a>
                         </li>
                     </ul>

@@ -113,7 +113,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
                     <div >
                         <form   target="_blank" method="post" class="row"
-                              action="/mysql/exam-center/generate_pdf_student_wise.php">
+                              action="/mysql/exam-center/term-reports/generate_pdf_student_wise.php">
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -196,7 +196,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                     <div>
                         <form  target="_blank" method="post" class="row"
-                              action="/mysql/exam-center/generate_pdf.php">
+                              action="/mysql/exam-center/term-reports/generate_pdf.php">
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -271,7 +271,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
                     <div>
                         <form  target="_blank"  method="post" class="row"
-                              action="/mysql/exam-center/generate_pdf_grade_wise.php">
+                              action="/mysql/exam-center/term-reports/generate_pdf_grade_wise.php">
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -353,7 +353,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 <script type="text/javascript" src="/assets/scripts/main.js"></script>
 <script> document.getElementById('liExamination').classList.add("mm-active")</script>
 <script> document.getElementById('liExamination_ReportCard').classList.add("mm-active")</script>
-<script type="text/javascript" src="/js/exam-center.js"></script>
+<script type="text/javascript" src="/js/term_reports.js"></script>
 <script> document.title = "Reports - InDepth";</script>
 
 <?php }

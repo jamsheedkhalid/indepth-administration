@@ -11,7 +11,7 @@ function initGrades(grade) {
             gradeArray = str.split("\t");
         }
     };
-    httpGrade.open("GET", "/mysql/exam-center/initGrades.php", false);
+    httpGrade.open("GET", "/mysql/exam-center/evaluation-reports/initGrades.php", false);
     httpGrade.send();
 
     var select = document.getElementById(grade);
@@ -38,7 +38,7 @@ function fillSections(section, grade) {
             sectionArray = str.split("\t");
         }
     };
-    httpSection.open("GET", "/mysql/exam-center/fillSections.php?grade=" + selected_grade, false);
+    httpSection.open("GET", "/mysql/exam-center/evaluation-reports/fillSections.php?grade=" + selected_grade, false);
     httpSection.send();
 
     delete sectionArray[sectionArray.length - 1];
@@ -67,7 +67,7 @@ function fillStudents() {
             studentsArray = str.split("\t");
         }
     };
-    httpStudent.open("GET", "/mysql/exam-center/fillStudents.php?grade=" + selected_grade + "&section=" + selected_section, false);
+    httpStudent.open("GET", "/mysql/exam-center/evaluation-reports/fillStudents.php?grade=" + selected_grade + "&section=" + selected_section, false);
     httpStudent.send();
 
     delete studentsArray[studentsArray.length - 1];
@@ -95,7 +95,7 @@ function fillTerms() {
             termArray = str.split("\t");
         }
     };
-    httpTerm.open("GET", "/mysql/exam-center/fillTerms.php?student=" + selected_student, false);
+    httpTerm.open("GET", "/mysql/exam-center/evaluation-reports/fillTerms.php?student=" + selected_student, false);
     httpTerm.send();
 
     delete termArray[termArray.length - 1];
@@ -126,7 +126,7 @@ function generateReportCard() {
             document.getElementById("reportCardModalResult").innerHTML = this.responseText;
         }
     };
-    httpResult.open("GET", "/mysql/exam-center/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term + '&assessment=' + assessment_percent + '&term_percent=' + term_percent , false);
+    httpResult.open("GET", "/mysql/exam-center/evaluation-reports/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term + '&assessment=' + assessment_percent + '&term_percent=' + term_percent , false);
     httpResult.send();
 
 }
@@ -146,7 +146,7 @@ function fillTermsSectionWise(gradeId, id, termId, type) {
             termArray = str.split("\t");
         }
     };
-    httpTerm.open("GET", "/mysql/exam-center/fillTerms_SectionWise.php?section=" + section + "&type=" + type + "&grade=" + grade, false);
+    httpTerm.open("GET", "/mysql/exam-center/evaluation-reports/fillTerms_SectionWise.php?section=" + section + "&type=" + type + "&grade=" + grade, false);
     httpTerm.send();
 
     delete termArray[termArray.length - 1];
