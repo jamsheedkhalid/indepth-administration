@@ -38,9 +38,11 @@ class TAX_PDF extends TCPDF
     public function Footer()
     {
         $date = date('d-m-Y');
-        // Position at 1.5 cm from bottom
-
-
+        $this->SetFont('times', 'I', 10);
+        $this->SetY(-60);
+        $this->Cell(0, 10, '__________________   ', 0, 0, 'R');
+        $this->SetY(-55);
+        $this->Cell(0, 10, 'Accountant Signature   ', 0, 0, 'R');
         $this->SetY(-15);
         // times italic 8
         $this->SetFont('times', 'I', 8);
@@ -233,7 +235,7 @@ EOD;
                                     <table>
                                     <tr><td  colspan="2">Bank Details:</td></tr>
                                     <tr><td width="100">Bank</td><td>: Bank of Sharjah</td></tr>
-                                    <tr><td>Branch</td><td>: Al An</td></tr>
+                                    <tr><td>Branch</td><td>: Al Ain</td></tr>
                                     <tr><td width="100">Account Name</td><td>: AL Sanawbar School</td></tr>
                                     <tr><td>Account No</td><td>: 01106-357005</td></tr>
                                     <tr><td>IBAN</td><td  width="200">: AED900120000001106357005</td></tr>
