@@ -12,7 +12,7 @@ if (isset($_REQUEST['start_date'], $_REQUEST['end_date'])) {
                 finance_transaction_ledgers.amount           transaction_amount,
                 finance_transaction_ledgers.transaction_date transaction_date,
                 finance_transaction_ledgers.payment_mode     transaction_mode,
-                finance_transaction_ledgers.payment_note     transaction_note,
+                finance_transaction_ledgers.reference_no     reference_no,
                 finance_transaction_ledgers.id               ledger_id
 from finance_transaction_ledgers
          inner join finance_transactions on finance_transaction_ledgers.id = finance_transactions.transaction_ledger_id
@@ -40,7 +40,7 @@ from finance_transaction_ledgers
                                             <th width="30">Amount</th>
                                             <th>Mode</th>
                                             <th  style=" white-space: nowrap">Transaction Date</th>
-                                            <th  style=" white-space: nowrap">Transaction Note</th>
+                                            <th  width="10" style=" white-space: nowrap">Ref.</th>
                                             <th width="15"> Action</th>
                                             </tr>
                                             </thead>
@@ -54,11 +54,11 @@ from finance_transaction_ledgers
             echo '<td>' . $row['parent_name'] . '</td>';
             echo '<td  align="right">' . number_format($row['transaction_amount'],2) .'</td>';
             echo '<td>' . $row['transaction_mode'] . '</td>';
-            echo '<td>' . $row['transaction_date'] . '</td>';
-            echo '<td>' . $row['transaction_note'] . '</td>';
+            echo '<td align="center">' . $row['transaction_date'] . '</td>';
+            echo '<td>' . $row['reference_no'] . '</td>';
 
             echo '<td>
-        <form method="post" target="_blank"  action="/mysql/tax-invoice/invoice.php">
+        <form method="post" target="_blank"  action="/mysql/tax-invoice/print-invoice.php">
                                                 <button type="submit" name="printTaxInvoice" value="' . $row['ledger_id'] . '" title="View Invoice"
                                             class="btn-shadow btn btn-outline-light">
                                             <span class="btn-icon-wrapper pr-2 opacity-7">

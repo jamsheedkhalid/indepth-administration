@@ -36,7 +36,7 @@ if ($_SESSION['user_type'] === 'admin') {
                         </div>
                         <div class="page-title-actions">
                             <div>
-                                <form   class="row" method="post" target="_blank" action="/mysql/tax-invoice/print-tax-invoiceAll.php">
+                                <form   class="row" method="post" target="_blank" action="/mysql/tax-invoice/print-invoiceAll.php">
                                 <div class="col">
                                     <input type="date" onchange="loadInvoices('invoice-table');" name="start_date" id="start_date" value="<?php echo date('Y-m-01') ?>">
                                 </div>

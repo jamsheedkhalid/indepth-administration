@@ -5,8 +5,6 @@ date_default_timezone_set('Asia/Dubai');
 include($_SERVER['DOCUMENT_ROOT'] . '/include/digitToWord.php');
 session_start();
 
-$ledger_id = $_POST['printTaxInvoice'];
-
 class TAX_PDF extends TCPDF
 {
 // Page header
@@ -52,8 +50,8 @@ class TAX_PDF extends TCPDF
     }
 }
 
-$pdf = new TAX_PDF('L');
-$pdf->SetTitle('Weekly Planner');
+$pdf = new TAX_PDF('P');
+$pdf->SetTitle('Tax Invoice');
 $pdf->SetMargins(10, 50, 10);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -62,18 +60,37 @@ $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
 // set image scale factor
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf->setFontSubsetting(true);
-$pdf->AddPage('P', 'A4');
 $fontFamily = 'Times'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
 $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 10; // float, in point
 $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
+$sql_All = "select
+                finance_transaction_ledgers.id               id
+from finance_transaction_ledgers
+         inner join finance_transactions on finance_transaction_ledgers.id = finance_transactions.transaction_ledger_id
+         inner join finance_fees on finance_transactions.finance_id = finance_fees.id
+         inner join fee_invoices on finance_fees.id = fee_invoices.fee_id
+         inner join finance_transaction_receipt_records
+                    on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
+         inner join students on finance_fees.student_id = students.id
+         inner join guardians on students.immediate_contact_id = guardians.id
+    where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
+    order by finance_transaction_ledgers.id desc;
+ ";
+echo $sql_All ;
+$result_all = $conn->query($sql_All);
+if ($result_all->num_rows > 0) {
 
-$particular_total = 0;
-$vat_total = 0;
-$vat = 0;
+    $pdf->AddPage('P', 'A4');
 
+    while ($row_All = mysqli_fetch_array($result_all)) {
+        $pdf->AddPage('P', 'A4');
 
-$sql = "
+        $particular_total = 0;
+        $vat_total = 0;
+        $vat = 0;
+        $sql = "
+
 select guardians.familyid                           family_id,
        guardians.first_name                         parent_name,
        guardians.mobile_phone                       parent_contact,
@@ -112,20 +129,20 @@ from finance_transaction_ledgers
          inner join finance_fee_particulars
                     on collection_particulars.finance_fee_particular_id = finance_fee_particulars.id and
                        batches.id = finance_fee_particulars.batch_id
-where finance_transaction_ledgers.id = '$ledger_id';
+where finance_transaction_ledgers.id = '8314';
 ";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while ($row = mysqli_fetch_array($result)) {
-        $transaction_date = date('d-M-Y', strtotime($row['transaction_date']));
-        $html = <<<EOD
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                $transaction_date = date('d-M-Y', strtotime($row['transaction_date']));
+                $html = <<<EOD
 <table style="padding: 10px;">
 <tr>
 <td>Bill To:</td>
 <td></td>
 </tr>
 <tr>
-<td><strong>Name</strong>      : $row[parent_name] 
+<td width="500"><strong>Name</strong>      : $row[parent_name] 
 <br><strong>Parent ID</strong> : $row[family_id]
 <br><strong>Tel</strong> : $row[parent_contact]</td>
 <td><strong>Invoice No</strong>: $row[ledger_id] 
@@ -136,14 +153,15 @@ if ($result->num_rows > 0) {
 <h2 align="center"><u>FEES INVOICE</u></h2>
 <table style="padding: 10px;">
 <tr>
-<td><strong>Student Name:</strong> $row[student_name]</td>
+<td width="510"><strong>Student Name:</strong> $row[student_name]</td>
 <td><strong>Section:</strong> $row[grade] -  $row[section] </td>
 </tr>
 </table>
+<br><br>
 
-<table style="padding: 10px; margin-left: 10px; width: 100%"  cellspacing="0" cellpadding="1" border="1" class="table table-bordered table-dark">
-<thead>
-<tr  align="center" valign="center"  style="font-weight: bold" >
+<table style="padding: 10px; width: 100%"  cellspacing="0" cellpadding="1" border="1" class="table table-bordered table-dark">
+<thead >
+<tr  align="center" valign="center"  style="font-weight: bold; background-color: lightgrey" >
 <th height="30"  width="50" >Inv #</th>
 <th width="50">Receipt #  </th>
 <th width="150">Fee</th>
@@ -152,74 +170,70 @@ if ($result->num_rows > 0) {
 <th width="65">VAT Amount</th>
 <th>Total</th>
 <th>Paid</th>
-<th>Balance</th>
+<th>Due Amount</th>
 </tr>
 </thead>
 <tbody>
 EOD;
-
-        $result_fees = $conn->query($sql);
-        if ($result_fees->num_rows > 0) {
-            while ($row_fees = mysqli_fetch_array($result_fees)) {
-                $html .= <<<EOD
+                $result_fees = $conn->query($sql);
+                if ($result_fees->num_rows > 0) {
+                    while ($row_fees = mysqli_fetch_array($result_fees)) {
+                        $html .= <<<EOD
    <tr >
 <td height="30" width="50" > $row_fees[invoice_number]</td>
 <td width="50" > $row_fees[receipt_number]</td>
 <td width="150" > $row_fees[particular_name]</td>
 EOD;
-
-                if (stripos($row_fees['particular_name'], 'uniform') !== false) {
-                    $particular_total = number_format((double)$row_fees['particular_total'] - ((5 * (double)$row_fees['particular_total']) / 100), 2);
-                    $vat = (5 * (double)$row_fees['particular_total'] / 100);
-                    $vat_total = $vat_total + $vat;
-                    $vat_total = number_format($vat_total, 2);
-                    $html .= <<<EOD
+                        if (stripos($row_fees['particular_name'], 'uniform') !== false) {
+                            $particular_total = number_format((double)$row_fees['particular_total'] - ((5 * (double)$row_fees['particular_total']) / 100), 2);
+                            $vat = (5 * (double)$row_fees['particular_total'] / 100);
+                            $vat_total = $vat_total + $vat;
+                            $vat_total = number_format($vat_total, 2);
+                            $html .= <<<EOD
 <td align="right" >$particular_total </td>                   
 <td align="right" width="60">5</td>
 <td align="right" width="65">$vat</td>
 
 EOD;
-                } else
-                    if (stripos($row_fees['particular_name'], 'bus') !== false) {
+                        }
+                        else
+                            if (stripos($row_fees['particular_name'], 'bus') !== false) {
 
-                        $html .= <<<EOD
+                                $html .= <<<EOD
 <td align="right" >$row_fees[particular_total] </td>                   
 <td align="right" width="60">EXE</td>
 <td align="right" width="65">-</td>
 
 EOD;
-                    } else {
-                        $html .= <<<EOD
+                            }
+                            else {
+                                $html .= <<<EOD
 <td align="right" > $row_fees[particular_total]</td>
 <td align="right" width="60">0</td>
 <td align="right" width="65">0</td>
 
 EOD;
-                    }
-
-
-                $html .= <<<EOD
+                            }
+                        $html .= <<<EOD
 <td align="right"> $row_fees[particular_total]</td>
 <td align="right"> $row_fees[particular_paid]</td>
 <td align="right"> $row_fees[particular_balance]</td>
 </tr>
 EOD;
-            }
-        }
-
-        list($feeWhole, $feeDecimal) = explode('.', $row['transaction_amount']);
-        $feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
-        $feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
-
-        $html .= <<<EOD
+                    }
+                }
+                list($feeWhole, $feeDecimal) = explode('.', $row['transaction_amount']);
+                $feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
+                $feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
+                $html .= <<<EOD
         <tr >
         <td height="30" colspan="7"></td>
         <td  align="right">Total VAT</td>
         <td align="right" >$vat_total</td>
 </tr>       
- <tr >
-        <td  style="font-weight: bold" height="30"  colspan="7"><label align="left"> Amount in words:  $feeWhole and $feeDecimal</label> </td><td border="0"  align="right"> Total Paid</td>
-        <td  style="font-weight: bold" align="right" >$row[transaction_amount]</td>
+        <tr style="font-weight: bold; background-color: lightpink" >
+        <td   height="30"  colspan="7"><label align="left"> Amount in words:  $feeWhole and $feeDecimal</label> </td><td border="0"  align="right"> Total Paid</td>
+        <td   align="right" >$row[transaction_amount]</td>
 </tr> <tr >
         <td height="20"  colspan="9"> Payment Mode : $row[transaction_mode] <br> Reference: $row[reference_no]  </td>
 </tr>
@@ -263,12 +277,10 @@ EOD;
                     </td>
             </tr>
 </table>
-
-
 EOD;
-
-        break;
-
+                break;
+            }
+        }
     }
 }
 
