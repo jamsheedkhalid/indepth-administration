@@ -16,26 +16,6 @@ function loadInvoices(div) {
 
 
  function initDataTable() {
-    // Setup - add a text input to each footer cell
-
-    $('#invoiceTable tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-     } );
-
     // DataTable
-    var table = $('#invoiceTable').DataTable();
-
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
-        $( '#invoiceTable tfoot input', this.footer() ).on( 'keyup change clear', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    }
-    );
+   $('#invoiceTable').DataTable();
 }
