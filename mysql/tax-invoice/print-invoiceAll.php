@@ -80,7 +80,7 @@ from finance_transaction_ledgers
     order by finance_transaction_ledgers.id desc;
  ";
 $result_all = $conn->query($sql_All);
-if ($result_all->num_rows > 0) {
+if ($result_all->num_rows > 0 && $result_all->num_rows < 500 ) {
     while ($row_All = mysqli_fetch_array($result_all)) {
         $pdf->AddPage();
         $particular_total = 0;
@@ -301,10 +301,22 @@ EOD;
         $pdf->writeHTML($html, true, false, false, false, '');
 
     }
-}
+
+
+
 ob_end_clean();
 $pdf->Output('Invoice'.$_REQUEST['start_date'].'-'.$_REQUEST['end_date'].'.pdf', 'I');
 $pdf->Close();
+
+}
+else if (   ($result_all->num_rows > 500)   ) {
+    echo "<div class='alert alert-danger fade show' role='alert'> <strong>Invoices(" . $result_all->num_rows . ') exceeded limit 500 for ' . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
+}
+else if ( $result_all->num_rows <= 0 ) {
+ echo "<div class='alert alert-danger fade show' role='alert'> <strong>No Invoices for " . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
+}
+
+
 
 
 
