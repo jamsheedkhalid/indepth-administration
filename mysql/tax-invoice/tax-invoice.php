@@ -29,7 +29,7 @@ from finance_transaction_ledgers
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         echo ' <div class="table-responsive" >       
-                                    <table id="invoiceTable" style="overflow: scroll; font-size: 12px; "
+                                    <table onloadeddata="initDataTable()"  onload="initDataTable()" id="invoiceTable" style="overflow: scroll; font-size: 12px; "
                                     class="display">                                    
 
                                         <thead >
