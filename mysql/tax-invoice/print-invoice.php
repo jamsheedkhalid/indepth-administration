@@ -275,7 +275,7 @@ EOD;
 
 $pdf->writeHTML($html, true, false, true, false, '');
 ob_end_clean();
-$pdf->Output('Invoice.pdf', 'D');
+$pdf->Output('Invoice-'.$ledger_id.'.pdf', 'I');
 $pdf->Close();
 
 

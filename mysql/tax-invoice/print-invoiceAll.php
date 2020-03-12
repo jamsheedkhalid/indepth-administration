@@ -323,7 +323,7 @@ EOD;
     }
 }
 ob_end_clean();
-$pdf->Output('Invoice', 'D');
+$pdf->Output('Invoice'.$_REQUEST['start_date'].'-'.$_REQUEST['end_date'].'.pdf', 'D');
 $pdf->Close();
 
 
