@@ -233,15 +233,15 @@ EOD;
                         <table  cellspacing="0" cellpadding="1" border="1">
                                 <tr>
                                 <td>
-                                    <table>
+                                        <table>
                                     <tr><td  colspan="2">Bank Details:</td></tr>
-                                    <tr><td width="100">Bank</td><td>: Bank of Sharjah</td></tr>
-                                    <tr><td>Branch</td><td>: Al Ain</td></tr>
-                                    <tr><td width="100">Account Name</td><td>: AL Sanawbar School</td></tr>
-                                    <tr><td>Account No</td><td>: 01106-357005</td></tr>
-                                    <tr><td>IBAN</td><td  width="200">: AED900120000001106357005</td></tr>
+                                    <tr><td width="100">Bank</td><td>: First Abu Dhabi Bank</td></tr>
+                                    <tr><td>Branch</td><td>: Salam Branch, Al Ain</td></tr>
+                                    <tr><td width="100">Account Name</td><td>: Al Sanawbar School</td></tr>
+                                    <tr><td>Account No</td><td>: 101 100 2036658 016</td></tr>
+                                    <tr><td>IBAN</td><td  width="200">: AE420351011002036658016</td></tr>
                                     <tr><td>Currency</td><td>: AED</td></tr>
-                                    <tr><td>Swift Code</td><td>: SHARAEAS</td></tr>
+                                    <tr><td>Swift Code</td><td>: FGBMAEAA</td></tr>
                                     </table>
                                                                      
                                     </td>
@@ -254,12 +254,12 @@ EOD;
                                 <tr>
                                     <td>Payment can be done in CASH/VISA/CHEQUE drawn in favour of Al Sanawbar School or through direct bank transfer</td>
                                 </tr>
-                                <tr>
+                                <tr> <td>
                                 
                                 Notes:<br>
                                 1. Please ensure that the above invoice amount is credited to our account after deduction of all bank charges.<br>
                                 2. Kindly email student name, grade, family ID and bank transfer receipt.
-</tr>
+                        </td></tr>
                         </table>
                     </td>
             </tr>
@@ -275,7 +275,7 @@ EOD;
 
 $pdf->writeHTML($html, true, false, true, false, '');
 ob_end_clean();
-$pdf->Output('Invoice', 'I');
+$pdf->Output('Invoice.pdf', 'D');
 $pdf->Close();
 
 

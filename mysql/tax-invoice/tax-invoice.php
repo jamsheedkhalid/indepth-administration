@@ -7,7 +7,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 if (isset($_REQUEST['start_date'], $_REQUEST['end_date'])) {
 
 
-    $sql = "select distinct guardians.familyid                           family_id,
+    $sql = "select DISTINCT  guardians.familyid                           family_id,
                 guardians.first_name                         parent_name,
                 finance_transaction_ledgers.amount           transaction_amount,
                 finance_transaction_ledgers.transaction_date transaction_date,
