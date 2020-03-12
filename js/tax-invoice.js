@@ -1,4 +1,4 @@
-loadInvoices("invoice-table");
+window.onload = loadInvoices("invoice-table");
 
 function loadInvoices(div) {
     let start_date = document.getElementById('start_date').value;
@@ -11,8 +11,7 @@ function loadInvoices(div) {
     };
     httpStudent.open("GET", "/mysql/tax-invoice/tax-invoice.php?start_date=" + start_date + '&end_date=' + end_date, false);
     httpStudent.send();
-    initDataTable()
-
+    initDataTable();
 }
 
 

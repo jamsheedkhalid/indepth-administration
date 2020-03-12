@@ -310,10 +310,10 @@ $pdf->Close();
 
 }
 else if (   ($result_all->num_rows > 500)   ) {
-    echo "<div class='alert alert-danger fade show' role='alert'> <strong>Invoices(" . $result_all->num_rows . ') exceeded limit 500 for ' . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
+    echo "<div class='alert alert-danger fade show' role='alert'> <strong style='color:red'>Invoices(" . $result_all->num_rows . ') exceeded limit 500 for ' . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
 }
 else if ( $result_all->num_rows <= 0 ) {
- echo "<div class='alert alert-danger fade show' role='alert'> <strong>No Invoices for " . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
+ echo "<div class='alert alert-danger fade show' role='alert'> <strong style='color:red'>No Invoices for " . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
 }
 
 
