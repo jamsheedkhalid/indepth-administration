@@ -136,7 +136,7 @@ if ($result->num_rows > 0) {
 <h2 align="center"><u>FEES INVOICE</u></h2>
 <table style="padding: 10px;">
 <tr>
-<td width="510"><strong>Student Name:</strong> $row[student_name]</td>
+<td width="510"><strong>Student :</strong> $row[admission_no] - $row[student_name]</td>
 <td><strong>Section:</strong> $row[grade] -  $row[section] </td>
 </tr>
 </table>

@@ -55,15 +55,17 @@ $pdf->SetTitle('Tax Invoice');
 $pdf->SetMargins(10, 50, 10);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-// set auto page breaks
 $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-// set image scale factor
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf->setFontSubsetting(true);
 $fontFamily = 'Times'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
 $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 10; // float, in point
+
 $html = '';
+$transaction_amount = 0;
+$reference_no = '';
+$transaction_mode = '';
 
 $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
 $sql_All = "select DISTINCT
@@ -74,8 +76,6 @@ from finance_transaction_ledgers
          inner join fee_invoices on finance_fees.id = fee_invoices.fee_id
          inner join finance_transaction_receipt_records
                     on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
-         inner join students on finance_fees.student_id = students.id
-         inner join guardians on students.immediate_contact_id = guardians.id
     where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
     order by finance_transaction_ledgers.id desc;
  ";
@@ -86,7 +86,8 @@ if ($result_all->num_rows > 0) {
         $particular_total = 0;
         $vat_total = 0;
         $vat = 0;
-        $sql = "
+
+$sql = "
 select DISTINCT guardians.familyid                           family_id,
        guardians.first_name                         parent_name,
        guardians.mobile_phone                       parent_contact,
@@ -94,37 +95,21 @@ select DISTINCT guardians.familyid                           family_id,
        students.admission_no                        admission_no,
        batches.name                                 section,
        courses.course_name                          grade,
-       Round(finance_transaction_ledgers.amount,2)           transaction_amount,
-       finance_fee_collections.name                 collection_name,
-       finance_fee_particulars.name                particular_name,
-       Round(finance_fees.particular_total,2)                particular_total,
-       Round(finance_fees.balance,2)                         particular_balance,
-       Round(finance_transactions.amount,2)                  particular_paid,
-       fee_invoices.invoice_number                  invoice_number,
-       transaction_receipts.receipt_number          receipt_number,
+       finance_transaction_ledgers.transaction_date transaction_date,
        finance_transaction_ledgers.transaction_date transaction_date,
        finance_transaction_ledgers.payment_mode     transaction_mode,
        finance_transaction_ledgers.payment_note     transaction_note,
        finance_transaction_ledgers.reference_no     reference_no,
-       finance_transaction_ledgers.id               ledger_id
+        Round(finance_transaction_ledgers.amount,2)           transaction_amount,
+       finance_transaction_ledgers.id     ledger_id
+
 from finance_transaction_ledgers
          inner join finance_transactions on finance_transaction_ledgers.id = finance_transactions.transaction_ledger_id
          inner join finance_fees on finance_transactions.finance_id = finance_fees.id
-         inner join finance_fee_collections on finance_fees.fee_collection_id = finance_fee_collections.id
-         inner join fee_invoices on finance_fees.id = fee_invoices.fee_id
-         inner join finance_transaction_receipt_records
-                    on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
-         inner join transaction_receipts
-                    on finance_transaction_receipt_records.transaction_receipt_id = transaction_receipts.id
          inner join students on finance_fees.student_id = students.id
          inner join guardians on students.immediate_contact_id = guardians.id
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
-         inner join collection_particulars
-                    on finance_fee_collections.id = collection_particulars.finance_fee_collection_id
-         inner join finance_fee_particulars
-                    on collection_particulars.finance_fee_particular_id = finance_fee_particulars.id and
-                       batches.id = finance_fee_particulars.batch_id
 where finance_transaction_ledgers.id = '$row_All[id]';
 ";
         $result = $conn->query($sql);
@@ -149,7 +134,7 @@ where finance_transaction_ledgers.id = '$row_All[id]';
 <h2 align="center"><u>FEES INVOICE</u></h2>
 <table style="padding: 10px;">
 <tr>
-<td width="510"><strong>Student Name:</strong> $row[student_name]</td>
+<td width="510"><strong>Student :</strong> $row[admission_no] - $row[student_name]</td>
 <td><strong>Section:</strong> $row[grade] -  $row[section] </td>
 </tr>
 </table>
@@ -168,17 +153,16 @@ where finance_transaction_ledgers.id = '$row_All[id]';
 <th>Due Amount</th>
 </tr>
 </thead>
-<tbody>
+<tbody> $row[reference_no]
 EOD;
+                $transaction_amount =   $row['transaction_amount'];
+                $reference_no =    $row['reference_no'];
+                $transaction_mode =    $row['transaction_mode'];
+            }
+        }
 
-                $sql = "
-select guardians.familyid                           family_id,
-       guardians.first_name                         parent_name,
-       guardians.mobile_phone                       parent_contact,
-       students.last_name                           student_name,
-       students.admission_no                        admission_no,
-       batches.name                                 section,
-       courses.course_name                          grade,
+$sql = "
+select 
        Round(finance_transaction_ledgers.amount,2)           transaction_amount,
        finance_fee_collections.name                 collection_name,
        finance_fee_particulars.name                particular_name,
@@ -201,15 +185,11 @@ from finance_transaction_ledgers
                     on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
          inner join transaction_receipts
                     on finance_transaction_receipt_records.transaction_receipt_id = transaction_receipts.id
-         inner join students on finance_fees.student_id = students.id
-         inner join guardians on students.immediate_contact_id = guardians.id
-         inner join batches on students.batch_id = batches.id
-         inner join courses on batches.course_id = courses.id
          inner join collection_particulars
                     on finance_fee_collections.id = collection_particulars.finance_fee_collection_id
          inner join finance_fee_particulars
                     on collection_particulars.finance_fee_particular_id = finance_fee_particulars.id and
-                       batches.id = finance_fee_particulars.batch_id
+                       finance_fees.batch_id = finance_fee_particulars.batch_id
 where finance_transaction_ledgers.id = '$row_All[id]';
 ";
                 $result_fees = $conn->query($sql);
@@ -259,9 +239,10 @@ EOD;
 EOD;
                     }
                 }
-                list($feeWhole, $feeDecimal) = explode('.', $row['transaction_amount']);
-                $feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
-                $feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
+
+list($feeWhole, $feeDecimal) = explode('.', $transaction_amount);
+$feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
+$feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
                 $html .= <<<EOD
         <tr >
         <td height="30" colspan="7"></td>
@@ -270,9 +251,9 @@ EOD;
     </tr>
         <tr style="font-weight: bold; background-color: lightpink" >
         <td   height="30"  colspan="7"><label align="left"> Amount in words:  $feeWhole and $feeDecimal</label> </td><td border="0"  align="right"> Total Paid</td>
-        <td   align="right" >$row[transaction_amount]</td>
+        <td   align="right" >$transaction_amount</td>
     </tr> <tr >
-        <td height="20"  colspan="9"> Payment Mode : $row[transaction_mode] <br> Reference: $row[reference_no]  </td>
+        <td height="20"  colspan="9"> Payment Mode : $transaction_mode <br> Reference: $reference_no  </td>
     </tr>
     </tbody>
     </table>
@@ -316,14 +297,13 @@ EOD;
 </table>
 EOD;
 
-            }
-        }
+
         $pdf->writeHTML($html, true, false, false, false, '');
 
     }
 }
 ob_end_clean();
-$pdf->Output('Invoice'.$_REQUEST['start_date'].'-'.$_REQUEST['end_date'].'.pdf', 'D');
+$pdf->Output('Invoice'.$_REQUEST['start_date'].'-'.$_REQUEST['end_date'].'.pdf', 'I');
 $pdf->Close();
 
 
