@@ -7,11 +7,12 @@ function loadInvoices(div) {
     httpStudent.onreadystatechange = function () {
         if (this.readyState === 4) {
             document.getElementById(div).innerHTML = this.responseText;
+            initDataTable();
         }
     };
     httpStudent.open("GET" , "/mysql/tax-invoice/tax-invoice.php?start_date=" + start_date + '&end_date=' + end_date, false);
     httpStudent.send();
-    initDataTable();
+
 }
 
 
