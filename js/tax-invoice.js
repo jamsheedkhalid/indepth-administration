@@ -9,7 +9,7 @@ function loadInvoices(div) {
             document.getElementById(div).innerHTML = this.responseText;
         }
     };
-    httpStudent.open("GET", "/mysql/tax-invoice/tax-invoice.php?start_date=" + start_date + '&end_date=' + end_date, false);
+    httpStudent.open("GET" , "/mysql/tax-invoice/tax-invoice.php?start_date=" + start_date + '&end_date=' + end_date, false);
     httpStudent.send();
     initDataTable();
 }
