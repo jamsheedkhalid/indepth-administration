@@ -1,4 +1,4 @@
-window.onload = loadInvoices("invoice-table");
+window.onload = loadInvoices('invoice-table');
 
 function loadInvoices(div) {
     let start_date = document.getElementById('start_date').value;
