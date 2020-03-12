@@ -10,7 +10,7 @@ if ($_SESSION['user_type'] === 'admin') {
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
     ?>
-    <body>
+    <body onload="initDataTable()">
 
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <?php
