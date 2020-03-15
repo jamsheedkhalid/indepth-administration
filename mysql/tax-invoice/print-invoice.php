@@ -115,6 +115,7 @@ from finance_transaction_ledgers
 where finance_transaction_ledgers.id = '$ledger_id';
 ";
 $result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
         $transaction_date = date('d-M-Y', strtotime($row['transaction_date']));
