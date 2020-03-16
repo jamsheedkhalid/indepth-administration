@@ -63,81 +63,112 @@ $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 10; // float, in point
 
 $html = '';
-$transaction_amount = 0;
-$reference_no = '';
-$transaction_mode = '';
+
 
 $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
-$sql_All = "select DISTINCT
-                finance_transaction_ledgers.id               id
+$sql_All = "select id
 from finance_transaction_ledgers
-         inner join finance_transactions on finance_transaction_ledgers.id = finance_transactions.transaction_ledger_id
-         inner join finance_fees on finance_transactions.finance_id = finance_fees.id
-         inner join fee_invoices on finance_fees.id = fee_invoices.fee_id
-         inner join finance_transaction_receipt_records
-                    on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
     where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
     order by finance_transaction_ledgers.id desc;
  ";
+
 $result_all = $conn->query($sql_All);
 if ($result_all->num_rows > 0 && $result_all->num_rows < 500 ) {
+
+
     while ($row_All = mysqli_fetch_array($result_all)) {
+
         $pdf->AddPage();
-        $particular_total = 0;
-        $vat_total = 0;
-        $vat = 0;
 
-$sql = "
-select DISTINCT guardians.familyid                           family_id,
-       guardians.first_name                         parent_name,
-       guardians.mobile_phone                       parent_contact,
-       students.last_name                           student_name,
-       students.admission_no                        admission_no,
-       batches.name                                 section,
-       courses.course_name                          grade,
-       finance_transaction_ledgers.transaction_date transaction_date,
-       finance_transaction_ledgers.transaction_date transaction_date,
-       finance_transaction_ledgers.payment_mode     transaction_mode,
-       finance_transaction_ledgers.payment_note     transaction_note,
-       finance_transaction_ledgers.reference_no     reference_no,
-        Round(finance_transaction_ledgers.amount,2)           transaction_amount,
-       finance_transaction_ledgers.id     ledger_id
+        $ledger_id = $row_All['id'];
 
+        $sql = "select 
+                round(finance_transaction_ledgers.amount,2)           transaction_amount,
+                finance_transaction_ledgers.transaction_data           transaction_data,
+                finance_transaction_ledgers.transaction_date transaction_date,
+                finance_transaction_ledgers.payment_mode     transaction_mode,
+                finance_transaction_ledgers.reference_no     reference_no,
+                finance_transaction_ledgers.payment_note     payment_note,
+                finance_transaction_ledgers.id               ledger_id
 from finance_transaction_ledgers
-         inner join finance_transactions on finance_transaction_ledgers.id = finance_transactions.transaction_ledger_id
-         inner join finance_fees on finance_transactions.finance_id = finance_fees.id
-         inner join students on finance_fees.student_id = students.id
-         inner join guardians on students.immediate_contact_id = guardians.id
-         inner join batches on students.batch_id = batches.id
-         inner join courses on batches.course_id = courses.id
-where finance_transaction_ledgers.id = '$row_All[id]';
-";
+ where id = '$ledger_id'
+ ";
         $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            while ($row = mysqli_fetch_array($result)) {
-                $transaction_date = date('d-M-Y', strtotime($row['transaction_date']));
-                $html = <<<EOD
-<table style="padding: 10px;">
-<tr>
-<td>Bill To:</td>
-<td></td>
-</tr>
-<tr>
-<td width="500"><strong>Name</strong>      : $row[parent_name]
-<br><strong>Parent ID</strong> : $row[family_id]
-<br><strong>Tel</strong> : $row[parent_contact]</td>
-<td><strong>Invoice No</strong>: $row[ledger_id]
-<br><strong>Invoice Date</strong> : $transaction_date </td>
-</tr>
-</table>
+        if($result->num_rows > 0){
+            while($row = mysqli_fetch_array($result)){
+
+                $transaction_data = $row['transaction_data'];
+                $data = yaml_parse($transaction_data);
+//        var_dump($data);
+//        break;
+//                $admission_no =  $data['table'][':payee']['table'][':admission_no'];
+////                $admission_no =  '606309';
+//                $parent_name =  $data['table'][':payee']['table'][':guardian_name'];
+//                $grade =   $data['table'][':payee']['table'][':course_full_name'];
+//                $section_id =  $data['table'][':batch_id'];
+//                $transaction_date =  $data['table'][':transaction_date'];
+//                $date = date('d-M-Y',strtotime($transaction_date));
+
+
+//                $student = " select last_name from students where admission_no = '$admission_no'";
+//                $result = $conn->query($student);
+//                if ($result->num_rows > 0) {
+//                    $student = mysqli_fetch_row($result);
+//                }
+//                else {
+//                    $student = " select last_name from archived_students where admission_no = '$admission_no'";
+//                    $result = $conn->query($student);
+//                    if ($result->num_rows > 0) {
+//                        $student = mysqli_fetch_row($result);
+//                    } else {
+//                        $student = '-';
+//                    }
+//                }
+//
+//                $section = " select name from batches where id = '$section_id'";
+//                $result = $conn->query($section);
+//                if ($result->num_rows > 0) {
+//                    $section = mysqli_fetch_row($result)[0];
+//                }
+//
+////        fetch family id
+//                $p_id = " select familyid from students where admission_no = '$admission_no'";
+//                $result = $conn->query($p_id);
+//                if ($result->num_rows > 0) {
+//                    $family_id = mysqli_fetch_row($result);
+//                }
+//                else {
+//                    $p_id = " select familyid from archived_students where admission_no = '$admission_no'";
+//                    $result = $conn->query($p_id);
+//                    if ($result->num_rows > 0) {
+//                        $family_id = mysqli_fetch_row($result);
+//                    } else {
+//                        $family_id = '-';
+//                    }
+//                }
+//
+//                //        fetch parent contact number
+//                $p_id = " select mobile_phone from guardians where familyid = '$family_id[0]'";
+//                $result = $conn->query($p_id);
+//                if ($result->num_rows > 0) {
+//                    $contact_no = mysqli_fetch_row($result);
+//                }
+//                else {
+//                    $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id'";
+//                    $result = $conn->query($p_id);
+//                    if ($result->num_rows > 0) {
+//                        $contact_no = mysqli_fetch_row($result);
+//                    } else {
+//                        $contact_no = '-';
+//                    }
+//                }
+
+
+                $html .= <<<EOD
+       
 <br>
 <h2 align="center"><u>FEES INVOICE</u></h2>
-<table style="padding: 10px;">
-<tr>
-<td width="510"><strong>Student :</strong> $row[admission_no] - $row[student_name]</td>
-<td><strong>Section:</strong> $row[grade] -  $row[section] </td>
-</tr>
-</table>
+
 <br><br>
 <table style="padding: 10px; width: 100%"  cellspacing="0" cellpadding="1" border="1" class="table table-bordered table-dark">
 <thead >
@@ -153,111 +184,65 @@ where finance_transaction_ledgers.id = '$row_All[id]';
 <th>Due Amount</th>
 </tr>
 </thead>
-<tbody> $row[reference_no]
+<tbody> 
 EOD;
-                $transaction_amount =   $row['transaction_amount'];
-                $reference_no =    $row['reference_no'];
-                $transaction_mode =    $row['transaction_mode'];
-            }
-        }
+                $transactions = count($data['table'][':transactions']['']);
+                for ($i=0; $i<$transactions; $i++){
 
-$sql = "
-select 
-       Round(finance_transaction_ledgers.amount,2)           transaction_amount,
-       finance_fee_collections.name                 collection_name,
-       finance_fee_particulars.name                particular_name,
-       Round(finance_fees.particular_total,2)                particular_total,
-       Round(finance_fees.balance,2)                         particular_balance,
-       Round(finance_transactions.amount,2)                  particular_paid,
-       fee_invoices.invoice_number                  invoice_number,
-       transaction_receipts.receipt_number          receipt_number,
-       finance_transaction_ledgers.transaction_date transaction_date,
-       finance_transaction_ledgers.payment_mode     transaction_mode,
-       finance_transaction_ledgers.payment_note     transaction_note,
-       finance_transaction_ledgers.reference_no     reference_no,
-       finance_transaction_ledgers.id               ledger_id
-from finance_transaction_ledgers
-         inner join finance_transactions on finance_transaction_ledgers.id = finance_transactions.transaction_ledger_id
-         inner join finance_fees on finance_transactions.finance_id = finance_fees.id
-         inner join finance_fee_collections on finance_fees.fee_collection_id = finance_fee_collections.id
-         inner join fee_invoices on finance_fees.id = fee_invoices.fee_id
-         inner join finance_transaction_receipt_records
-                    on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
-         inner join transaction_receipts
-                    on finance_transaction_receipt_records.transaction_receipt_id = transaction_receipts.id
-         inner join collection_particulars
-                    on finance_fee_collections.id = collection_particulars.finance_fee_collection_id
-         inner join finance_fee_particulars
-                    on collection_particulars.finance_fee_particular_id = finance_fee_particulars.id and
-                       finance_fees.batch_id = finance_fee_particulars.batch_id
-where finance_transaction_ledgers.id = '$row_All[id]';
-";
-                $result_fees = $conn->query($sql);
-                if ($result_fees->num_rows > 0) {
-                    while ($row_fees = mysqli_fetch_array($result_fees)) {
-                        $html .= <<<EOD
-   <tr >
-<td height="30" width="50" > $row_fees[invoice_number]</td>
-<td width="50" > $row_fees[receipt_number]</td>
-<td width="150" > $row_fees[particular_name]</td>
-EOD;
-                        if (stripos($row_fees['particular_name'], 'uniform') !== false) {
-                            $particular_total = number_format((double)$row_fees['particular_total'] - ((5 * (double)$row_fees['particular_total']) / 100), 2);
-                            $vat = (5 * (double)$row_fees['particular_total'] / 100);
-                            $vat_total = $vat_total + $vat;
-                            $vat_total = number_format($vat_total, 2);
-                            $html .= <<<EOD
-<td align="right" >$particular_total </td>
-<td align="right" width="60">5</td>
-<td align="right" width="65">$vat</td>
+                    $amount =  $data['table'][':transactions'][''][$i]['table'][':actual_amount'];
+                    $tr_id =  $data['table'][':transactions'][''][$i]['table'][':ft_id'];
+                    $fee_collection_name =  $data['table'][':transactions'][''][$i]['table'][':fee_collection_name'];
+                    $cname =  $data['table'][':transactions'][''][$i]['table'][':cname'];
+                    $transaction_amount =  $data['table'][':transactions'][''][$i]['table'][':transaction_amount'];
+                    $balance =  number_format(round((double)$data['table'][':transactions'][''][$i]['table'][':balance'],2),2);
 
-EOD;
-                        }
-                        else
-                            if (stripos($row_fees['particular_name'], 'bus') !== false) {
+                    [$feeWhole, $feeDecimal] = explode('.', $row['transaction_amount']);
+                    $feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
+                    $feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
 
-                                $html .= <<<EOD
-<td align="right" >$row_fees[particular_total] </td>
-<td align="right" width="60">EXE</td>
-<td align="right" width="65">-</td>
-
+                    $t_data = "
+            select receipt_data from finance_transactions      
+            inner join finance_transaction_receipt_records on finance_transactions.id = finance_transaction_receipt_records.finance_transaction_id
+            where finance_transactions.id = '$tr_id'
+            ";
+                    $result_tr = $conn->query($t_data);
+                    $receipt_data = mysqli_fetch_row($result_tr)[0];
+                    $receipt_data = yaml_parse($receipt_data);
+//            var_dump($receipt_data);
+                    $fee_particular_name =  $receipt_data['table'][':fee_particulars'][0]['table'][':name'];
+                    $invoice_no =  $receipt_data['table'][':invoice_no'];
+                    $receipt_no =  $receipt_data['table'][':receipt_no'];
+                    $html .=<<<EOD
+<tr>
+    <td width="50" height="20" >$invoice_no</td>
+    <td width="50">$receipt_no</td>
+    <td width="150"> $fee_particular_name</td>
+    <td align="right"> $amount</td>
+    <td width="60"></td>
+    <td width="65"></td>
+    <td align="right"> $amount</td>
+    <td align="right"> $transaction_amount</td>
+    <td align="right"> $balance</td>
+    </tr>
 EOD;
-                            }
-                            else {
-                                $html .= <<<EOD
-<td align="right" > $row_fees[particular_total]</td>
-<td align="right" width="60">0</td>
-<td align="right" width="65">0</td>
-
-EOD;
-                            }
-                        $html .= <<<EOD
-<td align="right"> $row_fees[particular_total]</td>
-<td align="right"> $row_fees[particular_paid]</td>
-<td align="right"> $row_fees[particular_balance]</td>
-</tr>
-EOD;
-                    }
                 }
-
-list($feeWhole, $feeDecimal) = explode('.', $transaction_amount);
-$feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
-$feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
-                $html .= <<<EOD
+                $html .=<<<EOD
+        <tr>
+        <td colspan="7" height="30"></td>
+        <td align="left"> Total VAT</td>
+        <td align="right"> </td>
+        </tr>   
+        <tr style="background-color: lightsalmon; font-weight: bold">
+        <td colspan="7" height="30"> $feeWhole And $feeDecimal </td>
+        <td align="left"> Total Paid</td>
+        <td align="right"> $row[transaction_amount]</td>
+        </tr>
         <tr >
-        <td height="30" colspan="7"></td>
-        <td  align="right">Total VAT</td>
-        <td align="right" >$vat_total</td>
+        <td height="20"  colspan="9"> Payment Mode : $row[transaction_mode] <br> Reference: $row[reference_no]
+          <br> Cashier : $cname </td>
     </tr>
-        <tr style="font-weight: bold; background-color: lightpink" >
-        <td   height="30"  colspan="7"><label align="left"> Amount in words:  $feeWhole and $feeDecimal</label> </td><td border="0"  align="right"> Total Paid</td>
-        <td   align="right" >$transaction_amount</td>
-    </tr> <tr >
-        <td height="20"  colspan="9"> Payment Mode : $transaction_mode <br> Reference: $reference_no  </td>
-    </tr>
-    </tbody>
-    </table>
-    
+</tbody></table>
+
 <table style="padding: 20px;">
 <tbody >
             <tr>
@@ -297,6 +282,8 @@ $feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
 </table>
 EOD;
 
+            }
+        }
 
         $pdf->writeHTML($html, true, false, false, false, '');
 
