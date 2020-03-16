@@ -38,12 +38,23 @@ if ($_SESSION['user_type'] === 'admin') {
                             <div>
                                 <form   class="row" method="post" target="_blank" action="/mysql/tax-invoice/print-invoiceAll.php">
                                 <div class="col">
-                                    <input type="date" onchange="loadInvoices('invoice-table');" name="start_date" id="start_date" value="<?php echo date('Y-m-01') ?>">
+<!--                                    <input type="date"  name="start_date" id="start_date" value="--><?php //echo date('Y-m-01') ?><!--">-->
+                                    <input type="date"  name="start_date" id="start_date" value="2019-01-01">
                                 </div>
                                 <b class="col">To</b>
                                 <div class="col">
-                                    <input type="date"  onchange="loadInvoices('invoice-table');" name="end_date" id="end_date" value="<?php echo date('Y-m-t') ?>">
+<!--                                    <input type="date"   name="end_date" id="end_date" value="--><?php //echo date('Y-m-t') ?><!--">-->
+                                    <input type="date"   name="end_date" id="end_date" value="2019-01-31">
                                 </div>
+                                    <div class="col">
+                                        <button type="button"  onclick="loadInvoices('invoice-table');" title="Search Invoices"
+                                                class="btn-shadow btn btn-outline-primary">
+                                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                      <i class="fas fa-search fa-w-20"></i>
+                                        </span>
+
+                                        </button>
+                                    </div>
                                 <div class="col">
                                     <button type="submit" title="Print Invoices"
                                             class="btn-shadow btn btn-dark">

@@ -6,9 +6,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
 if (isset($_POST['submitGradeWise'])) {
 
     $grade = $_POST['hidden_grade_gradeWise'];
-//    echo $grade;
+    echo $grade;
     $term = $_REQUEST['hidden_term_gradeWise'];
-//    echo $term;
+    echo $term;
     $ass_percent = $_REQUEST['gradeAssessment'];
     $term_percent = $_REQUEST['gradeTerm'];
     $is_non_islamic = 0;
@@ -335,8 +335,8 @@ group by subjects.id; ";
 
         }
     }
-    $pdf->Output('I', $grade  . '-' . $term_name . ' ' . 'report-card.pdf', true);
-    $pdf->Close();
+//    $pdf->Output('I', $grade  . '-' . $term_name . ' ' . 'report-card.pdf', true);
+//    $pdf->Close();
 
 
 }
