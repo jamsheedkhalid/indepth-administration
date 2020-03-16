@@ -206,7 +206,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                         <div class="row">
                                             <div class="position-relative form-group col-sm ">
                                                 <label for="sectionTermSelect">Term</label>
-                                                <select name="sectionTermSelect" id="sectionTermSelect"
+                                                <select name="sectionTermSelect" id="sectionTermSelect"  onchange="initialize_hidden_input('sectionTermSelect','hidden_term');"
                                                         class="form-control-sm form-control">
                                                     <option>Select Term</option>
                                                 </select>
@@ -249,7 +249,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                             </div>
                                             <div class="position-relative form-group col-sm ">
                                                 <label for="gradeTermSelect">Term</label>
-                                                <select name="gradeTermSelect" id="gradeTermSelect"
+                                                <select name="gradeTermSelect" id="gradeTermSelect"  onchange="initialize_hidden_input('gradeTermSelect','hidden_term_gradeWise');"
                                                         class="form-control-sm form-control">
                                                     <option>Select Term</option>
                                                 </select>
