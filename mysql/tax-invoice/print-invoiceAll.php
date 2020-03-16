@@ -69,6 +69,7 @@ $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
 $sql_All = "select id
 from finance_transaction_ledgers
     where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
+  and transaction_data is not null
     order by finance_transaction_ledgers.id desc;
  ";
 
@@ -100,75 +101,92 @@ from finance_transaction_ledgers
                 $transaction_data = $row['transaction_data'];
                 $data = yaml_parse($transaction_data);
 //        var_dump($data);
-//        break;
-//                $admission_no =  $data['table'][':payee']['table'][':admission_no'];
-////                $admission_no =  '606309';
-//                $parent_name =  $data['table'][':payee']['table'][':guardian_name'];
-//                $grade =   $data['table'][':payee']['table'][':course_full_name'];
-//                $section_id =  $data['table'][':batch_id'];
-//                $transaction_date =  $data['table'][':transaction_date'];
-//                $date = date('d-M-Y',strtotime($transaction_date));
+                $admission_no =  $data['table'][':payee']['table'][':admission_no'];
+//echo $admission_no . ' - '. $ledger_id .'<br> ';
+//                break;
+                $parent_name =  $data['table'][':payee']['table'][':guardian_name'];
+                $grade =   $data['table'][':payee']['table'][':course_full_name'];
+                $section_id =  $data['table'][':batch_id'];
+                $transaction_date =  $data['table'][':transaction_date'];
+                $date = date('d-M-Y',strtotime($transaction_date));
 
 
-//                $student = " select last_name from students where admission_no = '$admission_no'";
-//                $result = $conn->query($student);
-//                if ($result->num_rows > 0) {
-//                    $student = mysqli_fetch_row($result);
-//                }
-//                else {
-//                    $student = " select last_name from archived_students where admission_no = '$admission_no'";
-//                    $result = $conn->query($student);
-//                    if ($result->num_rows > 0) {
-//                        $student = mysqli_fetch_row($result);
-//                    } else {
-//                        $student = '-';
-//                    }
-//                }
-//
-//                $section = " select name from batches where id = '$section_id'";
-//                $result = $conn->query($section);
-//                if ($result->num_rows > 0) {
-//                    $section = mysqli_fetch_row($result)[0];
-//                }
-//
-////        fetch family id
-//                $p_id = " select familyid from students where admission_no = '$admission_no'";
-//                $result = $conn->query($p_id);
-//                if ($result->num_rows > 0) {
-//                    $family_id = mysqli_fetch_row($result);
-//                }
-//                else {
-//                    $p_id = " select familyid from archived_students where admission_no = '$admission_no'";
-//                    $result = $conn->query($p_id);
-//                    if ($result->num_rows > 0) {
-//                        $family_id = mysqli_fetch_row($result);
-//                    } else {
-//                        $family_id = '-';
-//                    }
-//                }
-//
-//                //        fetch parent contact number
-//                $p_id = " select mobile_phone from guardians where familyid = '$family_id[0]'";
-//                $result = $conn->query($p_id);
-//                if ($result->num_rows > 0) {
-//                    $contact_no = mysqli_fetch_row($result);
-//                }
-//                else {
-//                    $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id'";
-//                    $result = $conn->query($p_id);
-//                    if ($result->num_rows > 0) {
-//                        $contact_no = mysqli_fetch_row($result);
-//                    } else {
-//                        $contact_no = '-';
-//                    }
-//                }
+                $student = " select last_name from students where admission_no = '$admission_no'";
+                $result = $conn->query($student);
+                if ($result->num_rows > 0) {
+                    $student = mysqli_fetch_row($result);
+                }
+                else {
+                    $student = " select last_name from archived_students where admission_no = '$admission_no'";
+                    $result = $conn->query($student);
+                    if ($result->num_rows > 0) {
+                        $student = mysqli_fetch_row($result);
+                    } else {
+                        $student = '-';
+                    }
+                }
+
+                $section = " select name from batches where id = '$section_id'";
+                $result = $conn->query($section);
+                if ($result->num_rows > 0) {
+                    $section = mysqli_fetch_row($result)[0];
+                }
+
+//        fetch family id
+                $p_id = " select familyid from students where admission_no = '$admission_no'";
+                $result = $conn->query($p_id);
+                if ($result->num_rows > 0) {
+                    $family_id = mysqli_fetch_row($result);
+                }
+                else {
+                    $p_id = " select familyid from archived_students where admission_no = '$admission_no'";
+                    $result = $conn->query($p_id);
+                    if ($result->num_rows > 0) {
+                        $family_id = mysqli_fetch_row($result);
+                    } else {
+                        $family_id = '-';
+                    }
+                }
+
+                //        fetch parent contact number
+                $p_id = " select mobile_phone from guardians where familyid = '$family_id[0]'";
+                $result = $conn->query($p_id);
+                if ($result->num_rows > 0) {
+                    $contact_no = mysqli_fetch_row($result);
+                }
+                else {
+                    $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id'";
+                    $result = $conn->query($p_id);
+                    if ($result->num_rows > 0) {
+                        $contact_no = mysqli_fetch_row($result);
+                    } else {
+                        $contact_no = '-';
+                    }
+                }
 
 
                 $html .= <<<EOD
-       
+        <table style="padding: 10px;">
+<tr>
+<td>Bill To:</td>
+<td></td>
+</tr>
+<tr>
+<td width="500"><strong>Name</strong>      : $parent_name
+        <br><strong>Parent ID</strong> : $family_id[0]
+        <br><strong>Tel</strong> : $contact_no[0] </td>
+<td><strong>Invoice No</strong>: $ledger_id
+        <br><strong>Invoice Date</strong> : $date </td>
+</tr>
+</table>
 <br>
 <h2 align="center"><u>FEES INVOICE</u></h2>
-
+<table style="padding: 10px;">
+<tr>
+<td width="510"><strong>Student :</strong> $admission_no - $student[0]</td>
+<td><strong>Section:</strong>  $grade -  $section </td>
+</tr>
+</table>
 <br><br>
 <table style="padding: 10px; width: 100%"  cellspacing="0" cellpadding="1" border="1" class="table table-bordered table-dark">
 <thead >
