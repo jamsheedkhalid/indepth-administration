@@ -1,4 +1,4 @@
-<?php
+
 /** @noinspection ALL */
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
@@ -78,9 +78,9 @@ if (isset($_POST['submitGradeWise'])) {
 
     $pdf = new PDF();
     $pdf->AliasNbPages();
-    $sql_grade = "select batches.name section 
-                    from batches inner join courses on batches.course_id = courses.id 
-                    where batches.is_active =1 and courses.is_deleted = 0 and  batches.is_deleted = 0 and batches.name LIKE '%2020%' and 
+    $sql_grade = "select batches.name section
+                    from batches inner join courses on batches.course_id = courses.id
+                    where batches.is_active =1 and courses.is_deleted = 0 and  batches.is_deleted = 0 and batches.name LIKE '%2020%' and
                      (courses.course_name = ' $grade' or courses.course_name = '$grade') ;  ";
     $result_grade = $conn->query($sql_grade);
 
@@ -93,14 +93,14 @@ from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
 where (courses.course_name = ' $grade' or courses.course_name = '$grade')
-  AND courses.is_deleted = 0 AND batches.name LIKE '$section' and  batches.is_active =1 and   batches.is_deleted = 0  
+  AND courses.is_deleted = 0 AND batches.name LIKE '$section' and  batches.is_active =1 and   batches.is_deleted = 0
 order by students.last_name; ";
 //    echo $sql_section . "\n";
         $result_section = $conn->query($sql_section);
 
         while ($row_section = mysqli_fetch_array($result_section)) {
 
-            $sql = " select     
+            $sql = " select
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
@@ -217,8 +217,8 @@ group by subjects.id; ";
                         $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                         $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
                         //                check non islamic
-  if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
-         $is_non_islamic = 1;
+                        if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
+                            $is_non_islamic = 1;
                         }
 //                end check non islamic
                         if (!is_null($row['ASS']))
@@ -258,23 +258,23 @@ group by subjects.id; ";
                     $ratio_TR = round(($total_max * $total_TR) / $max_TR);
 
                 $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10, $total_ASS , 'LTB', 0, 'C');
+                $pdf->Cell(9, 10, $total_ASS, 'LTB', 0, 'C');
                 $pdf->SetFont('times', 'I', 35);
-                $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
+                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
                 $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10,  $ratio_ASS, 'RTB', 0, 'C');
+                $pdf->Cell(9, 10, $ratio_ASS, 'RTB', 0, 'C');
 
-                $pdf->Cell(9, 10, $total_TE , 'LTB', 0, 'C');
+                $pdf->Cell(9, 10, $total_TE, 'LTB', 0, 'C');
                 $pdf->SetFont('times', 'I', 35);
-                $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
+                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
                 $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10,  $ratio_TE, 'RTB', 0, 'C');
+                $pdf->Cell(9, 10, $ratio_TE, 'RTB', 0, 'C');
 
-                $pdf->Cell(9, 10, $total_TR , 'LTB', 0, 'C');
+                $pdf->Cell(9, 10, $total_TR, 'LTB', 0, 'C');
                 $pdf->SetFont('times', 'I', 35);
-                $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
+                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
                 $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10,  $ratio_TR, 'RTB', 0, 'C');
+                $pdf->Cell(9, 10, $ratio_TR, 'RTB', 0, 'C');
             } else {
                 $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
                 $pdf->Cell(20, 10, $total_TE, 1, 0, 'C');
@@ -335,7 +335,7 @@ group by subjects.id; ";
 
         }
     }
-    $pdf->Output('I', $grade  . '-' . $term_name . ' ' . 'report-card.pdf', true);
+    $pdf->Output('I', $grade . '-' . $term_name . ' ' . 'report-card.pdf', true);
     $pdf->Close();
 
 
