@@ -38,13 +38,13 @@ if ($_SESSION['user_type'] === 'admin') {
                             <div>
                                 <form   class="row" method="post" target="_blank" action="/mysql/tax-invoice/print-invoiceAll.php">
                                 <div class="col">
-<!--                                    <input type="date"  name="start_date" id="start_date" value="--><?php //echo date('Y-m-01') ?><!--">-->
-                                    <input type="date"  name="start_date" id="start_date" value="2019-01-01">
+                                    <input type="date"  name="start_date" id="start_date" value="<?php echo date('Y-m-01') ?>">
+<!--                                    <input type="date"  name="start_date" id="start_date" value="2019-01-01">-->
                                 </div>
                                 <b class="col">To</b>
                                 <div class="col">
-<!--                                    <input type="date"   name="end_date" id="end_date" value="--><?php //echo date('Y-m-t') ?><!--">-->
-                                    <input type="date"   name="end_date" id="end_date" value="2019-01-31">
+                                    <input type="date"   name="end_date" id="end_date" value="<?php echo date('Y-m-t') ?>">
+<!--                                    <input type="date"   name="end_date" id="end_date" value="2019-01-31">-->
                                 </div>
                                     <div class="col">
                                         <button type="button"  onclick="loadInvoices('invoice-table');" title="Search Invoices"
