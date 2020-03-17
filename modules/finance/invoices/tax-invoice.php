@@ -36,18 +36,22 @@ if ($_SESSION['user_type'] === 'admin') {
                         </div>
                         <div class="page-title-actions">
                             <div>
-                                <form   class="row" method="post" target="_blank" action="/mysql/tax-invoice/print-invoiceAll.php">
-                                <div class="col">
-                                    <input type="date"  name="start_date" id="start_date" value="<?php echo date('Y-m-01') ?>">
-<!--                                    <input type="date"  name="start_date" id="start_date" value="2019-01-01">-->
-                                </div>
-                                <b class="col">To</b>
-                                <div class="col">
-                                    <input type="date"   name="end_date" id="end_date" value="<?php echo date('Y-m-t') ?>">
-<!--                                    <input type="date"   name="end_date" id="end_date" value="2019-01-31">-->
-                                </div>
+                                <form class="row" method="post" target="_blank"
+                                >
                                     <div class="col">
-                                        <button type="button"  onclick="loadInvoices('invoice-table');" title="Search Invoices"
+                                        <input type="date" name="start_date" id="start_date"
+                                               value="<?php echo date('Y-m-01') ?>">
+                                        <!--                                    <input type="date"  name="start_date" id="start_date" value="2019-01-01">-->
+                                    </div>
+                                    <b class="col">To</b>
+                                    <div class="col">
+                                        <input type="date" name="end_date" id="end_date"
+                                               value="<?php echo date('Y-m-t') ?>">
+                                        <!--                                    <input type="date"   name="end_date" id="end_date" value="2019-01-31">-->
+                                    </div>
+                                    <div class="col-md">
+                                        <button type="button" onclick="loadInvoices('invoice-table');"
+                                                title="Search Invoices"
                                                 class="btn-shadow btn btn-outline-primary">
                                             <span class="btn-icon-wrapper pr-2 opacity-7">
                                                       <i class="fas fa-search fa-w-20"></i>
@@ -55,15 +59,47 @@ if ($_SESSION['user_type'] === 'admin') {
 
                                         </button>
                                     </div>
-                                <div class="col">
-                                    <button type="submit" title="Print Invoices"
-                                            class="btn-shadow btn btn-dark">
-                                            <span class="btn-icon-wrapper pr-2 opacity-7">
-                                                      <i class="fas fa-print fa-w-20"></i>
-                                        </span>
+                                    <div class="col-md ">
+                                        <div class="d-inline-block dropdown">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                    class="btn-shadow  btn btn-dark">
+                                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                        <i class="fas fa-print fa-w-20"></i>
+                                                    </span>
+                                            </button>
 
-                                    </button>
-                                </div>
+                                            <div tabindex="-1" role="menu" aria-hidden="true"
+                                                 class="dropdown-menu dropdown-menu-right">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a href="javascript:void(0);"
+                                                           class="nav-link">
+                                                        <span>
+                                                        <button class="btn btn-sm "
+                                                                formaction="/mysql/tax-invoice/print-invoiceAll.php"
+                                                                title="Print Invoices"> Invoices</button>
+                                                        </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="nav-item">
+                                                        <a href="javascript:void(0);"
+                                                           class="nav-link">
+                                                        <span>
+                                                        <button class="btn btn-sm "
+                                                                formaction="/mysql/tax-invoice/print-taxReport.php"
+                                                                title="Print Report "> Fee Collection Report</button>
+                                                         </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                 </form>
                             </div>
                         </div>

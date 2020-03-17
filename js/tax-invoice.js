@@ -22,6 +22,9 @@ function loadInvoices(div) {
 
 function initDataTable() {
     // DataTable
-    $('#invoiceTable').DataTable({});
+    $('#invoiceTable').DataTable({
+
+
+    });
 
 }

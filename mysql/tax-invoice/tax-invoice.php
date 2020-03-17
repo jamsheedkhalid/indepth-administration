@@ -52,6 +52,7 @@ from finance_transaction_ledgers
             $transaction_data = $row['transaction_data'];
             $data = yaml_parse($transaction_data);
             $admission_no = $data['table'][':payee']['table'][':admission_no'];
+            $payment_mode =  $data['table'][':transactions'][''][0]['table'][':payment_mode'];
 
             $sql_familyId = "select familyid from students where admission_no = '$admission_no'";
             $result_fID = $conn->query($sql_familyId);
@@ -82,7 +83,7 @@ from finance_transaction_ledgers
             echo '<td width="15" >' . $family_id . '</td>';
             echo '<td style=" white-space: nowrap">' . $data['table'][':payee']['table'][':guardian_name'] . '</td>';
             echo '<td  align="right" width="30">' . number_format($row['transaction_amount'], 2) . '</td>';
-            echo '<td>' . $row['transaction_mode'] . '</td>';
+            echo '<td>' . $payment_mode . '</td>';
             echo '<td align="center" style=" white-space: nowrap">' . date('d-M-Y',strtotime($row['transaction_date'])) . '</td>';
             echo '<td width="20" >' . $row['reference_no'] . '</td>';
             echo '<td  >' . $row['payment_note'] . '</td>';

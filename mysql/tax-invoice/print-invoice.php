@@ -196,6 +196,7 @@ EOD;
             $tr_id =  $data['table'][':transactions'][''][$i]['table'][':ft_id'];
             $fee_collection_name =  $data['table'][':transactions'][''][$i]['table'][':fee_collection_name'];
             $cname =  $data['table'][':transactions'][''][$i]['table'][':cname'];
+            $payment_mode =  $data['table'][':transactions'][''][$i]['table'][':payment_mode'];
             $transaction_amount =  $data['table'][':transactions'][''][$i]['table'][':transaction_amount'];
             $balance =  number_format(round((double)$data['table'][':transactions'][''][$i]['table'][':balance'],2),2);
 
@@ -241,7 +242,7 @@ EOD;
         <td align="right"> $row[transaction_amount]</td>
         </tr>
         <tr >
-        <td height="20"  colspan="9"> Payment Mode : $row[transaction_mode] <br> Reference: $row[reference_no]
+        <td height="20"  colspan="9"> Payment Mode : $payment_mode <br> Reference: $row[reference_no]
           <br> Cashier : $cname </td>
     </tr>
 </tbody></table>
