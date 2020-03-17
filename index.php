@@ -167,8 +167,8 @@ else {
                 unset($_SESSION['noaccess']);
             }
             ?>
-            <div id='invalidCredentials' class=" " style="display: none; ">
-                <strong>Invalid!</strong> <small>Username/Password is invalid.</small>
+            <div id='invalidCredentials' class=" " style="display: none; color: darkred ">
+                <strong>Invalid!</strong> <small>Username/Password is incorrect.</small>
             </div>
 
 
