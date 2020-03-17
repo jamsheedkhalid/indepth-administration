@@ -83,7 +83,7 @@ from finance_transaction_ledgers
             echo '<td style=" white-space: nowrap">' . $data['table'][':payee']['table'][':guardian_name'] . '</td>';
             echo '<td  align="right" width="30">' . number_format($row['transaction_amount'], 2) . '</td>';
             echo '<td>' . $row['transaction_mode'] . '</td>';
-            echo '<td align="center" style=" white-space: nowrap">' . $row['transaction_date'] . '</td>';
+            echo '<td align="center" style=" white-space: nowrap">' . date('d-M-Y',strtotime($row['transaction_date'])) . '</td>';
             echo '<td width="20" >' . $row['reference_no'] . '</td>';
             echo '<td  >' . $row['payment_note'] . '</td>';
             echo '<td>

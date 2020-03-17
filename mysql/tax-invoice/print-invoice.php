@@ -140,7 +140,7 @@ if($result->num_rows > 0){
             $contact_no = mysqli_fetch_row($result);
         }
         else {
-            $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id'";
+            $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id[0]'";
             $result = $conn->query($p_id);
             if ($result->num_rows > 0) {
                 $contact_no = mysqli_fetch_row($result);

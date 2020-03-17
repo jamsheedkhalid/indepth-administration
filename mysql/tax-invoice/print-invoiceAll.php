@@ -63,147 +63,146 @@ $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 10; // float, in point
 
 $html = '';
-
-
 $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
 $sql_All = "select id
-from finance_transaction_ledgers
-    where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
-  and transaction_data is not null
-    order by finance_transaction_ledgers.id desc;
+                from finance_transaction_ledgers
+                where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
+                and transaction_data is not null
+                order by finance_transaction_ledgers.id desc;
  ";
+
+echo $_REQUEST['start_date'] . ' AND ' . $_REQUEST['end_date'];
 
 $result_all = $conn->query($sql_All);
-if ($result_all->num_rows > 0 && $result_all->num_rows < 500 ) {
-
-
+if ($result_all->num_rows > 0 && $result_all->num_rows < 3000) {
     while ($row_All = mysqli_fetch_array($result_all)) {
-
         $pdf->AddPage();
-
         $ledger_id = $row_All['id'];
-
-        $sql = "select 
-                round(finance_transaction_ledgers.amount,2)           transaction_amount,
-                finance_transaction_ledgers.transaction_data           transaction_data,
-                finance_transaction_ledgers.transaction_date transaction_date,
-                finance_transaction_ledgers.payment_mode     transaction_mode,
-                finance_transaction_ledgers.reference_no     reference_no,
-                finance_transaction_ledgers.payment_note     payment_note,
-                finance_transaction_ledgers.id               ledger_id
-from finance_transaction_ledgers
- where id = '$ledger_id'
- ";
+        $sql = "
+            select 
+                        round(finance_transaction_ledgers.amount,2)           transaction_amount,
+                        finance_transaction_ledgers.transaction_data           transaction_data,
+                        finance_transaction_ledgers.transaction_date transaction_date,
+                        finance_transaction_ledgers.payment_mode     transaction_mode,
+                        finance_transaction_ledgers.reference_no     reference_no,
+                        finance_transaction_ledgers.payment_note     payment_note,
+                        finance_transaction_ledgers.id               ledger_id
+            from finance_transaction_ledgers
+            where id = '$ledger_id'
+              ";
         $result = $conn->query($sql);
-        if($result->num_rows > 0){
-            while($row = mysqli_fetch_array($result)){
-
+        if ($result->num_rows > 0) {
+            while ($row = mysqli_fetch_array($result)) {
                 $transaction_data = $row['transaction_data'];
                 $data = yaml_parse($transaction_data);
-//        var_dump($data);
-                $admission_no =  $data['table'][':payee']['table'][':admission_no'];
-//echo $admission_no . ' - '. $ledger_id .'<br> ';
-//                break;
-                $parent_name =  $data['table'][':payee']['table'][':guardian_name'];
-                $grade =   $data['table'][':payee']['table'][':course_full_name'];
-                $section_id =  $data['table'][':batch_id'];
-                $transaction_date =  $data['table'][':transaction_date'];
-                $date = date('d-M-Y',strtotime($transaction_date));
+                $admission_no = $data['table'][':payee']['table'][':admission_no'];
+                $parent_name = $data['table'][':payee']['table'][':guardian_name'];
+                $grade = $data['table'][':payee']['table'][':course_full_name'];
+                $section_id = $data['table'][':batch_id'];
+                $transaction_date = $data['table'][':transaction_date'];
+                $date = date('d-M-Y', strtotime($transaction_date));
 
+//                echo '<br>' . $admission_no . '-' . $parent_name . '-' . $grade . '-' . $section_id . '-' . $transaction_date;
 
                 $student = " select last_name from students where admission_no = '$admission_no'";
-                $result = $conn->query($student);
-                if ($result->num_rows > 0) {
-                    $student = mysqli_fetch_row($result);
-                }
-                else {
+                $result_student = $conn->query($student);
+                if ($result_student->num_rows > 0) {
+                    $student = mysqli_fetch_row($result_student);
+                } else {
                     $student = " select last_name from archived_students where admission_no = '$admission_no'";
-                    $result = $conn->query($student);
-                    if ($result->num_rows > 0) {
-                        $student = mysqli_fetch_row($result);
+                    $result_student = $conn->query($student);
+                    if ($result_student->num_rows > 0) {
+                        $student = mysqli_fetch_row($result_student);
                     } else {
                         $student = '-';
                     }
                 }
 
+//                echo '-' . $student[0];
+
                 $section = " select name from batches where id = '$section_id'";
-                $result = $conn->query($section);
-                if ($result->num_rows > 0) {
-                    $section = mysqli_fetch_row($result)[0];
+                $result_section = $conn->query($section);
+                if ($result_section->num_rows > 0) {
+                    $section = mysqli_fetch_row($result_section)[0];
                 }
 
-//        fetch family id
+//                echo '-' . $section[0];
+
                 $p_id = " select familyid from students where admission_no = '$admission_no'";
-                $result = $conn->query($p_id);
-                if ($result->num_rows > 0) {
-                    $family_id = mysqli_fetch_row($result);
-                }
-                else {
+                $result_fID = $conn->query($p_id);
+                if ($result_fID->num_rows > 0) {
+                    $family_id = mysqli_fetch_row($result_fID);
+                } else {
                     $p_id = " select familyid from archived_students where admission_no = '$admission_no'";
-                    $result = $conn->query($p_id);
-                    if ($result->num_rows > 0) {
-                        $family_id = mysqli_fetch_row($result);
+                    $result_fID = $conn->query($p_id);
+                    if ($result_fID->num_rows > 0) {
+                        $family_id = mysqli_fetch_row($result_fID);
                     } else {
                         $family_id = '-';
                     }
                 }
 
+//                echo '-' . $family_id[0];
+
                 //        fetch parent contact number
                 $p_id = " select mobile_phone from guardians where familyid = '$family_id[0]'";
-                $result = $conn->query($p_id);
-                if ($result->num_rows > 0) {
-                    $contact_no = mysqli_fetch_row($result);
-                }
-                else {
-                    $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id'";
-                    $result = $conn->query($p_id);
-                    if ($result->num_rows > 0) {
-                        $contact_no = mysqli_fetch_row($result);
+                $result_mob = $conn->query($p_id);
+                if ($result_mob->num_rows > 0) {
+                    $contact_no = mysqli_fetch_row($result_mob);
+                } else {
+                    $p_id = " select mobile_phone from archived_guardians where familyid = '$family_id[0]'";
+                    $result_mob = $conn->query($p_id);
+                    if ($result_mob->num_rows > 0) {
+                        $contact_no = mysqli_fetch_row($result_mob);
                     } else {
                         $contact_no = '-';
                     }
                 }
 
+//                echo '-' . $contact_no[0];
 
-                $html .= <<<EOD
-        <table style="padding: 10px;">
-<tr>
-<td>Bill To:</td>
-<td></td>
-</tr>
-<tr>
-<td width="500"><strong>Name</strong>      : $parent_name
-        <br><strong>Parent ID</strong> : $family_id[0]
-        <br><strong>Tel</strong> : $contact_no[0] </td>
-<td><strong>Invoice No</strong>: $ledger_id
-        <br><strong>Invoice Date</strong> : $date </td>
-</tr>
-</table>
-<br>
-<h2 align="center"><u>FEES INVOICE</u></h2>
-<table style="padding: 10px;">
-<tr>
-<td width="510"><strong>Student :</strong> $admission_no - $student[0]</td>
-<td><strong>Section:</strong>  $grade -  $section </td>
-</tr>
-</table>
-<br><br>
-<table style="padding: 10px; width: 100%"  cellspacing="0" cellpadding="1" border="1" class="table table-bordered table-dark">
-<thead >
-<tr  align="center" valign="center"  style="font-weight: bold; background-color: lightgrey" >
-<th height="30"  width="50" >Inv #</th>
-<th width="50">Receipt #  </th>
-<th width="150">Fee</th>
-<th>Amount</th>
-<th width="60">VAT(%)</th>
-<th width="65">VAT Amount</th>
-<th>Total</th>
-<th>Paid</th>
-<th>Due Amount</th>
-</tr>
-</thead>
-<tbody> 
+                $html = <<<EOD
+                 <table style="padding: 10px;">
+                        <tr>
+                            <td>Bill To:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td width="500"><strong>Name</strong>      : $parent_name
+                            <br><strong>Parent ID</strong> : $family_id[0]
+                            <br><strong>Tel</strong> : $contact_no[0] </td>
+                            <td><strong>Invoice No</strong>: $ledger_id
+                            <br><strong>Invoice Date</strong> : $date </td>
+                        </tr>
+                </table>
 EOD;
+                $html .= <<<EOD
+                    <br>
+                    <h2 align="center"><u>FEES INVOICE</u></h2>
+                    <table style="padding: 10px;">
+                        <tr>
+                            <td width="510"><strong>Student :</strong> $admission_no - $student[0]</td>
+                            <td><strong>Section:</strong>  $grade -  $section </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <table style=" width: 100%"  cellspacing="0" cellpadding="1" border="1" class="table table-bordered table-dark">
+                         <thead >
+                            <tr  align="center" valign="center"  style="font-weight: bold; background-color: lightgrey" >
+                                <th height="30"  width="50" >Inv #</th>
+                                <th width="50">Receipt #  </th>
+                                <th width="150">Fee</th>
+                                <th>Amount</th>
+                                <th width="60">VAT(%)</th>
+                                <th width="60">VAT Amount</th>
+                                <th>Total</th>
+                                <th>Paid</th>
+                                <th>Due Amount</th>
+                             </tr>
+                        </thead>
+                    <tbody>
+EOD;
+
                 $transactions = count($data['table'][':transactions']['']);
                 for ($i=0; $i<$transactions; $i++){
 
@@ -237,7 +236,7 @@ EOD;
     <td width="150"> $fee_particular_name</td>
     <td align="right"> $amount</td>
     <td width="60"></td>
-    <td width="65"></td>
+    <td width="60"></td>
     <td align="right"> $amount</td>
     <td align="right"> $transaction_amount</td>
     <td align="right"> $balance</td>
@@ -300,25 +299,20 @@ EOD;
 </table>
 EOD;
 
+
+
+
             }
         }
-
-        $pdf->writeHTML($html, true, false, false, false, '');
-
+        $pdf->writeHTML($html, true, false, true, false, '');
     }
-
-
-
-ob_end_clean();
-$pdf->Output('Invoice'.$_REQUEST['start_date'].'-'.$_REQUEST['end_date'].'.pdf', 'I');
-$pdf->Close();
-
-}
-else if (   ($result_all->num_rows > 500)   ) {
-    echo "<div class='alert alert-danger fade show' role='alert'> <strong style='color:red'>Invoices(" . $result_all->num_rows . ') exceeded limit 500 for ' . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
-}
-else if ( $result_all->num_rows <= 0 ) {
- echo "<div class='alert alert-danger fade show' role='alert'> <strong style='color:red'>No Invoices for " . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
+    ob_end_clean();
+    $pdf->Output('Invoice-' . $ledger_id . '.pdf', 'I');
+    $pdf->Close();
+} else if (($result_all->num_rows > 3000)) {
+    echo "<div class='alert alert-danger fade show' role='alert'> <strong style='color:red'>Invoices(" . $result_all->num_rows . ') exceeded limit 3000 for ' . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
+} else if ($result_all->num_rows <= 0) {
+    echo "<div class='alert alert-danger fade show' role='alert'> <strong style='color:red'>No Invoices for " . date('d-M-Y', strtotime($_REQUEST['start_date'])) . ' to ' . date('d-M-Y', strtotime($_REQUEST['end_date'])) . '!</strong> Please try with shorter dates.</div>';
 }
 
 
