@@ -200,7 +200,7 @@ EOD;
             $transaction_amount =  $data['table'][':transactions'][''][$i]['table'][':transaction_amount'];
             $balance =  number_format(round((double)$data['table'][':transactions'][''][$i]['table'][':balance'],2),2);
 
-            [$feeWhole, $feeDecimal] = explode('.', $row['transaction_amount']);
+            list($feeWhole, $feeDecimal) = explode('.', $row['transaction_amount']);
             $feeWhole = ucwords(convertNum($feeWhole)) . ' Dirhams';
             $feeDecimal = ucwords(convertNum($feeDecimal)) . ' Fils';
 
