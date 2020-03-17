@@ -204,6 +204,7 @@ EOD;
 EOD;
 
                 $transactions = count($data['table'][':transactions']['']);
+                $total_vat = 0;
                 for ($i=0; $i<$transactions; $i++){
 
                     $amount =  $data['table'][':transactions'][''][$i]['table'][':actual_amount'];
@@ -230,30 +231,50 @@ EOD;
                     $fee_particular_name =  $receipt_data['table'][':fee_particulars'][0]['table'][':name'];
                     $invoice_no =  $receipt_data['table'][':invoice_no'];
                     $receipt_no =  $receipt_data['table'][':receipt_no'];
+                    $vat = $particular_amt = $vat_amt = 0;
+
+                    if (stripos($fee_particular_name, 'uniform') !== false) {
+                        $vat = 5;
+                        $particular_amt = $amount - ($amount * 5 / 100 );
+                        $vat_amt = ($particular_amt * 5 / 100 );
+
+                        $total_vat += $vat_amt;
+                    }
+                    else if (stripos($fee_particular_name, 'bus') !== false || stripos($fee_particular_name, 'transportation') !== false) {
+                        $vat = 'EXE';
+                        $vat_amt = '-';
+                        $particular_amt = $amount;
+                    }
+
+                    else {
+                        $vat = $vat_amt = 0;
+                        $particular_amt = $amount ;
+                    }
+
                     $html .=<<<EOD
 <tr>
-    <td width="50" height="20" >$invoice_no</td>
-    <td width="50">$receipt_no</td>
-    <td width="150"> $fee_particular_name</td>
-    <td align="right"> $amount</td>
-    <td width="60"></td>
-    <td width="60"></td>
-    <td align="right"> $amount</td>
-    <td align="right"> $transaction_amount</td>
-    <td align="right"> $balance</td>
+    <td width="50" height="20" > $invoice_no </td>
+    <td width="50"> $receipt_no </td>
+    <td width="150"> $fee_particular_name </td>
+    <td align="right"> $particular_amt </td>
+    <td width="60" align="right"> $vat </td>
+    <td width="60" align="right"> $vat_amt </td>
+    <td align="right"> $amount </td>
+    <td align="right"> $transaction_amount </td>
+    <td align="right"> $balance </td>
     </tr>
 EOD;
                 }
                 $html .=<<<EOD
         <tr>
         <td colspan="7" height="30"></td>
-        <td align="left"> Total VAT</td>
-        <td align="right"> </td>
+        <td align="left"> Total VAT </td>
+        <td align="right"> $total_vat </td>
         </tr>   
         <tr style="background-color: lightsalmon; font-weight: bold">
         <td colspan="7" height="30"> $feeWhole And $feeDecimal </td>
-        <td align="left"> Total Paid</td>
-        <td align="right"> $row[transaction_amount]</td>
+        <td align="left"> Total Paid </td>
+        <td align="right"> $row[transaction_amount] </td>
         </tr>
         <tr >
         <td height="20"  colspan="9"> Payment Mode : $payment_mode <br> Reference: $row[reference_no]
