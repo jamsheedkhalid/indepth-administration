@@ -12,6 +12,10 @@ if (isset($_SESSION['login'])) {
     }
     else if($_SESSION['user_type'] === 'teacher') {
         header('Location: modules/academics/planner/student_planner.php');
+    } else if($_SESSION['user_type'] === 'hr') {
+        header('Location:/modules/hr/certificate/employee-certificate.php');
+    }else if($_SESSION['user_type'] === 'finance') {
+        header('Location: /modules/finance/invoices/tax-invoice.php');
     }
 }
 else {
