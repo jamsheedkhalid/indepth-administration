@@ -2,7 +2,7 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
 checkLoggedIn();
-if ($_SESSION['user_type'] === 'admin') {
+if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance') {
     ?>
 
     <!doctype html>

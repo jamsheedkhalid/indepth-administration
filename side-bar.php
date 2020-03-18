@@ -135,7 +135,8 @@
 
 
 
-                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){?>
+                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){
+                    ?>
                 <li  class="app-sidebar__heading">FINANCE</li>
                 <li hidden  >
                     <a  hidden href="https://finance.alsanawabar.school/index.php">
@@ -167,7 +168,7 @@
                         </a>
                     </li>
                 <?php } ?>
-                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){?>
+                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){ echo $_SESSION['user_type']; ?>
                 <li  id="" class="app-sidebar__heading" >HR</li>
                 <li  id="liHR">
                     <a href="#">
