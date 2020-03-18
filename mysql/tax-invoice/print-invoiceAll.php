@@ -62,16 +62,20 @@ $fontFamily = 'Times'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'Z
 $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 10; // float, in point
 
+$start_date = $_REQUEST['start_date'];
+$end_date = date('Y-m-d', strtotime($_REQUEST['end_date']));
+
+
 $html = '';
 $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
 $sql_All = "select id
                 from finance_transaction_ledgers
-                where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
+                where (finance_transaction_ledgers.transaction_date BETWEEN '$start_date' AND '$end_date')
                 and transaction_data is not null
-                order by finance_transaction_ledgers.id desc;
+                order by transaction_date ;
  ";
 
-echo $_REQUEST['start_date'] . ' AND ' . $_REQUEST['end_date'];
+//echo $_REQUEST['start_date'] . ' AND ' . $_REQUEST['end_date'];
 
 $result_all = $conn->query($sql_All);
 if ($result_all->num_rows > 0 && $result_all->num_rows < 3000) {

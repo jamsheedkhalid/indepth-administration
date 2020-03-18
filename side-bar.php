@@ -135,20 +135,16 @@
 
 
 
-                <?php if ( $_SESSION['user_type'] === 'admin'){?>
+                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){
+                    ?>
                 <li  class="app-sidebar__heading">FINANCE</li>
-                <li  >
-                    <a href="https://finance.alsanawabar.school/index.php">
+                <li hidden  >
+                    <a  hidden href="https://finance.alsanawabar.school/index.php">
                         <i class="metismenu-icon pe-7s-cash">
                         </i>ACCOUNTS
                     </a>
                 </li>
-                <li >
-                    <a href="https://wps.alsanawbar.school/index.php">
-                        <i class="metismenu-icon pe-7s-credit">
-                        </i>WPS
-                    </a>
-                </li>
+
                     <li >
                     <a  href="#" id="liTax">
                         <i class="metismenu-icon pe-7s-calculator">
@@ -165,8 +161,14 @@
                             </li>
                         </ul>
                 </li>
+                    <li >
+                        <a  target="_blank" href="https://wps.alsanawbar.school/index.php">
+                            <i class="metismenu-icon pe-7s-credit">
+                            </i>WPS
+                        </a>
+                    </li>
                 <?php } ?>
-                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin'){?>
+                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){ echo $_SESSION['user_type']; ?>
                 <li  id="" class="app-sidebar__heading" >HR</li>
                 <li  id="liHR">
                     <a href="#">

@@ -48,7 +48,7 @@ class TAX_PDF2 extends TCPDF
 }
 
 $start_date = $_REQUEST['start_date'];
-$end_date = $_REQUEST['end_date'];
+$end_date = date('Y-m-d', strtotime($_REQUEST['end_date'] . ' +1 day'));
 
 $pdf = new TAX_PDF2('P');
 $pdf->SetTitle('Tax Report');
@@ -79,6 +79,7 @@ $pdf->Cell(0,0,'Report: '.date('D, d-M-Y',strtotime($start_date)) . ' To ' . dat
     <th style="white-space: nowrap"> BANK</th>
     <th> OTHERS</th>
     <th> TOTAL</th>
+    <th> TAX</th>
     </tr>
     </thead>
     <tbody>
@@ -89,17 +90,35 @@ $period = new DatePeriod(
     new DateInterval('P1D'),
     new DateTime($end_date)
 );
-$total_cash = $total_cheque = $total_visa = $total_bank = $total_others = $total_total = 0;
+
+
+
+$total_cash = $total_cheque = $total_visa = $total_bank = $total_others = $total_total = $total_vat = 0;
 foreach ($period as $key => $value) {
     $date = $value->format('Y-m-d')  ;
+    $dateFormatted = date('d-m-Y', strtotime($date));
+
     $sql = " SELECT id, amount, transaction_data, transaction_data  from finance_transaction_ledgers where transaction_date = '$date' and transaction_data is not null and status = 'ACTIVE'";
    $result = $conn->query($sql);
    if($result->num_rows > 0){
-       $cash = $cheque = $visa = $bank = $others = $total = 0;
+       $cash = $cheque = $visa = $bank = $others = $total = 0; $t_vat= 0;
        while($row = mysqli_fetch_array($result)){
            $transaction_data = $row['transaction_data'];
            $data = yaml_parse($transaction_data);
            $payment_mode =  $data['table'][':transactions'][''][0]['table'][':payment_mode'];
+
+           $transactions = count($data['table'][':transactions']['']);
+
+           for ($i=0; $i<$transactions; $i++){
+               $fee_collection_name =  $data['table'][':transactions'][''][$i]['table'][':fee_collection_name'];
+               if (stripos($fee_collection_name, 'uniform') !== false){
+                   $transaction_amount =  $data['table'][':transactions'][''][$i]['table'][':transaction_amount'];
+                   $amt =(double) $transaction_amount - ( $transaction_amount * 5 / 100);
+                   $vat = (double)($amt * 5) / 100;
+                   $t_vat += (double)$vat;
+               }
+           }
+
 
            if ($payment_mode == 'Cash'){
                     $cash += (double)$row['amount'];
@@ -123,10 +142,10 @@ foreach ($period as $key => $value) {
            $total_total += (double)$row['amount'];
 
        }
-   }
+       $total_vat += (double)$t_vat;
 
-   $dateFormatted = date('d-m-Y', strtotime($date));
-    $table .=<<<EOD
+       $dateFormatted = date('d-m-Y', strtotime($date));
+       $table .=<<<EOD
         <tr  >
             <td > $dateFormatted </td>
             <td align="right"> $cash </td>
@@ -135,9 +154,27 @@ foreach ($period as $key => $value) {
             <td align="right"> $bank </td>
             <td align="right"> $others </td>
             <td align="right"> $total </td>
+            <td align="right"> $t_vat </td>
         </tr>
 
 EOD;
+   }
+   else {
+       $table .=<<<EOD
+        <tr  >
+            <td > $dateFormatted </td>
+            <td align="right"> - </td>
+            <td align="right"> - </td>
+            <td align="right"> - </td>
+            <td align="right"> - </td>
+            <td align="right"> - </td>
+            <td align="right"> - </td>
+            <td align="right"> - </td>
+        </tr>
+
+EOD;
+   }
+
 }
 $total_cash = number_format($total_cash,2);
 $total_cheque = number_format($total_cheque,2);
@@ -157,6 +194,7 @@ $table .=<<<EOD
     <td align="right"> $total_bank </td>
     <td align="right"> $total_others </td>
     <td align="right"> $total_total </td>
+    <td align="right"> $total_vat </td>
 </tr>
 </tfoot>
 </table>

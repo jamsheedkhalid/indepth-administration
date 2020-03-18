@@ -8,8 +8,11 @@ $total_amount = 0;
 //phpinfo();
 
 
+
 if (isset($_REQUEST['start_date'], $_REQUEST['end_date'])) {
 
+    $start_date = $_REQUEST['start_date'];
+    $end_date = date('Y-m-d', strtotime($_REQUEST['end_date']));
 
     $sql = "select
                 finance_transaction_ledgers.amount           transaction_amount,
@@ -20,7 +23,7 @@ if (isset($_REQUEST['start_date'], $_REQUEST['end_date'])) {
                 finance_transaction_ledgers.payment_note     payment_note,
                 finance_transaction_ledgers.id               ledger_id
 from finance_transaction_ledgers
-    where (finance_transaction_ledgers.transaction_date BETWEEN '$_REQUEST[start_date]' AND '$_REQUEST[end_date]')
+    where (finance_transaction_ledgers.transaction_date BETWEEN '$start_date' AND '$end_date')
  and transaction_data IS NOT NULL  and status = 'ACTIVE'
     order by finance_transaction_ledgers.id desc;
  ";

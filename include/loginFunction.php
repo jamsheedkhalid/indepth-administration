@@ -55,24 +55,44 @@ function login()
             ON
             A.user_id = B.user_id
             WHERE
-            A.privilege_id = 35 AND A.user_id='$user' ";
+            A.privilege_id = 26 AND A.user_id='$user' ";
 
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         $_SESSION['login'] = 1;
-                        $_SESSION['user_type'] = 'hr';
-                        header('Location:  /modules/hr/certificate/employee-certificate.php');
+                        $_SESSION['user_type'] = 'finance';
+                        header('Location:  /modules/finance/invoices/tax-invoice.php');
                     } else {
-                        $_SESSION['noaccess'] = 1;
-                        header('Location: /index.php');
-                    }
+                        $sql = " SELECT
+            *
+            FROM
+            privileges_users AS A
+            INNER JOIN privileges_users AS B
+            ON
+            A.user_id = B.user_id
+            WHERE
+            A.privilege_id = 35 AND A.user_id='$user' ";
+
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            $_SESSION['login'] = 1;
+                            $_SESSION['user_type'] = 'hr';
+                            header('Location:  /modules/hr/certificate/employee-certificate.php');
+
+                        } else {
+                            $_SESSION['noaccess'] = 1;
+                            header('Location: /index.php');
+                        }
+
+
                 }
-
             }
+
         }
-
-
     }
+
+
+}
 
 
 }
