@@ -168,7 +168,7 @@
                         </a>
                     </li>
                 <?php } ?>
-                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){ echo $_SESSION['user_type']; ?>
+                <?php  if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){?>
                 <li  id="" class="app-sidebar__heading" >HR</li>
                 <li  id="liHR">
                     <a href="#">
