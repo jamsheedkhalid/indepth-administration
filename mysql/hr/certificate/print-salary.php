@@ -16,9 +16,14 @@ if (isset($_POST['salarySubmit'])) {
     $employee_salary = $_POST['salary_amount'];
     list($whole, $decimal) = explode('.', $employee_salary);
     $whole = convertNum($whole) . " dirhams";
-    $decimal = convertNum($decimal) . " fils";
 
+    if($decimal != 00){
+        $decimal = convertNum($decimal) . " fils";
+    }
+    else {
+        $decimal = "";
 
+    }
 
 
     if ($employee_ms === 'm') {
