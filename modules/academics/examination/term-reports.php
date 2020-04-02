@@ -113,7 +113,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
                     <div >
                         <form   target="_blank" method="post" class="row"
-                              action="/mysql/exam-center/term-reports/generate_pdf_student_wise.php">
+                         >
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -159,8 +159,13 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                                        id="hidden_term_studentWise" value=""/>
                                             </div>
 
-                                            <button class="mt-1 btn btn-success" name="studentSubmit" type="submit">
-                                                Generate Report
+                                            <button formaction="/mysql/exam-center/term-only-reports/generate_pdf_student_wise.php" class="mt-1 btn btn-success" name="studentSubmitTerm" type="submit">
+                                                Generate Term Report
+                                            </button>
+
+
+                                            <button formaction="/mysql/exam-center/term-reports/generate_pdf_student_wise.php" class="mt-1 btn btn-success" name="studentSubmit" type="submit">
+                                                Generate Complete Report
                                             </button>
                                         </div>
                                     </div>
@@ -196,7 +201,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                     <div>
                         <form  target="_blank" method="post" class="row"
-                              action="/mysql/exam-center/term-reports/generate_pdf.php">
+                              >
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -235,8 +240,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                             </div>
 
                                         </div>
-                                        <button type="submit" name="sectionSubmit" class="mt-1 btn btn-success ">
-                                            Generate Report
+                                        <button type="submit"  formaction="/mysql/exam-center/term-only-reports/generate_pdf.php" name="sectionSubmitTerm" class="mt-1 btn btn-success ">
+                                            Generate Term Report
+                                        </button>
+
+                                        <button type="submit"  formaction="/mysql/exam-center/term-reports/generate_pdf.php" name="sectionSubmit" class="mt-1 btn btn-success ">
+                                            Generate Complete Report
                                         </button>
 
                                     </div>
@@ -271,7 +280,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                 <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
                     <div>
                         <form  target="_blank"  method="post" class="row"
-                              action="/mysql/exam-center/term-reports/generate_pdf_grade_wise.php">
+                              >
                             <div class="col-md-6">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
@@ -300,8 +309,13 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                             </div>
 
                                         </div>
-                                        <button type="submit" name="submitGradeWise" class="mt-1 btn btn-success">
-                                            Generate Report
+                                        <button type="submit" formaction="/mysql/exam-center/term-only-reports/generate_pdf_grade_wise.php"
+                                                name="submitGradeWiseTerm" class="mt-1 btn btn-success">
+                                            Generate Term Report
+                                        </button>
+                                        <button type="submit" formaction="/mysql/exam-center/term-reports/generate_pdf_grade_wise.php"
+                                                name="submitGradeWise" class="mt-1 btn btn-success">
+                                            Generate Complete Report
                                         </button>
 
                                     </div>
