@@ -119,6 +119,20 @@ where (exam_groups.name = '$term' or exam_groups.name = '$term - Class Evaluatio
   and p.last_name = \"$row_section[name]\"
 group by subjects.id; ";
 
+            switch ($term) {
+                case 'Term 1':
+                    $term_name = '1st Term';
+                    break;
+                case 'Term 2':
+                    $term_name = '2nd Term';
+                    break;
+                case 'Term 3';
+                    $term_name = '3rd Term';
+                    break;
+                default:
+                    $term_name = 'Term Unknown';
+            }
+
 //        echo "-------------".$sql;
             $result = $conn->query($sql);
             $pdf->AddPage();
@@ -141,7 +155,7 @@ group by subjects.id; ";
             $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
 //            $pdf->Cell(20, 7, 'C.E. ', 1, 0, 'C');
 //            $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
-            $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
+            $pdf->Cell(30, 7, $term_name.' Result', 1, 0, 'C');
             $pdf->SetFont('times', '', 10);
             $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
             $max_ASS = $max_TE = $max_TR = 0;
@@ -183,9 +197,9 @@ group by subjects.id; ";
 //                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                     if (!is_null($row['TR']))
-                        $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                        $pdf->Cell(30, 7, $row['TR'], 1, 0, 'C');
                     ELSE
-                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        $pdf->Cell(30, 7, '-', 1, 0, 'C');
 
                 } else if ($grade === 'GR 9'
                     || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
@@ -232,9 +246,9 @@ group by subjects.id; ";
 //                            $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                         if (!is_null($row['TR']))
-                            $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                            $pdf->Cell(30, 7, $row['TR'], 1, 0, 'C');
                         ELSE
-                            $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                            $pdf->Cell(30, 7, '-', 1, 0, 'C');
                     }
 
                 }
@@ -270,27 +284,27 @@ group by subjects.id; ";
 //                $pdf->SetFont('times', 'B', 10);
 //                $pdf->Cell(9, 10, $ratio_TE, 'RTB', 0, 'C');
 
-                $pdf->Cell(9, 10, $total_TR, 'LTB', 0, 'C');
+                $pdf->Cell(14, 10, $total_TR, 'LTB', 0, 'C');
                 $pdf->SetFont('times', 'I', 35);
                 $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
                 $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10, $ratio_TR, 'RTB', 0, 'C');
+                $pdf->Cell(14, 10, $ratio_TR, 'RTB', 0, 'C');
             } else {
 //                $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
 //                $pdf->Cell(20, 10, $total_TE, 1, 0, 'C');
-                $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
+                $pdf->Cell(30, 10, $total_TR, 1, 0, 'C');
             }
             if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
                 $pdf->SetFont('times', '', 10);
                 $pdf->ln();
                 $pdf->SetX(40);
-                $pdf->Cell(30, 1, '', 'LTB');
+                $pdf->Cell(50, 1, '', 'LTB');
                 $pdf->Cell(20, 1, '', 'TB', 0, 'C');
                 $pdf->Cell(20, 1, '', 'BT', 0, 'C');
 //                $pdf->Cell(20, 1, '', 'BT', 0, 'C');
 //                $pdf->Cell(20, 1, '', 'BT', 0, 'C');
-                $pdf->Cell(20, 1, '', 'BTR', 0, 'C');
+                $pdf->Cell(30, 1, '', 'BTR', 0, 'C');
                 $pdf->ln();
                 $pdf->SetX(40);
                 $pdf->Cell(50, 7, $ME['subject'], 1);
@@ -298,22 +312,10 @@ group by subjects.id; ";
                 $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
 //                $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
 //                $pdf->Cell(20, 7, $ME['TE'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
+                $pdf->Cell(30, 7, $ME['TR'], 1, 0, 'C');
             }
 
-            switch ($term) {
-                case 'Term 1':
-                    $term_name = '1st Term';
-                    break;
-                case 'Term 2':
-                    $term_name = '2nd Term';
-                    break;
-                case 'Term 3';
-                    $term_name = '3rd Term';
-                    break;
-                default:
-                    $term_name = 'Term Unknown';
-            }
+
 
             $pdf->ln(15);
 //            $pdf->SetFont('times', '', 10);
