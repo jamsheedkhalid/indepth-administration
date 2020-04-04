@@ -155,7 +155,7 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
 //        $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
 //        $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
-        $pdf->Cell(30, 7, $term_name.' Result', 1, 0, 'C');
+        $pdf->Cell(30, 7, 'Term Result', 1, 0, 'C');
 
         $pdf->SetFont('times', '', 10);
 
