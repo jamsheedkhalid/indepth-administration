@@ -217,5 +217,5 @@ EOD;
 
 $pdf->writeHTML($table, true, false, true, false, '');
 ob_end_clean();
-$pdf->Output('Mark List', 'I');
+$pdf->Output('Mark List-' . $grade. '-' . $section. '-'.$subject, 'I');
 $pdf->Close();
