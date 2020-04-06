@@ -132,6 +132,7 @@
                         WEEKLY PLANNER
                     </a>
                 </li>
+                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher'){ ?>
 
                 <li id="liReportCenter">
                     <a href="#">
@@ -151,7 +152,7 @@
 
 
 
-                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){
+                <?php } if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){
                     ?>
                 <li  class="app-sidebar__heading">FINANCE</li>
                 <li hidden  >
