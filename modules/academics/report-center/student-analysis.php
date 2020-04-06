@@ -102,7 +102,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                         <label class="form-check-label"><input name="filter" type="radio" value="failed" class="form-check-input"   onclick="getAnalysis();"
                                                                                                 > Failed</label>
                                                     </div>
-                                                    <div class="position-relative col-sm ">
+                                                    <div class="position-relative col-sm-3 ">
                                                         <label class="form-check-label"><input name="filter" type="radio" value="passed" class="form-check-input"   onclick="getAnalysis();"
                                                                                                > Passed</label>
                                                     </div>
@@ -112,10 +112,22 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                     </div>
                                                     <div class="position-relative col-sm-3 ">
                                                         <label class="form-check-label"><input name="filter" type="radio"  id="custom_less" value="custom_less" class="form-check-input"  onclick="getAnalysis();">
-                                                            Less than <input style="padding-left: 10px" type="number" min="0" max="100" id="custom_filter_less" value="75" onkeyup="triggerCustomFilterLess();" name="custom_filter_less"></label>
+                                                            Less Than <input style="padding-left: 10px" type="number" min="0" max="100" id="custom_filter_less" value="75" onkeyup="triggerCustomFilterLess();" name="custom_filter_less"></label>
                                                     </div>
-                                                    <div class="position-relative col-sm-2">
+
+                                                </div>
+                                                <div class="row"  style="padding-left: 20px;">
+                                                    <div class="position-relative col-sm-3">
                                                         <label class="form-check-label"><input onchange="getAnalysis();" type="checkbox" id="show_ar_names" name="show_ar_names" class="form-check-input"> Use Arabic Names</label>
+                                                    </div>
+                                                    <div class="position-relative col-sm-3">
+                                                        <label class="form-check-label"><input onchange="getAnalysis();" type="checkbox" id="show_parent_name" name="show_parent_name" class="form-check-input">  Parent Name</label>
+                                                    </div>
+                                                    <div class="position-relative col-sm-3">
+                                                        <label class="form-check-label"><input onchange="getAnalysis();" type="checkbox" id="show_family_id" name="show_family_id" class="form-check-input">  Family ID</label>
+                                                    </div>
+                                                    <div class="position-relative col-sm-3">
+                                                        <label class="form-check-label"><input onchange="getAnalysis();" type="checkbox" id="show_contact" name="show_contact" class="form-check-input">  Contact Number</label>
                                                     </div>
 
                                                 </div>
@@ -124,7 +136,13 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
 
 <!--                                    result div -->
                                     <div class="row">
-                                        <div class="col" id="result_div" style='padding-top: 20px'>
+                                        <div class="col"  style='padding-top: 20px'>
+                                            <h5 class="card-title">MARK LIST</h5>
+                                            <div id="result_div">
+                                                <div class="alert alert-primary fade show" role="alert">Please use the drop-downs to view the <strong>Mark Lists</strong>!</div>
+
+                                            </div>
+
 
                                         </div>
                                     </div>
