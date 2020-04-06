@@ -7,6 +7,7 @@ $term = $_REQUEST['term'];
 $filter = $_REQUEST['filter'];
 $custom_filter = $_REQUEST['custom_filter'];
 $custom_filter_less = $_REQUEST['custom_filter_less'];
+$show_ar_name = $_REQUEST['show_ar_name'];
 
 
 //echo $grade. '-' .$section. '-' . $subject . '-' . $term. '-'. $filter;
@@ -24,20 +25,35 @@ switch ($filter) {
         break;
 
     case 'custom':
-        $filter_sql = '   and exam_scores.marks > ' . $custom_filter;
+        if ($custom_filter != '') {
+            $filter_sql = '   and exam_scores.marks > ' . $custom_filter;
+        } else {
+            $filter_sql = '   and exam_scores.marks >= 0 ';
+
+        }
         break;
     case 'custom_less':
-        $filter_sql = '   and exam_scores.marks < ' . $custom_filter_less;
+        if($custom_filter_less !=''){
+        $filter_sql = '   and exam_scores.marks < ' . $custom_filter_less;}
+        else{
+            $filter_sql = '   and exam_scores.marks >= 0';
+        }
         break;
 
     default:
         $filter_sql = '';
 }
 
+if ($show_ar_name == 'true') {
+    $show_ar = 'students.first_name';
+} else {
+    $show_ar = 'students.last_name';
+}
+
 
 $sql = "
 select exam_groups.name            exam_name,
-       students.last_name student_name,
+       $show_ar student_name,
        students.admission_no admission_no,
        courses.course_name grade,
        batches.name section,
@@ -67,7 +83,7 @@ order by student_name;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
-    <table class='table table-hover table-responsive-lg table-bordered  ' style='margin-top: 10px' >
+    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered  '  >
     <thead>
     <tr align='center' >
     <th>Adm. #</th>
@@ -94,8 +110,15 @@ if ($result->num_rows > 0) {
 
         echo '
         <tr>
-        <td>' . $row['admission_no'] . '</td>
-        <td><b>' . $row['student_name'] . '</b></td>
+        <td>' . $row['admission_no'] . '</td>';
+
+        if ($show_ar_name == 'true') {
+            echo   ' <td align="right"><b>' . $row['student_name'] . '</b></td>';
+        } else {
+            echo   ' <td align="left"><b>' . $row['student_name'] . '</b></td>';
+        }
+
+    echo '   
         <td>' . $row['grade'] . '-' . $row['section'] . '</td>
         <td>' . $row['subject'] . '</td>
         <td>' . $row['term'] . '</td>

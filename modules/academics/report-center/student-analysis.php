@@ -10,7 +10,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
     ?>
-    <body>
+    <body onload="initDataTable()">
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . '/app-header.php');
@@ -21,6 +21,8 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
             include($_SERVER['DOCUMENT_ROOT'] . '/side-bar.php');
             ?>
             <div class="app-main__inner">
+
+                <form target="_blank" method="post" action="/mysql/student-analysis/print-result.php">
                 <div class="app-page-title">
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
@@ -34,11 +36,23 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                 </div>
                             </div>
                         </div>
+                        <div class="page-title-actions">
+
+                            <div class="d-inline-block ">
+                                <button type="submit" title="Print Mark List"
+                                        class="btn-shadow btn btn-dark">
+                                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                <i class="fas fa-print "></i>
+                                            </span>
+                                    Print
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div>
-                    <form target="_blank" method="post" class="row"
-                          action="/mysql/exam-center/evaluation-reports/generate_pdf_student_wise.php">
+                    <div  class="row">
                         <div class="col">
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
@@ -80,15 +94,15 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                             <div class="col-sm">
                                             <h5 class="card-title">FILTERS</h5>
                                                 <div class="row"  style="padding-left: 20px;">
-                                                    <div class="position-relative col-sm-2 ">
+                                                    <div class="position-relative col-sm ">
                                                         <label class="form-check-label"><input name="filter" type="radio" value="all" class="form-check-input"   onclick="getAnalysis();"
                                                                                                checked> All</label>
                                                     </div>
-                                                    <div class="position-relative col-sm-2 ">
+                                                    <div class="position-relative col-sm ">
                                                         <label class="form-check-label"><input name="filter" type="radio" value="failed" class="form-check-input"   onclick="getAnalysis();"
                                                                                                 > Failed</label>
                                                     </div>
-                                                    <div class="position-relative col-sm-2 ">
+                                                    <div class="position-relative col-sm ">
                                                         <label class="form-check-label"><input name="filter" type="radio" value="passed" class="form-check-input"   onclick="getAnalysis();"
                                                                                                > Passed</label>
                                                     </div>
@@ -100,13 +114,17 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                         <label class="form-check-label"><input name="filter" type="radio"  id="custom_less" value="custom_less" class="form-check-input"  onclick="getAnalysis();">
                                                             Less than <input style="padding-left: 10px" type="number" min="0" max="100" id="custom_filter_less" value="75" onkeyup="triggerCustomFilterLess();" name="custom_filter_less"></label>
                                                     </div>
+                                                    <div class="position-relative col-sm-2">
+                                                        <label class="form-check-label"><input onchange="getAnalysis();" type="checkbox" id="show_ar_names" name="show_ar_names" class="form-check-input"> Use Arabic Names</label>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
 
 <!--                                    result div -->
                                     <div class="row">
-                                        <div class="col" id="result_div">
+                                        <div class="col" id="result_div" style='padding-top: 20px'>
 
                                         </div>
                                     </div>
@@ -118,8 +136,9 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
 
 
 
-                    </form>
+                    </div>
                 </div>
+                </form>
             </div>
 
 
@@ -140,6 +159,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
     <script> document.getElementById('liReportCenter').classList.add("mm-active")</script>
     <script> document.getElementById('liReportCenter_StudentAnalysis').classList.add("mm-active")</script>
     <script type="text/javascript" src="/js/student_analysis.js"></script>
+    <script type="text/javascript" src="/js/dataTable.js"></script>
     <script> document.title = "Report Center - InDepth";</script>
 
 <?php } else {

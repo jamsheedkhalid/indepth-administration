@@ -92,7 +92,6 @@ function fillTerms(grade, section, term ){
     }
 
 }
-
 function getAnalysis(){
     let selected_grade = document.getElementById('gradeSelect').options[document.getElementById('gradeSelect').selectedIndex].text;
     let selected_section = document.getElementById('sectionSelect').options[document.getElementById('sectionSelect').selectedIndex].text;
@@ -100,6 +99,7 @@ function getAnalysis(){
     let selected_term = document.getElementById('term').options[document.getElementById('term').selectedIndex].text;
     let custom_filter = document.getElementById('custom_filter').value;
     let custom_filter_less = document.getElementById('custom_filter_less').value;
+    let show_ar_name = document.getElementById('show_ar_names').checked;
     let filter = document.getElementsByName('filter');
     let filter_value;
     for (let i = 0, length = filter.length; i < length; i++) {
@@ -114,25 +114,33 @@ function getAnalysis(){
     httpResult.onreadystatechange = function () {
         if (this.readyState === 4) {
             result_div.innerHTML = this.responseText;
+            initDataTable();
         }
     };
-    httpResult.open("GET", "/mysql/student-analysis/result.php?grade=" + selected_grade + "&section=" + selected_section + "&subject=" + selected_subject + "&term=" + selected_term + "&filter=" + filter_value  + "&custom_filter=" + custom_filter  + "&custom_filter_less=" + custom_filter_less , false);
+    httpResult.open("GET", "/mysql/student-analysis/result.php?grade=" + selected_grade + "&section=" + selected_section + "&subject=" + selected_subject + "&term=" + selected_term + "&filter=" + filter_value  + "&custom_filter=" + custom_filter  + "&custom_filter_less=" + custom_filter_less+ "&show_ar_name=" + show_ar_name , false);
     httpResult.send();
 
 
 
 
 }
-
 function triggerCustomFilter(){
     document.getElementById('custom').checked = true;
     getAnalysis();
 }
-
 function triggerCustomFilterLess(){
     document.getElementById('custom_less').checked = true;
     getAnalysis();
 }
+function initDataTable() {
+    // DataTable
+    $('#marks_table').DataTable({
+
+
+    });
+
+}
+
 
 
 
