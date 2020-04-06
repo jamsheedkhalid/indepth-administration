@@ -43,7 +43,7 @@
                         Home
                     </a>
                 </li>
-                <?php } if($_SESSION['user_type'] === 'parent'){?>
+                <?php } if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
 
 
                 <li>
@@ -132,10 +132,27 @@
                         WEEKLY PLANNER
                     </a>
                 </li>
+                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher'){ ?>
+
+                <li id="liReportCenter">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-graph3"></i>
+                        REPORT CENTER
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="liReportCenter_StudentAnalysis" href="/modules/academics/report-center/student-analysis.php">
+                                <i class="metismenu-icon"></i>
+                                Student Analysis
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
 
-                <?php if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){
+                <?php } if ( $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'finance'){
                     ?>
                 <li  class="app-sidebar__heading">FINANCE</li>
                 <li hidden  >
