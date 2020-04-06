@@ -8,8 +8,9 @@ $filter = $_REQUEST['filter'];
 $custom_filter = $_REQUEST['custom_filter'];
 $custom_filter_less = $_REQUEST['custom_filter_less'];
 $show_ar_name = $_REQUEST['show_ar_name'];
-
-
+$show_parent_name = $_REQUEST['show_parent_name'];
+$show_family_id = $_REQUEST['show_family_id'];
+$show_contact = $_REQUEST['show_contact'];
 //echo $grade. '-' .$section. '-' . $subject . '-' . $term. '-'. $filter;
 
 switch ($filter) {
@@ -33,9 +34,9 @@ switch ($filter) {
         }
         break;
     case 'custom_less':
-        if($custom_filter_less !=''){
-        $filter_sql = '   and exam_scores.marks < ' . $custom_filter_less;}
-        else{
+        if ($custom_filter_less != '') {
+            $filter_sql = '   and exam_scores.marks < ' . $custom_filter_less;
+        } else {
             $filter_sql = '   and exam_scores.marks >= 0';
         }
         break;
@@ -63,7 +64,11 @@ select exam_groups.name            exam_name,
        exam_scores.remarks  remark,
        exam_scores.is_failed is_failed,
        exams.minimum_marks minimum_marks,
-       exams.maximum_marks maximum_marks
+       exams.maximum_marks maximum_marks,
+       guardians.first_name parent_name,
+       students.familyid family_id,
+       guardians.mobile_phone parent_mobile
+       
 from exam_scores
          inner join exams on exam_scores.exam_id = exams.id
          inner join exam_groups on exams.exam_group_id = exam_groups.id
@@ -71,6 +76,7 @@ from exam_scores
          inner join students on exam_scores.student_id = students.id
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
+         inner join guardians on students.immediate_contact_id = guardians.id
 where 
  ( courses.course_name = ' $grade' or courses.course_name = '$grade') AND 
  (batches.name = '$section' or batches.name = ' $section') AND 
@@ -92,11 +98,22 @@ if ($result->num_rows > 0) {
     <th>Subject</th>
     <th>Term</th>
     <th>Mark</th>
-    <th>Remark</th>
-</tr>
+    <th>Remark</th>";
+
+    if ($show_parent_name == 'true') {
+        echo '<th>Parent</th>';
+    }
+    if ($show_family_id == 'true') {
+        echo '<th > Family ID </th >';
+    }
+    if ($show_contact == 'true') {
+        echo '<th > Contact #</th>';
+    }
+
+    echo '</tr>
 </thead>
 <tbody>
-    ";
+    ';
     while ($row = mysqli_fetch_array($result)) {
         if ($row['remark'] == '') {
             if ($row['mark'] < $row['minimum_marks']) {
@@ -113,18 +130,29 @@ if ($result->num_rows > 0) {
         <td>' . $row['admission_no'] . '</td>';
 
         if ($show_ar_name == 'true') {
-            echo   ' <td align="right"><b>' . $row['student_name'] . '</b></td>';
+            echo ' <td align="right"><b>' . $row['student_name'] . '</b></td>';
         } else {
-            echo   ' <td align="left"><b>' . $row['student_name'] . '</b></td>';
+            echo ' <td align="left"><b>' . $row['student_name'] . '</b></td>';
         }
 
-    echo '   
+        echo '   
         <td>' . $row['grade'] . '-' . $row['section'] . '</td>
         <td>' . $row['subject'] . '</td>
         <td>' . $row['term'] . '</td>
         <td align="right"><b>' . $row['mark'] . '</b></td>
-        <td>' . $remark . '</td>
-</tr>
+        <td>' . $remark . '</td>';
+
+        if ($show_parent_name == 'true') {
+            echo ' <td>' . $row['parent_name'] . '</td>';
+        }
+        if ($show_family_id == 'true') {
+            echo '<td>' . $row['family_id'] . '</td>';
+        }
+        if ($show_contact == 'true') {
+            echo '<td>' . $row['parent_mobile'] . '</td>';
+        }
+
+        echo '</tr>
         ';
 
     }
@@ -132,6 +160,9 @@ if ($result->num_rows > 0) {
     echo '
         </tbody>
     </table>';
+} else {
+    echo '  <div class="alert alert-primary fade show" role="alert"><strong>No Marks Found!</strong> Please use different selection to view marks</div>
+';
 }
 
 

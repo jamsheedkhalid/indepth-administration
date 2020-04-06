@@ -100,6 +100,13 @@ function getAnalysis(){
     let custom_filter = document.getElementById('custom_filter').value;
     let custom_filter_less = document.getElementById('custom_filter_less').value;
     let show_ar_name = document.getElementById('show_ar_names').checked;
+    let show_parent_name = document.getElementById('show_parent_name').checked;
+    let show_family_id = document.getElementById('show_family_id').checked;
+    let show_contact = document.getElementById('show_contact').checked;
+
+
+
+
     let filter = document.getElementsByName('filter');
     let filter_value;
     for (let i = 0, length = filter.length; i < length; i++) {
@@ -117,7 +124,8 @@ function getAnalysis(){
             initDataTable();
         }
     };
-    httpResult.open("GET", "/mysql/student-analysis/result.php?grade=" + selected_grade + "&section=" + selected_section + "&subject=" + selected_subject + "&term=" + selected_term + "&filter=" + filter_value  + "&custom_filter=" + custom_filter  + "&custom_filter_less=" + custom_filter_less+ "&show_ar_name=" + show_ar_name , false);
+    httpResult.open("GET", "/mysql/student-analysis/result.php?grade=" + selected_grade + "&section=" + selected_section + "&subject=" + selected_subject + "&term=" + selected_term + "&filter=" + filter_value  + "&custom_filter=" +
+        custom_filter  + "&custom_filter_less=" + custom_filter_less+ "&show_ar_name=" + show_ar_name + "&show_parent_name=" + show_parent_name  + "&show_family_id=" + show_family_id  + "&show_contact=" + show_contact  , false);
     httpResult.send();
 
 

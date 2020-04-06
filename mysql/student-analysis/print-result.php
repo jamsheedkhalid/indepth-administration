@@ -54,6 +54,26 @@ if (isset($_POST['show_ar_names'])) {
     $show_ar = 'students.last_name';
 }
 
+if (isset($_POST['show_parent_name'])) {
+    $parent_th = '<td> Parent </td>';
+} else {
+    $parent_th = ' ';
+}
+
+if (isset($_POST['show_family_id'])) {
+    $family_id_th = '<td> Family ID </td>';
+} else {
+    $family_id_th = ' ';
+}
+if (isset($_POST['show_contact'])) {
+    $contact_th = '<td> Contact # </td>';
+} else {
+    $contact_th = ' ';
+}
+
+
+
+
 
 class PDF_MARKS_LIST extends TCPDF
 {
@@ -62,7 +82,7 @@ class PDF_MARKS_LIST extends TCPDF
     public function Header()
     {
         // Logo
-        $this->Image('../../assets/images/sanawbar-logo.jpeg', 95, 5, 20, 20, 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $this->Image('../../assets/images/sanawbar-logo.jpeg', 135, 5, 20, 20, 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $this->SetFont('times', 'B', 13);
         // Move to the right
         $this->Ln(25);
@@ -74,7 +94,7 @@ class PDF_MARKS_LIST extends TCPDF
         $this->Ln(5);
         $this->Cell(0, 0, 'STUDENTS MARK LIST', 0, 2, 'C');
         $this->SetLineWidth(0.2);
-        $this->Line(10, 52, 203, 52);
+        $this->Line(10, 52, 285, 52);
         $this->SetFont('times', '', 10);
         $this->Ln(20);
     }
@@ -95,7 +115,7 @@ class PDF_MARKS_LIST extends TCPDF
 }
 
 
-$pdf = new PDF_MARKS_LIST('P');
+$pdf = new PDF_MARKS_LIST('L');
 $pdf->SetTitle('Weekly Planner');
 $pdf->SetMargins(10, 60, 10);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
@@ -106,7 +126,7 @@ $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf->setFontSubsetting(true);
 
-$pdf->AddPage('P', 'A4');
+$pdf->AddPage('L', 'A4');
 $fontFamily = 'dejavusans'; // 'Courier', 'Helvetica', 'Arial', 'Times', 'Symbol', 'ZapfDingbats'
 $fontStyle = ''; // 'B', 'I', 'U', 'BI', 'BU', 'IU', 'BIU'
 $fontSize = 8.5; // float, in point
@@ -125,7 +145,11 @@ select exam_groups.name            exam_name,
        exam_scores.remarks  remark,
        exam_scores.is_failed is_failed,
        exams.minimum_marks minimum_marks,
-       exams.maximum_marks maximum_marks
+       exams.maximum_marks maximum_marks,
+       guardians.first_name parent_name,
+       students.familyid family_id,
+       guardians.mobile_phone parent_mobile
+       
 from exam_scores
          inner join exams on exam_scores.exam_id = exams.id
          inner join exam_groups on exams.exam_group_id = exam_groups.id
@@ -133,6 +157,7 @@ from exam_scores
          inner join students on exam_scores.student_id = students.id
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
+         inner join guardians on students.immediate_contact_id = guardians.id
 where 
  ( courses.course_name = ' $grade' or courses.course_name = '$grade') AND 
  (batches.name = '$section' or batches.name = ' $section') AND 
@@ -141,7 +166,7 @@ where
     $filter_sql
 order by student_name;
      ";
-echo $sql;
+//echo $sql;
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -151,13 +176,16 @@ if ($result->num_rows > 0) {
     <table style="padding: 10px;" class='table table-striped table-responsive-lg table-bordered  ' cellspacing="0" cellpadding="1" border="1"  >
     <thead>
     <tr style="text-align: center; font-weight: bolder; background-color: silver ">
-    <th height="20" width="50" >Adm. #</th>
-    <th width="250">Student</th>
-    <th width="80">Grade</th>
+    <th height="20"  >Adm. #</th>
+    <th>Student</th>
+    <th >Grade</th>
     <th>Subject</th>
-    <th width="80">Term</th>
-    <th width="50">Mark</th>
-    <th width="80">Remark</th>
+    <th >Term</th>
+    <th >Mark</th>
+    <th>Remark</th>
+    $parent_th
+    $family_id_th
+    $contact_th
 </tr>
 </thead>
 <tbody>
@@ -183,26 +211,49 @@ EOD;
 EOD;
         }
 
+        if (isset($_POST['show_parent_name'])) {
+            $parent_td = '<th> '.$row['parent_name'].' </th>';
+} else {
+            $parent_td = ' ';
+        }
+
+        if (isset($_POST['show_family_id'])) {
+            $family_id_td = '<th> '.$row['family_id'].' </th>';
+        } else {
+            $family_id_td = ' ';
+        }
+
+        if (isset($_POST['show_contact'])) {
+            $contact_td = '<th> '.$row['parent_mobile'].' </th>';
+        } else {
+            $contact_td = ' ';
+        }
+
+
+
         $table .= <<<EOD
-        <td width="50">  $row[admission_no] </td>
+        <td >  $row[admission_no] </td>
 EOD;
 
         if (isset($_POST['show_ar_names'])) {
             $table .= <<<EOD
-            <td align="right" style="white-space: nowrap" width="250"> $row[student_name] </td>
+            <td align="right" style="white-space: nowrap" > $row[student_name] </td>
 EOD;
         } else {
             $table .= <<<EOD
-            <td align="left" style="white-space: nowrap" width="250"> $row[student_name] </td>
+            <td align="left" style="white-space: nowrap" > $row[student_name] </td>
 EOD;
         }
 
         $table .= <<<EOD
-        <td width="80"> $row[grade] - $row[section] </td>
+        <td > $row[grade] - $row[section] </td>
         <td> $row[subject] </td>
-        <td width="80"> $row[term] </td>
-        <td align="right" width="50"> $row[mark] </td>
-        <td width="80"> $remark </td>
+        <td > $row[term] </td>
+        <td align="right" > $row[mark] </td>
+        <td > $remark </td>
+        $parent_td
+        $family_id_td
+        $contact_td
 </tr>
 EOD;
 
