@@ -89,7 +89,8 @@ function fillSubjects(grade, section, subject ){
     selections = validateMultipleSelect('sectionSelect');
     if(selections == false){
         alert("Atleast select one section!");
-        $("#sectionSelect").multiselect('selectAll', false);
+        let first_grade = document.getElementById('sectionSelect').options[0].value;
+        $('#sectionSelect').multiselect('select', [first_grade]);
 
     }
 
@@ -204,8 +205,13 @@ function getAnalysis(){
      selections = false;
     selections = validateMultipleSelect('subject');
     if(selections == false){
-        alert("Atleast select one section!");
-        $("#subject").multiselect('selectAll', false);
+        alert("Atleast select one subject!");
+        // $("#subject").multiselect('selectAll', false);
+        let first_subject = document.getElementById('subject').options[0].value;
+        $('#subject').multiselect('select', [first_subject]);
+
+
+
 
     }
 
@@ -213,8 +219,9 @@ function getAnalysis(){
      selections = false;
     selections = validateMultipleSelect('term');
     if(selections == false){
-        alert("Atleast select one section!");
-        $("#term").multiselect('selectAll', false);
+        alert("Atleast select one term!");
+        let first_term = document.getElementById('term').options[0].value;
+        $('#term').multiselect('select', [first_term]);
 
     }
 
@@ -318,7 +325,10 @@ function validateMultipleSelect(select) {
     return hasSelection;
 }
 
+window.onload = function () {
+    initDataTable();
 
+};
 
 
 

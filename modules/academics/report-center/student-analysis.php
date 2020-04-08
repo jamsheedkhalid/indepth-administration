@@ -68,14 +68,14 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                             <div class="position-relative form-group col-sm-3"><label
                                                         for="sectionSelect">Section</label>
                                                 <select multiple="multiple" onchange="fillSubjects('gradeSelect','sectionSelect','subject');fillTerms('gradeSelect','sectionSelect','term');getAnalysis()"
-                                                        name="sectionSelect"
+                                                        name="sectionSelect[]"
                                                         id="sectionSelect" class="form-control-sm form-control ">
                                                     <option disabled selected>Select Section</option>
                                                 </select>
                                             </div>
                                             <div class="position-relative form-group col-sm-3">
                                                 <label for="subject">Subject</label>
-                                                <select multiple  name="subject" id="subject"
+                                                <select multiple  name="subject[]" id="subject"
                                                         onchange="getAnalysis();"
                                                         class="form-control-sm form-control">
                                                     <option disabled selected>Select Subject</option>
@@ -83,7 +83,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                             </div>
                                             <div class="position-relative form-group col-sm-3">
                                                 <label for="term">Term</label>
-                                                <select multiple name="term" id="term"
+                                                <select multiple name="term[]" id="term"
                                                         onchange="getAnalysis();"
                                                         class="form-control-sm form-control">
                                                     <option disabled selected>Select Term</option>

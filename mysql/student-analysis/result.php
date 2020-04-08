@@ -85,11 +85,11 @@ where
     $filter_sql
 order by student_name;
      ";
-echo $sql;
+//echo $sql;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
-    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered  '  >
+    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered '  >
     <thead>
     <tr align='center' >
     <th>Adm. #</th>
