@@ -49,7 +49,17 @@
                 <li>
                     <a id="home_parent" href="/parent-home.php">
                         <i class="metismenu-icon pe-7s-home"></i>
-                       Home
+                        Home
+                    </a>
+                </li>
+                <?php }?>
+                <?php if($_SESSION['user_type'] === 'student' || $_SESSION['user_type'] === 'admin'){?>
+
+
+                <li>
+                    <a id="home_student" href="/student-home.php">
+                        <i class="metismenu-icon pe-7s-home"></i>
+                        Home
                     </a>
                 </li>
                 <?php }?>

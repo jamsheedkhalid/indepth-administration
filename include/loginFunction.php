@@ -5,13 +5,15 @@ function login()
     include 'config/database.php';
 
 //    header('Location: dashboard.php');
-    $sql = "select users.id user,users.first_name name from users where users.username = '$_POST[user]';";
+    $sql = "select users.id user,users.first_name name, users.last_name last_name from users where users.username = '$_POST[user]';";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $user = $row['user'];
             $_SESSION['name'] = $row['name'];
+            $_SESSION['last_name'] = $row['last_name'];
             $_SESSION['user'] = $user;
+            $_SESSION['username'] = $_POST['user'];
         }
         $sql = "SELECT
             *
@@ -80,8 +82,30 @@ function login()
                             header('Location:  /modules/hr/certificate/employee-certificate.php');
 
                         } else {
-                            $_SESSION['noaccess'] = 1;
-                            header('Location: /index.php');
+
+                            $sql = " SELECT
+            *
+            FROM
+            users  where username = '$_POST[user]' and student = 1;";
+
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                $_SESSION['login'] = 1;
+                                $_SESSION['user_type'] = 'student';
+                                header('Location:  /student-home.php');
+
+                            } else {
+                                $_SESSION['noaccess'] = 1;
+                                header('Location: /index.php');
+                            }
+
+
+
+
+
+
+
+
                         }
 
 

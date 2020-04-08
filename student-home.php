@@ -2,8 +2,7 @@
 include($_SERVER['DOCUMENT_ROOT'].'/config/database.php');
 include_once ($_SERVER['DOCUMENT_ROOT'] . '/include/loginFunction.php');
 checkLoggedIn();
-checkLoggedIn();
- if($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'parent')
+ if($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'student')
  {
 ?>
 
@@ -28,7 +27,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
                 <div class="page-title-wrapper">
                     <div class="page-title-heading">
 
-                        <div>Welcome, <b><?php echo $_SESSION['name']?> </b>
+                        <div>Welcome, <b><?php echo $_SESSION['last_name']?> </b>
                         </div>
                     </div>
 <!--                    <div class="page-title-actions">-->
@@ -86,7 +85,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
                 <div class="row" style="margin-top: 10px">
                     <div class="col-md-12">
                         <div class="main-card mb-3 card">
-                            <div class="card-header">MY CHILDREN
+                            <div class="card-header">MY DASHBOARD
                                 <div class="btn-actions-pane-right">
 
                                 </div>
@@ -105,19 +104,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
 
 
 
-                <div hidden class="d-xl-none d-lg-block col-md-6 col-xl-4">
-                    <div class="card mb-3 widget-content bg-premium-dark">
-                        <div class="widget-content-wrapper text-white">
-                            <div class="widget-content-left">
-                                <div class="widget-heading">Products Sold</div>
-                                <div class="widget-subheading">Revenue streams</div>
-                            </div>
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text-warning"><span>$14M</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <div hidden class="row">
                 <div class="col-md-12 col-lg-6">
@@ -675,14 +662,15 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
     </div>
 </div>
 <script type="text/javascript" src="/assets/scripts/main.js"></script>
-<script> document.getElementById('home_parent').classList.add("mm-active")</script>
+<script> document.getElementById('home_student').classList.add("mm-active")</script>
 <script> document.title = "InDepth Administration";</script>
-    <script type="text/javascript" src="/js/parent-home.js"></script>
+    <script type="text/javascript" src="/js/student-home.js"></script>
 </body>
 </html>
+
  <?php }
  else {
-     header('Location: no-access/index.html');
- }
+    header('Location: no-access/index.html');
+}
 
     ?>
