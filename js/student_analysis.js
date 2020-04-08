@@ -77,8 +77,8 @@ function fillSections(section, grade) {
     });
 
 
-    $("#sectionSelect").multiselect('selectAll', false);
-    fillSubjects('gradeSelect','sectionSelect','subject');
+    let first_grade = document.getElementById('sectionSelect').options[0].value;
+    $('#sectionSelect').multiselect('select', [first_grade]);    fillSubjects('gradeSelect','sectionSelect','subject');
     fillTerms('gradeSelect', 'sectionSelect', 'term' );
 
 
@@ -142,7 +142,8 @@ function fillSubjects(grade, section, subject ){
 
 
     });
-    $("#subject").multiselect('selectAll', false);
+    let first_subject = document.getElementById('subject').options[0].value;
+    $('#subject').multiselect('select', [first_subject]);
 
 
 
@@ -193,8 +194,8 @@ function fillTerms(grade, section, term ){
 
 
     });
-    $("#term").multiselect('selectAll', false);
-
+    let first_term = document.getElementById('term').options[0].value;
+    $('#term').multiselect('select', [first_term]);
     getAnalysis();
 }
 function getAnalysis(){
