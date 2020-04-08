@@ -79,9 +79,9 @@ from exam_scores
          inner join guardians on students.immediate_contact_id = guardians.id
 where 
  ( courses.course_name = ' $grade' or courses.course_name = '$grade') AND 
- (batches.name = '$section' or batches.name = ' $section') AND 
-      (subjects.name = '$subject' or subjects.name = ' $subject') AND 
-      (exam_groups.name = '$term' or exam_groups.name = ' $term') 
+ (batches.name in ($section) ) AND 
+      (subjects.name in ($subject)) AND 
+      (exam_groups.name in ($term)) 
     $filter_sql
 order by student_name;
      ";
@@ -89,7 +89,7 @@ order by student_name;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
-    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered  '  >
+    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered '  >
     <thead>
     <tr align='center' >
     <th>Adm. #</th>

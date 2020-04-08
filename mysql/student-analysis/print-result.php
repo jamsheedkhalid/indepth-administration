@@ -6,9 +6,17 @@ date_default_timezone_set('Asia/Dubai');
 
 
 $grade = $_POST['gradeSelect'];
-$section = $_POST['sectionSelect'];
-$subject = $_POST['subject'];
-$term = $_POST['term'];
+
+if($_POST['sectionSelect']){
+    $section = "'" . implode("', '", $_POST['sectionSelect']) . "'";
+}
+if($_POST['subject']){
+    $subject = "'" . implode("', '", $_POST['subject']) . "'";
+}
+if($_POST['term']){
+    $term = "'" . implode("', '", $_POST['term']) . "'";
+}
+
 $filter = $_POST['filter'];
 $custom_filter = $_POST['custom_filter'];
 $custom_filter_less = $_POST['custom_filter_less'];
@@ -116,7 +124,7 @@ class PDF_MARKS_LIST extends TCPDF
 
 
 $pdf = new PDF_MARKS_LIST('L');
-$pdf->SetTitle('Weekly Planner');
+$pdf->SetTitle('Marks List');
 $pdf->SetMargins(10, 60, 10);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -160,22 +168,22 @@ from exam_scores
          inner join guardians on students.immediate_contact_id = guardians.id
 where 
  ( courses.course_name = ' $grade' or courses.course_name = '$grade') AND 
- (batches.name = '$section' or batches.name = ' $section') AND 
-      (subjects.name = '$subject' or subjects.name = ' $subject') AND 
-      (exam_groups.name = '$term' or exam_groups.name = ' $term') 
+ (batches.name in ($section) ) AND 
+      (subjects.name in ($subject) ) AND 
+      (exam_groups.name in ($term) ) 
     $filter_sql
 order by student_name;
      ";
-//echo $sql;
+echo $sql;
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 
     $table = <<<EOD
 
-    <table style="padding: 10px;" class='table table-striped table-responsive-lg table-bordered  ' cellspacing="0" cellpadding="1" border="1"  >
+    <table style="padding: 10px;" class='table table-striped table-responsive-lg table-bordered  ' cellpadding="2" cellspacing="0"  border="1"  nobr="true" width="100%" >
     <thead>
-    <tr style="text-align: center; font-weight: bolder; background-color: silver ">
+    <tr nobr="true" style="text-align: center; font-weight: bolder; background-color: silver ">
     <th height="20"  >Adm. #</th>
     <th>Student</th>
     <th >Grade</th>
@@ -196,18 +204,18 @@ EOD;
             if ($row['mark'] < $row['minimum_marks']) {
                 $remark = "<label style='color:darkred;'> Failed </label>";
                 $table .= <<<EOD
-        <tr  style="padding: 10px; background-color: lightcoral">
+        <tr nobr="true" style="white-space: nowrap; background-color: lightcoral">
 EOD;
             } else if ($row['mark'] >= $row['minimum_marks']) {
                 $remark = "<label style='color:darkgreen;'> Passed </label>";
                 $table .= <<<EOD
-        <tr  style="padding: 10px;">
+        <tr nobr="true" style="white-space: nowrap" >
 EOD;
             }
         } else {
             $remark = $row['remark'];
             $table .= <<<EOD
-        <tr  style="padding: 10px;">
+        <tr nobr="true" style="white-space: nowrap" >
 EOD;
         }
 
@@ -237,11 +245,11 @@ EOD;
 
         if (isset($_POST['show_ar_names'])) {
             $table .= <<<EOD
-            <td align="right" style="white-space: nowrap" > $row[student_name] </td>
+            <td align="right" style="white-space: nowrap;"  > $row[student_name] </td>
 EOD;
         } else {
             $table .= <<<EOD
-            <td align="left" style="white-space: nowrap" > $row[student_name] </td>
+            <td align="left" style="white-space: nowrap"  > $row[student_name] </td>
 EOD;
         }
 
