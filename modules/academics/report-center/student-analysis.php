@@ -94,6 +94,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                             <div class="col-sm">
                                             <h5 class="card-title">FILTERS</h5>
                                                 <div class="row"  style="padding-left: 20px;">
+
                                                     <div class="position-relative col-sm ">
                                                         <label class="form-check-label"><input name="filter" type="radio" value="all" class="form-check-input"   onclick="getAnalysis();"
                                                                                                checked> All</label>
