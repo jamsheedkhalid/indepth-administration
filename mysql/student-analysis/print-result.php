@@ -116,8 +116,8 @@ class PDF_MARKS_LIST extends TCPDF
         // times italic 8
         $this->SetFont('times', 'I', 8);
         // Page number
-//            $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
-        $this->Cell(0, 10, 'Printed by ' . $_SESSION['name'], 0, 0, 'L');
+        $this->Cell(135, 10, 'Printed by ' . $_SESSION['name'], 0, 0, 'L');
+        $this->Cell(0, 10, 'Page ' . $this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 0, 'L');
         $this->Cell(0, 10, 'As on ' . $date, 0, 0, 'R');
     }
 }
