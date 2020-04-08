@@ -58,8 +58,6 @@ function fillStudentTerms( ){
         nSelectedText: ' terms selected!',
         nonSelectedText: 'Select Term',
         dropRight: true
-
-
     });
 
 }
