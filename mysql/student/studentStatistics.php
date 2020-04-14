@@ -120,7 +120,7 @@ $result = $conn->query($sql_user_block);
                                 </div>
                             </div>
                             <div class="widget-content-right" style="margin: 10px">
-                            <div class="alert alert-warning fade show" role="alert"><small>You are not allowed to view  Report Cards!</small> <br><strong>Please clear outstanding fees due! </strong> </div>
+                            <div class="alert alert-warning fade show" role="alert"><small>You are not allowed to view  Report Cards!</small> <br><strong>Please contact system administrator! </strong> </div>
                                                 
 </div>
                         </div>
