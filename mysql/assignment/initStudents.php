@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
 
                 echo '                <li class="nav-item">
                     <a role="tab" title="'.$row_student['first_name'].'" class="nav-link '.$active.' " id="tab-1" data-toggle="tab" href="#tab-content-'.$i.'">
-                        <span>' .ucwords($student_name[0])  . '</span>
+                        <span>' .$row_student['last_name']  . '</span>
                     </a>
                 </li>';
                 $active = 'a';
