@@ -95,7 +95,7 @@ from students p
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
 where ( exam_groups.name = '$term')
   and p.last_name = \"$row_section[name]\"
-group by subjects.id; ";
+group by subjects.id order by subjects.name; ";
 
 //echo $sql;
         $result = $conn->query($sql);

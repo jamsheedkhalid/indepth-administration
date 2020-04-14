@@ -40,7 +40,7 @@ order by duedate desc ";
                         <div class="card mb-3 widget-content bg-midnight-bloom">
                             <div class=" text-white">
                                 <div class="widget-content-left">
-                                    <div class="widget-heading">' . ucwords($student[0]) . '</div>
+                                    <div class="widget-heading">' . $row['student'] . '</div>
                                     <div class="widget-subheading"><a  >Todays\' Assignment</a></div>';
 
 
