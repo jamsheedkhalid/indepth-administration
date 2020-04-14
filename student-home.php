@@ -90,7 +90,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/head.php');
 
                                 </div>
                             </div>
-                            <div id="parent_studentsInfo_table" class="table-responsive">
+                            <div hidden id="parent_studentsInfo_table" class="table-responsive">
 
                             </div>
 
