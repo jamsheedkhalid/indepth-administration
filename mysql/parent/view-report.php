@@ -35,7 +35,7 @@ if (isset($_POST['report_submit'])) {
             $this->Ln(7);
             $this->Cell(0, 0, 'Al AIN - U.A.E', 0, 2, 'C');
             $this->Ln(5);
-            $this->Cell(0, 0, 'CLASS EVALUATION REPORT', 0, 2, 'C');
+            $this->Cell(0, 0, 'REPORT CARD', 0, 2, 'C');
             $this->SetLineWidth(0.2);
             $this->Line(10, 52, 200, 52);
             $this->SetFont('times', '', 10);
