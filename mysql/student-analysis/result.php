@@ -78,7 +78,7 @@ from exam_scores
          inner join courses on batches.course_id = courses.id
          inner join guardians on students.immediate_contact_id = guardians.id
 where 
- ( courses.course_name = ' $grade' or courses.course_name = '$grade') AND 
+ ( courses.course_name in ($grade)) AND 
  (batches.name in ($section) ) AND 
       (subjects.name in ($subject)) AND 
       (exam_groups.name in ($term)) 

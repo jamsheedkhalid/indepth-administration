@@ -4,8 +4,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 date_default_timezone_set('Asia/Dubai');
 
+//echo $_POST['gradeSelect'];
 
-$grade = $_POST['gradeSelect'];
+
+if($_POST['gradeSelect']){
+    $grade = "'" . implode("', '", $_POST['gradeSelect']) . "'";
+}
 
 if($_POST['sectionSelect']){
     $section = "'" . implode("', '", $_POST['sectionSelect']) . "'";
@@ -167,12 +171,12 @@ from exam_scores
          inner join courses on batches.course_id = courses.id
          inner join guardians on students.immediate_contact_id = guardians.id
 where 
- ( courses.course_name = ' $grade' or courses.course_name = '$grade') AND 
+ ( courses.course_name in ($grade)) AND 
  (batches.name in ($section) ) AND 
       (subjects.name in ($subject) ) AND 
       (exam_groups.name in ($term) ) 
     $filter_sql
-order by student_name;
+order by courses.course_name, batches.name, student_name;
      ";
 echo $sql;
 

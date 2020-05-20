@@ -29,16 +29,36 @@ function initGrades(grade) {
         selectAllJustVisible: true,
         buttonClass: 'form-control-sm form-control',
         buttonWidth: '100px',
-        nSelectedText: ' sections selected!',
+        nSelectedText: ' grades selected!',
         dropRight: true
-
 
     });
     fillSections('sectionSelect','gradeSelect')
 
 }
 function fillSections(section, grade) {
-    var selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
+    // var selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
+    let selections = validateMultipleSelect(grade);
+    if(selections == false){
+        alert("Atleast select one grade!");
+        let first_grade = document.getElementById(grade).options[3].value;
+        $('#gradeSelect').multiselect('select', [first_grade]);
+
+    }
+
+    let selected_grade = document.getElementById('gradeSelect');
+    let grades = [];
+    let options = selected_grade && selected_grade.options;
+    let opt;
+
+    for (let i=0, iLen=options.length; i<iLen; i++) {
+        opt = options[i];
+        if (opt.selected) {
+            grades.push("'"+opt.text+"'");
+        }
+    }
+
+
     var sectionSelect = document.getElementById(section);
     while (sectionSelect.length > 0)
         sectionSelect.remove(0);
@@ -51,7 +71,7 @@ function fillSections(section, grade) {
 
         }
     };
-    httpSection.open("GET", "/mysql/exam-center/evaluation-reports/fillSections.php?grade=" + selected_grade, false);
+    httpSection.open("GET", "/mysql/student-analysis/fillSections.php?grade=" + grades, false);
     httpSection.send();
 
     $('#sectionSelect').multiselect('destroy');
@@ -64,6 +84,7 @@ function fillSections(section, grade) {
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
         enableFullValueFiltering : true,
+        enableCollapsibleOptGroups:true,
         includeSelectAllOption: true,
         selectAllJustVisible: true,
         buttonClass: 'form-control-sm form-control',
@@ -73,12 +94,12 @@ function fillSections(section, grade) {
         dropRight: true
 
 
-
     });
 
 
-    let first_grade = document.getElementById('sectionSelect').options[0].value;
-    $('#sectionSelect').multiselect('select', [first_grade]);    fillSubjects('gradeSelect','sectionSelect','subject');
+    let first_section = document.getElementById('sectionSelect').options[0].value;
+    $('#sectionSelect').multiselect('select', [first_section]);
+    fillSubjects('gradeSelect','sectionSelect','subject');
     fillTerms('gradeSelect', 'sectionSelect', 'term' );
 
 
@@ -94,9 +115,19 @@ function fillSubjects(grade, section, subject ){
 
     }
 
+    let selected_grade = document.getElementById('gradeSelect');
+    let grades = [];
+    let grade_options = selected_grade && selected_grade.options;
+    let grade_opt;
+
+    for (let i=0, iLen=grade_options.length; i<iLen; i++) {
+        grade_opt = grade_options[i];
+        if (grade_opt.selected) {
+            grades.push("'"+grade_opt.text+"'");
+        }
+    }
 
 
-    let selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
     let selected_section = document.getElementById('sectionSelect');
     let sections = [];
     let options = selected_section && selected_section.options;
@@ -120,7 +151,7 @@ function fillSubjects(grade, section, subject ){
             subjectArray = str.split("\t");
         }
     };
-    httpSubject.open("GET", "/mysql/student-analysis/fillSubjects.php?grade=" + selected_grade + "&section=" + sections, false);
+    httpSubject.open("GET", "/mysql/student-analysis/fillSubjects.php?grade=" + grades + "&section=" + sections, false);
     httpSubject.send();
     $('#subject').multiselect('destroy');
     delete subjectArray[subjectArray.length - 1];
@@ -142,6 +173,7 @@ function fillSubjects(grade, section, subject ){
 
 
     });
+
     let first_subject = document.getElementById('subject').options[0].value;
     $('#subject').multiselect('select', [first_subject]);
 
@@ -150,7 +182,20 @@ function fillSubjects(grade, section, subject ){
 
 }
 function fillTerms(grade, section, term ){
-    let selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
+
+    let selected_grade = document.getElementById('gradeSelect');
+    let grades = [];
+    let grade_options = selected_grade && selected_grade.options;
+    let grade_opt;
+
+    for (let i=0, iLen=grade_options.length; i<iLen; i++) {
+        grade_opt = grade_options[i];
+        if (grade_opt.selected) {
+            grades.push("'"+grade_opt.text+"'");
+        }
+    }
+
+
     let selected_section = document.getElementById('sectionSelect');
     let sections = [];
     let options = selected_section && selected_section.options;
@@ -161,7 +206,8 @@ function fillTerms(grade, section, term ){
         if (opt.selected) {
             sections.push("'"+opt.text+"'");
         }
-    }    let selectTerm = document.getElementById(term);
+    }
+    let selectTerm = document.getElementById(term);
 
     while (selectTerm.length > 0)
         selectTerm.remove(0);
@@ -173,7 +219,7 @@ function fillTerms(grade, section, term ){
             termsArray = str.split("\t");
         }
     };
-    httpTerm.open("GET", "/mysql/student-analysis/fillTerms.php?grade=" + selected_grade + "&section=" + sections, false);
+    httpTerm.open("GET", "/mysql/student-analysis/fillTerms.php?grade=" + grades + "&section=" + sections, false);
     httpTerm.send();
     $('#term').multiselect('destroy');
     delete termsArray[termsArray.length - 1];
@@ -201,8 +247,6 @@ function fillTerms(grade, section, term ){
 function getAnalysis(){
 
 
-
-
      selections = false;
     selections = validateMultipleSelect('subject');
     if(selections == false){
@@ -210,9 +254,6 @@ function getAnalysis(){
         // $("#subject").multiselect('selectAll', false);
         let first_subject = document.getElementById('subject').options[0].value;
         $('#subject').multiselect('select', [first_subject]);
-
-
-
 
     }
 
@@ -226,8 +267,18 @@ function getAnalysis(){
 
     }
 
+    let selected_grade = document.getElementById('gradeSelect');
+    let grades = [];
+    let grade_options = selected_grade && selected_grade.options;
+    let grade_opt;
 
-    let selected_grade = document.getElementById('gradeSelect').options[document.getElementById('gradeSelect').selectedIndex].text;
+    for (let i=0, iLen=grade_options.length; i<iLen; i++) {
+        grade_opt = grade_options[i];
+        if (grade_opt.selected) {
+            grades.push("'"+grade_opt.text+"'");
+        }
+    }
+
     let selected_section = document.getElementById('sectionSelect');
     let sections = [];
     let options = selected_section && selected_section.options;
@@ -290,7 +341,7 @@ function getAnalysis(){
             initDataTable();
         }
     };
-    httpResult.open("GET", "/mysql/student-analysis/result.php?grade=" + selected_grade + "&section=" + sections + "&subject=" + subjects + "&term=" + terms + "&filter=" + filter_value  + "&custom_filter=" +
+    httpResult.open("GET", "/mysql/student-analysis/result.php?grade=" + grades + "&section=" + sections + "&subject=" + subjects + "&term=" + terms + "&filter=" + filter_value  + "&custom_filter=" +
         custom_filter  + "&custom_filter_less=" + custom_filter_less+ "&show_ar_name=" + show_ar_name + "&show_parent_name=" + show_parent_name  + "&show_family_id=" + show_family_id  + "&show_contact=" + show_contact  , false);
     httpResult.send();
 
