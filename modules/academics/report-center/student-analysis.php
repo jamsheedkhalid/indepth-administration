@@ -59,8 +59,8 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                         <div class="row">
                                             <div class="position-relative form-group col-sm-3"><label
                                                         for="gradeSelect">Grade</label>
-                                                <select onchange="fillSections('sectionSelect',this.id);fillSubjects('gradeSelect','sectionSelect','subject');fillTerms('gradeSelect','sectionSelect','term');getAnalysis()"
-                                                        name="gradeSelect"
+                                                <select multiple="multiple" onchange="fillSections('sectionSelect',this.id);fillSubjects('gradeSelect','sectionSelect','subject');fillTerms('gradeSelect','sectionSelect','term');getAnalysis()"
+                                                        name="gradeSelect[]"
                                                         id="gradeSelect" class="form-control-sm form-control ">
                                                     <option disabled selected>Select Grade</option>
                                                 </select>
