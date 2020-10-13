@@ -25,7 +25,7 @@ if (isset($_POST['nolSubmit'])) {
     switch ($_POST['nol_authorizer']) {
         case 1:
             $authoriser = 'Mr. Omar Sarriedine';
-            $role = 'Administrative Manager';
+            $role = 'Administrative Director';
             break;
         case 2:
             $authoriser = 'Ms. Reema Sarriedine';

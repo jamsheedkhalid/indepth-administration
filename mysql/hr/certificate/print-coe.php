@@ -23,7 +23,7 @@ if (isset($_POST['coeSubmit'])) {
     switch ($_POST['coe_authorizer']) {
         case 1:
             $authoriser = 'Mr. Omar Sarriedine';
-            $role = 'Administrative Manager';
+            $role = 'Administrative Director';
             break;
         case 2:
             $authoriser = 'Ms. Reema Sarriedine';
@@ -48,7 +48,7 @@ if (isset($_POST['coeSubmit'])) {
 
             $this->SetFont('times', 'BU', 18);
             $this->SetX($this->lMargin);
-            $this->Cell(0, 20, "EMPLOYEMENT CERTIFICATE", 0, '1', 'C');
+            $this->Cell(0, 20, "EMPLOYMENT CERTIFICATE", 0, '1', 'C');
 
         }
 

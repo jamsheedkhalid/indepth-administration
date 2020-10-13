@@ -62,8 +62,7 @@ if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SE
                     <div class="tab-pane tabs-animation fade show active " id="tab-content-0" role="tabpanel">
 
                         <div>
-                            <form target="_blank" method="post" class="row" autocomplete="off"
-                                  action="/mysql/hr/certificate/print-coe.php">
+                            <form target="_blank" method="post" class="row" autocomplete="off">
                                 <div class="col-md-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
@@ -168,8 +167,12 @@ if($_SESSION['user_type'] === 'hr' || $_SESSION['user_type'] === 'admin' || $_SE
                                             </div>
 
                                             <button class="mt-1 btn btn-block btn-outline-success" name="coeSubmit"
-                                                    type="submit">
+                                                    formaction="/mysql/hr/certificate/print-coe.php" type="submit">
                                                 Generate
+                                            </button>
+                                            <button hidden class="mt-1 btn  btn-block btn-outline-success" name="coeSubmit"
+                                                    formaction="/mysql/hr/certificate/print-coe-ar.php" type="submit">
+                                                طباعة
                                             </button>
                                         </div>
                                     </div>
