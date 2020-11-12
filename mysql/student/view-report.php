@@ -125,10 +125,12 @@ group by subjects.id order by subjects.name asc; ";
 
         $pdf->SetFont('times', 'B', 10);
         $pdf->SetXY(40, 120);
-        $pdf->Cell(70, 7, 'Subjects', 1, 0, 'C');
+        $pdf->Cell(30, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'Mark Scored', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
 
         $pdf->SetFont('times', '', 10);
 
@@ -308,19 +310,19 @@ group by subjects.id order by subjects.name asc; ";
             $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
         }
 
-//        switch ($term) {
-//            case 'Term 1':
-//                $term_name = '1st Term';
-//                break;
-//            case 'Term 2':
-//                $term_name = '2nd Term';
-//                break;
-//            case 'Term 3';
-//                $term_name = '3rd Term';
-//                break;
-//            default:
-//                $term_name = 'Term Unknown';
-//        }
+        switch ($term) {
+            case 'Term 1':
+                $term_name = '1st Term';
+                break;
+            case 'Term 2':
+                $term_name = '2nd Term';
+                break;
+            case 'Term 3';
+                $term_name = '3rd Term';
+                break;
+            default:
+                $term_name = 'Term Unknown';
+        }
 //
 //
         $pdf->ln(15);
