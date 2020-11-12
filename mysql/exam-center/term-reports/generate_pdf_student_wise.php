@@ -136,8 +136,8 @@ group by subjects.id; ";
 
 
         $pdf->SetFont('times', 'B', 10);
-        $pdf->SetXY(40, 120);
-        $pdf->Cell(30, 7, 'Subjects', 1, 0, 'C');
+        $pdf->SetXY(25, 120);
+        $pdf->Cell(60, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
@@ -261,9 +261,9 @@ group by subjects.id; ";
         }
 
         $pdf->ln();
-        $pdf->SetX(40);
+        $pdf->SetX(25);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(30, 10, 'Total', 1, 0, 'C');
+        $pdf->Cell(60, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
@@ -306,7 +306,7 @@ group by subjects.id; ";
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
             $pdf->SetFont('dejavusans', '', 10);
             $pdf->ln();
-            $pdf->SetX(40);
+            $pdf->SetX(25);
             $pdf->Cell(30, 1, '', 'LTB');
             $pdf->Cell(20, 1, '', 'TB', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
@@ -314,8 +314,8 @@ group by subjects.id; ";
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(20, 1, '', 'BTR', 0, 'C');
             $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(30, 7, $ME['subject'], 1);
+            $pdf->SetX(25);
+            $pdf->Cell(60, 7, $ME['subject'], 1);
             $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
@@ -339,17 +339,17 @@ group by subjects.id; ";
 
         $pdf->ln(15);
         $pdf->SetFont('times', '', 10);
-        $pdf->SetX(40);
+        $pdf->SetX(25);
         $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
         $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
         $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
         $pdf->ln();
-        $pdf->SetX(40);
+        $pdf->SetX(25);
         $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
         $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
         $pdf->ln();
-        $pdf->SetX(40);
+        $pdf->SetX(25);
         $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
         $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
