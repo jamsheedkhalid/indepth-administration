@@ -180,13 +180,13 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                                             for="studentAssessment">Assessment </label>
                                                     <input name="studentAssessment" type="number" min="0" max="100"
                                                            id="studentAssessment" class="form-control-sm form-control "
-                                                           value="43"/>
+                                                           value="30"/>
                                                 </div>
                                                 <div class="position-relative form-group col-sm"><label
                                                             for="studentTerm">Term</label>
                                                     <input name="studentTerm" type="number" min="0" max="100"
                                                            id="studentTerm" class="form-control-sm form-control "
-                                                           value="57"/></div>
+                                                           value="70"/></div>
                                             </div>
                                         </div>
                                     </div>
@@ -260,13 +260,13 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                                             for="sectionAssessment">Assessment </label>
                                                     <input name="sectionAssessment" type="number" min="0" max="100"
                                                            id="sectionAssessment" class="form-control-sm form-control "
-                                                           value="43"/>
+                                                           value="30"/>
                                                 </div>
                                                 <div class="position-relative form-group col-sm"><label
                                                             for="sectionTerm">Term</label>
                                                     <input name="sectionTerm" type="number" min="0" max="100"
                                                            id="sectionTerm" class="form-control-sm form-control "
-                                                           value="57"/></div>
+                                                           value="70"/></div>
                                             </div>
                                         </div>
                                     </div>
@@ -330,13 +330,13 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                                             for="gradeAssessment">Assessment </label>
                                                     <input name="gradeAssessment" type="number" min="0" max="100"
                                                            id="gradeAssessment" class="form-control-sm form-control "
-                                                           value="43"/>
+                                                           value="30"/>
                                                 </div>
                                                 <div class="position-relative form-group col-sm"><label
                                                             for="gradeTerm">Term</label>
                                                     <input name="gradeTerm" type="number" min="0" max="100"
                                                            id="gradeTerm" class="form-control-sm form-control "
-                                                           value="57"/></div>
+                                                           value="70"/></div>
                                             </div>
                                         </div>
                                     </div>

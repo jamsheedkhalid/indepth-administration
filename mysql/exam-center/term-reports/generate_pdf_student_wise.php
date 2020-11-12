@@ -229,8 +229,8 @@ group by subjects.id; ";
 
 
                     $pdf->ln();
-                    $pdf->SetX(40);
-                    $pdf->Cell(30, 7, $row['subject'], 1);
+                    $pdf->SetX(25);
+                    $pdf->Cell(60, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
