@@ -82,7 +82,7 @@ if (isset($_POST['studentSubmit'])) {
 
     $pdf = new PDF();
 
-    $pdf->AliasNbPages();
+//    $pdf->AliasNbPages();
 
 
     $sql_section = " select students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
@@ -121,7 +121,7 @@ group by subjects.id; ";
 
         $pdf->AddPage();
         $pdf->SetFont('times', '', 10);
-
+        $pdf->ln(80);
         $pdf->Cell(50, 5, "Admission No. :", 0, 0, 'R');
         $pdf->Cell(100, 5, $row_section['admission'], 0, 0, 'L');
         $pdf->ln();
@@ -262,7 +262,7 @@ group by subjects.id; ";
 
         $pdf->ln();
         $pdf->SetX(40);
-        $pdf->SetFont('dejavusans', 'B', 10);
+        $pdf->SetFont('times', 'B', 10);
         $pdf->Cell(30, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
