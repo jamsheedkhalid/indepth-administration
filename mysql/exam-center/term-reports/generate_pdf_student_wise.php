@@ -144,7 +144,7 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
         $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
 
-        $pdf->SetFont('dejavusans', '', 10);
+        $pdf->SetFont('dejavusans', '', 8);
 
 
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
@@ -304,7 +304,7 @@ group by subjects.id; ";
         }
         if ($grade === 'GR 9'
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
-            $pdf->SetFont('dejavusans', '', 10);
+            $pdf->SetFont('dejavusans', '', 8);
             $pdf->ln();
             $pdf->SetX(25);
             $pdf->Cell(30, 1, '', 'LTB');
