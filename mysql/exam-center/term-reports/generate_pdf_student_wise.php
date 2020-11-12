@@ -29,9 +29,9 @@ if (isset($_POST['studentSubmit'])) {
             $this->Image($_SERVER['DOCUMENT_ROOT'] . '/assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
             $this->SetFont('times', 'B', 13);
             // Move to the right
-            $this->Ln(25);
+            $this->Ln(30);
             // Title
-            $this->Cell(0, 0, 'Al SANAWBAR SCHOOL', 0, 0, 'C');
+            $this->Cell(0, 5, 'Al SANAWBAR SCHOOL', 0, 0, 'C');
             $this->SetFont('times', 'B', 10);
             $this->Ln(7);
             $this->Cell(0, 0, 'Al AIN - U.A.E', 0, 2, 'C');
@@ -42,7 +42,7 @@ if (isset($_POST['studentSubmit'])) {
             $this->SetFont('times', '', 10);
             $this->Ln(15);
             $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
-            $this->Ln(10);
+            $this->Ln(5);
             switch ($term) {
                 case 'Term 1':
                     $term_name = 'First Term';
