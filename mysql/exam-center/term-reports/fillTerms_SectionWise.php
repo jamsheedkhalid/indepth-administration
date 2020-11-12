@@ -28,7 +28,7 @@ from exam_groups
 where ( course_name = '$grade' or course_name = ' $grade') 
   and courses.is_deleted = 0
   and batches.is_deleted = 0
-  and batches.name LIKE '%2020%'
+  and batches.name LIKE '%2021%'
   and batches.is_active = 1  group by exam";
 
 }

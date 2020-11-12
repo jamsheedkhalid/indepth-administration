@@ -1,7 +1,7 @@
 <?php
 /** @noinspection ALL */
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 
 if (isset($_POST['studentSubmit'])) {
 
@@ -19,7 +19,7 @@ if (isset($_POST['studentSubmit'])) {
     $term_name ='';
 
 
-    class PDF extends FPDF
+    class PDF extends TCPDF
     {
 // Page header
         public function Header()
@@ -144,7 +144,7 @@ group by subjects.id; ";
         $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
         $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
 
-        $pdf->SetFont('times', '', 10);
+        $pdf->SetFont('dejavusans', '', 10);
 
 
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
@@ -262,7 +262,7 @@ group by subjects.id; ";
 
         $pdf->ln();
         $pdf->SetX(40);
-        $pdf->SetFont('times', 'B', 10);
+        $pdf->SetFont('dejavusans', 'B', 10);
         $pdf->Cell(30, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
@@ -304,7 +304,7 @@ group by subjects.id; ";
         }
         if ($grade === 'GR 9'
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
-            $pdf->SetFont('times', '', 10);
+            $pdf->SetFont('dejavusans', '', 10);
             $pdf->ln();
             $pdf->SetX(40);
             $pdf->Cell(30, 1, '', 'LTB');
@@ -356,7 +356,9 @@ group by subjects.id; ";
 
 
     }
-    $pdf->Output('I', $student .'-' .$term_name.' '. 'report-card.pdf', true);
+
+    ob_end_clean();
+    $pdf->Output('report-card.pdf', 'I');
     $pdf->Close();
 
 }
