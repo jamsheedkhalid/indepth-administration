@@ -17,4 +17,4 @@
 //
 //$conn->close();
 
-echo 'Term 2'  . "\t";
+echo 'Term 1'  . "\t";
