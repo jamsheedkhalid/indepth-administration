@@ -41,7 +41,7 @@ if (isset($_POST['studentSubmit'])) {
             $this->Line(10, 52, 200, 52);
             $this->SetFont('times', '', 10);
             $this->Ln(15);
-            $this->Cell(0, 0, 'ACADEMIC YEAR: 2019 - 2020', 0, 2, 'C');
+            $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
             $this->Ln(10);
             switch ($term) {
                 case 'Term 1':

@@ -150,10 +150,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
 
                                             </div>
                                             <div class="position-relative form-group"><label for="termSelect"
-                                                                                             class="">Term</label>
+                                                                                             class="">Class Evaluation</label>
                                                 <select name="termSelect" id="termSelect" onchange="initialize_hidden_input('termSelect','hidden_term_studentWise');"
                                                         class="form-control-sm form-control">
-                                                    <option>Select Term</option>
+                                                    <option>Select Class Evaluation</option>
                                                 </select>
                                                 <input type="hidden" name="hidden_term_studentWise"
                                                        id="hidden_term_studentWise" value=""/>
@@ -205,10 +205,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                         </div>
                                         <div class="row">
                                             <div class="position-relative form-group col-sm ">
-                                                <label for="sectionTermSelect">Term</label>
+                                                <label for="sectionTermSelect">Class Evaluation</label>
                                                 <select name="sectionTermSelect" id="sectionTermSelect"  onchange="initialize_hidden_input('sectionTermSelect','hidden_term');"
                                                         class="form-control-sm form-control">
-                                                    <option>Select Term</option>
+                                                    <option>Select Class Evaluation</option>
                                                 </select>
                                                 <input type="hidden" name="hidden_term" id="hidden_term" value=""/>
                                             </div>
@@ -248,10 +248,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                                                        id="hidden_grade_gradeWise" value=""/>
                                             </div>
                                             <div class="position-relative form-group col-sm ">
-                                                <label for="gradeTermSelect">Term</label>
+                                                <label for="gradeTermSelect">Class Evaluation</label>
                                                 <select name="gradeTermSelect" id="gradeTermSelect"  onchange="initialize_hidden_input('gradeTermSelect','hidden_term_gradeWise');"
                                                         class="form-control-sm form-control">
-                                                    <option>Select Term</option>
+                                                    <option>Select Class Evaluation</option>
                                                 </select>
                                                 <input type="hidden" name="hidden_term_gradeWise"
                                                        id="hidden_term_gradeWise" value=""/>

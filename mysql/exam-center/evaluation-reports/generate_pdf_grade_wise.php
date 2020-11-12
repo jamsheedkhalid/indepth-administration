@@ -33,7 +33,7 @@ if (isset($_POST['submitGradeWise'])) {
             $this->Line(10, 52, 200, 52);
             $this->SetFont('times', '', 10);
             $this->Ln(15);
-            $this->Cell(0, 0, 'ACADEMIC YEAR: 2019 - 2020', 0, 2, 'C');
+            $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
             $this->Ln(10);
 
             $this->Cell(0, 0, $term, 0, 2, 'C');
@@ -63,7 +63,7 @@ if (isset($_POST['submitGradeWise'])) {
     $pdf->AliasNbPages();
     $sql_grade = "select batches.name section 
                     from batches inner join courses on batches.course_id = courses.id 
-                    where batches.is_active =1 and courses.is_deleted = 0 and  batches.is_deleted = 0 and batches.name LIKE '%2020%' and 
+                    where batches.is_active =1 and courses.is_deleted = 0 and  batches.is_deleted = 0 and batches.name LIKE '%2021%' and 
                      (courses.course_name = ' $grade' or courses.course_name = '$grade') ;  ";
     $result_grade = $conn->query($sql_grade);
 
