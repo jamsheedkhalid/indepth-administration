@@ -250,7 +250,7 @@ group by subjects.id order by subjects.name asc; ";
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(70, 10, 'Total', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
