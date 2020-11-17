@@ -279,19 +279,19 @@ group by subjects.id; ";
 
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10, $total_ASS , 'LTB', 0, 'C');
-            $pdf->SetFont('times', 'I', 25);
+            $pdf->SetFont('times', 'I', 22);
             $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10,  $ratio_ASS, 'RTB', 0, 'C');
 
             $pdf->Cell(9, 10, $total_TE , 'LTB', 0, 'C');
-            $pdf->SetFont('times', 'I', 25);
+            $pdf->SetFont('times', 'I', 22);
             $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10,  $ratio_TE, 'RTB', 0, 'C');
 
             $pdf->Cell(9, 10, $total_TR , 'LTB', 0, 'C');
-            $pdf->SetFont('times', 'I', 25);
+            $pdf->SetFont('times', 'I', 22);
             $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10,  $ratio_TR, 'RTB', 0, 'C');
