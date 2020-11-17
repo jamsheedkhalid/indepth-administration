@@ -205,7 +205,7 @@ group by subjects.id; ";
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 
-                if (strpos($row['subject'], 'Moral Education') === true ) {
+                if (strpos($row['subject'], 'Moral Education') !== false ) {
                     $ME['subject'] = $row['subject'];
                     $ME['max'] = $row['max'];
                     $ME['min'] = $row['min'];
