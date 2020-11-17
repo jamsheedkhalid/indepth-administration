@@ -135,7 +135,7 @@ group by subjects.id order by subjects.name asc; ";
 
         $pdf->SetFont('times', '', 10);
 
-        $total_max = $total_min = $total_ASS = 0;
+        $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
         $max_ASS = $max_TE = $max_TR = 0;
         $ratio_TR = $ratio_TE = $ratio_ASS = 0;
         while ($row = mysqli_fetch_array($result)) {
