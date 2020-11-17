@@ -134,7 +134,7 @@ group by subjects.id; ";
         $pdf->Cell(100, 5, $row_section['section'], 0, 0, 'L');
         $pdf->SetFont('times', 'B', 10);
         $pdf->SetXY(40, 120);
-        $pdf->Cell(30, 7, 'Subjects', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
@@ -168,7 +168,7 @@ group by subjects.id; ";
 
                 $pdf->ln();
                 $pdf->SetX(40);
-                $pdf->Cell(30, 7, $row['subject'], 1);
+                $pdf->Cell(40, 7, $row['subject'], 1);
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -221,7 +221,7 @@ group by subjects.id; ";
                     }
                     $pdf->ln();
                     $pdf->SetX(40);
-                    $pdf->Cell(30, 7, $row['subject'], 1);
+                    $pdf->Cell(40, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -257,7 +257,7 @@ group by subjects.id; ";
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(30, 10, 'Total', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
@@ -299,7 +299,7 @@ group by subjects.id; ";
             $pdf->SetFont('times', '', 10);
             $pdf->ln();
             $pdf->SetX(40);
-            $pdf->Cell(30, 1, '', 'LTB');
+            $pdf->Cell(40, 1, '', 'LTB');
             $pdf->Cell(20, 1, '', 'TB', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
@@ -307,7 +307,7 @@ group by subjects.id; ";
             $pdf->Cell(20, 1, '', 'BTR', 0, 'C');
             $pdf->ln();
             $pdf->SetX(40);
-            $pdf->Cell(30, 7, $ME['subject'], 1);
+            $pdf->Cell(40, 7, $ME['subject'], 1);
             $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
