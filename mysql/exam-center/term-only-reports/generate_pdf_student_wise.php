@@ -107,7 +107,7 @@ from students p
     inner join batches on p.batch_id = batches.id
          left join students_subjects on p.id = students_subjects.student_id
          inner join subjects on batches.id = subjects.batch_id and  subjects.elective_group_id is NUll 
-         inner join subjects on students_subjects.subject_id = subjects.id  
+         left join subjects on students_subjects.subject_id = subjects.id  
          inner join courses on batches.course_id = courses.id
          inner join exams on subjects.id = exams.subject_id
          inner join exam_groups on exams.exam_group_id = exam_groups.id
