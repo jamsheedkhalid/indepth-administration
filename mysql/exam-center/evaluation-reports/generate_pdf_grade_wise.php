@@ -126,6 +126,8 @@ group by subjects.id; ";
             $max_ASS =  0;
             $ratio_ASS =  0;
             while ($row = mysqli_fetch_array($result)) {
+                $var = preg_split("#-#", $row['subject']);
+                $row['subject'] =   $var[0];
                 if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
                     $total_max += $row['max'];
                     $total_min += $row['min'];

@@ -125,6 +125,8 @@ group by subjects.id; ";
         $ratio_ASS = 0;
         $max_ASS =  0;
         while ($row = mysqli_fetch_array($result)) {
+            $var = preg_split("#-#", $row['subject']);
+            $row['subject'] =   $var[0];
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
 
 
