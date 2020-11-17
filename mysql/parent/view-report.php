@@ -13,6 +13,9 @@ if (isset($_POST['report_submit'])) {
 //    echo $term;
     $is_non_islamic = 0;
 //    $term_name ='';
+    $ass_percent = 70;
+    $term_percent = 30;
+    $total_percent = $ass_percent + $term_percent;
 
 
 
@@ -85,7 +88,10 @@ where  students.user_id = '$student'; ";
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)), 0)            ASS
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)), 0)            ASS,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)), 0)                               TE,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)) * $term_percent / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)) * $ass_percent / 100, 0) TR
 from students p
       inner join batches on p.batch_id = batches.id
          left join students_subjects on p.id = students_subjects.student_id
@@ -142,16 +148,24 @@ group by subjects.id order by subjects.name; ";
                     $total_ASS += $row['ASS'];
                     $max_ASS += $row['max'];
                 }
+                if ($row['TE'] !== null) {
+                    $total_TE += $row['TE'];
+                    $max_TE += $row['max'];
+                }
+                if ($row['TR'] !== null) {
+                    $total_TR += $row['TR'];
+                    $max_TR += $row['max'];
+                }
 
                 $pdf->ln();
                 $pdf->SetX(40);
-                $pdf->Cell(70, 7, $row['subject'], 1);
+                $pdf->Cell(30, 7, $row['subject'], 1);
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
 
 //                check non islamic
-                if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS'])     )
+                if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
                 {
                     $is_non_islamic = 1;
                 }
@@ -164,6 +178,15 @@ group by subjects.id order by subjects.name; ";
                 ELSE
                     $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
+                if (!is_null($row['TE']))
+                    $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                ELSE
+                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
+                if (!is_null($row['TR']))
+                    $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                ELSE
+                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
@@ -173,6 +196,8 @@ group by subjects.id order by subjects.name; ";
                     $ME['max'] = $row['max'];
                     $ME['min'] = $row['min'];
                     $ME['ASS'] = $row['ASS'];
+                    $ME['TE'] = $row['TE'];
+                    $ME['TR'] = $row['TR'];
                 } else {
                     $total_max += $row['max'];
                     $total_min += $row['min'];
@@ -180,11 +205,21 @@ group by subjects.id order by subjects.name; ";
                         $total_ASS += $row['ASS'];
                         $max_ASS += $row['max'];
                     }
+                    if ($row['TE'] !== null) {
+                        $total_TE += $row['TE'];
+                        $max_TE += $row['max'];
+                    }
+                    if ($row['TR'] !== null) {
+                        $total_TR += $row['TR'];
+                        $max_TR += $row['max'];
+                    }
+
+
 
 
                     $pdf->ln();
                     $pdf->SetX(40);
-                    $pdf->Cell(70, 7, $row['subject'], 1);
+                    $pdf->Cell(30, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -200,7 +235,15 @@ group by subjects.id order by subjects.name; ";
                     ELSE
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
+                    if (!is_null($row['TE']))
+                        $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                    ELSE
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
+                    if (!is_null($row['TR']))
+                        $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                    ELSE
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
                 }
 
             }
@@ -251,37 +294,37 @@ group by subjects.id order by subjects.name; ";
             $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
 
         }
-//        switch ($term) {
-//            case 'Term 1':
-//                $term_name = '1st Term';
-//                break;
-//            case 'Term 2':
-//                $term_name = '2nd Term';
-//                break;
-//            case 'Term 3';
-//                $term_name = '3rd Term';
-//                break;
-//            default:
-//                $term_name = 'Term Unknown';
-//        }
-//
-//
-//        $pdf->ln(15);
-//        $pdf->SetFont('times', '', 10);
-//        $pdf->SetX(40);
-//        $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
-//        $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
-//        $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
-//        $pdf->ln();
-//        $pdf->SetX(40);
-//        $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
-//        $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
-//        $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
-//        $pdf->ln();
-//        $pdf->SetX(40);
-//        $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
-//        $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
-//        $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
+        switch ($term) {
+            case 'Term 1':
+                $term_name = '1st Term';
+                break;
+            case 'Term 2':
+                $term_name = '2nd Term';
+                break;
+            case 'Term 3';
+                $term_name = '3rd Term';
+                break;
+            default:
+                $term_name = 'Term Unknown';
+        }
+
+
+        $pdf->ln(15);
+        $pdf->SetFont('times', '', 10);
+        $pdf->SetX(40);
+        $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
+        $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
+        $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
+        $pdf->ln();
+        $pdf->SetX(40);
+        $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
+        $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
+        $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
+        $pdf->ln();
+        $pdf->SetX(40);
+        $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
+        $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
+        $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
 
 
     }
