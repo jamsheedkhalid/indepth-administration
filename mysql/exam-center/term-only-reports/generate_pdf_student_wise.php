@@ -81,7 +81,7 @@ if (isset($_POST['studentSubmitTerm'])) {
 
     $pdf = new PDF();
 
-    $pdf->AliasNbPages();
+//    $pdf->AliasNbPages();
 
 
     $sql_section = " select students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
