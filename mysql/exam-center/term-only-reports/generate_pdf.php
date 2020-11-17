@@ -159,6 +159,8 @@ group by subjects.id; ";
         $ratio_ASS = $ratio_TE = $ratio_TR = 0;
         $max_ASS = $max_TE = $max_TR = 0;
         while ($row = mysqli_fetch_array($result)) {
+            $var = preg_split("#-#", $row['subject']);
+            $row['subject'] =   $var[0];
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
 
 
@@ -206,7 +208,7 @@ group by subjects.id; ";
 
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
-                if ($row['subject'] === 'Moral Education') {
+                if (strpos($row['subject'], 'Moral Education') !== false ) {
                     $ME['subject'] = $row['subject'];
                     $ME['max'] = $row['max'];
                     $ME['min'] = $row['min'];
@@ -244,15 +246,7 @@ group by subjects.id; ";
 //                end check non islamic
 
 
-//                    if (!is_null($row['ASS']))
-//                        $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-//                    ELSE
-//                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-//                    if (!is_null($row['TE']))
-//                        $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-//                    ELSE
-//                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                     if (!is_null($row['TR']))
                         $pdf->Cell(30, 7, $row['TR'], 1, 0, 'C');
@@ -281,18 +275,7 @@ group by subjects.id; ";
             if ($max_TR !== 0)
                 $ratio_TR = round(($total_max * $total_TR) / $max_TR);
 
-//            $pdf->SetFont('times', 'B', 10);
-//            $pdf->Cell(9, 10, $total_ASS , 'LTB', 0, 'C');
-//            $pdf->SetFont('times', 'I', 35);
-//            $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
-//            $pdf->SetFont('times', 'B', 10);
-//            $pdf->Cell(9, 10,  $ratio_ASS, 'RTB', 0, 'C');
 
-//            $pdf->Cell(9, 10, $total_TE , 'LTB', 0, 'C');
-//            $pdf->SetFont('times', 'I', 35);
-//            $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
-//            $pdf->SetFont('times', 'B', 10);
-//            $pdf->Cell(9, 10,  $ratio_TE, 'RTB', 0, 'C');
 
             $pdf->Cell(14, 10, $total_TR , 'LTB', 0, 'C');
             $pdf->SetFont('times', 'I', 35);
@@ -305,8 +288,8 @@ group by subjects.id; ";
             $pdf->Cell(30, 10, $total_TR, 1, 0, 'C');
         }
 
-        if ($grade === 'GR 9'
-            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+        if (($grade === 'GR 9'
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
             $pdf->SetFont('times', '', 10);
             $pdf->ln();
             $pdf->SetX(40);
