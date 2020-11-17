@@ -296,7 +296,7 @@ group by subjects.id order by subjects.name; ";
         }
         if (($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12')  ) {
-            $pdf->SetFont('dejavusans', '', 8);
+            $pdf->SetFont('times', '', 8);
             $pdf->ln();
             $pdf->SetX(25);
             $pdf->Cell(60, 1, '', 'LTB');
