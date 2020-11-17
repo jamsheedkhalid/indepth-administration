@@ -257,43 +257,61 @@ group by subjects.id order by subjects.name asc; ";
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
+
         if ($grade === 'GR11' || $grade === 'GR12' || $is_non_islamic === 1) {
 
 
             if($max_ASS !== 0 )
                 $ratio_ASS = round(($total_max * $total_ASS)/$max_ASS);
-
+            if($max_TE !== 0 )
+                $ratio_TE = round(($total_max * $total_TE)/$max_TE);
+            if($max_TR !== 0 )
+                $ratio_TR = round(($total_max * $total_TR)/$max_TR);
 
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10, $total_ASS , 'LTB', 0, 'C');
-            $pdf->SetFont('times', 'I', 35);
+            $pdf->SetFont('times', 'I', 22);
             $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
             $pdf->SetFont('times', 'B', 10);
             $pdf->Cell(9, 10,  $ratio_ASS, 'RTB', 0, 'C');
 
+            $pdf->Cell(9, 10, $total_TE , 'LTB', 0, 'C');
+            $pdf->SetFont('times', 'I', 22);
+            $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
+            $pdf->SetFont('times', 'B', 10);
+            $pdf->Cell(9, 10,  $ratio_TE, 'RTB', 0, 'C');
 
+            $pdf->Cell(9, 10, $total_TR , 'LTB', 0, 'C');
+            $pdf->SetFont('times', 'I', 22);
+            $pdf->Cell(2, 10,  ' / ' , 'TB', 0, 'C');
+            $pdf->SetFont('times', 'B', 10);
+            $pdf->Cell(9, 10,  $ratio_TR, 'RTB', 0, 'C');
 
 
         } else {
             $pdf->Cell(20, 10, $total_ASS , 1, 0, 'C');
-
+            $pdf->Cell(20, 10, $total_TE , 1, 0, 'C');
+            $pdf->Cell(20, 10, $total_TR , 1, 0, 'C');
         }
         if (($grade === 'GR 9'
-                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ){
-            $pdf->SetFont('times', '', 10);
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
+            $pdf->SetFont('dejavusans', '', 8);
             $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(70, 1, '', 'LTB');
+            $pdf->SetX(25);
+            $pdf->Cell(60, 1, '', 'LTB');
             $pdf->Cell(20, 1, '', 'TB', 0, 'C');
+            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(20, 1, '', 'BTR', 0, 'C');
             $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(70, 7, $ME['subject'], 1);
+            $pdf->SetX(25);
+            $pdf->Cell(60, 7, $ME['subject'], 1);
             $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
-
+            $pdf->Cell(20, 7, $ME['TE'], 1, 0, 'C');
+            $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
         }
         switch ($term) {
             case 'Term 1':
@@ -308,6 +326,7 @@ group by subjects.id order by subjects.name asc; ";
             default:
                 $term_name = 'Term Unknown';
         }
+
 
 
         $pdf->ln(15);
