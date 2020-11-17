@@ -146,6 +146,8 @@ group by subjects.id; ";
         $ratio_ASS = $ratio_TE = $ratio_TR = 0;
         $max_ASS = $max_TE = $max_TR = 0;
         while ($row = mysqli_fetch_array($result)) {
+            $var = preg_split("#-#", $row['subject']);
+            $row['subject'] =   $var[0];
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
 
 
@@ -193,7 +195,7 @@ group by subjects.id; ";
 
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
-                if ($row['subject'] === 'Moral Education') {
+                if (strpos($row['subject'], 'Moral Education') !== false ) {
                     $ME['subject'] = $row['subject'];
                     $ME['max'] = $row['max'];
                     $ME['min'] = $row['min'];
@@ -292,8 +294,8 @@ group by subjects.id; ";
             $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
         }
 
-        if ($grade === 'GR 9'
-            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+        if (($grade === 'GR 9'
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
             $pdf->SetFont('times', '', 10);
             $pdf->ln();
             $pdf->SetX(40);
