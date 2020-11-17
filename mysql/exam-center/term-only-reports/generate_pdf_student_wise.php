@@ -28,7 +28,7 @@ if (isset($_POST['studentSubmitTerm'])) {
             $this->Image($_SERVER['DOCUMENT_ROOT'] . '/assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
             $this->SetFont('times', 'B', 13);
             // Move to the right
-            $this->Ln(25);
+            $this->Ln(30);
             // Title
             $this->Cell(0, 0, 'Al SANAWBAR SCHOOL', 0, 0, 'C');
             $this->SetFont('times', 'B', 10);
@@ -41,7 +41,7 @@ if (isset($_POST['studentSubmitTerm'])) {
             $this->SetFont('times', '', 10);
             $this->Ln(15);
             $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
-            $this->Ln(10);
+            $this->Ln(5);
             switch ($term) {
                 case 'Term 1':
                     $term_name = 'First Term';
@@ -216,7 +216,7 @@ group by subjects.id; ";
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 
-                if ($row['subject'] === 'Moral Education') {
+                if (strpos($row['subject'], 'Moral Education') !== false ) {
                     $ME['subject'] = $row['subject'];
                     $ME['max'] = $row['max'];
                     $ME['min'] = $row['min'];
@@ -305,8 +305,8 @@ group by subjects.id; ";
 //            $pdf->Cell(20, 10, $total_TE , 1, 0, 'C');
             $pdf->Cell(30, 10, $total_TR , 1, 0, 'C');
         }
-        if ($grade === 'GR 9'
-            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+        if (($grade === 'GR 9'
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
             $pdf->SetFont('times', '', 10);
             $pdf->ln();
             $pdf->SetX(25);
