@@ -87,9 +87,9 @@ where  students.user_id = '$student'; ";
        round(exams.minimum_marks, 0)                                                                         min,
        round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)), 0)            ASS
 from students p
-         inner join batches on p.batch_id = batches.id
-         inner join students_subjects on p.id = students_subjects.student_id
-         inner join subjects on batches.id = subjects.batch_id and ( subjects.elective_group_id is NUll or subjects.id = students_subjects.subject_id)
+      inner join batches on p.batch_id = batches.id
+         left join students_subjects on p.id = students_subjects.student_id
+         inner join subjects on batches.id = subjects.batch_id and (subjects.elective_group_id is null or subjects.id = students_subjects.subject_id) 
          inner join courses on batches.course_id = courses.id
          inner join exams on subjects.id = exams.subject_id
          inner join exam_groups on exams.exam_group_id = exam_groups.id
