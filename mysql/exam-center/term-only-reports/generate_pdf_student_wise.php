@@ -1,8 +1,7 @@
 <?php
 /** @noinspection ALL */
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/fpdf/fpdf.php');
-
+include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 if (isset($_POST['studentSubmitTerm'])) {
 
     $grade = $_POST['hidden_grade_studentWise'];
@@ -19,7 +18,7 @@ if (isset($_POST['studentSubmitTerm'])) {
     $term_name ='';
 
 
-    class PDF extends FPDF
+    class PDF extends TCPDF
     {
 // Page header
         public function Header()
@@ -121,7 +120,7 @@ group by subjects.id; ";
 
         $pdf->AddPage();
         $pdf->SetFont('times', '', 10);
-
+        $pdf->ln(80);
         $pdf->Cell(50, 5, "Admission No. :", 0, 0, 'R');
         $pdf->Cell(100, 5, $row_section['admission'], 0, 0, 'L');
         $pdf->ln();
@@ -149,21 +148,23 @@ group by subjects.id; ";
         }
 
         $pdf->SetFont('times', 'B', 10);
-        $pdf->SetXY(40, 120);
-        $pdf->Cell(50, 7, 'Subjects', 1, 0, 'C');
+        $pdf->SetXY(25, 120);
+        $pdf->Cell(60, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
 //        $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
 //        $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
         $pdf->Cell(30, 7, 'Term Result', 1, 0, 'C');
 
-        $pdf->SetFont('times', '', 10);
+        $pdf->SetFont('dejavusans', '', 10);
 
 
         $total_max = $total_min = $total_ASS = $total_TE = $total_TR = 0;
         $max_ASS = $max_TE = $max_TR = 0;
         $ratio_TR = $ratio_TE = $ratio_ASS = 0;
         while ($row = mysqli_fetch_array($result)) {
+            $var = preg_split("#-#", $row['subject']);
+            $row['subject'] =   $var[0];
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
                 $total_max += $row['max'];
                 $total_min += $row['min'];
@@ -182,8 +183,8 @@ group by subjects.id; ";
                 }
 
                 $pdf->ln();
-                $pdf->SetX(40);
-                $pdf->Cell(50, 7, $row['subject'], 1);
+                $pdf->SetX(25);
+                $pdf->Cell(60, 7, $row['subject'], 1);
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -242,8 +243,8 @@ group by subjects.id; ";
 
 
                     $pdf->ln();
-                    $pdf->SetX(40);
-                    $pdf->Cell(50, 7, $row['subject'], 1);
+                    $pdf->SetX(25);
+                    $pdf->Cell(60, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -274,9 +275,9 @@ group by subjects.id; ";
         }
 
         $pdf->ln();
-        $pdf->SetX(40);
+        $pdf->SetX(25);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(50, 10, 'Total', 1, 0, 'C');
+        $pdf->Cell(60, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
@@ -319,16 +320,16 @@ group by subjects.id; ";
             || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
             $pdf->SetFont('times', '', 10);
             $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(50, 1, '', 'LTB');
+            $pdf->SetX(25);
+            $pdf->Cell(60, 1, '', 'LTB');
             $pdf->Cell(20, 1, '', 'TB', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
 //            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
 //            $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(30, 1, '', 'BTR', 0, 'C');
             $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(50, 7, $ME['subject'], 1);
+            $pdf->SetX(25);
+            $pdf->Cell(60, 7, $ME['subject'], 1);
             $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
             $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
 //            $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
