@@ -126,10 +126,12 @@ group by subjects.id order by subjects.name; ";
 
         $pdf->SetFont('times', 'B', 10);
         $pdf->SetXY(40, 120);
-        $pdf->Cell(70, 7, 'Subjects', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'Mark Scored', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
 
         $pdf->SetFont('times', '', 10);
 
@@ -159,7 +161,7 @@ group by subjects.id order by subjects.name; ";
 
                 $pdf->ln();
                 $pdf->SetX(40);
-                $pdf->Cell(30, 7, $row['subject'], 1);
+                $pdf->Cell(40, 7, $row['subject'], 1);
                 $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -219,7 +221,7 @@ group by subjects.id order by subjects.name; ";
 
                     $pdf->ln();
                     $pdf->SetX(40);
-                    $pdf->Cell(30, 7, $row['subject'], 1);
+                    $pdf->Cell(40, 7, $row['subject'], 1);
                     $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
@@ -252,7 +254,7 @@ group by subjects.id order by subjects.name; ";
         $pdf->ln();
         $pdf->SetX(40);
         $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(70, 10, 'Total', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 10, $total_max, 1, 0, 'C');
         $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
