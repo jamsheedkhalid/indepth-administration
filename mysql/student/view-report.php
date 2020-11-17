@@ -294,7 +294,7 @@ group by subjects.id order by subjects.name asc; ";
             $pdf->Cell(20, 10, $total_TR , 1, 0, 'C');
         }
         if (($grade === 'GR 9'
-                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12')  ) {
             $pdf->SetFont('dejavusans', '', 8);
             $pdf->ln();
             $pdf->SetX(25);
