@@ -357,7 +357,8 @@ group by subjects.id; ";
 
 
     }
-    $pdf->Output('I', $student .'-' .$term_name.' '. 'report-card.pdf', true);
+    ob_end_clean();
+    $pdf->Output('report-card.pdf', 'I');
     $pdf->Close();
 
 }
