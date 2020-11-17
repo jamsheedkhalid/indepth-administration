@@ -305,12 +305,12 @@ group by subjects.id; ";
             $pdf->Cell(20, 10, $total_TE , 1, 0, 'C');
             $pdf->Cell(20, 10, $total_TR , 1, 0, 'C');
         }
-        if ($grade === 'GR 9'
-            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+        if (($grade === 'GR 9'
+            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
             $pdf->SetFont('dejavusans', '', 8);
             $pdf->ln();
             $pdf->SetX(25);
-            $pdf->Cell(30, 1, '', 'LTB');
+            $pdf->Cell(60, 1, '', 'LTB');
             $pdf->Cell(20, 1, '', 'TB', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
             $pdf->Cell(20, 1, '', 'BT', 0, 'C');
