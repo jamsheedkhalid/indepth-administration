@@ -1,5 +1,6 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/include/fee_defaulter_sql.php');
 session_start();
 
 $sql = " select students.last_name student, students.id id from students
@@ -83,7 +84,6 @@ order by duedate desc ";
 
 
     }
-
 } else {
     echo '
                     <div class="col-md-6 col-xl-4">
@@ -98,16 +98,16 @@ order by duedate desc ";
                     </div>';
 }
 
-
-
 //check user blocked or not to show report card
-
-$sql_user_block = "
-select * from users where users.id = '$_SESSION[user]' and is_blocked = 1";
-$result = $conn->query($sql_user_block);
-    if($result->num_rows > 0){
-
-        echo '  <div  class=" d-lg-block col-md-10 col-xl-6">
+$sql = " select students.last_name student, students.id id, students.admission_no admission_no from students
+inner join users on students.user_id = users.id
+where users.username = '$_SESSION[username]' ";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = mysqli_fetch_array($result)) {
+        $unpaid = fee_defaulter($row['admission_no']);
+        if ($unpaid) {
+            echo '  <div  class=" d-lg-block col-md-10 col-xl-6">
                     <div class="card mb-3 widget-content bg-asteroid">
                         <div class="widget-content-wrapper text-white">
                             <div class="widget-content-left">
@@ -126,20 +126,18 @@ $result = $conn->query($sql_user_block);
                         </div>
                     </div>
                 </div>';
-
-    }
-    else {
-
-        echo '  <div  class=" d-lg-block col-md-6 col-xl-4">
+        }
+        else {
+            echo '  <div  class=" d-lg-block col-md-6 col-xl-4">
                     <div class="card mb-3 widget-content bg-asteroid">
                         <div class="widget-content-wrapper text-white">
                             <div class="widget-content-left">
                             <form target="_blank" method="post">
                                 <div class="widget-heading"> MY REPORT CARDS</div>
-                                <div class="widget-subheading">Select Term</div>                           
+                                <div class="widget-subheading">Select Term</div>
                                 <div style="margin-top: 10px" >
                                 <select id="student_term" name="student_term"></select></div>
-                                <div style="margin-top: 10px"> 
+                                <div style="margin-top: 10px">
                                 <button type="submit" name="report_submit"  formaction="/mysql/student/view-report.php" class="mb-2 mr-2 btn btn-primary btn-lg btn-block"> View Report Card</button>
                                 </div>
                                 </form>
@@ -147,9 +145,11 @@ $result = $conn->query($sql_user_block);
                         </div>
                     </div>
                 </div>';
+        }
+
 
     }
-
+}
 
 
 $conn->close();
