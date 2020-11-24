@@ -348,7 +348,7 @@ group by subjects.id order by subjects.name asc; ";
 
 
     }
-    $pdf->Output('I', $student . '-' .$term.' '. 'report-card.pdf', true);
+//    $pdf->Output('I', $student . '-' .$term.' '. 'report-card.pdf', true);
     $pdf->Close();
 
 }
