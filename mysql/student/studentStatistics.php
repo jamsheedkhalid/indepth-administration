@@ -99,14 +99,18 @@ order by duedate desc ";
 }
 
 //check user blocked or not to show report card
-$sql = " select students.last_name student, students.id id, students.admission_no admission_no from students
+$sql = " select students.last_name student, students.id id, students.admission_no admission_no, 
+ users.disable_auto_block_report_card disable_block from students
 inner join users on students.user_id = users.id
 where users.username = '$_SESSION[username]' ";
+
+
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
         $unpaid = fee_defaulter($row['admission_no']);
-        if ($unpaid) {
+        if (($unpaid) && $row['disable_block'] == '0') {
+
             echo '  <div  class=" d-lg-block col-md-10 col-xl-6">
                     <div class="card mb-3 widget-content bg-asteroid">
                         <div class="widget-content-wrapper text-white">

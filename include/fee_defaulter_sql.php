@@ -29,12 +29,12 @@ from students
              LEFT OUTER JOIN students st on st.id = ff.student_id
              INNER JOIN `finance_fee_collections` fc ON `fc`.id = `ff`.fee_collection_id
              LEFT JOIN `fee_accounts` fa ON `fa`.id = fc.fee_account_id
-             WHERE `fc`.`is_deleted` = 0 and fc.due_date < '2019-11-19 00:00:00' and ff.balance > 0
+             WHERE `fc`.`is_deleted` = 0 and fc.due_date < $date and ff.balance > 0
              and st.id IS NOT NULL and fa.id IS NULL OR fa.is_deleted = false)
     finance on finance.student_id=students.id INNER JOIN users on students.user_id = users.id
     where students.admission_no = $admission_no
 group by students.id ;";
-
+echo $fee_sql;
     $fee_result = $conn->query($fee_sql);
     if ($fee_result->num_rows > 0) {
         $fee_row = $fee_result->fetch_assoc();

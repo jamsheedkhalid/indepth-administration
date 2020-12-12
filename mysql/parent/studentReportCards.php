@@ -4,8 +4,11 @@ include($_SERVER['DOCUMENT_ROOT'] . '/include/fee_defaulter_sql.php');
 
 session_start();
 
-$sql = " select students.last_name student, students.id id, students.user_id userid, students.admission_no admission_no from guardians
+$sql = " select students.last_name student, students.id id, students.user_id userid,
+  users.disable_auto_block_report_card disable_block ,
+  students.admission_no admission_no from guardians
 inner join students on guardians.id = students.immediate_contact_id
+inner join users on students.user_id = users.id
 where guardians.user_id = '$_SESSION[user]' order by students.last_name asc";
 
 //echo $sql;
@@ -14,7 +17,7 @@ $tabIndex = 0;
 if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
         $unpaid = fee_defaulter($row['admission_no']);
-        if ($unpaid) {
+        if (($unpaid) && $row['disable_block'] == '0') {
             echo '  <div  class=" d-lg-block col-md-10 col-xl-6">
                     <div class="card mb-3 widget-content bg-asteroid">
                         <div class="widget-content-wrapper text-white">
