@@ -7,7 +7,7 @@ $sql = "
 select students.admission_no, exam_groups.name exam
 from students
          inner join exam_groups on students.batch_id = exam_groups.batch_id
-where students.last_name = '$student'
+where students.last_name = \"$student\"
 AND (exam_groups.name = 'Term 1 - Class Evaluation' OR exam_groups.name = 'Term 2 - Class Evaluation' OR exam_groups.name = 'Term 3 - Class Evaluation' );
 ";
 //echo $sql;

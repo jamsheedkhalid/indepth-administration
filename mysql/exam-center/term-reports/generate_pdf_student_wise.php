@@ -91,7 +91,7 @@ from students
          inner join courses on batches.course_id = courses.id
 where (courses.course_name = ' $grade' or courses.course_name = '$grade')
   AND courses.is_deleted = 0 AND batches.name LIKE '$section'
-and  students.last_name = '$student'; ";
+and  students.last_name = \"$student\" ";
     $result_section = $conn->query($sql_section);
 
     while ($row_section = mysqli_fetch_array($result_section)) {
