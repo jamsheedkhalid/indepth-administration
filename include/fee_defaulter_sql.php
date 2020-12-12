@@ -34,7 +34,7 @@ from students
     finance on finance.student_id=students.id INNER JOIN users on students.user_id = users.id
     where students.admission_no = $admission_no
 group by students.id ;";
-echo $fee_sql;
+//echo $fee_sql;
     $fee_result = $conn->query($fee_sql);
     if ($fee_result->num_rows > 0) {
         $fee_row = $fee_result->fetch_assoc();
