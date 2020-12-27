@@ -100,7 +100,7 @@ from students p
          inner join exams on subjects.id = exams.subject_id
          inner join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
-where ( exam_groups.name = '$term')
+where (exam_groups.name = '$term' or exam_groups.name = '$term - Class Evaluation')
   and p.last_name = \"$row_section[name]\"
 group by subjects.id order by subjects.name; ";
 
