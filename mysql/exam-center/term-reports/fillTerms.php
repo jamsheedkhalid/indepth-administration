@@ -11,7 +11,7 @@ from exam_groups
          where students.last_name = \"$student\"  group by 
                exam
 ";
-echo $sql;
+//echo $sql;
 $result = $conn->query($sql);
 while ($row = mysqli_fetch_array($result)) {
     echo $row['exam']  . "\t";
