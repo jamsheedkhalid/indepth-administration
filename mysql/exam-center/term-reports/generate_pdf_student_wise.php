@@ -85,7 +85,7 @@ if (isset($_POST['studentSubmit'])) {
 //    $pdf->AliasNbPages();
 
 
-    $sql_section = " select students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
+    $sql_section = " select students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
 from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
@@ -156,53 +156,58 @@ group by subjects.id; ";
             $row['subject'] =   $var[0];
 
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
-                $total_max += $row['max'];
-                $total_min += $row['min'];
 
-                if ($row['ASS'] !== null) {
-                    $total_ASS += $row['ASS'];
-                    $max_ASS += $row['max'];
-                }
-                if ($row['TE'] !== null) {
-                    $total_TE += $row['TE'];
-                    $max_TE += $row['max'];
-                }
-                if ($row['TR'] !== null) {
-                    $total_TR += $row['TR'];
-                    $max_TR += $row['max'];
-                }
+                   if ((strpos($row_section['religion'], 'Christian') !== false && strpos($row['subject'], 'Islamic')=== false)
+                        || strpos($row_section['religion'], 'Christian') === false) {
 
-                $pdf->ln();
-                $pdf->SetX(25);
-                $pdf->Cell(60, 7, $row['subject'], 1);
-                $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+                       $total_max += $row['max'];
+                       $total_min += $row['min'];
+
+                       if ($row['ASS'] !== null) {
+                           $total_ASS += $row['ASS'];
+                           $max_ASS += $row['max'];
+                       }
+                       if ($row['TE'] !== null) {
+                           $total_TE += $row['TE'];
+                           $max_TE += $row['max'];
+                       }
+                       if ($row['TR'] !== null) {
+                           $total_TR += $row['TR'];
+                           $max_TR += $row['max'];
+                       }
+
+                       $pdf->ln();
+                       $pdf->SetX(25);
+                       $pdf->Cell(60, 7, $row['subject'], 1);
+                       $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
+                       $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
 
 //                check non islamic
-                                if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
-                                {
-                                   $is_non_islamic = 1;
-                                }
+                       if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
+                           $is_non_islamic = 1;
+                       }
 
 //                end check non islamic
 
 
-                if (!is_null($row['ASS']))
-                    $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                ELSE
-                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                       if (!is_null($row['ASS']))
+                           $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                       else
+                           $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-                if (!is_null($row['TE']))
-                    $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                ELSE
-                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                       if (!is_null($row['TE']))
+                           $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                       else
+                           $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-                if (!is_null($row['TR']))
-                    $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
-                ELSE
-                    $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                       if (!is_null($row['TR']))
+                           $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                       else
+                           $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
+
+                   }
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 

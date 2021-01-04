@@ -88,7 +88,7 @@ if (isset($_POST['submitGradeWise'])) {
         $section = $row_grade['section'];
 //        echo $section;
 
-        $sql_section = "select students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
+        $sql_section = "select  students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
 from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
@@ -151,6 +151,11 @@ group by subjects.id; ";
                 $var = preg_split("#-#", $row['subject']);
                 $row['subject'] =   $var[0];
                 if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
+
+                    if ((strpos($row_section['religion'], 'Christian') !== false && strpos($row['subject'], 'Islamic')=== false)
+                        || strpos($row_section['religion'], 'Christian') === false) {
+
+
                     $total_max += $row['max'];
                     $total_min += $row['min'];
                     if ($row['ASS'] !== null) {
@@ -177,20 +182,20 @@ group by subjects.id; ";
 //                end check non islamic
                     if (!is_null($row['ASS']))
                         $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                    ELSE
+                    else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                     if (!is_null($row['TE']))
                         $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                    ELSE
+                    else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                     if (!is_null($row['TR']))
                         $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
-                    ELSE
+                    else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-                } else if ($grade === 'GR 9'
+                } } else if ($grade === 'GR 9'
                     || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
                     if (strpos($row['subject'], 'Moral Education') !== false ) {
                         $ME['subject'] = $row['subject'];

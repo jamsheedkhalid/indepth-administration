@@ -8,13 +8,15 @@ $sql = "select
             WHEN exam_groups.name LIKE '%Term 3%' THEN 'Term 3' END) as  exam
 from exam_groups
          inner join students on exam_groups.batch_id = students.batch_id 
-         where students.last_name = \"$student\" group by 
+         where students.last_name = \"$student\"  group by 
                exam
 ";
-//echo $sql;
+echo $sql;
 $result = $conn->query($sql);
 while ($row = mysqli_fetch_array($result)) {
     echo $row['exam']  . "\t";
 }
+
+echo "Term 1";
 
 $conn->close();
