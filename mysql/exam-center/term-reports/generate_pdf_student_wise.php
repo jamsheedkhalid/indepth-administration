@@ -5,11 +5,23 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 
 if (isset($_POST['studentSubmit'])) {
 
-    $grade = $_POST['hidden_grade_studentWise'];
-    $student = $_POST['hidden_student_studentWise'];
-//    echo $grade;
-    $section = $_REQUEST['hidden_section_studentWise'];
-//    echo $section;
+    if $_GET["grade"] == ''
+    	$grade = $_POST['hidden_grade_studentWise'];
+	else
+		$grade = $_GET["grade"]
+
+	if $_GET["last_name"] == ''
+    	$student = $_POST['hidden_student_studentWise'];
+	else
+		$student = $_GET["last_name"]
+
+	if $_GET["section"] == ''
+    	$section = $_REQUEST['hidden_section_studentWise'];
+	else
+		$section = $_GET["section"]
+
+  
+
     $term = $_REQUEST['hidden_term_studentWise'];
 //    echo $term;
     $ass_percent = $_REQUEST['studentAssessment'];
