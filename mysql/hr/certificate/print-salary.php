@@ -36,15 +36,15 @@ if (isset($_POST['salarySubmit'])) {
 
     switch ($_POST['salary_authorizer']) {
         case 1:
-            $authoriser = 'Mr. Omar Sarriedine';
+            $authoriser = 'Omar Sarriedine';
             $role = 'Administrative Manager';
             break;
         case 2:
-            $authoriser = 'Ms. Reema Sarriedine';
+            $authoriser = 'Reema Sarriedine';
             $role = 'Principal';
             break;
         case 3:
-            $authoriser = 'Mr. Talaat Sarriedine';
+            $authoriser = 'Talaat Sarriedine';
             $role = 'Administrative Manager';
             break;
 
@@ -83,7 +83,7 @@ if (isset($_POST['salarySubmit'])) {
     $pdf->MultiCell(0, 5, "This is to confirm  that $ms $employee_name, $employee_nationality nationality, holder of passsport number $employee_passport is currently employed full time at Al Sanawbar School as $employee_jobTitle since $employee_joinDate with a total monthly salary of $whole $decimal (AED $employee_salary).", 0, 'L', false);
     $pdf->Ln(6);
     $pdf->MultiCell(0, 5, "This letter has been given upon $hs request without any responsiblity from our part.", 0, 'L', false);
-    $pdf->MultiCell(0, 5, "Please feel free to contact us if you require any further informatinon.", 0, 'L', false);
+    $pdf->MultiCell(0, 5, "Please feel free to contact us if you require any further information.", 0, 'L', false);
     $pdf->Ln(15);
     $pdf->MultiCell(0, 20, "Sincerely yours,", 0, 'L', false);
     $pdf->Ln(2);

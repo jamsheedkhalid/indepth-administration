@@ -29,8 +29,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/head.php');
                             <i class="pe-7s-graph2 icon-gradient bg-premium-dark">
                             </i>
                         </div>
-                        <?php $admission = $_GET["admission_no"] ?>
-                        <div>STUDENT TERM REPORTS <h1><?php echo $admission ?></h1>
+                        <div>STUDENT TERM REPORTS
                             <div class="page-title-subheading">Generate and print term report cards for students
                             </div>
                         </div>

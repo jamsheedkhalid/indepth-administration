@@ -8,7 +8,7 @@
 $servername = 'localhost';
 $username = 'fedena';
 $password = 'fedenapw';
-$DB = 'dev';
+$DB = 'alsanawabar';
 
 $conn = new mysqli($servername, $username, $password, $DB);
 
