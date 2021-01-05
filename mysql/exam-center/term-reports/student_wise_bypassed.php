@@ -4,7 +4,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 
 // if (isset($_POST['studentSubmit'])) {
-    echo 'hello';
     if (isset($_GET['grade']))
         $grade = $_GET["grade"];
 	else
@@ -383,9 +382,11 @@ group by subjects.id; ";
 
     }
 
-    ob_end_clean();
-    $pdf->Output('report-card.pdf', 'I');
-    $pdf->Close();
+//    ob_end_clean();
+//    $pdf->Output('report-card.pdf', 'I');
+//    $pdf->Close();
 
 // }
+
+echo "<H1> Report card will be published soon!</H1>";
 
