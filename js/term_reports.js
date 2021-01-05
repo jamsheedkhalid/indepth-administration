@@ -21,7 +21,6 @@ function initGrades(grade) {
     }
 
 
-
 }
 
 function fillSections(section, grade) {
@@ -46,43 +45,50 @@ function fillSections(section, grade) {
         sectionSelect.add(new Option(sectionArray[i]));
     }
 
-    initialize_hidden_input(grade,'hidden_grade');
-    initialize_hidden_input(section,'hidden_section');
-    initialize_hidden_input('sectionSelect','hidden_section_studentWise');
-    initialize_hidden_input('studentSelect','hidden_student_studentWise');
-    initialize_hidden_input('termSelect','hidden_term_studentWise');
+    initialize_hidden_input(grade, 'hidden_grade');
+    initialize_hidden_input(section, 'hidden_section');
+    initialize_hidden_input('sectionSelect', 'hidden_section_studentWise');
+    initialize_hidden_input('studentSelect', 'hidden_student_studentWise');
+    initialize_hidden_input('termSelect', 'hidden_term_studentWise');
 }
 
 function fillStudents() {
     var selected_grade = document.getElementById('gradeSelect').options[document.getElementById('gradeSelect').selectedIndex].text;
     var selected_section = document.getElementById('sectionSelect').options[document.getElementById('sectionSelect').selectedIndex].text;
     var studentSelect = document.getElementById("studentSelect");
+    var studentsArray = []
+    var idArray = []
     while (studentSelect.length > 0)
         studentSelect.remove(0);
 
     let httpStudent = new XMLHttpRequest();
     httpStudent.onreadystatechange = function () {
         if (this.readyState === 4) {
-            let str = this.responseText;
-            studentsArray = str.split("\t");
+            let str = JSON.parse(this.responseText)
+            for (x in str) {
+                studentsArray.push(str[x].name)
+                idArray.push(str[x].id)
+            }
+
         }
     };
     httpStudent.open("GET", "/mysql/exam-center/term-reports/fillStudents.php?grade=" + selected_grade + "&section=" + selected_section, false);
     httpStudent.send();
 
-    delete studentsArray[studentsArray.length - 1];
+    // delete studentsArray[studentsArray.length - 1];
+    // delete idArray[idArray.length - 1];
     for (var i in studentsArray) {
-        studentSelect.add(new Option(studentsArray[i]));
+        studentSelect.add(new Option(studentsArray[i], idArray[i]));
     }
 
 
-    initialize_hidden_input('studentSelect','hidden_student_studentWise')
+    initialize_hidden_input('studentSelect', 'hidden_student_studentWise')
 
 
 }
 
 function fillTerms() {
-    var selected_student = document.getElementById('studentSelect').options[document.getElementById('studentSelect').selectedIndex].text;
+    var selected_student = document.getElementById('studentSelect').options[document.getElementById('studentSelect').selectedIndex].value;
     var termSelect = document.getElementById("termSelect");
 
     while (termSelect.length > 0)
@@ -102,7 +108,7 @@ function fillTerms() {
     for (var i in termArray) {
         termSelect.add(new Option(termArray[i]));
     }
-    initialize_hidden_input('termSelect','hidden_term_studentWise');
+    initialize_hidden_input('termSelect', 'hidden_term_studentWise');
 
 }
 
@@ -126,7 +132,7 @@ function generateReportCard() {
             document.getElementById("reportCardModalResult").innerHTML = this.responseText;
         }
     };
-    httpResult.open("GET", "/mysql/exam-center/term-reports/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term + '&assessment=' + assessment_percent + '&term_percent=' + term_percent , false);
+    httpResult.open("GET", "/mysql/exam-center/term-reports/fillReportCardResults.php?student=" + student + "&grade=" + grade + "&section=" + section + "&term=" + term + '&assessment=' + assessment_percent + '&term_percent=' + term_percent, false);
     httpResult.send();
 
 }
@@ -153,15 +159,20 @@ function fillTermsSectionWise(gradeId, id, termId, type) {
     for (var i in termArray) {
         termSelect.add(new Option(termArray[i]));
     }
-    initialize_hidden_input(gradeId,'hidden_grade');
-    initialize_hidden_input(id,'hidden_section');
-    initialize_hidden_input(termId,'hidden_term');
-    initialize_hidden_input('gradeTermSelect','hidden_term_gradeWise')
+    initialize_hidden_input(gradeId, 'hidden_grade');
+    initialize_hidden_input(id, 'hidden_section');
+    initialize_hidden_input(termId, 'hidden_term');
+    initialize_hidden_input('gradeTermSelect', 'hidden_term_gradeWise')
 
 }
 
-function initialize_hidden_input(select,hidden_input){
-    let selected = document.getElementById(select).options[document.getElementById(select).selectedIndex].text;
-    document.getElementById(hidden_input).value  =selected;
+function initialize_hidden_input(select, hidden_input) {
+    if (hidden_input === 'hidden_student_studentWise') {
+        let selected = document.getElementById(select).options[document.getElementById(select).selectedIndex].value;
+        document.getElementById(hidden_input).value = selected;
+    } else {
+        let selected = document.getElementById(select).options[document.getElementById(select).selectedIndex].text;
+        document.getElementById(hidden_input).value = selected;
+    }
 }
 
