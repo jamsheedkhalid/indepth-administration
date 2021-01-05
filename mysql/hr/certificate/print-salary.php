@@ -37,7 +37,7 @@ if (isset($_POST['salarySubmit'])) {
     switch ($_POST['salary_authorizer']) {
         case 1:
             $authoriser = 'Omar Sarriedine';
-            $role = 'Administrative Manager';
+            $role = 'Administrative Director';
             break;
         case 2:
             $authoriser = 'Reema Sarriedine';
