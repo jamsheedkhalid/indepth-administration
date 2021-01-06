@@ -4,114 +4,114 @@ include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 
 // if (isset($_POST['studentSubmit'])) {
-    if (isset($_GET['grade']))
-        $grade = $_GET["grade"];
-	else
-        $grade = $_POST['hidden_grade_studentWise'];
+if (isset($_GET['grade']))
+    $grade = $_GET["grade"];
+else
+    $grade = $_POST['hidden_grade_studentWise'];
 
-	if (isset($_GET["admission"]))
-        $student = $_GET["admission"];
-    else
-        $student = $_POST['hidden_student_studentWise'];
-	
-	if (isset($_GET["section"]))
-        $section = $_GET["section"];
-    else
-        $section = $_REQUEST['hidden_section_studentWise'];
+if (isset($_GET["admission"]))
+    $student = $_GET["admission"];
+else
+    $student = $_POST['hidden_student_studentWise'];
 
-    // if (isset($_GET["term"]))
-    //     $term = $_GET["term"];
-    // else
-    //     $term = $_REQUEST['hidden_term_studentWise'];
-    
-    $term = 'Term 1';
-    $ass_percent = 70;
-    $term_percent = 30;
+if (isset($_GET["section"]))
+    $section = $_GET["section"];
+else
+    $section = $_REQUEST['hidden_section_studentWise'];
 
-    // $ass_percent = $_REQUEST['studentAssessment'];
-    // $term_percent = $_REQUEST['studentTerm'];
+// if (isset($_GET["term"]))
+//     $term = $_GET["term"];
+// else
+//     $term = $_REQUEST['hidden_term_studentWise'];
 
-    $total_percent = $ass_percent + $term_percent;
-    $is_non_islamic = 0;
-    $term_name ='';
+$term = 'Term 1';
+$ass_percent = 70;
+$term_percent = 30;
 
-    class PDF extends TCPDF
-    {
+// $ass_percent = $_REQUEST['studentAssessment'];
+// $term_percent = $_REQUEST['studentTerm'];
+
+$total_percent = $ass_percent + $term_percent;
+$is_non_islamic = 0;
+$term_name = '';
+
+class PDF extends TCPDF
+{
 // Page header
-        public function Header()
-        {
-            $term = 'Term 1';
-            // Logo
-            $this->Image($_SERVER['DOCUMENT_ROOT'] . '/assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
-            $this->SetFont('times', 'B', 13);
-            // Move to the right
-            $this->Ln(30);
-            // Title
-            $this->Cell(0, 5, 'Al SANAWBAR SCHOOL', 0, 0, 'C');
-            $this->SetFont('times', 'B', 10);
-            $this->Ln(7);
-            $this->Cell(0, 0, 'Al AIN - U.A.E', 0, 2, 'C');
-            $this->Ln(5);
-            $this->Cell(0, 0, 'STUDENT TERM REPORT', 0, 2, 'C');
-            $this->SetLineWidth(0.2);
-            $this->Line(10, 52, 200, 52);
-            $this->SetFont('times', '', 10);
-            $this->Ln(15);
-            $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
-            $this->Ln(5);
-            switch ($term) {
-                case 'Term 1':
-                    $term_name = 'First Term';
-                    break;
-                case 'Term 2':
-                    $term_name = 'Second Term';
-                    break;
-                case 'Term 3';
-                    $term_name = 'Third Term';
-                    break;
-                default:
-                    $term_name = 'Term Unknown';
-            }
-
-            $this->Cell(0, 0, $term_name, 0, 2, 'C');
-            $this->SetLineWidth(0.2);
-            $this->Line(130, 80, 80, 80);
-
-            // Line break
-            $this->Ln(20);
+    public function Header()
+    {
+        $term = 'Term 1';
+        // Logo
+        $this->Image($_SERVER['DOCUMENT_ROOT'] . '/assets/images/sanawbar-logo.jpeg', 95, 10, 20, 20);
+        $this->SetFont('times', 'B', 13);
+        // Move to the right
+        $this->Ln(30);
+        // Title
+        $this->Cell(0, 5, 'Al SANAWBAR SCHOOL', 0, 0, 'C');
+        $this->SetFont('times', 'B', 10);
+        $this->Ln(7);
+        $this->Cell(0, 0, 'Al AIN - U.A.E', 0, 2, 'C');
+        $this->Ln(5);
+        $this->Cell(0, 0, 'STUDENT TERM REPORT', 0, 2, 'C');
+        $this->SetLineWidth(0.2);
+        $this->Line(10, 52, 200, 52);
+        $this->SetFont('times', '', 10);
+        $this->Ln(15);
+        $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
+        $this->Ln(5);
+        switch ($term) {
+            case 'Term 1':
+                $term_name = 'First Term';
+                break;
+            case 'Term 2':
+                $term_name = 'Second Term';
+                break;
+            case 'Term 3';
+                $term_name = 'Third Term';
+                break;
+            default:
+                $term_name = 'Term Unknown';
         }
 
-// Page footer
-        public function Footer()
-        {
-            $date = date("d-m-Y");
-            // Position at 1.5 cm from bottom
-            $this->SetY(-15);
-            // times italic 8
-            $this->SetFont('times', 'I', 8);
-            // Page number
-//            $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
-            $this->Cell(0, 10, 'Date ' . $date, 0, 0, 'R');
-        }
+        $this->Cell(0, 0, $term_name, 0, 2, 'C');
+        $this->SetLineWidth(0.2);
+        $this->Line(130, 80, 80, 80);
+
+        // Line break
+        $this->Ln(20);
     }
 
+// Page footer
+    public function Footer()
+    {
+        $date = date("d-m-Y");
+        // Position at 1.5 cm from bottom
+        $this->SetY(-15);
+        // times italic 8
+        $this->SetFont('times', 'I', 8);
+        // Page number
+//            $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, 'Date ' . $date, 0, 0, 'R');
+    }
+}
 
-    $pdf = new PDF();
+
+$pdf = new PDF();
 
 //    $pdf->AliasNbPages();
 
 
-    $sql_section = " select students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
+$sql_section = " select students.is_reports_blocked block, students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
 from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
 where (courses.course_name = ' $grade' or courses.course_name = '$grade')
   AND courses.is_deleted = 0 AND batches.name LIKE '$section'
 and  students.admission_no = \"$student\" ";
-    $result_section = $conn->query($sql_section);
+$result_section = $conn->query($sql_section);
 
-    while ($row_section = mysqli_fetch_array($result_section)) {
-
+while ($row_section = mysqli_fetch_array($result_section)) {
+    if ($row_section['block'] == 0) {
         $sql = " select     
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
@@ -169,65 +169,65 @@ group by subjects.id; ";
         $ratio_TR = $ratio_TE = $ratio_ASS = 0;
         while ($row = mysqli_fetch_array($result)) {
             $var = preg_split("#-#", $row['subject']);
-            $row['subject'] =   $var[0];
+            $row['subject'] = $var[0];
 
             if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
 
-                   if ((strpos($row_section['religion'], 'Christian') !== false && strpos($row['subject'], 'Islamic')=== false)
-                        || strpos($row_section['religion'], 'Christian') === false) {
+                if ((strpos($row_section['religion'], 'Christian') !== false && strpos($row['subject'], 'Islamic') === false)
+                    || strpos($row_section['religion'], 'Christian') === false) {
 
-                       $total_max += $row['max'];
-                       $total_min += $row['min'];
+                    $total_max += $row['max'];
+                    $total_min += $row['min'];
 
-                       if ($row['ASS'] !== null) {
-                           $total_ASS += $row['ASS'];
-                           $max_ASS += $row['max'];
-                       }
-                       if ($row['TE'] !== null) {
-                           $total_TE += $row['TE'];
-                           $max_TE += $row['max'];
-                       }
-                       if ($row['TR'] !== null) {
-                           $total_TR += $row['TR'];
-                           $max_TR += $row['max'];
-                       }
+                    if ($row['ASS'] !== null) {
+                        $total_ASS += $row['ASS'];
+                        $max_ASS += $row['max'];
+                    }
+                    if ($row['TE'] !== null) {
+                        $total_TE += $row['TE'];
+                        $max_TE += $row['max'];
+                    }
+                    if ($row['TR'] !== null) {
+                        $total_TR += $row['TR'];
+                        $max_TR += $row['max'];
+                    }
 
-                       $pdf->ln();
-                       $pdf->SetX(25);
-                       $pdf->Cell(60, 7, $row['subject'], 1);
-                       $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
-                       $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
+                    $pdf->ln();
+                    $pdf->SetX(25);
+                    $pdf->Cell(60, 7, $row['subject'], 1);
+                    $pdf->Cell(20, 7, $row['max'], 1, 0, 'C');
+                    $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
 
 //                check non islamic
-                       if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
-                           $is_non_islamic = 1;
-                       }
+                    if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
+                        $is_non_islamic = 1;
+                    }
 
 //                end check non islamic
 
 
-                       if (!is_null($row['ASS']))
-                           $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                       else
-                           $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                    if (!is_null($row['ASS']))
+                        $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                    else
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-                       if (!is_null($row['TE']))
-                           $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                       else
-                           $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                    if (!is_null($row['TE']))
+                        $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
+                    else
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
-                       if (!is_null($row['TR']))
-                           $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
-                       else
-                           $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                    if (!is_null($row['TR']))
+                        $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                    else
+                        $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
 
-                   }
+                }
             } else if ($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 
-                if (strpos($row['subject'], 'Moral Education') !== false ) {
+                if (strpos($row['subject'], 'Moral Education') !== false) {
                     $ME['subject'] = $row['subject'];
                     $ME['max'] = $row['max'];
                     $ME['min'] = $row['min'];
@@ -251,8 +251,6 @@ group by subjects.id; ";
                     }
 
 
-
-
                     $pdf->ln();
                     $pdf->SetX(25);
                     $pdf->Cell(60, 7, $row['subject'], 1);
@@ -260,25 +258,24 @@ group by subjects.id; ";
                     $pdf->Cell(20, 7, $row['min'], 1, 0, 'C');
 
                     //                check non islamic
-                    if(strpos($row['subject'], 'Islamic') !== false &&  is_null($row['ASS']) && is_null($row['TE'])     )
-                    {
+                    if (strpos($row['subject'], 'Islamic') !== false && is_null($row['ASS']) && is_null($row['TE'])) {
                         $is_non_islamic = 1;
                     }
 
 //                end check non islamic
                     if (!is_null($row['ASS']))
                         $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                    ELSE
+                    else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                     if (!is_null($row['TE']))
                         $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
-                    ELSE
+                    else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
 
                     if (!is_null($row['TR']))
                         $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
-                    ELSE
+                    else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
                 }
 
@@ -324,13 +321,13 @@ group by subjects.id; ";
 //
 //        } else
 
-            {
-            $pdf->Cell(20, 10, $total_ASS , 1, 0, 'C');
-            $pdf->Cell(20, 10, $total_TE , 1, 0, 'C');
-            $pdf->Cell(20, 10, $total_TR , 1, 0, 'C');
+        {
+            $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
+            $pdf->Cell(20, 10, $total_TE, 1, 0, 'C');
+            $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
         }
         if (($grade === 'GR 9'
-            || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null) ) {
+                || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') && ($ME['subject'] != null)) {
             $pdf->SetFont('dejavusans', '', 8);
             $pdf->ln();
             $pdf->SetX(25);
@@ -381,14 +378,24 @@ group by subjects.id; ";
         $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
         $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
 
-
+        $flag =0;
     }
+    else{
+        $flag =1;
+    }
+}
 
-//    ob_end_clean();
-//    $pdf->Output('report-card.pdf', 'I');
-//    $pdf->Close();
+if ($flag == 0) {
+    ob_end_clean();
+    $pdf->Output('report-card.pdf', 'I');
+    $pdf->Close();
+}
+else{
+    echo "<H1> Report card is Blocked. please contact school administrator</H1>";
+
+}
 
 // }
 
-echo "<H1> Report card will be published soon!</H1>";
+//echo "<H1> Report card will be published soon!</H1>";
 
