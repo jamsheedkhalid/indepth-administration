@@ -1,3 +1,5 @@
+<?php clearstatcache();
+?>
 <div class="app-sidebar sidebar-shadow">
     <div class="app-header__logo">
         <div class="logo-src"></div>
@@ -65,7 +67,7 @@
                 <?php }?>
                 <?php  if($_SESSION['user_type'] === 'teacher' || $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'parent' ){?>
                 <li class="app-sidebar__heading ">ACADEMICS</li>
-                <?php  if( $_SESSION['user_type'] === 'admin' ){?>
+                <?php  if( $_SESSION['user_type'] === 'admin' ||  $_SESSION['user_type'] === 'teacher' ){?>
                 <li id="liExamination">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-graph2"></i>
