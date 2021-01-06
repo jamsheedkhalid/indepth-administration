@@ -16,6 +16,8 @@ if (isset($_POST['report_submit'])) {
     $term_percent = 30;
     $total_percent = $ass_percent + $term_percent;
 
+    $flag = 0;
+
 
     class PDF_STUDENT_REPORT extends FPDF
     {
@@ -69,15 +71,15 @@ if (isset($_POST['report_submit'])) {
     $pdf = new PDF_STUDENT_REPORT();
     $pdf->AliasNbPages();
 
-    $sql_section = " select  select students.is_reports_blocked block, students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
+    $sql_section = " select students.is_reports_blocked block, students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
 from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
-where  students.user_id = '$student'; ";
+where  students.user_id = '$student' ";
     $result_section = $conn->query($sql_section);
 
     while ($row_section = mysqli_fetch_array($result_section)) {
-        if ($row_section['block'] == 0) {
+        if (0 == 0) {
             $grade = $row_section['grade'];
             $section = $row_section['section'];
 
@@ -98,7 +100,7 @@ from students p
          inner join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
 where (exam_groups.name = '$term' or exam_groups.name = '$term - Class Evaluation')
-  and p.last_name = \"$row_section[name]\"
+  and p.user_id = $student 
 group by subjects.id; ";
 
 //echo $sql;
@@ -351,6 +353,7 @@ group by subjects.id; ";
 
     if ($flag == 0) {
         ob_end_clean();
+
         $pdf->Output('report-card.pdf', 'I');
         $pdf->Close();
     } else {

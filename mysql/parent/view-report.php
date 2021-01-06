@@ -16,6 +16,7 @@ if (isset($_POST['report_submit'])) {
     $ass_percent = 70;
     $term_percent = 30;
     $total_percent = $ass_percent + $term_percent;
+    $fla = 0;
 
 
     class PDF_STUDENT_REPORT extends FPDF
@@ -71,7 +72,7 @@ if (isset($_POST['report_submit'])) {
     $pdf = new PDF_STUDENT_REPORT();
     $pdf->AliasNbPages();
 
-    $sql_section = " select  select students.is_reports_blocked block,  students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
+    $sql_section = " select   students.is_reports_blocked block,  students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
 from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
