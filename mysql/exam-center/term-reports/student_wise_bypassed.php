@@ -281,7 +281,6 @@ group by subjects.id; ";
 
             }
         }
-
         $pdf->ln();
         $pdf->SetX(25);
         $pdf->SetFont('times', 'B', 10);

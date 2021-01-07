@@ -257,37 +257,38 @@ group by subjects.id; ";
             $pdf->Cell(20, 10, $total_min, 1, 0, 'C');
 
 
-            if ($grade === 'GR11' || $grade === 'GR12' || $is_non_islamic === 1) {
-
-
-                if ($max_ASS !== 0)
-                    $ratio_ASS = round(($total_max * $total_ASS) / $max_ASS);
-                if ($max_TE !== 0)
-                    $ratio_TE = round(($total_max * $total_TE) / $max_TE);
-                if ($max_TR !== 0)
-                    $ratio_TR = round(($total_max * $total_TR) / $max_TR);
-
-                $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10, $total_ASS, 'LTB', 0, 'C');
-                $pdf->SetFont('times', 'I', 22);
-                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
-                $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10, $ratio_ASS, 'RTB', 0, 'C');
-
-                $pdf->Cell(9, 10, $total_TE, 'LTB', 0, 'C');
-                $pdf->SetFont('times', 'I', 22);
-                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
-                $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10, $ratio_TE, 'RTB', 0, 'C');
-
-                $pdf->Cell(9, 10, $total_TR, 'LTB', 0, 'C');
-                $pdf->SetFont('times', 'I', 22);
-                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
-                $pdf->SetFont('times', 'B', 10);
-                $pdf->Cell(9, 10, $ratio_TR, 'RTB', 0, 'C');
-
-
-            } else {
+//            if ($grade === 'GR11' || $grade === 'GR12' || $is_non_islamic === 1) {
+//
+//
+//                if ($max_ASS !== 0)
+//                    $ratio_ASS = round(($total_max * $total_ASS) / $max_ASS);
+//                if ($max_TE !== 0)
+//                    $ratio_TE = round(($total_max * $total_TE) / $max_TE);
+//                if ($max_TR !== 0)
+//                    $ratio_TR = round(($total_max * $total_TR) / $max_TR);
+//
+//                $pdf->SetFont('times', 'B', 10);
+//                $pdf->Cell(9, 10, $total_ASS, 'LTB', 0, 'C');
+//                $pdf->SetFont('times', 'I', 22);
+//                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
+//                $pdf->SetFont('times', 'B', 10);
+//                $pdf->Cell(9, 10, $ratio_ASS, 'RTB', 0, 'C');
+//
+//                $pdf->Cell(9, 10, $total_TE, 'LTB', 0, 'C');
+//                $pdf->SetFont('times', 'I', 22);
+//                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
+//                $pdf->SetFont('times', 'B', 10);
+//                $pdf->Cell(9, 10, $ratio_TE, 'RTB', 0, 'C');
+//
+//                $pdf->Cell(9, 10, $total_TR, 'LTB', 0, 'C');
+//                $pdf->SetFont('times', 'I', 22);
+//                $pdf->Cell(2, 10, ' / ', 'TB', 0, 'C');
+//                $pdf->SetFont('times', 'B', 10);
+//                $pdf->Cell(9, 10, $ratio_TR, 'RTB', 0, 'C');
+//
+//
+//            } else
+                {
                 $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
                 $pdf->Cell(20, 10, $total_TE, 1, 0, 'C');
                 $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
