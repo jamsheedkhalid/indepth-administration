@@ -6,7 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 if (isset($_GET['grade']))
 {
     $grade = $_GET["grade"];
-    $grade = str_replace(' ', '', $grade);
+//    $grade = str_replace(' ', '', $grade);
 }
 
 if (isset($_GET["admission"]))
@@ -97,7 +97,7 @@ $pdf = new PDF();
 
 //    $pdf->AliasNbPages();
 
-$sql_section = " select students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
+$sql_section = " select  students.is_reports_blocked block, students.religion religion, students.last_name name, students.admission_no admission, batches.name section, courses.course_name grade
 from students
          inner join batches on students.batch_id = batches.id
          inner join courses on batches.course_id = courses.id
@@ -126,7 +126,7 @@ from students p
          inner join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
 where (exam_groups.name = '$term' or exam_groups.name = '$term - Class Evaluation')
-  and p.last_name = \"$row_section[name]\"
+  and p.admission_no = \"$student\"
 group by subjects.id; ";
 
         echo $sql;
@@ -220,7 +220,7 @@ group by subjects.id; ";
                     else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
                 }           
-            } else if ($grade === 'GR9' || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
+            } else if ($grade === 'GR 9' || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12') {
 
                         if (strpos($row['subject'], 'Moral Education') !== false) {
                             $ME['subject'] = $row['subject'];
