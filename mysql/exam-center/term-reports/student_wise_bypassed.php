@@ -381,8 +381,9 @@ group by subjects.id; ";
 }
 if ($flag == 0) {
     ob_end_clean();
-    $pdf->Output('report-card.pdf', 'I');
-    $pdf->Close();
+//    $pdf->Output('report-card.pdf', 'I');
+//    $pdf->Close();
+    echo "<H1> Report card is not published</H1>";
 }
 else{
     echo "<H1> Report card is Blocked. please contact school administrator</H1>";
