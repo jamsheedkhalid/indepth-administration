@@ -15,22 +15,24 @@ function login()
             $_SESSION['user'] = $user;
             $_SESSION['username'] = $_POST['user'];
         }
-        $sql = "SELECT
-            *
-            FROM
-            privileges_users AS A
-            INNER JOIN privileges_users AS B
-            ON
-            A.user_id = B.user_id
-            WHERE
-            A.privilege_id = 1 AND A.user_id='$user'";
+//        $sql = "SELECT
+//            *
+//            FROM
+//            privileges_users AS A
+//            INNER JOIN privileges_users AS B
+//            ON
+//            A.user_id = B.user_id
+//            WHERE
+//            A.privilege_id = 1 AND A.user_id='$user'";
 //        only access for Marie Joy initiated
-        $sql = "SELECT
-            *
-            from users where username='1556'";
+
+
 //        echo $sql;
-        $result = $conn->query($sql);
-        if (($result->num_rows > 0)){
+//        $result = $conn->query($sql);
+//        if (($result->num_rows > 0))
+
+        if  $_SESSION['username'] == '1556'
+        {
             $_SESSION['login'] = 1;
             $_SESSION['user_type'] = 'teacher';
             header('Location: /../modules/academics/planner/student_planner.php');
