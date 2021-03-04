@@ -24,14 +24,13 @@ function login()
             A.user_id = B.user_id
             WHERE
             A.privilege_id = 1 AND A.user_id='$user'";
-
-
 //        only access for Marie Joy initiated
-
-
+        $sql = "SELECT
+            *
+            from users where username='1556'";
 //        echo $sql;
         $result = $conn->query($sql);
-        if (($result->num_rows > 0) && ($_SESSION['username'] == '1556' )){
+        if (($result->num_rows > 0)){
             $_SESSION['login'] = 1;
             $_SESSION['user_type'] = 'teacher';
             header('Location: /../modules/academics/planner/student_planner.php');
