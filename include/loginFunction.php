@@ -23,17 +23,21 @@ function login()
             ON
             A.user_id = B.id
             WHERE
-            A.privilege_id = 1 AND B.username='1035'";
-
-
-
+            A.privilege_id = 1 AND B.id='$user'";
 
 //        echo $sql;
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
+            if $user == 2953
             $_SESSION['login'] = 1;
             $_SESSION['user_type'] = 'teacher';
             header('Location: /../modules/academics/examination/term-reports.php');
+            else {
+                $_SESSION['login'] = 0;
+                $_SESSION['notloggedin'] = 1;
+                header('Location: /index.php');
+            }
+
         } else {
             $sql = "SELECT
             *
