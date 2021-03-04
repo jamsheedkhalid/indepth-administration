@@ -15,6 +15,18 @@ function login()
             $_SESSION['user'] = $user;
             $_SESSION['username'] = $_POST['user'];
         }
+//        $sql = "SELECT
+//            *
+//            FROM
+//            privileges_users AS A
+//            INNER JOIN privileges_users AS B
+//            ON
+//            A.user_id = B.user_id
+//            WHERE
+//            A.privilege_id = 1 AND A.user_id='$user'";
+
+
+//        only access for Marie Joy initiated
         $sql = "SELECT
             *
             FROM
@@ -23,7 +35,7 @@ function login()
             ON
             A.user_id = B.user_id
             WHERE
-            A.privilege_id = 1 AND A.user_id='$user'";
+            A.privilege_id = 1 AND A.user_id='2953'";
 
 //        echo $sql;
         $result = $conn->query($sql);
@@ -34,7 +46,7 @@ function login()
         } else {
             $sql = "SELECT
             *
-            FROM users WHERE id='$user' AND ( username = 'Jamsheed' OR username = 'Rahman' OR username = 'admin' OR username = 'Hesham' ) ";
+            FROM users WHERE id='$user' AND ( username = 'Jamsheed' OR username = 'Rahman' OR username = 'admin' OR username = 'Hesham' OR username = 'Reem' ) ";
 //        echo $sql;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
