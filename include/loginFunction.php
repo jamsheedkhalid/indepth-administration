@@ -31,7 +31,7 @@ function login()
 
 //        echo $sql;
         $result = $conn->query($sql);
-        if ($result->num_rows > 0) && $user == '2953'{
+        if (($result->num_rows > 0) && ($_SESSION['username'] == '1556' )){
             $_SESSION['login'] = 1;
             $_SESSION['user_type'] = 'teacher';
             header('Location: /../modules/academics/planner/student_planner.php');
