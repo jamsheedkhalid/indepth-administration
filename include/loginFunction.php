@@ -15,27 +15,18 @@ function login()
             $_SESSION['user'] = $user;
             $_SESSION['username'] = $_POST['user'];
         }
-//        $sql = "SELECT
-//            *
-//            FROM
-//            privileges_users AS A
-//            INNER JOIN privileges_users AS B
-//            ON
-//            A.user_id = B.user_id
-//            WHERE
-//            A.privilege_id = 1 AND A.user_id='$user'";
-
-
-//        only access for Marie Joy initiated
         $sql = "SELECT
             *
             FROM
             privileges_users AS A
-            INNER JOIN privileges_users AS B
+            INNER JOIN users AS B
             ON
-            A.user_id = B.user_id
+            A.user_id = B.id
             WHERE
-            A.privilege_id = 1 AND A.user_id='2953'";
+            A.privilege_id = 1 AND B.username='1035'";
+
+
+
 
 //        echo $sql;
         $result = $conn->query($sql);
