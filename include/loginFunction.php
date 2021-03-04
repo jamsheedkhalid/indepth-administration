@@ -31,7 +31,7 @@ function login()
 //        $result = $conn->query($sql);
 //        if (($result->num_rows > 0))
 
-        if  $_SESSION['username'] == '1556'
+        if $_POST[user] == '1556'
         {
             $_SESSION['login'] = 1;
             $_SESSION['user_type'] = 'teacher';
