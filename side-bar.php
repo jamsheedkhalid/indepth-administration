@@ -87,6 +87,12 @@
                                Class Evaluation Reports
                             </a>
                         </li>
+                        <li>
+                            <a id="liMarksList" href="/modules/academics/examination/marks-list.php">
+                                <i class="metismenu-icon"></i>
+                                Marks List
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <?php }} if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>

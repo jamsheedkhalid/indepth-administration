@@ -14,35 +14,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
 
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"> </script>-->
-
-
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/exam-center.css" rel="stylesheet">
     <link href="/css/planner.css" rel="stylesheet">
     <link href="/css/finance.css" rel="stylesheet">
     <link href="/css/dataTable.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css" rel="stylesheet">
+
     <script type="text/javascript" src="/js/main.js"></script>
-
-<!--    fullcalender.io                -->
-<!--    <link href='/libs/full-calendar/packages/core/main.css' rel='stylesheet' />-->
-<!--    <link href='/libs/full-calendar/packages/daygrid/main.css' rel='stylesheet' />-->
-<!---->
-<!--    <script src='/libs/full-calendar/packages/core/main.js'></script>-->
-<!--    <script src='/libs/full-calendar/packages/daygrid/main.js'></script>-->
-<!--    <link href='/libs/full-calendar/packages/core/main.css' rel='stylesheet' />-->
-<!--    <link href='/libs/full-calendar/packages/daygrid/main.css' rel='stylesheet' />-->
-<!--    <link href='/libs/full-calendar/packages/timegrid/main.css' rel='stylesheet' />-->
-<!--    <link href='/libs/full-calendar/packages/list/main.css' rel='stylesheet' />-->
-<!--    <script src='/libs/full-calendar/packages/core/main.js'></script>-->
-<!--    <script src='/libs/full-calendar/packages/interaction/main.js'></script>-->
-<!--    <script src='/libs/full-calendar/packages/daygrid/main.js'></script>-->
-<!--    <script src='/libs/full-calendar/packages/timegrid/main.js'></script>-->
-<!--    <script src='/libs/full-calendar/packages/list/main.js'></script>-->
-<!--    <script src='/libs/full-calendar/examples/js/theme-chooser.js'></script>-->
-
-
-
-
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 </head>
