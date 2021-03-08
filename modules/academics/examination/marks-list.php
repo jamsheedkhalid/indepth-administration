@@ -21,18 +21,18 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                     },
                     {
                         extend: 'excelHtml5',
-                        title: 'Al Sanawbar School \n Archived Students with Pending Fees',
+                        title: 'Al Sanawbar School \n Marks List',
                         className: 'btn btn-primary btn-sm'
                     },
                     {
                         extend: 'pdfHtml5',
-                        title: 'Al Sanawbar School \n Archived Students with Pending Fees',
+                        title: 'Al Sanawbar School \n Marks List',
                         className: 'btn btn-primary btn-sm'
 
                     },
                     {
                         extend: 'csv',
-                        title: 'Al Sanawbar School \n Archived Students with Pending Fees',
+                        title: 'Al Sanawbar School \n Marks List',
                         className: 'btn btn-primary btn-sm'
                     },
                     {
