@@ -4,8 +4,6 @@ $grade = $_REQUEST['grade'];
 $section = $_REQUEST['section'];
 $subject = $_REQUEST['subject'];
 $filter = $_REQUEST['filter'];
-$custom_filter = $_REQUEST['custom_filter'];
-$custom_filter_less = $_REQUEST['custom_filter_less'];
 $show_ar_name = $_REQUEST['show_ar_name'];
 $show_parent_name = $_REQUEST['show_parent_name'];
 $show_family_id = $_REQUEST['show_family_id'];
@@ -24,7 +22,6 @@ select p.admission_no,
        p.first_name                                                                                           ar_name,   
        g.first_name parent_name, p.familyid familyid,g.mobile_phone mobile_number,
        concat(course_name, ' - ', batches.name) 'grade',
-       concat(course_name, ' - ', batches.name) 'section',
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
@@ -48,10 +45,7 @@ from students p
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
 where (courses.course_name in ($grade)) AND (batches.name in ($section) ) AND 
       (subjects.name in ($subject))
-group by p.id, exams.subject_id;
-     ";
-
-echo $sql;
+group by p.id, exams.subject_id;";
 
 
 $result = $conn->query($sql);
@@ -59,8 +53,14 @@ if ($result->num_rows > 0) {
     echo "
     <table id='marks_table' class='table table-hover table-responsive-lg table-bordered '  >
     <thead>
-    <tr align='center' >
-    <th>Adm. #</th>
+    <tr align='center'>";
+
+
+    if ($show_parent_name === 'true') echo '<th>Parent</th>';
+    if ($show_family_id == 'true') echo '<th>Family ID </th>';
+    if ($show_contact == 'true') echo '<th > Contact #</th>';
+
+    echo "<th>Adm. #</th>
     <th>Student</th>
     <th>Grade</th>
     <th>Subject</th>
@@ -72,41 +72,13 @@ if ($result->num_rows > 0) {
     <th>Exempt</th>
     ";
 
-    if ($show_parent_name == 'true') {
-        echo '<th>Parent</th>';
-    }
-    if ($show_family_id == 'true') {
-        echo '<th > Family ID </th >';
-    }
-    if ($show_contact == 'true') {
-        echo '<th > Contact #</th>';
-    }
-
     echo '</tr>
 </thead>
 <tbody>
     ';
     while ($row = mysqli_fetch_array($result)) {
         echo '
-        <tr>
-        <td>' . $row['admission_no'] . '</td>';
-
-        if ($show_ar_name == 'true') {
-            echo ' <td align="right"><b>' . $row['ar_name'] . '</b></td>';
-        } else {
-            echo ' <td align="left"><b>' . $row['en_name'] . '</b></td>';
-        }
-
-        echo '   
-        <td>' . $row['grade'] . '-' . $row['section'] . '</td>
-        <td>' . $row['subject'] . '</td>
-        <td align="right"><b>' . $row['max'] . '</b></td>
-        <td align="right"><b>' . $row['min'] . '</b></td>
-        <td align="right"><b>' . $row['CE'] . '</b></td>
-        <td align="right"><b>' . $row['TE'] . '</b></td>
-        <td align="right"><b>' . $row['TR'] . '</b></td>
-        <td align="right"><b>' . $row['exempt'] . '</b></td>';
-
+        <tr>';
         if ($show_parent_name == 'true') {
             echo ' <td>' . $row['parent_name'] . '</td>';
         }
@@ -117,9 +89,31 @@ if ($result->num_rows > 0) {
             echo '<td>' . $row['mobile_number'] . '</td>';
         }
 
-        echo '</tr>
-        ';
+        echo "<td>" . $row['admission_no'] . '</td>';
 
+        if ($show_ar_name == 'true') {
+            echo ' <td align="right"><b>' . $row['ar_name'] . '</b></td>';
+        } else {
+            echo ' <td align="left"><b>' . $row['en_name'] . '</b></td>';
+        }
+
+        echo '   
+        <td>' . $row['grade'] . '</td>
+        <td>' . $row['subject'] . '</td>
+        <td align="right"><b>' . $row['max'] . '</b></td>
+        <td align="right"><b>' . $row['min'] . '</b></td>
+        <td align="right"><b>' . $row['CE'] . '</b></td>
+        <td align="right"><b>' . $row['TE'] . '</b></td>
+        <td align="right"><b>' . $row['TR'] . '</b></td>';
+        echo "<td align='center'><b>";
+
+        if ($row['exempt'] == 'Y')
+            echo $row['exempt'];
+        else
+            echo "";
+
+        echo "</b></td>";
+        echo '</tr>';
     }
 
     echo '

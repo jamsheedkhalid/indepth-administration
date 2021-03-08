@@ -1,7 +1,8 @@
 window.onload = initGrades('gradeSelect');
+window.onload = search();
 
 function initGrades(grade) {
-    var gradeArray = ["No Grades!"];
+    var gradeArray = [];
     var httpGrade = new XMLHttpRequest();
     httpGrade.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -16,11 +17,12 @@ function initGrades(grade) {
     $('#gradeSelect').multiselect('destroy');
 
     delete gradeArray[gradeArray.length - 1];
+
     for (var i in gradeArray) {
         select.add(new Option(gradeArray[i]));
     }
-    document.getElementById(grade).selectedIndex = '3';
-
+    // document.getElementById(grade).selectedIndex = '0';
+    $("#gradeSelect option").attr("selected", "selected");
     $('#gradeSelect').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
@@ -29,10 +31,11 @@ function initGrades(grade) {
         selectAllJustVisible: true,
         buttonClass: 'form-control-sm form-control',
         buttonWidth: '100px',
-        nSelectedText: ' grades selected!',
-        dropRight: true
-
+        nSelectedText: 'grades selected!',
+        dropRight: true,
+        selectAllValue: 'true'
     });
+
     fillSections('sectionSelect', 'gradeSelect')
 
 }
@@ -41,12 +44,9 @@ function fillSections(section, grade) {
     // var selected_grade = document.getElementById(grade).options[document.getElementById(grade).selectedIndex].text;
     let selections = validateMultipleSelect(grade);
     if (selections == false) {
-        alert("Atleast select one grade!");
-        let first_grade = document.getElementById(grade).options[3].value;
+        let first_grade = document.getElementById(grade).options[0].value;
         $('#gradeSelect').multiselect('select', [first_grade]);
-
     }
-
     let selected_grade = document.getElementById('gradeSelect');
     let grades = [];
     let options = selected_grade && selected_grade.options;
@@ -80,7 +80,7 @@ function fillSections(section, grade) {
     for (var i in sectionArray) {
         sectionSelect.add(new Option(sectionArray[i]));
     }
-
+    $("#sectionSelect option").attr("selected", "selected");
     $('#sectionSelect').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
@@ -157,7 +157,7 @@ function fillSubjects(grade, section, subject) {
     for (let i in subjectArray) {
         selectSubject.add(new Option(subjectArray[i]));
     }
-
+    $("#subject option").attr("selected", "selected");
     $('#subject').multiselect({
         enableFiltering: true,
         enableCaseInsensitiveFiltering: true,
@@ -169,18 +169,10 @@ function fillSubjects(grade, section, subject) {
         nSelectedText: ' subjects selected!',
         nonSelectedText: 'Select Subject',
         dropRight: true
-
-
     });
-
-    let first_subject = document.getElementById('subject').options[0].value;
-    $('#subject').multiselect('select', [first_subject]);
-
-
 }
 
 function search() {
-    alert('serach');
     selections = false;
     selections = validateMultipleSelect('subject');
     if (selections == false) {
@@ -249,11 +241,12 @@ function search() {
     httpResult.onreadystatechange = function () {
         if (this.readyState === 4) {
             result_div.innerHTML = this.responseText;
-            initDataTable();
+            students_datatable();
         }
     };
-    httpResult.open("GET", "/mysql/marks-list/result.php?grade=" + grades + "&section=" + sections + "&subject=" + subjects + "&filter=" + filter_value + "&custom_filter=" +
-        custom_filter + "&custom_filter_less=" + custom_filter_less + "&show_ar_name=" + show_ar_name + "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact, false);
+    httpResult.open("GET", "/mysql/marks-list/result.php?grade=" + grades + "&section=" + sections +
+                    "&subject=" + subjects + "&filter=" + filter_value + "&show_ar_name=" + show_ar_name +
+                    "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact, false);
     httpResult.send();
 
 }
@@ -268,21 +261,6 @@ function triggerCustomFilterLess() {
     getAnalysis();
 }
 
-function initDataTable() {
-    // DataTable
-    $('#marks_table').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-
-    });
-
-}
-
 function validateMultipleSelect(select) {
     select = document.getElementById(select);
     var hasSelection = false;
@@ -294,12 +272,5 @@ function validateMultipleSelect(select) {
     }
     return hasSelection;
 }
-
-window.onload = function () {
-    initDataTable();
-
-};
-
-
 
 
