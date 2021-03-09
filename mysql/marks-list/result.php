@@ -1,8 +1,17 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = $_REQUEST['grade'];
-$section = $_REQUEST['section'];
-$subject = $_REQUEST['subject'];
+
+if ($grade == 13)
+    $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
+elseif ($grade == 46)
+    $grades = "(courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
+elseif ($grade == 79)
+    $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
+else
+    $grades = "(courses.course_name in ('GR10', 'GR11', 'GR12'))";
+
+
 $filter = $_REQUEST['filter'];
 $show_ar_name = $_REQUEST['show_ar_name'];
 $show_parent_name = $_REQUEST['show_parent_name'];
@@ -21,7 +30,7 @@ select p.admission_no,
        p.last_name                                                                                           en_name,
        p.first_name                                                                                           ar_name,   
        g.first_name parent_name, p.familyid familyid,g.mobile_phone mobile_number,
-       concat(course_name, ' - ', batches.name) 'grade',
+       course_name 'grade', batches.name 'section',
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
@@ -43,19 +52,16 @@ from students p
          left join exams on subjects.id = exams.subject_id
          left join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
-where (courses.course_name in ($grade)) AND (batches.name in ($section) ) AND 
-      (subjects.name in ($subject))
-group by p.id, exams.subject_id;";
+where $grades
+group by p.id, exams.subject_id";
 
-
+//echo $sql;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
-    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered '  >
+    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered'>
     <thead>
     <tr align='center'>";
-
-
     if ($show_parent_name === 'true') echo '<th>Parent</th>';
     if ($show_family_id == 'true') echo '<th>Family ID </th>';
     if ($show_contact == 'true') echo '<th > Contact #</th>';
@@ -63,6 +69,7 @@ if ($result->num_rows > 0) {
     echo "<th>Adm. #</th>
     <th>Student</th>
     <th>Grade</th>
+    <th>Section</th>
     <th>Subject</th>
     <th>MAX</th>
     <th>MIN</th>
@@ -99,6 +106,7 @@ if ($result->num_rows > 0) {
 
         echo '   
         <td>' . $row['grade'] . '</td>
+        <td>' . $row['section'] . '</td>
         <td>' . $row['subject'] . '</td>
         <td align="right"><b>' . $row['max'] . '</b></td>
         <td align="right"><b>' . $row['min'] . '</b></td>

@@ -46,10 +46,6 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
             });
             $('.dataTables_length').addClass('bs-select');
         }
-
-        $(document).ready(function () {
-            search();
-        });
     </script>
 
     </head>
@@ -83,30 +79,16 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="position-relative form-group col-sm-3">
-                                            <label for="gradeSelect">Grade</label>
-                                            <select multiple="multiple"
-                                                    onchange="search();fillSections('sectionSelect',this.id);fillSubjects('gradeSelect','sectionSelect','subject');"
-                                                    name="gradeSelect[]"
-                                                    id="gradeSelect" class="form-control-sm form-control ">
+                                        <div class="form-group">
+                                            <label for="demo_overview_minimal">GRADE</label>
+                                            <select id="grade" class="form-control"
+                                                    data-role="select-dropdown" data-profile="minimal" onchange="search();">
+                                                <option value="13">GR1 to GR 3</option>
+                                                <option value="46">GR4 to GR 6</option>
+                                                <option value="79">GR7 to GR 9</option>
+                                                <option value="1012">GR10 to GR 12</option>
                                             </select>
                                         </div>
-                                        <div class="position-relative form-group col-sm-3">
-                                            <label for="sectionSelect">Section</label>
-                                            <select multiple="multiple"
-                                                    onchange="fillSubjects('gradeSelect','sectionSelect','subject');search()"
-                                                    name="sectionSelect[]"
-                                                    id="sectionSelect" class="form-control-sm form-control ">
-                                            </select>
-                                        </div>
-                                        <div class="position-relative form-group col-sm-3">
-                                            <label for="subject">Subject</label>
-                                            <select multiple name="subject[]" id="subject"
-                                                    onchange="search();"
-                                                    class="form-control-sm form-control">
-                                            </select>
-                                        </div>
-
                                     </div>
                                     <div class="row">
                                         <div class="col-sm">
