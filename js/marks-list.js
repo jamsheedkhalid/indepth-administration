@@ -1,7 +1,6 @@
 window.onload = search();
 
 function search() {
-    updateProgress();
     let show_ar_name = document.getElementById('show_ar_names').checked;
     let show_parent_name = document.getElementById('show_parent_name').checked;
     let show_family_id = document.getElementById('show_family_id').checked;
@@ -20,13 +19,10 @@ function search() {
 
 
     let httpResult = new XMLHttpRequest();
-    httpResult.addEventListener("progress", updateProgress());
-
     httpResult.onreadystatechange = function () {
         if (this.readyState === 4) {
             result_div.innerHTML = this.responseText;
             students_datatable();
-            httpResult.upload.addEventListener("loadend", loadCompleted());
         }
     };
 
@@ -37,37 +33,13 @@ function search() {
 
 function updateProgress() {
     $('#loader').show();
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#loader').show();
     });
 }
 
 function loadCompleted() {
-    $(document).ready(function (){
+    $(document).ready(function () {
         $('#loader').hide();
     });
 }
-
-function triggerCustomFilter() {
-    document.getElementById('custom').checked = true;
-    getAnalysis();
-}
-
-function triggerCustomFilterLess() {
-    document.getElementById('custom_less').checked = true;
-    getAnalysis();
-}
-
-function validateMultipleSelect(select) {
-    select = document.getElementById(select);
-    var hasSelection = false;
-    var i;
-    for (i = 0; i < select.options.length; i += 1) {
-        if (select.options[i].selected) {
-            hasSelection = true;
-        }
-    }
-    return hasSelection;
-}
-
-

@@ -136,12 +136,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                     <div class="row">
                                         <div class="col" style='padding-top: 20px'>
                                             <h5 class="card-title">marks list</h5>
-                                            <div class="spinner-border text-primary" role="status" id="loader"
-                                                 style="display: none;">
-                                                <span class="sr-only">loading...</span>
-                                            </div>
                                             <div id="result_div">
-
                                                 <div class="alert alert-primary fade show" role="alert">please use the
                                                     drop-downs to view the <strong>mark lists</strong>!
                                                 </div>
