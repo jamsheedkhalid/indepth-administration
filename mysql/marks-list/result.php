@@ -42,7 +42,6 @@ from students p
          left join exams on subjects.id = exams.subject_id
          left join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
-where (courses.course_name in ($grade)) AND (batches.name in ($section) )
 group by p.id, exams.subject_id;";
 
 //echo $sql;
