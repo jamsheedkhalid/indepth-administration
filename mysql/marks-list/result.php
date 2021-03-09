@@ -1,7 +1,13 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = $_REQUEST['grade'];
-$section = $_REQUEST['section'];
+
+if ($grade == 16)
+    $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3', 'GR 4', 'GR 5', 'GR 6'))";
+else
+    $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9', 'GR10', 'GR11', 'GR12'))";
+
+
 $filter = $_REQUEST['filter'];
 $show_ar_name = $_REQUEST['show_ar_name'];
 $show_parent_name = $_REQUEST['show_parent_name'];
@@ -42,9 +48,10 @@ from students p
          left join exams on subjects.id = exams.subject_id
          left join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
-group by p.id, exams.subject_id;";
+where $grades
+group by p.id, exams.subject_id";
 
-//echo $sql;
+echo $sql;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
