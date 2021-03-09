@@ -51,7 +51,7 @@ from students p
 where $grades
 group by p.id, exams.subject_id";
 
-echo $sql;
+//echo $sql;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
