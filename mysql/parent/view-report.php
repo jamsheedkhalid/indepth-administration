@@ -129,9 +129,13 @@ group by subjects.id order by subjects.name; ";
             $pdf->Cell(40, 7, 'Subjects', 1, 0, 'C');
             $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
             $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
-            $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
+            if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
+            }
             $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
-            $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
+            if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
+            }
 
             $pdf->SetFont('times', '', 10);
 
@@ -175,21 +179,23 @@ group by subjects.id order by subjects.name; ";
 
 //                end check non islamic
 
-
-                        if (!is_null($row['ASS']))
-                            $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                        else
-                            $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                            if (!is_null($row['ASS']))
+                                $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                            else
+                                $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        }
 
                         if (!is_null($row['TE']))
                             $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
                         else
                             $pdf->Cell(20, 7, '-', 1, 0, 'C');
-
-                        if (!is_null($row['TR']))
-                            $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
-                        else
-                            $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                            if (!is_null($row['TR']))
+                                $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                            else
+                                $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        }
 
                     }
                 } else if ($grade === 'GR 9'
@@ -231,20 +237,22 @@ group by subjects.id order by subjects.name; ";
                         }
 
 //                end check non islamic
-                        if (!is_null($row['ASS']))
-                            $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
-                        else
-                            $pdf->Cell(20, 7, '-', 1, 0, 'C');
-
+                        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                            if (!is_null($row['ASS']))
+                                $pdf->Cell(20, 7, $row['ASS'], 1, 0, 'C');
+                            else
+                                $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        }
                         if (!is_null($row['TE']))
                             $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
                         else
                             $pdf->Cell(20, 7, '-', 1, 0, 'C');
-
-                        if (!is_null($row['TR']))
-                            $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
-                        else
-                            $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                            if (!is_null($row['TR']))
+                                $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');
+                            else
+                                $pdf->Cell(20, 7, '-', 1, 0, 'C');
+                        }
                     }
 
                 }
@@ -289,10 +297,14 @@ group by subjects.id order by subjects.name; ";
 
 
 //            } else
-                {
-                $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
+            {
+                if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                    $pdf->Cell(20, 10, $total_ASS, 1, 0, 'C');
+                }
                 $pdf->Cell(20, 10, $total_TE, 1, 0, 'C');
-                $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
+                if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                    $pdf->Cell(20, 10, $total_TR, 1, 0, 'C');
+                }
             }
             if (($grade === 'GR 9'
                 || $grade === 'GR10' || $grade === 'GR11' || $grade === 'GR12')) {
@@ -302,17 +314,23 @@ group by subjects.id order by subjects.name; ";
                 $pdf->Cell(40, 1, '', 'LTB');
                 $pdf->Cell(20, 1, '', 'TB', 0, 'C');
                 $pdf->Cell(20, 1, '', 'BT', 0, 'C');
-                $pdf->Cell(20, 1, '', 'BT', 0, 'C');
-                $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+                if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                    $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+                    $pdf->Cell(20, 1, '', 'BT', 0, 'C');
+                }
                 $pdf->Cell(20, 1, '', 'BTR', 0, 'C');
                 $pdf->ln();
                 $pdf->SetX(40);
                 $pdf->Cell(40, 7, $ME['subject'], 1);
                 $pdf->Cell(20, 7, $ME['max'], 1, 0, 'C');
                 $pdf->Cell(20, 7, $ME['min'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
+                if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                    $pdf->Cell(20, 7, $ME['ASS'], 1, 0, 'C');
+                }
                 $pdf->Cell(20, 7, $ME['TE'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
+                if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+                    $pdf->Cell(20, 7, $ME['TR'], 1, 0, 'C');
+                }
             }
             switch ($term) {
                 case 'Term 1':
@@ -328,25 +346,25 @@ group by subjects.id order by subjects.name; ";
                     $term_name = 'Term Unknown';
             }
 
+            if ($term == 'Term 1' || ($term =='Term 2' && $grade != 'GR12')) {
+                $pdf->ln(15);
+                $pdf->SetFont('times', '', 10);
+                $pdf->SetX(40);
+                $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
+                $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
+                $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
+                $pdf->ln();
+                $pdf->SetX(40);
+                $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
+                $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
+                $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
+                $pdf->ln();
+                $pdf->SetX(40);
+                $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
+                $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
+                $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
 
-            $pdf->ln(15);
-            $pdf->SetFont('times', '', 10);
-            $pdf->SetX(40);
-            $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
-            $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
-            $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
-            $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
-            $pdf->ln();
-            $pdf->SetX(40);
-            $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
-            $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
-
-
+            }
             $flag = 0;
         } else {
             $flag = 1;
