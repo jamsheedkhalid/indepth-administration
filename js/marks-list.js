@@ -100,92 +100,10 @@ function fillSections(section, grade) {
 
     let first_section = document.getElementById('sectionSelect').options[0].value;
     $('#sectionSelect').multiselect('select', [first_section]);
-    fillSubjects('gradeSelect', 'sectionSelect', 'subject');
-}
-
-function fillSubjects(grade, section, subject) {
-
-    let selections = false;
-    selections = validateMultipleSelect('sectionSelect');
-    if (selections == false) {
-        alert("Atleast select one section!");
-        let first_grade = document.getElementById('sectionSelect').options[0].value;
-        $('#sectionSelect').multiselect('select', [first_grade]);
-
-    }
-
-    let selected_grade = document.getElementById('gradeSelect');
-    let grades = [];
-    let grade_options = selected_grade && selected_grade.options;
-    let grade_opt;
-
-    for (let i = 0, iLen = grade_options.length; i < iLen; i++) {
-        grade_opt = grade_options[i];
-        if (grade_opt.selected) {
-            grades.push("'" + grade_opt.text + "'");
-        }
-    }
-
-
-    let selected_section = document.getElementById('sectionSelect');
-    let sections = [];
-    let options = selected_section && selected_section.options;
-    let opt;
-
-    for (let i = 0, iLen = options.length; i < iLen; i++) {
-        opt = options[i];
-        if (opt.selected) {
-            sections.push("'" + opt.text + "'");
-        }
-    }
-
-    let selectSubject = document.getElementById(subject);
-    while (selectSubject.length > 0)
-        selectSubject.remove(0);
-
-    let httpSubject = new XMLHttpRequest();
-    httpSubject.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            let str = this.responseText;
-            subjectArray = str.split("\t");
-        }
-    };
-    httpSubject.open("GET", "/mysql/student-analysis/fillSubjects.php?grade=" + grades + "&section=" + sections, false);
-    httpSubject.send();
-    $('#subject').multiselect('destroy');
-    delete subjectArray[subjectArray.length - 1];
-    for (let i in subjectArray) {
-        selectSubject.add(new Option(subjectArray[i]));
-    }
-    $("#subject option").attr("selected", "selected");
-    $('#subject').multiselect({
-        enableFiltering: true,
-        enableCaseInsensitiveFiltering: true,
-        enableFullValueFiltering: true,
-        includeSelectAllOption: true,
-        selectAllJustVisible: true,
-        buttonClass: 'form-control-sm form-control',
-        buttonWidth: '140px',
-        nSelectedText: ' subjects selected!',
-        nonSelectedText: 'Select Subject',
-        dropRight: true
-    });
 }
 
 function search() {
     selections = false;
-    selections = validateMultipleSelect('subject');
-    if (selections == false) {
-        alert("Atleast select one subject!");
-        // $("#subject").multiselect('selectAll', false);
-        let first_subject = document.getElementById('subject').options[0].value;
-        $('#subject').multiselect('select', [first_subject]);
-
-    }
-
-
-    selections = false;
-
     let selected_grade = document.getElementById('gradeSelect');
     let grades = [];
     let grade_options = selected_grade && selected_grade.options;
@@ -207,17 +125,6 @@ function search() {
         opt = options[i];
         if (opt.selected) {
             sections.push("'" + opt.text + "'");
-        }
-    }
-
-    let selected_subject = document.getElementById('subject');
-    let subjects = [];
-    options = selected_subject && selected_subject.options;
-
-    for (let i = 0, iLen = options.length; i < iLen; i++) {
-        opt = options[i];
-        if (opt.selected) {
-            subjects.push("'" + opt.text + "'");
         }
     }
 
@@ -245,7 +152,7 @@ function search() {
         }
     };
     httpResult.open("GET", "/mysql/marks-list/result.php?grade=" + grades + "&section=" + sections +
-                    "&subject=" + subjects + "&filter=" + filter_value + "&show_ar_name=" + show_ar_name +
+                    "&filter=" + filter_value + "&show_ar_name=" + show_ar_name +
                     "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact, false);
     httpResult.send();
 
