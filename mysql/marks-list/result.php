@@ -2,7 +2,6 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = $_REQUEST['grade'];
 $section = $_REQUEST['section'];
-$subject = $_REQUEST['subject'];
 $filter = $_REQUEST['filter'];
 $show_ar_name = $_REQUEST['show_ar_name'];
 $show_parent_name = $_REQUEST['show_parent_name'];
@@ -43,19 +42,16 @@ from students p
          left join exams on subjects.id = exams.subject_id
          left join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
-where (courses.course_name in ($grade)) AND (batches.name in ($section) ) AND 
-      (subjects.name in ($subject))
+where (courses.course_name in ($grade)) AND (batches.name in ($section) )
 group by p.id, exams.subject_id;";
 
-
+//echo $sql;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     echo "
-    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered '  >
+    <table id='marks_table' class='table table-hover table-responsive-lg table-bordered'>
     <thead>
     <tr align='center'>";
-
-
     if ($show_parent_name === 'true') echo '<th>Parent</th>';
     if ($show_family_id == 'true') echo '<th>Family ID </th>';
     if ($show_contact == 'true') echo '<th > Contact #</th>';

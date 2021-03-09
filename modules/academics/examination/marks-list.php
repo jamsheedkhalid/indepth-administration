@@ -99,14 +99,6 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                     id="sectionSelect" class="form-control-sm form-control ">
                                             </select>
                                         </div>
-                                        <div class="position-relative form-group col-sm-3">
-                                            <label for="subject">Subject</label>
-                                            <select multiple name="subject[]" id="subject"
-                                                    onchange="search();"
-                                                    class="form-control-sm form-control">
-                                            </select>
-                                        </div>
-
                                     </div>
                                     <div class="row">
                                         <div class="col-sm">
