@@ -82,7 +82,9 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                         <div class="form-group">
                                             <label for="demo_overview_minimal">GRADE</label>
                                             <select id="grade" class="form-control"
-                                                    data-role="select-dropdown" data-profile="minimal" onchange="search();">
+                                                    data-role="select-dropdown" data-profile="minimal"
+                                                    onchange="search();">
+                                                <option value="0">SELECT GRADE</option>
                                                 <option value="13">GR1 to GR 3</option>
                                                 <option value="46">GR4 to GR 6</option>
                                                 <option value="79">GR7 to GR 9</option>
@@ -126,7 +128,6 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                                                            class="form-check-input">
                                                         Contact Number</label>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -134,10 +135,15 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                     <!--                                    result div -->
                                     <div class="row">
                                         <div class="col" style='padding-top: 20px'>
-                                            <h5 class="card-title">MARKS LIST</h5>
+                                            <h5 class="card-title">marks list</h5>
+                                            <div class="spinner-border text-primary" role="status" id="loader"
+                                                 style="display: none;">
+                                                <span class="sr-only">loading...</span>
+                                            </div>
                                             <div id="result_div">
-                                                <div class="alert alert-primary fade show" role="alert">Please use the
-                                                    drop-downs to view the <strong>Mark Lists</strong>!
+
+                                                <div class="alert alert-primary fade show" role="alert">please use the
+                                                    drop-downs to view the <strong>mark lists</strong>!
                                                 </div>
                                             </div>
                                         </div>
