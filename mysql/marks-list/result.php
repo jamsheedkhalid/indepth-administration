@@ -2,10 +2,14 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = $_REQUEST['grade'];
 
-if ($grade == 16)
-    $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3', 'GR 4', 'GR 5', 'GR 6'))";
+if ($grade == 13)
+    $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
+elseif ($grade == 46)
+    $grades = "(courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
+elseif ($grade == 789)
+    $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
 else
-    $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9', 'GR10', 'GR11', 'GR12'))";
+    $grades = "(courses.course_name in ('GR10', 'GR11', 'GR12'))";
 
 
 $filter = $_REQUEST['filter'];
@@ -26,7 +30,7 @@ select p.admission_no,
        p.last_name                                                                                           en_name,
        p.first_name                                                                                           ar_name,   
        g.first_name parent_name, p.familyid familyid,g.mobile_phone mobile_number,
-       concat(course_name, ' - ', batches.name) 'grade',
+       course_name 'grade', batches.name 'section',
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
@@ -65,6 +69,7 @@ if ($result->num_rows > 0) {
     echo "<th>Adm. #</th>
     <th>Student</th>
     <th>Grade</th>
+    <th>Section</th>
     <th>Subject</th>
     <th>MAX</th>
     <th>MIN</th>
@@ -101,6 +106,7 @@ if ($result->num_rows > 0) {
 
         echo '   
         <td>' . $row['grade'] . '</td>
+        <td>' . $row['section'] . '</td>
         <td>' . $row['subject'] . '</td>
         <td align="right"><b>' . $row['max'] . '</b></td>
         <td align="right"><b>' . $row['min'] . '</b></td>

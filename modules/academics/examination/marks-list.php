@@ -83,8 +83,10 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                             <label for="demo_overview_minimal">GRADE</label>
                                             <select id="grade" class="form-control"
                                                     data-role="select-dropdown" data-profile="minimal" onchange="search();">
-                                                <option value="16">GR1 to GR 6</option>
-                                                <option value="712">GR7 to GR 12</option>
+                                                <option value="13">GR1 to GR 3</option>
+                                                <option value="46">GR4 to GR 6</option>
+                                                <option value="79">GR7 to GR 9</option>
+                                                <option value="1012">GR10 to GR 12</option>
                                             </select>
                                         </div>
                                     </div>
