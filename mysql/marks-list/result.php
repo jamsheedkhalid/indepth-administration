@@ -6,7 +6,7 @@ if ($grade == 13)
     $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
 elseif ($grade == 46)
     $grades = "(courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
-elseif ($grade == 789)
+elseif ($grade == 79)
     $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
 else
     $grades = "(courses.course_name in ('GR10', 'GR11', 'GR12'))";
