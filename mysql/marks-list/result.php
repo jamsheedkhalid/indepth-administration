@@ -4,13 +4,13 @@ $grade = $_REQUEST['grade'];
 
 if ($grade != 0) {
     if ($grade == 13)
-        $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
+        $grades = "and (courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
     elseif ($grade == 46)
-        $grades = "(courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
+        $grades = " and (courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
     elseif ($grade == 79)
-        $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
+        $grades = "and (courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
     else
-        $grades = "(courses.course_name in ('GR10', 'GR11', 'GR12'))";
+        $grades = " and (courses.course_name in ('GR10', 'GR11', 'GR12'))";
 
 
     $filter = $_REQUEST['filter'];
@@ -53,7 +53,8 @@ from students p
          left join exams on subjects.id = exams.subject_id
          left join exam_groups on exams.exam_group_id = exam_groups.id
          left join exam_scores on exams.id = exam_scores.exam_id and p.id = exam_scores.student_id
-where $grades
+where subjects.is_deleted = 0 
+$grades
 group by p.id, exams.subject_id";
 
 //echo $sql;
