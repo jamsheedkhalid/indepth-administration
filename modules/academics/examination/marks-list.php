@@ -80,18 +80,28 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group">
-                                            <label for="demo_overview_minimal">GRADE</label>
-                                            <select id="grade" class="form-control"
-                                                    data-role="select-dropdown" data-profile="minimal"
-                                                    onchange="search();">
-                                                <option value="0">SELECT GRADE</option>
-                                                <option value="13">GR1 to GR 3</option>
-                                                <option value="46">GR4 to GR 6</option>
-                                                <option value="79">GR7 to GR 9</option>
-                                                <option value="1012">GR10 to GR 12</option>
-                                            </select>
+                                            <div class="col-sm">
+                                                <label for="grade">GRADE</label>
+                                            </div>
+                                            <div class="col-sm">
+                                                <select id="grade" class="form-control"
+                                                        data-role="select-dropdown" data-profile="minimal"
+                                                        onchange="search();">
+                                                    <option value="0">SELECT GRADE</option>
+                                                    <option value="13">GR1 to GR 3</option>
+                                                    <option value="46">GR4 to GR 6</option>
+                                                    <option value="79">GR7 to GR 9</option>
+                                                    <option value="1012">GR10 to GR 12</option>
+                                                </select>
+                                            </div>
+
                                         </div>
                                     </div>
+                                        <div class="form-group" id="process" style="display:none;" >
+                                            <div class="progress" >
+                                                <div id="process-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="">    Loading...   </div>
+                                            </div>
+                                        </div>
                                     <div class="row">
                                         <div class="col-sm">
                                             <h5 class="card-title">FILTERS</h5>

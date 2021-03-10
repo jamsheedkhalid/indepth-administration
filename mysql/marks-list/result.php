@@ -60,6 +60,8 @@ group by p.id, exams.subject_id";
 //echo $sql;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
+
+
         echo "
     <table id='marks_table' class='table table-hover table-responsive-lg table-bordered'>
     <thead>
