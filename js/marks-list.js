@@ -15,8 +15,9 @@ function search() {
         }
     }
     let grades = document.getElementById('grade').value;
-
     let result_div = document.getElementById('result_div');
+
+
     let httpResult = new XMLHttpRequest();
     httpResult.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -24,31 +25,21 @@ function search() {
             students_datatable();
         }
     };
+
     httpResult.open("GET", "/mysql/marks-list/result.php?grade=" + grades + "&filter=" + filter_value + "&show_ar_name=" + show_ar_name +
-                    "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact, false);
+        "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact, false);
     httpResult.send();
 }
 
-function triggerCustomFilter() {
-    document.getElementById('custom').checked = true;
-    getAnalysis();
+function updateProgress() {
+    $('#loader').show();
+    $(document).ready(function () {
+        $('#loader').show();
+    });
 }
 
-function triggerCustomFilterLess() {
-    document.getElementById('custom_less').checked = true;
-    getAnalysis();
+function loadCompleted() {
+    $(document).ready(function () {
+        $('#loader').hide();
+    });
 }
-
-function validateMultipleSelect(select) {
-    select = document.getElementById(select);
-    var hasSelection = false;
-    var i;
-    for (i = 0; i < select.options.length; i += 1) {
-        if (select.options[i].selected) {
-            hasSelection = true;
-        }
-    }
-    return hasSelection;
-}
-
-

@@ -2,30 +2,31 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = $_REQUEST['grade'];
 
-if ($grade == 13)
-    $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
-elseif ($grade == 46)
-    $grades = "(courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
-elseif ($grade == 79)
-    $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
-else
-    $grades = "(courses.course_name in ('GR10', 'GR11', 'GR12'))";
+if ($grade != 0) {
+    if ($grade == 13)
+        $grades = "(courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
+    elseif ($grade == 46)
+        $grades = "(courses.course_name in ('GR 4', 'GR 5', 'GR 6'))";
+    elseif ($grade == 79)
+        $grades = "(courses.course_name in ('GR 7', 'GR 8', 'GR 9'))";
+    else
+        $grades = "(courses.course_name in ('GR10', 'GR11', 'GR12'))";
 
 
-$filter = $_REQUEST['filter'];
-$show_ar_name = $_REQUEST['show_ar_name'];
-$show_parent_name = $_REQUEST['show_parent_name'];
-$show_family_id = $_REQUEST['show_family_id'];
-$show_contact = $_REQUEST['show_contact'];
+    $filter = $_REQUEST['filter'];
+    $show_ar_name = $_REQUEST['show_ar_name'];
+    $show_parent_name = $_REQUEST['show_parent_name'];
+    $show_family_id = $_REQUEST['show_family_id'];
+    $show_contact = $_REQUEST['show_contact'];
 
-if ($show_ar_name == 'true') {
-    $show_ar = 'students.first_name';
-} else {
-    $show_ar = 'students.last_name';
-}
+    if ($show_ar_name == 'true') {
+        $show_ar = 'students.first_name';
+    } else {
+        $show_ar = 'students.last_name';
+    }
 
 
-$sql = "
+    $sql = "
 select p.admission_no,
        p.last_name                                                                                           en_name,
        p.first_name                                                                                           ar_name,   
@@ -56,17 +57,17 @@ where $grades
 group by p.id, exams.subject_id";
 
 //echo $sql;
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    echo "
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        echo "
     <table id='marks_table' class='table table-hover table-responsive-lg table-bordered'>
     <thead>
     <tr align='center'>";
-    if ($show_parent_name === 'true') echo '<th>Parent</th>';
-    if ($show_family_id == 'true') echo '<th>Family ID </th>';
-    if ($show_contact == 'true') echo '<th > Contact #</th>';
+        if ($show_parent_name === 'true') echo '<th>Parent</th>';
+        if ($show_family_id == 'true') echo '<th>Family ID </th>';
+        if ($show_contact == 'true') echo '<th > Contact #</th>';
 
-    echo "<th>Adm. #</th>
+        echo "<th>Adm. #</th>
     <th>Student</th>
     <th>Grade</th>
     <th>Section</th>
@@ -79,32 +80,32 @@ if ($result->num_rows > 0) {
     <th>Exempt</th>
     ";
 
-    echo '</tr>
+        echo '</tr>
 </thead>
 <tbody>
     ';
-    while ($row = mysqli_fetch_array($result)) {
-        echo '
+        while ($row = mysqli_fetch_array($result)) {
+            echo '
         <tr>';
-        if ($show_parent_name == 'true') {
-            echo ' <td>' . $row['parent_name'] . '</td>';
-        }
-        if ($show_family_id == 'true') {
-            echo '<td>' . $row['familyid'] . '</td>';
-        }
-        if ($show_contact == 'true') {
-            echo '<td>' . $row['mobile_number'] . '</td>';
-        }
+            if ($show_parent_name == 'true') {
+                echo ' <td>' . $row['parent_name'] . '</td>';
+            }
+            if ($show_family_id == 'true') {
+                echo '<td>' . $row['familyid'] . '</td>';
+            }
+            if ($show_contact == 'true') {
+                echo '<td>' . $row['mobile_number'] . '</td>';
+            }
 
-        echo "<td>" . $row['admission_no'] . '</td>';
+            echo "<td>" . $row['admission_no'] . '</td>';
 
-        if ($show_ar_name == 'true') {
-            echo ' <td align="right"><b>' . $row['ar_name'] . '</b></td>';
-        } else {
-            echo ' <td align="left"><b>' . $row['en_name'] . '</b></td>';
-        }
+            if ($show_ar_name == 'true') {
+                echo ' <td align="right"><b>' . $row['ar_name'] . '</b></td>';
+            } else {
+                echo ' <td align="left"><b>' . $row['en_name'] . '</b></td>';
+            }
 
-        echo '   
+            echo '   
         <td>' . $row['grade'] . '</td>
         <td>' . $row['section'] . '</td>
         <td>' . $row['subject'] . '</td>
@@ -113,23 +114,20 @@ if ($result->num_rows > 0) {
         <td align="right"><b>' . $row['CE'] . '</b></td>
         <td align="right"><b>' . $row['TE'] . '</b></td>
         <td align="right"><b>' . $row['TR'] . '</b></td>';
-        echo "<td align='center'><b>";
+            echo "<td align='center'><b>";
 
-        if ($row['exempt'] == 'Y')
-            echo $row['exempt'];
-        else
-            echo "";
+            if ($row['exempt'] == 'Y')
+                echo $row['exempt'];
+            else
+                echo "";
 
-        echo "</b></td>";
-        echo '</tr>';
+            echo "</b></td>";
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
+    } else {
+        echo '<div class="alert alert-primary fade show" role="alert"><strong>No Marks Found!</strong> Please use different selection to view marks</div>';
     }
-
-    echo '
-        </tbody>
-    </table>';
 } else {
-    echo '  <div class="alert alert-primary fade show" role="alert"><strong>No Marks Found!</strong> Please use different selection to view marks</div>
-';
+    echo '<div class="alert alert-primary fade show" role="alert"><strong>Select a grade from Grade dropdown!</strong></div>';
 }
-
-

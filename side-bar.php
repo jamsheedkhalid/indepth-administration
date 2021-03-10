@@ -45,7 +45,7 @@
                         Home
                     </a>
                 </li>
-                <?php } if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
+                <?php } if($_SESSION['user_type'] === 'parent'){?>
 
 
                 <li>
@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <?php }?>
-                <?php if($_SESSION['user_type'] === 'student' || $_SESSION['user_type'] === 'admin'){?>
+                <?php if($_SESSION['user_type'] === 'student'){?>
 
 
                 <li>
