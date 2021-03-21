@@ -364,7 +364,7 @@ group by subjects.id; ";
 
         $start = new DateTime($start_date);
         $end = new DateTime($end_date);
-        $end->modify('+1 day');
+
 
         $pdf->Cell(160, 7, 'ATTENDANCE [' . $start->format('d-m-Y') . ' to ' . $end->format('d-m-Y') . ']', 'LTBR', 0, 'C');
         $pdf->ln();
@@ -394,6 +394,7 @@ group by subjects.id; ";
         $day_periods_query = $conn->query($days_periods_sql);
 
         $interval = new DateInterval('P1D');
+        $end->modify('+1 day');
         $days = new DatePeriod($start, $interval, $end);
         $periods = $working_days = 0;
         if ($day_periods_query->num_rows > 0) {

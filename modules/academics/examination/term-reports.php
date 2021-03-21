@@ -105,8 +105,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
 
                         <div>
-                            <form target="_blank" method="post" class="row"
-                            >
+                            <form target="_blank" method="post" class="row">
                                 <div class="col-md-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
@@ -219,7 +218,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                 </div>
                                                 <div class="position-relative form-group col-sm">
                                                     <label>End</label>
-                                                    <input type="date" name="end_date" id="end_date" value="2020-11-01"/></div>
+                                                    <input type="date" name="end_date" id="end_date" value="2021-03-18"/></div>
                                             </div>
                                         </div>
                                     </div>
