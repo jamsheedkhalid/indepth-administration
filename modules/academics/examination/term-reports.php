@@ -199,7 +199,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                     <label style="display: inline-block;float: left;width: fit-content">Each&nbsp</label>
                                                     <input name="absents2days" type="number" min="1" max="10"
                                                            id="absents2days" class="form-control-sm form-control"
-                                                           value="4" style="display: inline-block;float: left;width: fit-content;height: 23px;"/>
+                                                           value="3" style="display: inline-block;float: left;width: fit-content;height: 23px;"/>
                                                     <label style="display: inline-block;float: left;">&nbspperiods or more, marks one day absent</label>
                                                 </div>
                                             </div>
@@ -208,7 +208,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                                     <label style="display: inline-block;float: left;width: fit-content">During the below date range, there were&nbsp</label>
                                                     <input name="holidays" type="number" min="1" max="10"
                                                            id="holidays" class="form-control-sm form-control"
-                                                           value="0" style="display: inline-block;float: left;width: fit-content;height: 23px;"/>
+                                                           value="1" style="display: inline-block;float: left;width: fit-content;height: 23px;"/>
                                                     <label style="display: inline-block;float: left;">&nbsp official holidays</label>
                                                 </div>
                                             </div>
