@@ -40,11 +40,11 @@ if (isset($_POST['studentSubmit'])) {
             $this->Ln(5);
             $this->Cell(0, 0, 'STUDENT TERM REPORT', 0, 2, 'C');
             $this->SetLineWidth(0.2);
-            $this->Line(10, 52, 200, 52);
+            $this->Line(10, 55, 200, 55);
             $this->SetFont('times', '', 10);
-            $this->Ln(5);
+            $this->Ln(10);
             $this->Cell(0, 0, 'ACADEMIC YEAR: 2020 - 2021', 0, 2, 'C');
-            $this->Ln(5);
+            $this->Ln(10);
             switch ($term) {
                 case 'Term 1':
                     $term_name = 'First Term';
@@ -124,7 +124,8 @@ group by subjects.id; ";
 
         $pdf->AddPage();
         $pdf->SetFont('times', '', 10);
-        $pdf->ln(65);
+        $pdf->ln(80);
+
         $pdf->Cell(50, 5, "Admission No. :", 0, 0, 'R');
         $pdf->Cell(100, 5, $row_section['admission'], 0, 0, 'L');
         $pdf->ln();
@@ -138,7 +139,9 @@ group by subjects.id; ";
         $pdf->Cell(100, 5, $row_section['section'], 0, 0, 'L');
 
         $pdf->SetFont('times', 'B', 10);
-        $pdf->ln(10);
+        $pdf->ln(20);
+
+
         $pdf->SetX(25);
 //        $pdf->SetXY(25, 120);
         $pdf->Cell(60, 7, 'Subjects', 1, 0, 'C');
@@ -358,138 +361,138 @@ group by subjects.id; ";
         // Attendance
 
         //HEADER
-        $pdf->ln(15);
-        $pdf->SetFont('times', 'B', 10);
-        $pdf->SetX(25);
-
-        $start = new DateTime($start_date);
-        $end = new DateTime($end_date);
-
-
-        $pdf->Cell(160, 7, 'ATTENDANCE [' . $start->format('d-m-Y') . ' to ' . $end->format('d-m-Y') . ']', 'LTBR', 0, 'C');
-        $pdf->ln();
-        $pdf->SetX(25);
-        $pdf->Cell(40, 7, 'ATTENDANCE', 'LTBR', 0, 'C');
-        $pdf->Cell(40, 7, 'PERIODS', 'LTBR', 0, 'C');
-        $pdf->Cell(40, 7, 'DAYS', 'LTBR', 0, 'C');
-        $pdf->Cell(40, 7, 'PERCENTAGE', 'LTBR', 0, 'C');
-
-        //TOTAL
-        //periods per day
-        $days_periods_sql = "
-        SELECT concat(courses.course_name, ' - ', batches.name) grade,count(class_timing_sets.name) periods, class_timings.name,timetable_entries.weekday_id,
-               class_timings.start_time,class_timings.end_time
-        FROM timetables
-         INNER JOIN timetable_entries on timetables.id = timetable_entries.timetable_id
-         INNER JOIN class_timings on timetable_entries.class_timing_id = class_timings.id
-         INNER JOIN class_timing_sets on class_timings.class_timing_set_id = class_timing_sets.id
-         INNER JOIN batches on timetable_entries.batch_id = batches.id
-         INNER JOIN courses on batches.course_id = courses.id
-         INNER JOIN students on batches.id = students.batch_id
-        WHERE students.id = $student
-        GROUP BY weekday_id
-        ORDER BY weekday_id;
-        ";
-
-        $day_periods_query = $conn->query($days_periods_sql);
-
-        $interval = new DateInterval('P1D');
-        $end->modify('+1 day');
-        $days = new DatePeriod($start, $interval, $end);
-        $periods = $working_days = 0;
-        if ($day_periods_query->num_rows > 0) {
-            while ($day_periods_row = mysqli_fetch_array($day_periods_query)) {
-//                echo '<br><br><hr><h5>' . $day_periods_row['weekday_id'] . ' - ' . $day_periods_row['periods'] . '</h5>';
-                foreach ($days as $d) {
-                    $day = Date('w', strtotime($d->format("d-m-Y")));
-                    if ($day == $day_periods_row['weekday_id']) {
-//                        echo 'Matched with ' . $day_periods_row['weekday_id'] . ' = ' . $day_periods_row['periods'] . '<br>';
-                        $periods += $day_periods_row['periods'];
-                        $working_days++;
-                    }
-                }
-            }
-        }
-
-//        echo 'Working days = ' . $working_days;
-//        echo 'Periods = ' . $periods;
-
-
-        $pdf->ln();
-        $pdf->SetX(25);
-        $pdf->Cell(40, 7, 'TOTAL', 'LTBR', 0, 'C');
-        $pdf->SetFont('times', '', 10);
-        $pdf->Cell(40, 7, $periods, 'LTBR', 0, 'C');
-        $pdf->Cell(40, 7, $working_days, 'LTBR', 0, 'C');
-        $pdf->Cell(20, 7, 'Periods', 'LTBR', 0, 'C');
-        $pdf->Cell(20, 7, 'Days', 'LTBR', 0, 'C');
-
-        //ABSENT
-        $absent_periods_sql = "SELECT count(month_date) absent, last_name, name, reason
-                       FROM subject_leaves
-                       INNER JOIN students on subject_leaves.student_id = students.id
-                       INNER JOIN subjects on subject_leaves.subject_id = subjects.id
-                       WHERE student_id = $student AND (month_date BETWEEN '$start_date' AND '$end_date')
-                       GROUP BY month_date;";
-        echo $absent_periods_sql;
-
-        $total_absents = $conn->query($absent_periods_sql);
-        if ($total_absents->num_rows > 0) {
-            $total_periods_absent = $total_days_absent = 0;
-            while ($absent_row = mysqli_fetch_array($total_absents)) {
-                $total_periods_absent += $absent_row['absent'];
-                if ($absent_row['absent'] >= $absents2days) $total_days_absent++;
-            }
-        }
-        echo $total_periods_absent . 'periods and ' . $total_days_absent . 'days<br>';
-
-
-        $pdf->ln();
-        $pdf->SetX(25);
-        $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(40, 7, 'ABSENT', 'LTBR', 0, 'C');
-        $pdf->SetFont('times', '', 10);
-        $pdf->Cell(40, 7, $total_periods_absent, 'LTBR', 0, 'C');
-        $pdf->Cell(40, 7, $total_days_absent, 'LTBR', 0, 'C');
-
-        if ($total_periods_absent > 0 AND $periods > 0) // Avoid dividing on Zero
-            $pdf->Cell(20, 7, round(($total_periods_absent/$periods) * 100,2) . '%', 'LTBR', 0, 'C');
-        else
-            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
-
-
-        if ($total_days_absent > 0 AND $working_days > 0) // Avoid dividing on Zero
-            $pdf->Cell(20, 7, round(($total_days_absent/$working_days) * 100,2) . '%', 'LTBR', 0, 'C');
-        else
-            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
-
-
-        $total_periods_present = $periods - $total_periods_absent;
-        $total_days_present = $working_days - $total_days_absent;
-
-        $pdf->ln();
-        $pdf->SetX(25);
-        $pdf->SetFont('times', 'B', 10);
-        $pdf->Cell(40, 7, 'PRESENT', 'LTBR', 0, 'C');
-        $pdf->SetFont('times', '', 10);
-        $pdf->Cell(40, 7, $total_periods_present, 'LTBR', 0, 'C');
-        $pdf->Cell(40, 7, $total_days_present, 'LTBR', 0, 'C');
-
-        if ($total_periods_present > 0 AND $periods > 0) // Avoid dividing on Zero
-            $pdf->Cell(20, 7, round(($total_periods_present/$periods) * 100,2) . '%', 'LTBR', 0, 'C');
-        else
-            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
-
-
-        if ($total_days_present > 0 AND $working_days > 0) // Avoid dividing on Zero
-            $pdf->Cell(20, 7, round(($total_days_present/$working_days) * 100,2) . '%', 'LTBR', 0, 'C');
-        else
-            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
-
-        $pdf->ln();
-        $pdf->SetX(25);
-        $pdf->SetFont('times', '', 10);
-        $pdf->Cell(160, 7, 'Each ' . $absents2days . ' or more absent periods on the same day mark 1 day as absent.', 'LTBR', 0, 'L');
+//        $pdf->ln(15);
+//        $pdf->SetFont('times', 'B', 10);
+//        $pdf->SetX(25);
+//
+//        $start = new DateTime($start_date);
+//        $end = new DateTime($end_date);
+//
+//
+//        $pdf->Cell(160, 7, 'ATTENDANCE [' . $start->format('d-m-Y') . ' to ' . $end->format('d-m-Y') . ']', 'LTBR', 0, 'C');
+//        $pdf->ln();
+//        $pdf->SetX(25);
+//        $pdf->Cell(40, 7, 'ATTENDANCE', 'LTBR', 0, 'C');
+//        $pdf->Cell(40, 7, 'PERIODS', 'LTBR', 0, 'C');
+//        $pdf->Cell(40, 7, 'DAYS', 'LTBR', 0, 'C');
+//        $pdf->Cell(40, 7, 'PERCENTAGE', 'LTBR', 0, 'C');
+//
+//        //TOTAL
+//        //periods per day
+//        $days_periods_sql = "
+//        SELECT concat(courses.course_name, ' - ', batches.name) grade,count(class_timing_sets.name) periods, class_timings.name,timetable_entries.weekday_id,
+//               class_timings.start_time,class_timings.end_time
+//        FROM timetables
+//         INNER JOIN timetable_entries on timetables.id = timetable_entries.timetable_id
+//         INNER JOIN class_timings on timetable_entries.class_timing_id = class_timings.id
+//         INNER JOIN class_timing_sets on class_timings.class_timing_set_id = class_timing_sets.id
+//         INNER JOIN batches on timetable_entries.batch_id = batches.id
+//         INNER JOIN courses on batches.course_id = courses.id
+//         INNER JOIN students on batches.id = students.batch_id
+//        WHERE students.id = $student
+//        GROUP BY weekday_id
+//        ORDER BY weekday_id;
+//        ";
+//
+//        $day_periods_query = $conn->query($days_periods_sql);
+//
+//        $interval = new DateInterval('P1D');
+//        $end->modify('+1 day');
+//        $days = new DatePeriod($start, $interval, $end);
+//        $periods = $working_days = 0;
+//        if ($day_periods_query->num_rows > 0) {
+//            while ($day_periods_row = mysqli_fetch_array($day_periods_query)) {
+////                echo '<br><br><hr><h5>' . $day_periods_row['weekday_id'] . ' - ' . $day_periods_row['periods'] . '</h5>';
+//                foreach ($days as $d) {
+//                    $day = Date('w', strtotime($d->format("d-m-Y")));
+//                    if ($day == $day_periods_row['weekday_id']) {
+////                        echo 'Matched with ' . $day_periods_row['weekday_id'] . ' = ' . $day_periods_row['periods'] . '<br>';
+//                        $periods += $day_periods_row['periods'];
+//                        $working_days++;
+//                    }
+//                }
+//            }
+//        }
+//
+////        echo 'Working days = ' . $working_days;
+////        echo 'Periods = ' . $periods;
+//
+//
+//        $pdf->ln();
+//        $pdf->SetX(25);
+//        $pdf->Cell(40, 7, 'TOTAL', 'LTBR', 0, 'C');
+//        $pdf->SetFont('times', '', 10);
+//        $pdf->Cell(40, 7, $periods, 'LTBR', 0, 'C');
+//        $pdf->Cell(40, 7, $working_days, 'LTBR', 0, 'C');
+//        $pdf->Cell(20, 7, 'Periods', 'LTBR', 0, 'C');
+//        $pdf->Cell(20, 7, 'Days', 'LTBR', 0, 'C');
+//
+//        //ABSENT
+//        $absent_periods_sql = "SELECT count(month_date) absent, last_name, name, reason
+//                       FROM subject_leaves
+//                       INNER JOIN students on subject_leaves.student_id = students.id
+//                       INNER JOIN subjects on subject_leaves.subject_id = subjects.id
+//                       WHERE student_id = $student AND (month_date BETWEEN '$start_date' AND '$end_date')
+//                       GROUP BY month_date;";
+//        echo $absent_periods_sql;
+//
+//        $total_absents = $conn->query($absent_periods_sql);
+//        if ($total_absents->num_rows > 0) {
+//            $total_periods_absent = $total_days_absent = 0;
+//            while ($absent_row = mysqli_fetch_array($total_absents)) {
+//                $total_periods_absent += $absent_row['absent'];
+//                if ($absent_row['absent'] >= $absents2days) $total_days_absent++;
+//            }
+//        }
+//        echo $total_periods_absent . 'periods and ' . $total_days_absent . 'days<br>';
+//
+//
+//        $pdf->ln();
+//        $pdf->SetX(25);
+//        $pdf->SetFont('times', 'B', 10);
+//        $pdf->Cell(40, 7, 'ABSENT', 'LTBR', 0, 'C');
+//        $pdf->SetFont('times', '', 10);
+//        $pdf->Cell(40, 7, $total_periods_absent, 'LTBR', 0, 'C');
+//        $pdf->Cell(40, 7, $total_days_absent, 'LTBR', 0, 'C');
+//
+//        if ($total_periods_absent > 0 AND $periods > 0) // Avoid dividing on Zero
+//            $pdf->Cell(20, 7, round(($total_periods_absent/$periods) * 100,2) . '%', 'LTBR', 0, 'C');
+//        else
+//            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
+//
+//
+//        if ($total_days_absent > 0 AND $working_days > 0) // Avoid dividing on Zero
+//            $pdf->Cell(20, 7, round(($total_days_absent/$working_days) * 100,2) . '%', 'LTBR', 0, 'C');
+//        else
+//            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
+//
+//
+//        $total_periods_present = $periods - $total_periods_absent;
+//        $total_days_present = $working_days - $total_days_absent;
+//
+//        $pdf->ln();
+//        $pdf->SetX(25);
+//        $pdf->SetFont('times', 'B', 10);
+//        $pdf->Cell(40, 7, 'PRESENT', 'LTBR', 0, 'C');
+//        $pdf->SetFont('times', '', 10);
+//        $pdf->Cell(40, 7, $total_periods_present, 'LTBR', 0, 'C');
+//        $pdf->Cell(40, 7, $total_days_present, 'LTBR', 0, 'C');
+//
+//        if ($total_periods_present > 0 AND $periods > 0) // Avoid dividing on Zero
+//            $pdf->Cell(20, 7, round(($total_periods_present/$periods) * 100,2) . '%', 'LTBR', 0, 'C');
+//        else
+//            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
+//
+//
+//        if ($total_days_present > 0 AND $working_days > 0) // Avoid dividing on Zero
+//            $pdf->Cell(20, 7, round(($total_days_present/$working_days) * 100,2) . '%', 'LTBR', 0, 'C');
+//        else
+//            $pdf->Cell(20, 7, '100%', 'LTBR', 0, 'C');
+//
+//        $pdf->ln();
+//        $pdf->SetX(25);
+//        $pdf->SetFont('times', '', 10);
+//        $pdf->Cell(160, 7, 'Each ' . $absents2days . ' or more absent periods on the same day mark 1 day as absent.', 'LTBR', 0, 'L');
 
 
 
