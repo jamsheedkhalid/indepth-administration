@@ -148,7 +148,7 @@ group by subjects.id; ";
             $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
             $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
         }
-        $pdf->Cell(20, 7, 'T.R.', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'Term Result', 1, 0, 'C');
 
         $pdf->SetFont('dejavusans', '', 8);
 
@@ -336,24 +336,24 @@ group by subjects.id; ";
             default:
                 $term_name = 'Term Unknown';
         }
-        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
-            $pdf->ln(15);
-            $pdf->SetFont('times', '', 10);
-            $pdf->SetX(25);
-            $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
-            $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
-            $pdf->ln();
-            $pdf->SetX(25);
-            $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
-            $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
-            $pdf->ln();
-            $pdf->SetX(25);
-            $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
-            $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
-            $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
-        }
+//        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+//            $pdf->ln(15);
+//            $pdf->SetFont('times', '', 10);
+//            $pdf->SetX(25);
+//            $pdf->Cell(20, 7, 'C.E. ', 'LTB', 0, 'L');
+//            $pdf->Cell(70, 7, 'Class Evaluation for ' . $term_name, 'TB', 0, 'L');
+//            $pdf->Cell(10, 7, $ass_percent . ' %', 'TBR', 0, 'R');
+//            $pdf->ln();
+//            $pdf->SetX(25);
+//            $pdf->Cell(20, 7, 'T.E. ', 'LTB', 0, 'L');
+//            $pdf->Cell(70, 7, $term_name . ' Exam', 'TB', 0, 'L');
+//            $pdf->Cell(10, 7, $term_percent . ' %', 'TBR', 0, 'R');
+//            $pdf->ln();
+//            $pdf->SetX(25);
+//            $pdf->Cell(20, 7, 'T.R. ', 'LTB', 0, 'L');
+//            $pdf->Cell(70, 7, $term_name . ' Result', 'TB', 0, 'L');
+//            $pdf->Cell(10, 7, $term_percent + $ass_percent . ' %', 'TBR', 0, 'R');
+//        }
 
         // Attendance
 
