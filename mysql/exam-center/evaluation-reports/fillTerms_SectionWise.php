@@ -13,7 +13,7 @@ inner join courses on batches.course_id = courses.id
                (exam_groups.name = 'Term 1 - Class Evaluation' OR exam_groups.name = 'Term 2 - Class Evaluation' OR exam_groups.name = 'Term 3 - Class Evaluation' )
   and courses.is_deleted = 0
   and batches.is_deleted = 0
-  and batches.is_active = 1 group by exam ";
+  and batches.is_active = 1 and exam_groups.inactive = 0 group by exam ";
 }
 else if($type === 'gradeWise'){
    $sql = " select distinct
@@ -26,7 +26,7 @@ where ( course_name = '$grade' or course_name = ' $grade')
   and courses.is_deleted = 0
   and batches.is_deleted = 0
   and batches.name LIKE '%2021%'
-  and batches.is_active = 1  group by exam";
+  and batches.is_active = 1 and exam_groups.inactive = 0  group by exam";
 
 }
 //echo $sql;

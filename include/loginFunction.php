@@ -1,9 +1,10 @@
 <?php
 session_start();
+include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
+
 function login()
 {
     include 'config/database.php';
-
 //    header('Location: dashboard.php');
     $sql = "select users.id user,users.first_name name, users.last_name last_name, users.username username from users where users.username = '$_POST[user]';";
     $result = $conn->query($sql);
@@ -128,4 +129,16 @@ function checkLoggedIn()
         $_SESSION['notloggedin'] = 1;
         header('Location: /index.php');
     }
+}
+
+function checkMasterAdmin($user){
+    $sql = "select * from users where id = '$user' and admin = 1 and general_admin = 0 ";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
 }
