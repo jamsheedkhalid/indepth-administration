@@ -5,8 +5,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 // if (isset($_POST['studentSubmit'])) {
 if (isset($_GET['grade'])) {
     $grade = $_GET["grade"];
-    if ($grade == 'GR12 '){
-    $grade = str_replace(' ', '', $grade);}
+    $grade = rtrim($grade);
+//    if ($grade == 'GR12 '){
+//    $grade = str_replace(' ', '', $grade);}
 }
 
 if (isset($_GET["admission"]))
