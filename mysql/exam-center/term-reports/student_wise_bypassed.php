@@ -265,6 +265,7 @@ group by subjects.id; ";
                         $pdf->Cell(20, 7, $row['TE'], 1, 0, 'C');
                     else
                         $pdf->Cell(20, 7, '-', 1, 0, 'C');
+
                     if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
                         if (!is_null($row['TR']))
                             $pdf->Cell(20, 7, $row['TR'], 1, 0, 'C');

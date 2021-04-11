@@ -5,7 +5,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/libs/tcpdf/tcpdf.php');
 // if (isset($_POST['studentSubmit'])) {
 if (isset($_GET['grade'])) {
     $grade = $_GET["grade"];
-//    $grade = str_replace(' ', '', $grade);
+    if ($grade == 'GR12 '){
+    $grade = str_replace(' ', '', $grade);}
 }
 
 if (isset($_GET["admission"]))
@@ -153,8 +154,10 @@ group by subjects.id; ";
         $pdf->Cell(60, 7, 'Subjects', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Max Mark', 1, 0, 'C');
         $pdf->Cell(20, 7, 'Min Mark', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
+        if ($term == 'Term 1' || ($term == 'Term 2' && $grade != 'GR12')) {
+            $pdf->Cell(20, 7, 'C.E.', 1, 0, 'C');
+            $pdf->Cell(20, 7, 'T.E.', 1, 0, 'C');
+        }
         $pdf->Cell(20, 7, 'Term Result' , 1, 0, 'C');
 
         $pdf->SetFont('dejavusans', '', 8);
