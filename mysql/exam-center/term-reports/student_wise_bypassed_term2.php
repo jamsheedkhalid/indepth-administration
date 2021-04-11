@@ -171,7 +171,7 @@ group by subjects.id; ";
             $var = preg_split("#-#", $row['subject']);
             $row['subject'] = $var[0];
 
-            if ($grade !== 'GR9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
+            if ($grade !== 'GR 9' && $grade !== 'GR10' && $grade !== 'GR11' && $grade !== 'GR12') {
 
 
                 if ((strpos($row_section['religion'], 'Christian') !== false && strpos($row['subject'], 'Islamic') === false)
