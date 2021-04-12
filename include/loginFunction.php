@@ -46,11 +46,13 @@ function login()
             } else {
                 $sql = " SELECT * from guardians where guardians.user_id ='$user'; ";
                 $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    $_SESSION['login'] = 1;
-                    $_SESSION['user_type'] = 'parent';
-                    header('Location:  /parent-home.php');
-                } else {
+//                if ($result->num_rows > 0) {
+//                    $_SESSION['login'] = 1;
+//                    $_SESSION['user_type'] = 'parent';
+//                    header('Location:  /parent-home.php');
+//                }
+//                else
+                    {
                     $sql = " SELECT
             *
             FROM
@@ -91,12 +93,13 @@ function login()
             users  where username = '$_POST[user]' and student = 1;";
 
                             $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                $_SESSION['login'] = 1;
-                                $_SESSION['user_type'] = 'student';
-                                header('Location:  /student-home.php');
-
-                            } else {
+//                            if ($result->num_rows > 0) {
+//                                $_SESSION['login'] = 1;
+//                                $_SESSION['user_type'] = 'student';
+//                                header('Location:  /student-home.php');
+//
+//                            } else
+                                {
                                 $_SESSION['noaccess'] = 1;
                                 header('Location: /index.php');
                             }
