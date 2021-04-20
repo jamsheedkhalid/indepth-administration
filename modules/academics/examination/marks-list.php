@@ -81,6 +81,23 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-sm">
+                                                <label for="term">TERM</label>
+                                            </div>
+                                            <div class="col-sm">
+                                                <select id="term" class="form-control"
+                                                        data-role="select-dropdown" data-profile="minimal"
+                                                        onchange="document.getElementById('grade').getElementsByTagName('option')[0].selected = 'selected'
+">
+                                                    <option value="0">SELECT TERM</option>
+                                                    <option value="Term 1">Term 1</option>
+                                                    <option value="Term 2">Term 2</option>
+                                                    <option value="Term 3">Term 3</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm">
                                                 <label for="grade">GRADE</label>
                                             </div>
                                             <div class="col-sm">

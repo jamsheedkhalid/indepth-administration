@@ -1,8 +1,8 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/database.php');
 $grade = $_REQUEST['grade'];
-
-if ($grade != 0) {
+$term = $_REQUEST['term'];
+ if ($grade != 0 && $term !== '0') {
     if ($grade == 13)
         $grades = "and (courses.course_name in ('GR 1', 'GR 2', 'GR 3'))";
     elseif ($grade == 46)
@@ -35,14 +35,14 @@ select p.admission_no,
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)),
+       round(MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)),
              0)                                                                                              CE,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)),
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)),
              0)                                                                                              TE,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 30 / 100 +
-             MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 70 / 100, 0) TR,
-       IFNULL(round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 30 / 100 +
-                    MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 70 / 100,
+       round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)) * 30 / 100 +
+             MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)) * 70 / 100, 0) TR,
+       IFNULL(round(MAX(IF(exam_groups.name = '$term', exam_scores.marks, null)) * 30 / 100 +
+                    MAX(IF(exam_groups.name = '$term - Class Evaluation', exam_scores.marks, null)) * 70 / 100,
                     0), 'Y')                                                                                 exempt
 from students p
          inner join guardians g ON p.immediate_contact_id = g.id 
@@ -131,6 +131,9 @@ group by p.id, exams.subject_id";
     } else {
         echo '<div class="alert alert-primary fade show" role="alert"><strong>No Marks Found!</strong> Please use different selection to view marks</div>';
     }
-} else {
+} elseif ($grade == 0) {
     echo '<div class="alert alert-primary fade show" role="alert"><strong>Select a grade from Grade dropdown!</strong></div>';
 }
+ elseif ($term == '0') {
+     echo '<div class="alert alert-primary fade show" role="alert"><strong>Select a term from Term dropdown!</strong></div>';
+ }

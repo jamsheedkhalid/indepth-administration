@@ -1,5 +1,6 @@
 // window.onload = search();
 
+
 function search() {
     let show_ar_name = document.getElementById('show_ar_names').checked;
     let show_parent_name = document.getElementById('show_parent_name').checked;
@@ -15,28 +16,13 @@ function search() {
         }
     }
     let grades = document.getElementById('grade').value;
+    let term = document.getElementById('term').value;
     let result_div = document.getElementById('result_div');
-
-
-    // let httpResult = new XMLHttpRequest();
-    // httpResult.onreadystatechange = function () {
-    //     if (this.readyState === 4) {
-    //         result_div.innerHTML = this.responseText;
-    //         students_datatable();
-    //     }
-    //     else  {
-    //     }
-    // };
-    //
-    // httpResult.open("GET", "/mysql/marks-list/result.php?grade=" + grades + "&filter=" + filter_value + "&show_ar_name=" + show_ar_name +
-    //     "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact, false);
-    // httpResult.send();
-
 
     $.ajax({
         url: "/mysql/marks-list/result.php",
         method: "GET",
-        data: "grade=" + grades + "&filter=" + filter_value + "&show_ar_name=" + show_ar_name + "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact,
+        data: "term=" + term + "&grade=" + grades + "&filter=" + filter_value + "&show_ar_name=" + show_ar_name + "&show_parent_name=" + show_parent_name + "&show_family_id=" + show_family_id + "&show_contact=" + show_contact,
         beforeSend: function () {
             $('#process').css('display', 'block');
             $('#process-bar').html('   Loading...   ');
