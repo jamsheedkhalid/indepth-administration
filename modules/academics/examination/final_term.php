@@ -21,18 +21,18 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                     },
                     {
                         extend: 'excelHtml5',
-                        title: 'Al Sanawbar School \n Marks List',
+                        title: 'Al Sanawbar School \n Final Term Mark List',
                         className: 'btn btn-primary btn-sm'
                     },
                     {
                         extend: 'pdfHtml5',
-                        title: 'Al Sanawbar School \n Marks List',
+                        title: 'Al Sanawbar School \n Final Term Mark List',
                         className: 'btn btn-primary btn-sm'
 
                     },
                     {
                         extend: 'csv',
-                        title: 'Al Sanawbar School \n Marks List',
+                        title: 'Al Sanawbar School \n Final Term Mark List',
                         className: 'btn btn-primary btn-sm'
                     },
                     {
@@ -48,7 +48,6 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
         }
     </script>
 
-    </head>
     <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <?php
@@ -67,7 +66,7 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                                 <i class="pe-7s-graph3 icon-gradient bg-premium-dark"></i>
                             </div>
                             <div>MARKS LIST
-                                <div class="page-title-subheading">Mark list for terms</div>
+                                <div class="page-title-subheading">Final Term Mark List</div>
                             </div>
                         </div>
 
@@ -79,23 +78,6 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
                             <div class="main-card mb-3 card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-sm">
-                                                <label for="term">TERM</label>
-                                            </div>
-                                            <div class="col-sm">
-                                                <select id="term" class="form-control"
-                                                        data-role="select-dropdown" data-profile="minimal"
-                                                        onchange="document.getElementById('grade').getElementsByTagName('option')[0].selected = 'selected'
-">
-                                                    <option value="0">SELECT TERM</option>
-                                                    <option value="Term 1">Term 1</option>
-                                                    <option value="Term 2">Term 2</option>
-                                                    <option value="Term 3">Term 3</option>
-                                                </select>
-                                            </div>
-
-                                        </div>
                                         <div class="form-group">
                                             <div class="col-sm">
                                                 <label for="grade">GRADE</label>
@@ -179,7 +161,6 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
 
                     </div>
                 </div>
-                </form>
             </div>
 
 
@@ -198,8 +179,8 @@ if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'teacher') 
 
     <script type="text/javascript" src="/assets/scripts/main.js"></script>
     <script> document.getElementById('liExamination').classList.add("mm-active")</script>
-    <script> document.getElementById('liMarksList').classList.add("mm-active")</script>
-    <script type="text/javascript" src="/js/marks-list.js"></script>
+    <script> document.getElementById('liFinalTerm').classList.add("mm-active")</script>
+    <script type="text/javascript" src="/js/final_term.js"></script>
     <script> document.title = "Report Center - InDepth";</script>
 
 <?php } else {

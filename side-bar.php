@@ -93,6 +93,12 @@
                                 Marks List
                             </a>
                         </li>
+                        <li>
+                            <a id="liFinalTerm" href="/modules/academics/examination/final_term.php">
+                                <i class="metismenu-icon"></i>
+                                Final Term Mark List
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <?php }} if($_SESSION['user_type'] === 'parent' || $_SESSION['user_type'] === 'admin'){?>
