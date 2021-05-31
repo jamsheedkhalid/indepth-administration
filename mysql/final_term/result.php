@@ -34,15 +34,16 @@ select p.admission_no,
        subjects.name                                                                                         subject,
        round(exams.maximum_marks, 0)                                                                         max,
        round(exams.minimum_marks, 0)                                                                         min,
-       round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 30 / 100 +
-             MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 70 / 100, 0) T1,
-       round(MAX(IF(exam_groups.name = 'Term 2', exam_scores.marks, null)) * 30 / 100 +
-             MAX(IF(exam_groups.name = 'Term 2 - Class Evaluation', exam_scores.marks, null)) * 70 / 100, 0) T2,
-       round(MAX(IF(exam_groups.name = 'Term 3', exam_scores.marks, null)) * 30 / 100 +
-             MAX(IF(exam_groups.name = 'Term 3 - Class Evaluation', exam_scores.marks, null)) * 70 / 100, 0) T3,
-       IFNULL(round(MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 30 / 100 +
-                    MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 70 / 100,
-                    0), 'Y')                                                                                 exempt
+           (MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 30 / 100 +
+        MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 70 / 100)              T1,
+       (MAX(IF(exam_groups.name = 'Term 2', exam_scores.marks, null)) * IF(courses.id = 12, 100, 30) / 100 +
+        IF(courses.id = 12, 0,
+           MAX(IF(exam_groups.name = 'Term 2 - Class Evaluation', exam_scores.marks, null)) * 70 / 100))          T2,
+       (MAX(IF(exam_groups.name = 'Term 3', exam_scores.marks, null)) * IF(courses.id = 12, 100, 30) / 100 +
+        IF(courses.id = 12, 0,
+           MAX(IF(exam_groups.name = 'Term 3 - Class Evaluation', exam_scores.marks, null)) * 70 / 100))          T3,
+       IFNULL((MAX(IF(exam_groups.name = 'Term 1', exam_scores.marks, null)) * 30 / 100 +
+               MAX(IF(exam_groups.name = 'Term 1 - Class Evaluation', exam_scores.marks, null)) * 70 / 100), 'Y') exempt
 from students p
          inner join guardians g ON p.immediate_contact_id = g.id 
          inner join batches on p.batch_id = batches.id
@@ -114,11 +115,11 @@ group by p.id, exams.subject_id";
         <td>' . $row['subject'] . '</td>
         <td align="right"><b>' . $row['max'] . '</b></td>
         <td align="right"><b>' . $row['min'] . '</b></td>
-        <td align="right"><b>' . $row['T1'] . '</b></td>
-        <td align="right"><b>' . $row['T2'] . '</b></td>
-        <td align="right"><b>' . $row['T3'] . '</b></td>';
+        <td align="right"><b>' .  round($row['T1'],0) . '</b></td>
+        <td align="right"><b>' .  round($row['T2'],0) . '</b></td>
+        <td align="right"><b>' .  round($row['T3'],0) . '</b></td>';
         $final_term = ($row['T1'] * 33 / 100) + ($row['T2'] * 33 / 100) + ($row['T3'] * 34 / 100);
-         echo '   <td align="right"><b>' . round($final_term,1) . '</b></td>';
+         echo '   <td align="right"><b>' . round($final_term,0) . '</b></td>';
             echo "<td align='center'><b>";
 
             if ($row['exempt'] == 'Y')
